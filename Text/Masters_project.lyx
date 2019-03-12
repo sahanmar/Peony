@@ -1,0 +1,447 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage[a4paper]{geometry}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-std
+theorems-sec
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Decision Theory
+\end_layout
+
+\begin_layout Author
+Marko Sahan
+\end_layout
+
+\begin_layout Section
+Introduction to Decision Theory
+\end_layout
+
+\begin_layout Standard
+Decision process is complicated set of actions that living being makes for
+ satisfying its needs.
+ We want to apply same concept for inanimate thing such as computers.
+ Before constructing some theory we must define some terms with which we
+ will work.
+ 
+\end_layout
+
+\begin_layout Standard
+Assuming that we want to solve classification problem.
+ For simplicity we will work with binary classification problem.
+ We want to find such solution that will assign for each input value its
+ class.
+ Moreover, we want to make classification error as small as possible.
+ Considering that oue data can be described with spaces 
+\begin_inset Formula ${\bf X}\in\mathbb{R}^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf Y}\in\mathbb{R}$
+\end_inset
+
+, where 
+\begin_inset Formula $\forall i\in\mathbb{N}{\bf \ x}_{i}\in{\bf X}$
+\end_inset
+
+ are input vectors of size 
+\begin_inset Formula $n$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf Y}$
+\end_inset
+
+ a spalce of labels assigned to the data from 
+\begin_inset Formula ${\bf X}$
+\end_inset
+
+.
+ Each value from 
+\begin_inset Formula $\mathbf{Y}$
+\end_inset
+
+ is one or zero that represents first or second class.
+\end_layout
+
+\begin_layout Standard
+In order to make a classification with respect to some input data we must
+ provide an action or in other words decision.
+ Let 
+\begin_inset Formula $a\in\mathcal{A}$
+\end_inset
+
+ is an action and 
+\begin_inset Formula $\mathcal{A}$
+\end_inset
+
+ is an action space.
+ Of-course we do not want to make random decisions.
+ We want to make decisions with respect to some metrics that can tell us
+ how good our decision is.
+ Thus, we will introduce a loss function 
+\begin_inset Formula $L$
+\end_inset
+
+.
+ From the text above it is obvious that loss function will be dependent
+ on action 
+\begin_inset Formula $a\in\mathcal{A}$
+\end_inset
+
+.
+ However, we want to introduce one more variable.
+ For each separable dataset exists function that can split two datasets.
+ Function that can separate the dataset into two classes is dependent on
+ parameters.
+ Let 
+\begin_inset Formula $\theta\in\varTheta$
+\end_inset
+
+ is vector of parameters and 
+\begin_inset Formula $\varTheta$
+\end_inset
+
+ is parameters space.
+ As a result loss function 
+\begin_inset Formula $L$
+\end_inset
+
+ can be represented as 
+\begin_inset Formula 
+\begin{equation}
+L=L(\theta,a).\label{eq:loss_func}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We will continue construction of the decision theory on the example of Support
+ Vector Machine (SVM) method.
+ For simplicity lets consider linearly separable dataset.
+ From the theoretical perspective SVM constructs hyperplane in high dimensional
+ space that separates two classes.
+ In this case our decision is a hyperplane that will separate two classes
+ from each other.
+ Equation of the hyperplane can be written as 
+\begin_inset Formula $\hat{\theta}(\mathbf{x},\mathbf{w},b)=\mathbf{w}^{T}\mathbf{x}+b$
+\end_inset
+
+ where 
+\begin_inset Formula $\text{\ensuremath{\mathbf{w}}\ensuremath{\in\mathbb{R}^{m,1}} }$
+\end_inset
+
+ is a set of hyperplane parameters and 
+\begin_inset Formula $b$
+\end_inset
+
+ is a bias .
+ As a result, action space is equal to parameter space, 
+\begin_inset Formula $\mathcal{A}=\varTheta$
+\end_inset
+
+ and loss function is dependent only on parameter 
+\begin_inset Formula 
+\begin{equation}
+L=L(\theta,\hat{\theta}).\label{eq:SVM_thoer_loss}
+\end{equation}
+
+\end_inset
+
+Following task is to understand how good is out action (hyperplane estimation)
+ with respect to the dataset.
+ We can choose different types of the loss functions such as cross entropy
+ or hinge loss, etc.
+ The most basic approach for SVM method is hinge loss function which is
+ defined as 
+\begin_inset Formula 
+\begin{equation}
+L(\theta,\hat{\theta})=\max(0,1-{\bf \theta}\hat{\mathbf{\theta}}).\label{eq:hinge_loss}
+\end{equation}
+
+\end_inset
+
+However, we would like to connect given data and equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:hinge_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Considering that 
+\begin_inset Formula $\theta=(\mathbf{y},\mathbf{x)}$
+\end_inset
+
+, thus 
+\begin_inset Formula $\mathbf{X}\times\mathbf{Y}=\varTheta$
+\end_inset
+
+.
+ Moreover, for fixed parameter values 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+ and 
+\begin_inset Formula $b$
+\end_inset
+
+, 
+\begin_inset Formula $\hat{\theta}=(\hat{\mathbf{y}},\mathbf{x})\in\varTheta$
+\end_inset
+
+ As a result (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:hinge_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be written as 
+\begin_inset Formula 
+\begin{equation}
+L(\mathbf{y},\hat{\mathbf{y}},\mathbf{x})=\max(0,1-\mathbf{y}(\mathbf{x)}\mathbf{\hat{y}(}\mathbf{x},\mathbf{w},b\mathbf{)})\label{eq:svm_hinge_loss}
+\end{equation}
+
+\end_inset
+
+If we had available data 
+\begin_inset Formula ${\bf X}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf Y}$
+\end_inset
+
+ we would not have to construct all this theory because all labels would
+ be known and no classification problem must be solved.
+ However, in most cases we would have little descret subset 
+\begin_inset Formula $\tilde{{\bf X}}\subset{\bf X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{{\bf Y}}\subset{\bf Y}$
+\end_inset
+
+ with which we want to come up with a decision that will classify the rest
+ of the data without knowing a label.
+ If we apply those words on discussed problem with SVM method we will look
+ for a such hyperplane that will assign to the input data first class if
+ it is above the hyperplane and second class if it is below the hyperplane.
+ At this point very important assumption will be introduced.
+ In order to find an optimal hyperplane we assume that the data 
+\begin_inset Formula $\tilde{{\bf X}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{{\bf Y}}$
+\end_inset
+
+ are independent identically distributed and fully describe dataset 
+\begin_inset Formula ${\bf X}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf Y}$
+\end_inset
+
+.
+ Thus, probability distribution 
+\begin_inset Formula $p({\bf x},{\bf y})$
+\end_inset
+
+ where 
+\begin_inset Formula ${\bf x\in{\bf X}}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf y\in{\bf Y}}$
+\end_inset
+
+ follows 
+\begin_inset Formula 
+\begin{equation}
+p({\bf x},\mathbf{y})=p(\mathbf{y}|\mathbf{x})p(\mathbf{x})\label{eq:joint_distribution}
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:joint_distribution"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ can be approximated as 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{x},\mathbf{y})=\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})\label{eq:approx_of_joint_dist}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $(\mathbf{x}_{i},\mathbf{y}_{i})\in\big\{(\mathbf{x}_{1},\mathbf{y}_{1}),...,(\mathbf{x}_{N},\mathbf{y}_{N})\big\}=({\bf \tilde{X}},\mathbf{\tilde{Y}})$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{j})$
+\end_inset
+
+ is two variable Dirac delta function which is centered in 
+\begin_inset Formula $\text{x}_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $\text{\textbf{y}}_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Definition
+If 
+\begin_inset Formula $\pi^{*}(\theta)$
+\end_inset
+
+ is believed probability distribution of 
+\begin_inset Formula $\theta$
+\end_inset
+
+ at the time of decision making, the 
+\shape slanted
+Bayessian expected loss
+\shape default
+ of an action 
+\begin_inset Formula $a$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\begin{equation}
+\mathbb{E}_{\pi^{*}}L=\int_{\varTheta}L(\theta,a)dF^{\pi^{*}}(\theta).\label{eq:expected_loss}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+Using (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:expected_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) we can evaluate expected loss function as follows 
+\begin_inset Formula 
+\begin{align*}
+\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{y},\hat{\mathbf{y}},\mathbf{x})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y})\\
+ & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{y},\hat{\mathbf{y}},\mathbf{x})\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y})\\
+ & =\frac{1}{N}\sum_{i=1}^{N}L(\mathbf{y_{i}},\hat{\mathbf{y}}_{i},\mathbf{x}_{i})
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
