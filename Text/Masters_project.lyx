@@ -111,27 +111,27 @@ Assuming that we want to solve classification problem.
  We want to find such solution that will assign for each input value its
  class.
  Moreover, we want to make classification error as small as possible.
- Considering that oue data can be described with spaces 
-\begin_inset Formula ${\bf X}\in\mathbb{R}^{n}$
+ Considering that input data 
+\begin_inset Formula $\mathbf{x}\in{\bf X}\subset\mathbb{R}^{n}$
 \end_inset
 
  and 
-\begin_inset Formula ${\bf Y}\in\mathbb{R}$
+\begin_inset Formula $\mathbf{y\in}{\bf Y}$
 \end_inset
 
 , where 
-\begin_inset Formula $\forall i\in\mathbb{N}{\bf \ x}_{i}\in{\bf X}$
+\begin_inset Formula $\mathbf{x}$
 \end_inset
 
- are input vectors of size 
+ is an input vectors of size 
 \begin_inset Formula $n$
 \end_inset
 
  and 
-\begin_inset Formula ${\bf Y}$
+\begin_inset Formula ${\bf y}$
 \end_inset
 
- a spalce of labels assigned to the data from 
+ is its labels assigned to the data from 
 \begin_inset Formula ${\bf X}$
 \end_inset
 
@@ -140,7 +140,11 @@ Assuming that we want to solve classification problem.
 \begin_inset Formula $\mathbf{Y}$
 \end_inset
 
- is one or zero that represents first or second class.
+ is one or zero 
+\begin_inset Formula $\mathbf{y}\in\{0,1\}$
+\end_inset
+
+ that represents first or second class.
 \end_layout
 
 \begin_layout Standard
@@ -163,21 +167,19 @@ In order to make a classification with respect to some input data we must
 \end_inset
 
 .
- From the text above it is obvious that loss function will be dependent
+ From the previous text it is obvious that loss function will be dependent
  on action 
 \begin_inset Formula $a\in\mathcal{A}$
 \end_inset
 
 .
- However, we want to introduce one more variable.
- For each separable dataset exists function that can split two datasets.
- Function that can separate the dataset into two classes is dependent on
- parameters.
+ Furthermore, from the definition of the loss function it must be also dependent
+ on a parameter.
  Let 
 \begin_inset Formula $\theta\in\varTheta$
 \end_inset
 
- is vector of parameters and 
+ is parameters' vector and 
 \begin_inset Formula $\varTheta$
 \end_inset
 
@@ -206,26 +208,58 @@ We will continue construction of the decision theory on the example of Support
  In this case our decision is a hyperplane that will separate two classes
  from each other.
  Equation of the hyperplane can be written as 
-\begin_inset Formula $\hat{\theta}(\mathbf{x},\mathbf{w},b)=\mathbf{w}^{T}\mathbf{x}+b$
+\begin_inset Formula $f(\mathbf{x},\mathbf{w},b)=\mathbf{w}^{T}\mathbf{x}+b$
 \end_inset
 
  where 
-\begin_inset Formula $\text{\ensuremath{\mathbf{w}}\ensuremath{\in\mathbb{R}^{m,1}} }$
+\begin_inset Formula $\text{\ensuremath{\mathbf{w}}\ensuremath{\in\mathbb{R}^{n}} }$
 \end_inset
 
  is a set of hyperplane parameters and 
-\begin_inset Formula $b$
+\begin_inset Formula $b\in\mathbb{R}$
 \end_inset
 
  is a bias .
- As a result, action space is equal to parameter space, 
-\begin_inset Formula $\mathcal{A}=\varTheta$
+ As a result, action space is represented as 
+\begin_inset Formula $(\mathbb{R}^{n},\mathbb{R})\mathcal{=A}$
 \end_inset
 
- and loss function is dependent only on parameter 
+ and as a consequence tuple 
+\begin_inset Formula $(\ensuremath{\mathbf{w}},b)\in\mathcal{A}$
+\end_inset
+
+.
+ From this knowledge we can define 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ as a parameter space and 
+\begin_inset Formula $\mathbf{Y}$
+\end_inset
+
+ is the set of possible outcomes (
+\shape slanted
+sample space
+\shape default
+) where 
+\begin_inset Formula $\mathbf{y}=\mathbf{y}(\mathbf{x})$
+\end_inset
+
+.
+ Considering updated definitions loss function (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:loss_func"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be rewritten as
 \begin_inset Formula 
 \begin{equation}
-L=L(\theta,\hat{\theta}).\label{eq:SVM_thoer_loss}
+L=L(\mathbf{x},\mathbf{w},b).\label{eq:SVM_thoer_loss}
 \end{equation}
 
 \end_inset
@@ -238,72 +272,31 @@ Following task is to understand how good is out action (hyperplane estimation)
  defined as 
 \begin_inset Formula 
 \begin{equation}
-L(\theta,\hat{\theta})=\max(0,1-{\bf \theta}\hat{\mathbf{\theta}}).\label{eq:hinge_loss}
+L(\mathbf{x},\mathbf{w},b)=\max(0,1-{\bf y}(\mathbf{x})\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b))\label{eq:hinge_loss}
 \end{equation}
 
 \end_inset
 
-However, we would like to connect given data and equation (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:hinge_loss"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
- Considering that 
-\begin_inset Formula $\theta=(\mathbf{y},\mathbf{x)}$
-\end_inset
-
-, thus 
-\begin_inset Formula $\mathbf{X}\times\mathbf{Y}=\varTheta$
+where 
+\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)=\mathbf{w}^{T}\mathbf{x}+b$
 \end_inset
 
 .
- Moreover, for fixed parameter values 
-\begin_inset Formula $\mathbf{w}$
-\end_inset
+ 
+\end_layout
 
- and 
-\begin_inset Formula $b$
-\end_inset
-
-, 
-\begin_inset Formula $\hat{\theta}=(\hat{\mathbf{y}},\mathbf{x})\in\varTheta$
-\end_inset
-
- As a result (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:hinge_loss"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) can be written as 
-\begin_inset Formula 
-\begin{equation}
-L(\mathbf{y},\hat{\mathbf{y}},\mathbf{x})=\max(0,1-\mathbf{y}(\mathbf{x)}\mathbf{\hat{y}(}\mathbf{x},\mathbf{w},b\mathbf{)})\label{eq:svm_hinge_loss}
-\end{equation}
-
-\end_inset
-
+\begin_layout Standard
 If we had available data 
 \begin_inset Formula ${\bf X}$
 \end_inset
 
- and 
+ and it its labels 
 \begin_inset Formula ${\bf Y}$
 \end_inset
 
  we would not have to construct all this theory because all labels would
  be known and no classification problem must be solved.
- However, in most cases we would have little descret subset 
+ However, in most cases we would have little discrete subset 
 \begin_inset Formula $\tilde{{\bf X}}\subset{\bf X}$
 \end_inset
 
@@ -311,21 +304,30 @@ If we had available data
 \begin_inset Formula $\tilde{{\bf Y}}\subset{\bf Y}$
 \end_inset
 
- with which we want to come up with a decision that will classify the rest
- of the data without knowing a label.
- If we apply those words on discussed problem with SVM method we will look
- for a such hyperplane that will assign to the input data first class if
- it is above the hyperplane and second class if it is below the hyperplane.
+.
+ On the basis of 
+\begin_inset Formula $\mathbf{\tilde{X}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\tilde{Y}}$
+\end_inset
+
+ we want to come up with a decision that will help us to label unlabeled
+ data.
+ In terms of SVM method we want to find such hyperplane that will label
+ input values as a first class if it is above the hyperplane and as a second
+ class if it is below the hyperplane.
  At this point very important assumption will be introduced.
  In order to find an optimal hyperplane we assume that the data 
 \begin_inset Formula $\tilde{{\bf X}}$
 \end_inset
 
- and 
+ and its labels 
 \begin_inset Formula $\tilde{{\bf Y}}$
 \end_inset
 
- are independent identically distributed and fully describe dataset 
+ fully describe dataset 
 \begin_inset Formula ${\bf X}$
 \end_inset
 
@@ -334,58 +336,42 @@ If we had available data
 \end_inset
 
 .
- Thus, probability distribution 
-\begin_inset Formula $p({\bf x},{\bf y})$
+ Moreover we want to consider 
+\begin_inset Formula $\mathbf{x}\in\mathbf{X}$
 \end_inset
 
- where 
-\begin_inset Formula ${\bf x\in{\bf X}}$
+ as a random variable with probability distribution 
+\begin_inset Formula $p({\bf x})$
 \end_inset
 
- and 
-\begin_inset Formula ${\bf y\in{\bf Y}}$
+.
+ We will also assume that 
+\begin_inset Formula $\forall i\in\{1,..,N\},\ \mathbf{x}_{i}\in\mathbf{\tilde{X}}$
 \end_inset
 
- follows 
-\begin_inset Formula 
-\begin{equation}
-p({\bf x},\mathbf{y})=p(\mathbf{y}|\mathbf{x})p(\mathbf{x})\label{eq:joint_distribution}
-\end{equation}
-
+ is independent identically distributed.
+ With the usage of the data 
+\begin_inset Formula $\mathbf{\tilde{X}}$
 \end_inset
 
-and 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:joint_distribution"
-plural "false"
-caps "false"
-noprefix "false"
-
+, probability distribution 
+\begin_inset Formula $p({\bf x})$
 \end_inset
 
  can be approximated as 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{x},\mathbf{y})=\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})\label{eq:approx_of_joint_dist}
+p(\mathbf{x})=\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i})\label{eq:approx_of_joint_dist}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $(\mathbf{x}_{i},\mathbf{y}_{i})\in\big\{(\mathbf{x}_{1},\mathbf{y}_{1}),...,(\mathbf{x}_{N},\mathbf{y}_{N})\big\}=({\bf \tilde{X}},\mathbf{\tilde{Y}})$
+\begin_inset Formula $\delta(\mathbf{x}-\mathbf{x}_{i})$
 \end_inset
 
- and 
-\begin_inset Formula $\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{j})$
-\end_inset
-
- is two variable Dirac delta function which is centered in 
+ is Dirac delta function which is centered in 
 \begin_inset Formula $\text{x}_{i}$
-\end_inset
-
- and 
-\begin_inset Formula $\text{\textbf{y}}_{j}$
 \end_inset
 
 .
@@ -402,7 +388,7 @@ If
 
  at the time of decision making, the 
 \shape slanted
-Bayessian expected loss
+Bayesian expected loss
 \shape default
  of an action 
 \begin_inset Formula $a$
@@ -410,9 +396,10 @@ Bayessian expected loss
 
  is 
 \begin_inset Formula 
-\begin{equation}
-\mathbb{E}_{\pi^{*}}L=\int_{\varTheta}L(\theta,a)dF^{\pi^{*}}(\theta).\label{eq:expected_loss}
-\end{equation}
+\begin{align}
+\rho(\pi^{*},a)= & \mathbb{E}_{\pi^{*}}[L(\theta,a)],\label{eq:expected_loss}\\
+= & \int_{\varTheta}L(\theta,a)dF^{\pi^{*}}(\theta)
+\end{align}
 
 \end_inset
 
@@ -430,13 +417,29 @@ noprefix "false"
 
 \end_inset
 
-) we can evaluate expected loss function as follows 
+) we can evaluate expected loss function for SVM as follows 
 \begin_inset Formula 
 \begin{align*}
-\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{y},\hat{\mathbf{y}},\mathbf{x})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y})\\
- & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{y},\hat{\mathbf{y}},\mathbf{x})\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y})\\
- & =\frac{1}{N}\sum_{i=1}^{N}L(\mathbf{y_{i}},\hat{\mathbf{y}}_{i},\mathbf{x}_{i})
+\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}}L(\mathbf{x},\mathbf{w},b)p(\mathbf{x})d(\mathbf{x}),\\
+ & =\int_{\mathbf{X}}\max(0,1-{\bf y}(\mathbf{x})\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b))\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i})d(\mathbf{x}),\\
+ & =\frac{1}{N}\sum_{i=1}^{N}\max(0,1-{\bf y}(\mathbf{x}_{i})\hat{\mathbf{y}}(\mathbf{x}_{i},\mathbf{w},b))
 \end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula ${\bf y}(\mathbf{x}_{i})=\mathbf{\tilde{y}}_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $\hat{{\bf y}}(\mathbf{x}_{i})=\mathbf{\hat{\mathbf{y}}}_{i}.$
+\end_inset
+
+ Expect loss function for SVM can be written as 
+\begin_inset Formula 
+\begin{equation}
+\rho(\mathbf{x}_{i},\mathbf{w},b)=\frac{1}{N}\sum_{i=1}^{N}\max(0,1-{\bf y}_{i}\mathbf{w}^{T}\mathbf{x}_{i}+b)\label{eq:expected_loss_SVM}
+\end{equation}
 
 \end_inset
 
