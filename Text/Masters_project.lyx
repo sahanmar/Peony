@@ -106,7 +106,7 @@ Decision process is complicated set of actions that living being makes for
 \end_layout
 
 \begin_layout Standard
-Assuming that we want to solve classification problem.
+Lets assume that we want to solve classification problem.
  For simplicity we will work with binary classification problem.
  We want to find such solution that will assign for each input value its
  class.
@@ -131,12 +131,12 @@ Assuming that we want to solve classification problem.
 \begin_inset Formula ${\bf y}$
 \end_inset
 
- is its labels assigned to the data from 
+ is its labels assigned to the data from space 
 \begin_inset Formula ${\bf X}$
 \end_inset
 
 .
- Each value from 
+ Each value from space 
 \begin_inset Formula $\mathbf{Y}$
 \end_inset
 
@@ -196,12 +196,67 @@ L=L(\theta,a).\label{eq:loss_func}
 
 \end_inset
 
+However its impossible to have all the data 
+\begin_inset Formula $\theta\in\varTheta$
+\end_inset
+
+ and 
+\begin_inset Formula $a\in\mathcal{A}$
+\end_inset
+
+.
+ As a result we will introduce following definition.
+\end_layout
+
+\begin_layout Definition
+\begin_inset CommandInset label
+LatexCommand label
+name "def:expected_loss"
+
+\end_inset
+
+If 
+\begin_inset Formula $\pi^{*}(\theta)$
+\end_inset
+
+ is believed probability distribution of 
+\begin_inset Formula $\theta$
+\end_inset
+
+ at the time of decision making, the 
+\shape slanted
+Bayesian expected loss
+\shape default
+ of an action 
+\begin_inset Formula $a$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\begin{align}
+\rho(\pi^{*},a)= & \mathbb{E}_{\pi^{*}}[L(\theta,a)],\label{eq:expected_loss-1}\\
+= & \int_{\varTheta}L(\theta,a)dF^{\pi^{*}}(\theta)
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Decision Theory and Support Vector Machine Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:decision_theory_svm"
+
+\end_inset
+
 
 \end_layout
 
 \begin_layout Standard
-We will continue construction of the decision theory on the example of Support
- Vector Machine (SVM) method.
+In this subsection will continue construction of the decision theory on
+ the example of Support Vector Machine (SVM) method.
  For simplicity lets consider linearly separable dataset.
  From the theoretical perspective SVM constructs hyperplane in high dimensional
  space that separates two classes.
@@ -230,23 +285,19 @@ We will continue construction of the decision theory on the example of Support
 
 .
  From this knowledge we can define 
-\begin_inset Formula $\mathbf{X}$
+\begin_inset Formula $\theta=(\mathbf{x},\mathbf{y})$
 \end_inset
 
- as a parameter space and 
-\begin_inset Formula $\mathbf{Y}$
+ where tuple 
+\begin_inset Formula $(\mathbf{x},\mathbf{y})\in\mathbf{X}\times\mathbf{Y}$
 \end_inset
 
- is the set of possible outcomes (
-\shape slanted
-sample space
-\shape default
-) where 
-\begin_inset Formula $\mathbf{y}=\mathbf{y}(\mathbf{x})$
+ is parameters and 
+\begin_inset Formula $\varTheta=\mathbf{X}\times\mathbf{Y}$
 \end_inset
 
-.
- Considering updated definitions loss function (
+ is a parameters' space.
+ Considering updated definitions, loss function (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:loss_func"
@@ -259,12 +310,12 @@ noprefix "false"
 ) can be rewritten as
 \begin_inset Formula 
 \begin{equation}
-L=L(\mathbf{x},\mathbf{w},b).\label{eq:SVM_thoer_loss}
+L=L(\mathbf{x},\mathbf{y},\mathbf{w},b).\label{eq:SVM_thoer_loss}
 \end{equation}
 
 \end_inset
 
-Following task is to understand how good is out action (hyperplane estimation)
+Following task is to understand how good is our action (hyperplane estimation)
  with respect to the dataset.
  We can choose different types of the loss functions such as cross entropy
  or hinge loss, etc.
@@ -272,7 +323,7 @@ Following task is to understand how good is out action (hyperplane estimation)
  defined as 
 \begin_inset Formula 
 \begin{equation}
-L(\mathbf{x},\mathbf{w},b)=\max(0,1-{\bf y}(\mathbf{x})\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b))\label{eq:hinge_loss}
+L(\mathbf{x},\mathbf{y},\mathbf{w},b)=\max(0,1-{\bf y}\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b))\label{eq:hinge_loss}
 \end{equation}
 
 \end_inset
@@ -316,8 +367,23 @@ If we had available data
  we want to come up with a decision that will help us to label unlabeled
  data.
  In terms of SVM method we want to find such hyperplane that will label
- input values as a first class if it is above the hyperplane and as a second
- class if it is below the hyperplane.
+ input values as a first class if it is 
+\begin_inset Quotes eld
+\end_inset
+
+above
+\begin_inset Quotes erd
+\end_inset
+
+ the hyperplane and as a second class if it is 
+\begin_inset Quotes eld
+\end_inset
+
+below
+\begin_inset Quotes erd
+\end_inset
+
+ the hyperplane.
  At this point very important assumption will be introduced.
  In order to find an optimal hyperplane we assume that the data 
 \begin_inset Formula $\tilde{{\bf X}}$
@@ -340,77 +406,81 @@ If we had available data
 \begin_inset Formula $\mathbf{x}\in\mathbf{X}$
 \end_inset
 
- as a random variable with probability distribution 
-\begin_inset Formula $p({\bf x})$
+ and 
+\begin_inset Formula $\mathbf{y\in}\mathbf{Y}$
+\end_inset
+
+ are random variables with joint probability density function 
+\begin_inset Formula $p({\bf x},\mathbf{y})$
 \end_inset
 
 .
  We will also assume that 
-\begin_inset Formula $\forall i\in\{1,..,N\},\ \mathbf{x}_{i}\in\mathbf{\tilde{X}}$
+\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
 \end_inset
 
- is independent identically distributed.
- With the usage of the data 
+ are independent identically distributed.
+ Probability density function 
+\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ can be written as 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{x},\mathbf{y})=p(\mathbf{y}|\mathbf{x})p(\mathbf{x}).\label{eq:joint_prob_dist}
+\end{equation}
+
+\end_inset
+
+If we had those pdfs from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:approx_of_joint_dist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) we could easily derive its joint pdf.
+ However, we have only 
 \begin_inset Formula $\mathbf{\tilde{X}}$
 \end_inset
 
-, probability distribution 
-\begin_inset Formula $p({\bf x})$
+ and 
+\begin_inset Formula $\tilde{\mathbf{Y}}$
+\end_inset
+
+.
+ As a result, with the usage of those data, probability density function
+ 
+\begin_inset Formula $p({\bf x},\mathbf{y})$
 \end_inset
 
  can be approximated as 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{x})=\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i})\label{eq:approx_of_joint_dist}
+p(\mathbf{x},\mathbf{y})=\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})\label{eq:approx_of_joint_dist}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $\delta(\mathbf{x}-\mathbf{x}_{i})$
+\begin_inset Formula $\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})$
 \end_inset
 
  is Dirac delta function which is centered in 
-\begin_inset Formula $\text{x}_{i}$
+\begin_inset Formula $(\text{x}_{i},\mathbf{y}_{i})$
 \end_inset
 
 .
 \end_layout
 
-\begin_layout Definition
-If 
-\begin_inset Formula $\pi^{*}(\theta)$
-\end_inset
-
- is believed probability distribution of 
-\begin_inset Formula $\theta$
-\end_inset
-
- at the time of decision making, the 
-\shape slanted
-Bayesian expected loss
-\shape default
- of an action 
-\begin_inset Formula $a$
-\end_inset
-
- is 
-\begin_inset Formula 
-\begin{align}
-\rho(\pi^{*},a)= & \mathbb{E}_{\pi^{*}}[L(\theta,a)],\label{eq:expected_loss}\\
-= & \int_{\varTheta}L(\theta,a)dF^{\pi^{*}}(\theta)
-\end{align}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Definition
+\begin_layout Standard
 Using (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:expected_loss"
+reference "eq:expected_loss-1"
 plural "false"
 caps "false"
 noprefix "false"
@@ -420,29 +490,404 @@ noprefix "false"
 ) we can evaluate expected loss function for SVM as follows 
 \begin_inset Formula 
 \begin{align*}
-\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}}L(\mathbf{x},\mathbf{w},b)p(\mathbf{x})d(\mathbf{x}),\\
- & =\int_{\mathbf{X}}\max(0,1-{\bf y}(\mathbf{x})\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b))\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i})d(\mathbf{x}),\\
- & =\frac{1}{N}\sum_{i=1}^{N}\max(0,1-{\bf y}(\mathbf{x}_{i})\hat{\mathbf{y}}(\mathbf{x}_{i},\mathbf{w},b))
+\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w},b)p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\\
+ & =\int_{\mathbf{X}\times\mathbf{Y}}\max(0,1-{\bf y}\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b))\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\\
+ & =\frac{1}{N}\sum_{i=1}^{N}\max(0,1-{\bf y}_{i}\hat{\mathbf{y}}(\mathbf{x}_{i},\mathbf{w},b))
 \end{align*}
 
 \end_inset
 
 where 
-\begin_inset Formula ${\bf y}(\mathbf{x}_{i})=\mathbf{\tilde{y}}_{i}$
-\end_inset
-
- and 
-\begin_inset Formula $\hat{{\bf y}}(\mathbf{x}_{i})=\mathbf{\hat{\mathbf{y}}}_{i}.$
+\begin_inset Formula $\hat{{\bf y}}(\mathbf{x}_{i},\mathbf{w},b)=\mathbf{w}^{T}\mathbf{x}_{i}+b.$
 \end_inset
 
  Expect loss function for SVM can be written as 
 \begin_inset Formula 
 \begin{equation}
-\rho(\mathbf{x}_{i},\mathbf{w},b)=\frac{1}{N}\sum_{i=1}^{N}\max(0,1-{\bf y}_{i}\mathbf{w}^{T}\mathbf{x}_{i}+b)\label{eq:expected_loss_SVM}
+\rho(\mathbf{x}_{i},\mathbf{w},b)=\frac{1}{N}\sum_{i=1}^{N}\max(0,1-{\bf y}_{i}\mathbf{w}^{T}\mathbf{x}_{i}+b).\label{eq:expected_loss_SVM}
 \end{equation}
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Subsection
+Decision Theory and Algorithm Based on Neural Network Function 
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:decision_theory_nn"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Decision Theory construction for the algorithm, based on a neural network
+ function, is mostly the same as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_svm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ However in this case our decision is to finds estimate 
+\begin_inset Formula $\mathbf{\hat{y}}=\mathbf{\hat{y}}(\mathbf{x},\mathbf{W},\mathbf{b})$
+\end_inset
+
+ of the probability density function 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ is the input data, 
+\series bold
+
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ is the label assigned to 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{W}$
+\end_inset
+
+ is a set of neural network function parameters and 
+\begin_inset Formula $\mathbf{b}$
+\end_inset
+
+ is a vector of biases.
+ Once again our action space 
+\begin_inset Formula $\mathcal{A}$
+\end_inset
+
+ will be parameters' and biases' space of 
+\begin_inset Formula $\mathbf{\hat{y}}$
+\end_inset
+
+.
+ Same as in 
+\series default
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_svm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we can define 
+\begin_inset Formula $(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ are parameters of the loss function and 
+\begin_inset Formula $\mathbf{X}\times\mathbf{Y}$
+\end_inset
+
+ is a parameters' space.
+ For better understanding of the variety of loss functions we will use cross
+ entropy loss function that is defined as 
+\begin_inset Formula 
+\begin{equation}
+L(\mathbf{x},\mathbf{y},\mathbf{w},b)=\mathbf{y}\ln\big(\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y})\ln\big((1-\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big).\label{eq:cross_entropy_loss}
+\end{equation}
+
+\end_inset
+
+Continuing using assumptions from 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_svm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we consider 
+\begin_inset Formula $\mathbf{x}\in\mathbf{X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y\in}\mathbf{Y}$
+\end_inset
+
+ are random variables with joint probability density function 
+\begin_inset Formula $p({\bf x},\mathbf{y})$
+\end_inset
+
+.
+ With the usage of the given dataset where 
+\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
+\end_inset
+
+ are independent identically distributed we can approximate 
+\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ as 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:approx_of_joint_dist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Applying definition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "def:expected_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, expected loss for the algorithm based on a neural network function is
+ evaluated as 
+\begin_inset Formula 
+\begin{align}
+\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w},b)p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & \int_{\mathbf{X}\times\mathbf{Y}}\Big(\mathbf{y}\ln\big(\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y})\ln\big((1-\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)\Big)\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & \frac{1}{N}\sum_{i=1}^{N}\Big(\mathbf{y}_{i}\ln\big(\hat{\mathbf{y}}_{i}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y}_{i})\ln\big((1-\hat{\mathbf{y}}_{i}(\mathbf{x},\mathbf{w},b)\big)\Big).\label{eq:expected_loss_cross_entropy}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Decision Theory and Naive Bayes Algorithm
+\end_layout
+
+\begin_layout Standard
+Naive Bayes algorithm same as neural network based algorithms or SVM tries
+ to estimate 
+\begin_inset Formula $\hat{\mathbf{y}}=\mathbf{\hat{y}}(\mathbf{y},\mathbf{x},\mathbf{w})$
+\end_inset
+
+ of probability density function 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+ is set of parameters of function 
+\begin_inset Formula $\hat{\mathbf{y}}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ is the input data and 
+\series bold
+
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ is the label assigned to 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+.
+ Before continuing with a loss function construction we would like to go
+ trough Naive Bayes (NB) method.
+ With the usage of Bayes rule we can rewrite 
+\series default
+
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\end_inset
+
+ as follows 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{y}|\mathbf{x})=\frac{p(\mathbf{x}|\mathbf{y})p(\mathbf{y})}{\int_{\mathbf{Y}}p(\mathbf{x}|\mathbf{y})p(\mathbf{y})d\mathbf{y}}.\label{eq:bayes_rule}
+\end{equation}
+
+\end_inset
+
+However, Naive Bayes method introduces in equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:bayes_rule"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) very strong assumption that features of vector 
+\begin_inset Formula $\mathbf{x}=(x_{1},x_{2},...,x_{n})^{T}$
+\end_inset
+
+ are conditionally independent.
+ As a result estimation of 
+\begin_inset Formula $\mathbf{\hat{y}}$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\begin{equation}
+\hat{\mathbf{y}}(\mathbf{y},\mathbf{x},\mathbf{w})=\frac{1}{Z}p(\mathbf{y})\prod_{i=1}^{n}p(x_{i}|\mathbf{y}),\label{eq:naive_bayes_eq}
+\end{equation}
+
+\end_inset
+
+where 
+\series bold
+
+\begin_inset Formula $p(\mathbf{y})$
+\end_inset
+
+ is probability density function of the labels and 
+\begin_inset Formula $p(x_{i}|\mathbf{y})$
+\end_inset
+
+ is a probability density function of the data features conditioned with
+ label.
+ Vector of parameters 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+ in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:naive_bayes_eq"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) represents parameters of the 
+\begin_inset Formula $p(x_{i}|\mathbf{y})$
+\end_inset
+
+.
+ In this case we could also use same loss functions as for 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_svm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_nn"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ However we will use here zero-one loss function that is defined as 
+\begin_inset Formula 
+\begin{equation}
+L(\mathbf{y},\mathbf{x},\mathbf{w})=\begin{cases}
+1 & \mathbf{y\neq\hat{y}(\mathbf{y},\mathbf{x},\mathbf{w})}\\
+0 & \mathbf{y}=\hat{y}(\mathbf{y},\mathbf{x},\mathbf{w})
+\end{cases}.\label{eq:zero-one_loss}
+\end{equation}
+
+\end_inset
+
+Due to the fact that we use zero-one loss function we must set the assumption
+ that 
+\begin_inset Formula $\mathbf{\hat{y}}\in\{0,1\}$
+\end_inset
+
+.
+ Same as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_svm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_nn"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we will assume that 
+\series default
+we can approximate 
+\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ as 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:approx_of_joint_dist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+
+\series bold
+ From this moment everything is ready for deriving expected loss function.
+ Expected loss function for Naive Bayes method is derived as 
+\begin_inset Formula 
+\begin{align}
+\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & \int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & \frac{1}{N}\sum_{i=1}^{N}L(\mathbf{x}_{i},\mathbf{y}_{i},\mathbf{w}).\label{eq:expected_loss_zero_one}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Decision Theory and Random Forest Algorithm
+\end_layout
+
+\begin_layout Standard
+In order to work with random forests we must precisely define decision trees
+ and only then construct theory for random forests.
+\end_layout
+
+\begin_layout Subsubsection
+Decision Tree 
+\end_layout
+
+\begin_layout Standard
 
 \end_layout
 
