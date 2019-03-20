@@ -554,6 +554,8 @@ noprefix "false"
 \begin_inset Formula $\mathbf{y}$
 \end_inset
 
+
+\series default
  is the label assigned to 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
@@ -577,8 +579,6 @@ noprefix "false"
 
 .
  Same as in 
-\series default
-
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:decision_theory_svm"
@@ -674,6 +674,13 @@ noprefix "false"
 
 \begin_layout Subsection
 Decision Theory and Naive Bayes Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:decision_theory_nb"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -704,14 +711,18 @@ Naive Bayes algorithm same as neural network based algorithms or SVM tries
 \begin_inset Formula $\mathbf{y}$
 \end_inset
 
- is the label assigned to 
+ 
+\series default
+is the label assigned to 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
 .
  Before continuing with a loss function construction we would like to go
  trough Naive Bayes (NB) method.
- With the usage of Bayes rule we can rewrite 
+ With the usage of Bayes rule we can rewrite
+\series bold
+ 
 \series default
 
 \begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
@@ -758,7 +769,13 @@ where
 \begin_inset Formula $p(\mathbf{y})$
 \end_inset
 
- is probability density function of the labels and 
+
+\series default
+ is probability density function of the labels and
+\series bold
+ 
+\series default
+
 \begin_inset Formula $p(x_{i}|\mathbf{y})$
 \end_inset
 
@@ -841,9 +858,7 @@ noprefix "false"
 
 \end_inset
 
- we will assume that 
-\series default
-we can approximate 
+ we will assume that we can approximate 
 \begin_inset Formula $p(\mathbf{x},\mathbf{y})$
 \end_inset
 
@@ -858,10 +873,10 @@ noprefix "false"
 \end_inset
 
 .
-
-\series bold
  From this moment everything is ready for deriving expected loss function.
  Expected loss function for Naive Bayes method is derived as 
+\series bold
+
 \begin_inset Formula 
 \begin{align}
 \mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
@@ -884,7 +899,78 @@ In order to work with random forests we must precisely define decision trees
 \end_layout
 
 \begin_layout Subsubsection
-Decision Tree 
+Decision Tree
+\end_layout
+
+\begin_layout Standard
+In this section we expect our decision three to give us also an estimate
+ 
+\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{y},\mathbf{x},\mathbf{w})$
+\end_inset
+
+ of 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+ is a vector of Yes or No decisions, 
+\begin_inset Formula $\mathbf{x}\in{\bf X}\subset\mathbb{R}^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y\in}{\bf Y}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ is an input vectors of size 
+\begin_inset Formula $n$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf y}$
+\end_inset
+
+ is its labels assigned to the data from space 
+\begin_inset Formula ${\bf X}$
+\end_inset
+
+.
+ Parameter space will be same as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_svm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+-
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_nb"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, whereas action 
+\begin_inset Formula $a\in{\cal A}$
+\end_inset
+
+ will represent a vector of Yes and No decisions 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+.
+ Each feature bla bla bla...
 \end_layout
 
 \begin_layout Standard
