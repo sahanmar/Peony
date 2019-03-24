@@ -601,7 +601,7 @@ noprefix "false"
  entropy loss function that is defined as 
 \begin_inset Formula 
 \begin{equation}
-L(\mathbf{x},\mathbf{y},\mathbf{w},b)=\mathbf{y}\ln\big(\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y})\ln\big((1-\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big).\label{eq:cross_entropy_loss}
+L(\mathbf{x},\mathbf{y},\mathbf{w},b)=-\mathbf{y}\ln\big(\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)-(1-\mathbf{y})\ln\big((1-\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big).\label{eq:cross_entropy_loss}
 \end{equation}
 
 \end_inset
@@ -663,8 +663,8 @@ noprefix "false"
 \begin_inset Formula 
 \begin{align}
 \mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w},b)p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & \int_{\mathbf{X}\times\mathbf{Y}}\Big(\mathbf{y}\ln\big(\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y})\ln\big((1-\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)\Big)\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & \frac{1}{N}\sum_{i=1}^{N}\Big(\mathbf{y}_{i}\ln\big(\hat{\mathbf{y}}_{i}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y}_{i})\ln\big((1-\hat{\mathbf{y}}_{i}(\mathbf{x},\mathbf{w},b)\big)\Big).\label{eq:expected_loss_cross_entropy}
+ & -\int_{\mathbf{X}\times\mathbf{Y}}\Big(\mathbf{y}\ln\big(\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y})\ln\big((1-\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)\Big)\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & -\frac{1}{N}\sum_{i=1}^{N}\Big(\mathbf{y}_{i}\ln\big(\hat{\mathbf{y}}_{i}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y}_{i})\ln\big((1-\hat{\mathbf{y}}_{i}(\mathbf{x},\mathbf{w},b)\big)\Big).\label{eq:expected_loss_cross_entropy}
 \end{align}
 
 \end_inset
@@ -686,7 +686,7 @@ name "subsec:decision_theory_nb"
 \begin_layout Standard
 Naive Bayes algorithm same as neural network based algorithms or SVM tries
  to estimate 
-\begin_inset Formula $\hat{\mathbf{y}}=\mathbf{\hat{y}}(\mathbf{y},\mathbf{x},\mathbf{w})$
+\begin_inset Formula $\hat{\mathbf{y}}=\mathbf{\hat{y}}(\mathbf{y},\mathbf{x})$
 \end_inset
 
  of probability density function 
@@ -720,18 +720,23 @@ is the label assigned to
 .
  Before continuing with a loss function construction we would like to go
  trough Naive Bayes (NB) method.
+ Assuming binary classification problem.
  With the usage of Bayes rule we can rewrite
 \series bold
  
 \series default
 
-\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\begin_inset Formula $p(\mathbf{y}=k|\mathbf{x})$
+\end_inset
+
+ where 
+\begin_inset Formula $k\in\{0,1\}$
 \end_inset
 
  as follows 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{y}|\mathbf{x})=\frac{p(\mathbf{x}|\mathbf{y})p(\mathbf{y})}{\int_{\mathbf{Y}}p(\mathbf{x}|\mathbf{y})p(\mathbf{y})d\mathbf{y}}.\label{eq:bayes_rule}
+p(\mathbf{y}=k|\mathbf{x})=\frac{p(\mathbf{x}|\mathbf{y}=k)p(\mathbf{y}=k)}{\int_{\mathbf{Y}}p(\mathbf{x}|\mathbf{y})p(\mathbf{y})d\mathbf{y}}.\label{eq:bayes_rule}
 \end{equation}
 
 \end_inset
@@ -758,7 +763,7 @@ noprefix "false"
  is 
 \begin_inset Formula 
 \begin{equation}
-\hat{\mathbf{y}}(\mathbf{y},\mathbf{x},\mathbf{w})=\frac{1}{Z}p(\mathbf{y})\prod_{i=1}^{n}p(x_{i}|\mathbf{y}),\label{eq:naive_bayes_eq}
+\hat{\mathbf{y}}(\mathbf{y},\mathbf{x},\mathbf{w})=\frac{1}{Z_{k}}p(\mathbf{y}=k)\prod_{i=1}^{n}p(x_{i}|\mathbf{y}=k,\mathbf{w}=\mathbf{w}_{k}),\label{eq:naive_bayes_eq}
 \end{equation}
 
 \end_inset
@@ -766,26 +771,57 @@ noprefix "false"
 where 
 \series bold
 
-\begin_inset Formula $p(\mathbf{y})$
+\begin_inset Formula $p(\mathbf{y}=k)$
 \end_inset
 
 
 \series default
- is probability density function of the labels and
-\series bold
- 
-\series default
-
-\begin_inset Formula $p(x_{i}|\mathbf{y})$
+ is probability density function of the labels, 
+\begin_inset Formula $p(x_{i}|\mathbf{y}=k,\mathbf{w}=\mathbf{w}_{k})$
 \end_inset
 
  is a probability density function of the data features conditioned with
- label.
- Vector of parameters 
+ label and 
+\begin_inset Formula $Z_{k}$
+\end_inset
+
+ is a normalizing constant for class 
+\begin_inset Formula $k$
+\end_inset
+
+.
+ It is important to highlight that we can have parametric distribution 
+\begin_inset Formula $p(x_{i}|\mathbf{y}=k,\mathbf{w}_{k})$
+\end_inset
+
+ that is dependent on parameters vector 
+\begin_inset Formula $\mathbf{\mathbf{w}}_{k}$
+\end_inset
+
+.
+ We must understand that for each class 
+\begin_inset Formula $\mathbf{y}=k$
+\end_inset
+
+ parameters vector 
 \begin_inset Formula $\mathbf{w}$
 \end_inset
 
- in (
+ will be different.
+ As a result we introduce index 
+\begin_inset Formula $k$
+\end_inset
+
+ and write 
+\begin_inset Formula $\mathbf{w}=\mathbf{w}_{k}$
+\end_inset
+
+ for 
+\begin_inset Formula $\mathbf{y}=k$
+\end_inset
+
+.
+ In this case loss function will be derived from (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:naive_bayes_eq"
@@ -795,49 +831,25 @@ noprefix "false"
 
 \end_inset
 
-) represents parameters of the 
-\begin_inset Formula $p(x_{i}|\mathbf{y})$
+).
+ We want to maximize our probability estimate 
+\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{y},\mathbf{x},\mathbf{w})$
 \end_inset
 
 .
- In this case we could also use same loss functions as for 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:decision_theory_svm"
-plural "false"
-caps "false"
-noprefix "false"
-
+ Thus, loss function 
+\begin_inset Formula $L$
 \end_inset
 
- or 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:decision_theory_nn"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
- However we will use here zero-one loss function that is defined as 
+ will be represented as 
 \begin_inset Formula 
-\begin{equation}
-L(\mathbf{y},\mathbf{x},\mathbf{w})=\begin{cases}
-1 & \mathbf{y\neq\hat{y}(\mathbf{y},\mathbf{x},\mathbf{w})}\\
-0 & \mathbf{y}=\hat{y}(\mathbf{y},\mathbf{x},\mathbf{w})
-\end{cases}.\label{eq:zero-one_loss}
-\end{equation}
+\begin{align}
+L(\mathbf{y},\mathbf{x},\mathbf{w}) & =-\log\big(\mathbf{\hat{y}(y,x},\mathbf{w})\big),\label{eq:nb_loss}\\
+ & =\log(Z_{k})-\log\big(p(\mathbf{y}=k)\big)-\sum_{i=1}^{n}\log\big(p(x_{i}|\mathbf{y}=k,\mathbf{w}=\mathbf{w}_{k})\big).
+\end{align}
 
 \end_inset
 
-Due to the fact that we use zero-one loss function we must set the assumption
- that 
-\begin_inset Formula $\mathbf{\hat{y}}\in\{0,1\}$
-\end_inset
-
-.
  Same as in 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -880,9 +892,93 @@ noprefix "false"
 \begin_inset Formula 
 \begin{align}
 \mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & \int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & \frac{1}{N}\sum_{i=1}^{N}L(\mathbf{x}_{i},\mathbf{y}_{i},\mathbf{w}).\label{eq:expected_loss_zero_one}
+ & \int_{\mathbf{X}\times\mathbf{Y}}\Big(\xi_{k}-\sum_{i=1}^{n}\log\big(p(x_{i}|\mathbf{y}=k,\mathbf{w=\mathbf{w}_{k}})\big)\Big)\frac{1}{N}\sum_{j=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{j},\mathbf{y}-\mathbf{y}_{j})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & \frac{1}{N}\sum_{j=1}^{N}\Big(\xi_{j,k}-\sum_{i=1}^{n}\log\big(p(x_{i,j}|\mathbf{y}_{j}=k,\mathbf{w=\mathbf{w}_{k}})\big)\Big)\label{eq:expected_loss_mle_or_map}
 \end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $\xi_{k}=\log(Z_{k})-\log\big(p(\mathbf{y}=k)\big)$
+\end_inset
+
+ and 
+\begin_inset Formula $\xi_{j,k}=\log(Z_{k})-\log\big(p(\mathbf{y}_{j}=k)\big)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Due to the fact that NB method theory is slightly different with 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_svm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_nn"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we introduce here and example when 
+\begin_inset Formula 
+\begin{equation}
+p(x_{i}|\mathbf{y}=k,\mathbf{w}=\mathbf{w}_{k})={\cal N}(w_{1,k},w_{2,k}).\label{eq:gaussian_conditioned_density}
+\end{equation}
+
+\end_inset
+
+Expected loss (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:expected_loss_mle_or_map"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) for Gaussian likelihood case can be written as 
+\begin_inset Formula 
+\[
+\mathbb{E}_{\pi^{*}}L=\frac{1}{N}\sum_{j=1}^{N}\Big(\tilde{\xi}_{j,k}+\sum_{i=1}^{n}\frac{(x_{i,j}-w_{1,k})^{2}}{2w_{2,k}^{2}}\Big)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\tilde{\xi}_{j,k}$
+\end_inset
+
+ is constant calculated from 
+\begin_inset Formula $\xi_{j,k}$
+\end_inset
+
+ and constants of Gaussian pdf.
+ In this case 
+\begin_inset Formula 
+\[
+w_{1,k}=\frac{1}{Nn}\sum_{j=1}^{N}\sum_{i=1}^{n}x_{i,j}
+\]
+
+\end_inset
+
+ and 
+\begin_inset Formula 
+\[
+w_{2,k}=\frac{1}{Nn}\sum_{j=1}^{N}\sum_{i=1}^{n}(x_{i,j}-w_{2,k})^{2}.
+\]
 
 \end_inset
 
