@@ -663,8 +663,8 @@ noprefix "false"
 \begin_inset Formula 
 \begin{align}
 \mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w},b)p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & -\int_{\mathbf{X}\times\mathbf{Y}}\Big(\mathbf{y}\ln\big(\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y})\ln\big((1-\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)\Big)\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & -\frac{1}{N}\sum_{i=1}^{N}\Big(\mathbf{y}_{i}\ln\big(\hat{\mathbf{y}}_{i}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y}_{i})\ln\big((1-\hat{\mathbf{y}}_{i}(\mathbf{x},\mathbf{w},b)\big)\Big).\label{eq:expected_loss_cross_entropy}
+ & =-\int_{\mathbf{X}\times\mathbf{Y}}\Big(\mathbf{y}\ln\big(\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y})\ln\big((1-\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)\Big)\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & =-\frac{1}{N}\sum_{i=1}^{N}\Big(\mathbf{y}_{i}\ln\big(\hat{\mathbf{y}}_{i}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y}_{i})\ln\big((1-\hat{\mathbf{y}}_{i}(\mathbf{x},\mathbf{w},b)\big)\Big).\label{eq:expected_loss_cross_entropy}
 \end{align}
 
 \end_inset
@@ -685,27 +685,23 @@ name "subsec:decision_theory_nb"
 
 \begin_layout Standard
 Naive Bayes algorithm same as neural network based algorithms or SVM tries
- to estimate 
-\begin_inset Formula $\hat{\mathbf{y}}=\mathbf{\hat{y}}(\mathbf{y},\mathbf{x})$
+ to find an estimate 
+\begin_inset Formula $\tilde{p}(\mathbf{y}=k|\mathbf{x},\mathbf{w})$
 \end_inset
 
  of probability density function 
-\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\begin_inset Formula $p(\mathbf{y}=k|\mathbf{x})$
 \end_inset
 
  where 
 \begin_inset Formula $\mathbf{w}$
 \end_inset
 
- is set of parameters of function 
-\begin_inset Formula $\hat{\mathbf{y}}$
-\end_inset
-
-, 
+ is set of parameters of a pdf, 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
- is the input data and 
+ is the input data, 
 \series bold
 
 \begin_inset Formula $\mathbf{y}$
@@ -717,7 +713,11 @@ is the label assigned to
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
-.
+ and 
+\begin_inset Formula $k$
+\end_inset
+
+ is a class.
  Before continuing with a loss function construction we would like to go
  trough Naive Bayes (NB) method.
  Assuming binary classification problem.
@@ -757,13 +757,13 @@ noprefix "false"
 
  are conditionally independent.
  As a result estimation of 
-\begin_inset Formula $\mathbf{\hat{y}}$
+\begin_inset Formula $p(\mathbf{y}=k|\mathbf{x})$
 \end_inset
 
  is 
 \begin_inset Formula 
 \begin{equation}
-\hat{\mathbf{y}}(\mathbf{y},\mathbf{x},\mathbf{w})=\frac{1}{Z_{k}}p(\mathbf{y}=k)\prod_{i=1}^{n}p(x_{i}|\mathbf{y}=k,\mathbf{w}=\mathbf{w}_{k}),\label{eq:naive_bayes_eq}
+\tilde{p}(\mathbf{y}=k|\mathbf{x},\mathbf{w})=\frac{1}{Z(\mathbf{w})}p(\mathbf{y}=k)\prod_{i=1}^{n}p(x_{i}|\mathbf{y}=k,\mathbf{w}_{i}=\mathbf{w}_{i,k}),\label{eq:naive_bayes_eq}
 \end{equation}
 
 \end_inset
@@ -777,25 +777,29 @@ where
 
 \series default
  is probability density function of the labels, 
-\begin_inset Formula $p(x_{i}|\mathbf{y}=k,\mathbf{w}=\mathbf{w}_{k})$
+\begin_inset Formula $p(x_{i}|\mathbf{y}=k,\mathbf{w}=\mathbf{w}_{i,k})$
 \end_inset
 
  is a probability density function of the data features conditioned with
- label and 
-\begin_inset Formula $Z_{k}$
+ label, 
+\begin_inset Formula $Z(\mathbf{w})$
 \end_inset
 
- is a normalizing constant for class 
+ is a normalizing parameter for class 
 \begin_inset Formula $k$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{w}=(\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n})$
 \end_inset
 
 .
  It is important to highlight that we can have parametric distribution 
-\begin_inset Formula $p(x_{i}|\mathbf{y}=k,\mathbf{w}_{k})$
+\begin_inset Formula $p(x_{i}|\mathbf{y}=k,\mathbf{w}_{i}=\mathbf{w}_{i,k})$
 \end_inset
 
  that is dependent on parameters vector 
-\begin_inset Formula $\mathbf{\mathbf{w}}_{k}$
+\begin_inset Formula $\mathbf{\mathbf{w}}_{i,k}$
 \end_inset
 
 .
@@ -804,16 +808,20 @@ where
 \end_inset
 
  parameters vector 
-\begin_inset Formula $\mathbf{w}$
+\begin_inset Formula $\mathbf{w}=(\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n})$
 \end_inset
 
  will be different.
- As a result we introduce index 
+ As a result for each feature 
+\begin_inset Formula $i\in\{1,2...,n\}$
+\end_inset
+
+ we introduce index 
 \begin_inset Formula $k$
 \end_inset
 
  and write 
-\begin_inset Formula $\mathbf{w}=\mathbf{w}_{k}$
+\begin_inset Formula $\mathbf{w}_{i}=\mathbf{w}_{i,k}$
 \end_inset
 
  for 
@@ -833,7 +841,7 @@ noprefix "false"
 
 ).
  We want to maximize our probability estimate 
-\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{y},\mathbf{x},\mathbf{w})$
+\begin_inset Formula $\tilde{p}(\mathbf{y}=k|\mathbf{x},\mathbf{w})$
 \end_inset
 
 .
@@ -844,8 +852,8 @@ noprefix "false"
  will be represented as 
 \begin_inset Formula 
 \begin{align}
-L(\mathbf{y},\mathbf{x},\mathbf{w}) & =-\log\big(\mathbf{\hat{y}(y,x},\mathbf{w})\big),\label{eq:nb_loss}\\
- & =\log(Z_{k})-\log\big(p(\mathbf{y}=k)\big)-\sum_{i=1}^{n}\log\big(p(x_{i}|\mathbf{y}=k,\mathbf{w}=\mathbf{w}_{k})\big).
+L(\mathbf{y},\mathbf{x},\mathbf{w}) & =-\log\big(\tilde{p}(\mathbf{y}=k|\mathbf{x},\mathbf{w})\big),\label{eq:nb_loss}\\
+ & =\log(Z(\mathbf{w})-\log\big(p(\mathbf{y}=k)\big)-\sum_{i=1}^{n}\log\big(p(x_{i}|\mathbf{y}=k,\mathbf{w}_{i}=\mathbf{w}_{i,k})\big).
 \end{align}
 
 \end_inset
@@ -892,18 +900,18 @@ noprefix "false"
 \begin_inset Formula 
 \begin{align}
 \mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & \int_{\mathbf{X}\times\mathbf{Y}}\Big(\xi_{k}-\sum_{i=1}^{n}\log\big(p(x_{i}|\mathbf{y}=k,\mathbf{w=\mathbf{w}_{k}})\big)\Big)\frac{1}{N}\sum_{j=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{j},\mathbf{y}-\mathbf{y}_{j})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & \frac{1}{N}\sum_{j=1}^{N}\Big(\xi_{j,k}-\sum_{i=1}^{n}\log\big(p(x_{i,j}|\mathbf{y}_{j}=k,\mathbf{w=\mathbf{w}_{k}})\big)\Big)\label{eq:expected_loss_mle_or_map}
+ & \int_{\mathbf{X}\times\mathbf{Y}}\Big(\xi_{k}(\mathbf{w})-\sum_{i=1}^{n}\log\big(p(x_{i}|\mathbf{y}=k,\mathbf{w}_{i}=\mathbf{w}_{i,k})\big)\Big)\frac{1}{N}\sum_{j=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{j},\mathbf{y}-\mathbf{y}_{j})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & \frac{1}{N}\sum_{j=1}^{N}\Big(\xi_{j,k}(\mathbf{w})-\sum_{i=1}^{n}\log\big(p(x_{i}|\mathbf{y}=k,\mathbf{w}_{i}=\mathbf{w}_{i,k})\big)\Big)\label{eq:expected_loss_mle_or_map}
 \end{align}
 
 \end_inset
 
 where 
-\begin_inset Formula $\xi_{k}=\log(Z_{k})-\log\big(p(\mathbf{y}=k)\big)$
+\begin_inset Formula $\xi_{k}(\mathbf{w})=\log(Z)-\log\big(p(\mathbf{y}=k)\big)$
 \end_inset
 
  and 
-\begin_inset Formula $\xi_{j,k}=\log(Z_{k})-\log\big(p(\mathbf{y}_{j}=k)\big)$
+\begin_inset Formula $\xi_{j,k}(\mathbf{w})=\log(Z(\mathbf{w})-\log\big(p(\mathbf{y}_{j}=k)\big)$
 \end_inset
 
 .
@@ -934,7 +942,7 @@ noprefix "false"
  we introduce here and example when 
 \begin_inset Formula 
 \begin{equation}
-p(x_{i}|\mathbf{y}=k,\mathbf{w}=\mathbf{w}_{k})={\cal N}(w_{1,k},w_{2,k}).\label{eq:gaussian_conditioned_density}
+p(x_{i}|\mathbf{y}=k,\mathbf{w}=\mathbf{w}_{i,k})={\cal N}(w_{1,i,k},w_{2,i,k}).\label{eq:gaussian_conditioned_density}
 \end{equation}
 
 \end_inset
@@ -952,24 +960,24 @@ noprefix "false"
 ) for Gaussian likelihood case can be written as 
 \begin_inset Formula 
 \[
-\mathbb{E}_{\pi^{*}}L=\frac{1}{N}\sum_{j=1}^{N}\Big(\tilde{\xi}_{j,k}+\sum_{i=1}^{n}\frac{(x_{i,j}-w_{1,k})^{2}}{2w_{2,k}^{2}}\Big)
+\mathbb{E}_{\pi^{*}}L=\frac{1}{N}\sum_{j=1}^{N}\Big(\tilde{\xi}_{j,k}(\mathbf{w})+\sum_{i=1}^{n}\frac{(x_{i,j}-w_{1,i,k})^{2}}{2w_{2,i,k}^{2}}\Big)
 \]
 
 \end_inset
 
 where 
-\begin_inset Formula $\tilde{\xi}_{j,k}$
+\begin_inset Formula $\tilde{\xi}_{j,k}(\mathbf{w})$
 \end_inset
 
- is constant calculated from 
-\begin_inset Formula $\xi_{j,k}$
+ is normalizing parameter calculated from 
+\begin_inset Formula $\xi_{j,k}(\mathbf{w})$
 \end_inset
 
- and constants of Gaussian pdf.
+ and additional values of Gaussian pdf.
  In this case 
 \begin_inset Formula 
 \[
-w_{1,k}=\frac{1}{Nn}\sum_{j=1}^{N}\sum_{i=1}^{n}x_{i,j}
+w_{1,i,k}=\frac{1}{N}\sum_{j=1}^{N}x_{i,j}
 \]
 
 \end_inset
@@ -977,7 +985,7 @@ w_{1,k}=\frac{1}{Nn}\sum_{j=1}^{N}\sum_{i=1}^{n}x_{i,j}
  and 
 \begin_inset Formula 
 \[
-w_{2,k}=\frac{1}{Nn}\sum_{j=1}^{N}\sum_{i=1}^{n}(x_{i,j}-w_{2,k})^{2}.
+w_{2,i,k}=\frac{1}{N}\sum_{j=1}^{N}(x_{i,j}-w_{1,i,k})^{2}.
 \]
 
 \end_inset
