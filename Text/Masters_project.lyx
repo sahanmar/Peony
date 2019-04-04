@@ -1009,7 +1009,7 @@ Decision Tree
 \begin_layout Standard
 In this section we expect our decision three to give us also an estimate
  
-\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{y},\mathbf{x},\mathbf{w})$
+\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\mathbf{w})$
 \end_inset
 
  of 
@@ -1020,7 +1020,8 @@ In this section we expect our decision three to give us also an estimate
 \begin_inset Formula $\mathbf{w}$
 \end_inset
 
- is a vector of Yes or No decisions, 
+ is a vector tree parameters such as depth of the tree and location of nodes,
+ 
 \begin_inset Formula $\mathbf{x}\in{\bf X}\subset\mathbb{R}^{n}$
 \end_inset
 
@@ -1069,16 +1070,186 @@ noprefix "false"
 \begin_inset Formula $a\in{\cal A}$
 \end_inset
 
- will represent a vector of Yes and No decisions 
+ will represent a parameters' vector 
 \begin_inset Formula $\mathbf{w}$
 \end_inset
 
 .
- Each feature bla bla bla...
+ While construction decision tree we choose such feature 
+\begin_inset Formula $x_{i}\in(x_{1},...,x_{n})=\mathbf{x}$
+\end_inset
+
+ that will bring as the highest information about the system.
+ Basing of this method we construct nodes and add more and more layers.
+ We will stop adding nodes and layers when difference 
+\begin_inset Formula $|\hat{\mathbf{y}}(\mathbf{x},\mathbf{w})-\mathbf{y}|$
+\end_inset
+
+ will stop decreeing.
+ 
 \end_layout
 
 \begin_layout Standard
+In the following part we are going to work with a set of decision threes.
+ For this purposes we will define our decision three as 
+\begin_inset Formula $\hat{y}=T(\mathbf{x},\mathbf{w}_{l})$
+\end_inset
 
+ where index 
+\begin_inset Formula $l$
+\end_inset
+
+ represents set of parameters for 
+\begin_inset Formula $l-$
+\end_inset
+
+th three.
+\end_layout
+
+\begin_layout Subsubsection
+Random Forest
+\end_layout
+
+\begin_layout Standard
+Starting from the beginning we will assume that we work with a little discrete
+ subset 
+\begin_inset Formula $\tilde{{\bf X}}\subset{\bf X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{{\bf Y}}\subset{\bf Y}$
+\end_inset
+
+.
+ On the basis of 
+\begin_inset Formula $\mathbf{\tilde{X}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\tilde{Y}}$
+\end_inset
+
+ we want to come up with a decision that will help us to label unlabeled
+ data.
+ We want to consider 
+\begin_inset Formula $\mathbf{x}\in\mathbf{X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y\in}\mathbf{Y}$
+\end_inset
+
+ are random variables with joint probability density function 
+\begin_inset Formula $p({\bf x},\mathbf{y})$
+\end_inset
+
+.
+ We will also assume that 
+\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
+\end_inset
+
+ are independent identically distributed.
+ Probability density function 
+\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ can be written as (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:joint_prob_dist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Due to the fact that we have limited scopes of the data.
+ In previous section we had quite strong assumption that the data 
+\begin_inset Formula $\tilde{{\bf X}}$
+\end_inset
+
+ and its labels 
+\begin_inset Formula $\tilde{{\bf Y}}$
+\end_inset
+
+ fully describe dataset 
+\begin_inset Formula ${\bf X}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf Y}$
+\end_inset
+
+.
+ In that case we will not do this because with the assumption that given
+ scopes describe initial dataset out solution will not have any sense.
+ 
+\end_layout
+
+\begin_layout Standard
+With the usage of 
+\begin_inset Formula $\tilde{{\bf X}}\subset{\bf X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{{\bf Y}}\subset{\bf Y}$
+\end_inset
+
+ we will make 
+\begin_inset Formula $L\in\mathbb{N}$
+\end_inset
+
+ sets where 
+\begin_inset Formula $\forall l\in L$
+\end_inset
+
+, 
+\begin_inset Formula $\tilde{\mathbf{X}}_{l}\subset\tilde{\mathbf{X}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{{\bf Y}}_{l}\subset\tilde{{\bf Y}}$
+\end_inset
+
+.
+ The data 
+\begin_inset Formula $\tilde{\mathbf{X}}_{l}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{{\bf Y}}_{l}$
+\end_inset
+
+ are created with random uniform sampling from 
+\begin_inset Formula $\tilde{{\bf X}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{{\bf Y}}$
+\end_inset
+
+.
+ We also want each subset to contain strictly 
+\begin_inset Formula $60\%$
+\end_inset
+
+ of the data from 
+\begin_inset Formula $\mathbf{\tilde{{\bf X}}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{{\bf Y}}$
+\end_inset
+
+.
+ As a result parameter space for random forests will form tuple of sets
+ 
+\begin_inset Formula $(\tilde{{\bf X}}_{l},\tilde{{\bf Y}}_{l})$
+\end_inset
+
+.
+ 
 \end_layout
 
 \end_body
