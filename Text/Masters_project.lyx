@@ -637,7 +637,7 @@ noprefix "false"
 \begin_inset Formula $p(\mathbf{x},\mathbf{y})$
 \end_inset
 
- as 
+ as (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:approx_of_joint_dist"
@@ -647,7 +647,7 @@ noprefix "false"
 
 \end_inset
 
-.
+).
  Applying definition 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1009,19 +1009,14 @@ Decision Tree
 \begin_layout Standard
 In this section we expect our decision three to give us also an estimate
  
-\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\mathbf{w})$
-\end_inset
-
- of 
-\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\mathbf{w})\in\{0,1\}$
 \end_inset
 
  where 
 \begin_inset Formula $\mathbf{w}$
 \end_inset
 
- is a vector tree parameters such as depth of the tree and location of nodes,
- 
+ is a vector tree parameters (depth, nodes, etc.), 
 \begin_inset Formula $\mathbf{x}\in{\bf X}\subset\mathbb{R}^{n}$
 \end_inset
 
@@ -1076,22 +1071,76 @@ noprefix "false"
 
 .
  While construction decision tree we choose such feature 
-\begin_inset Formula $x_{i}\in(x_{1},...,x_{n})=\mathbf{x}$
+\begin_inset Formula $x_{i}\in(x_{1},...,x_{n})^{T}=\mathbf{x}$
 \end_inset
 
  that will bring as the highest information about the system.
+ This feature will form first layer, then we add another feature with the
+ highest informational gain and construct second layer.
  Basing of this method we construct nodes and add more and more layers.
- We will stop adding nodes and layers when difference 
-\begin_inset Formula $|\hat{\mathbf{y}}(\mathbf{x},\mathbf{w})-\mathbf{y}|$
+ In order to understand when our tree is optimal we can use zero-one loss
+ function.
+ Zero-one loss function is defined as 
+\begin_inset Formula 
+\begin{equation}
+L(\mathbf{x},\mathbf{y},\mathbf{w})=\begin{cases}
+1, & \mathbf{y\neq\hat{y}}(\mathbf{x},\mathbf{w})\\
+0, & \mathbf{y=\hat{y}}(\mathbf{x},\mathbf{w})
+\end{cases}.\label{eq:zero-one_loss_function}
+\end{equation}
+
 \end_inset
 
- will stop decreeing.
+With the usage of the given dataset where 
+\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
+\end_inset
+
+ are independent identically distributed we can approximate 
+\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ as (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:approx_of_joint_dist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ As a result, expected loss function for decision tree can be derived as
  
+\begin_inset Formula 
+\begin{align*}
+\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\\
+ & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\\
+ & =\frac{1}{N}\sum_{i=1}^{N}L(\mathbf{x}_{i},\mathbf{y}_{i},\mathbf{w})\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\sum_{i=1}^{N}L(\mathbf{x}_{i},\mathbf{y}_{i},\mathbf{w})$
+\end_inset
+
+ is (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:zero-one_loss_function"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
-In the following part we are going to work with a set of decision threes.
- For this purposes we will define our decision three as 
+In the following part we are going to work with a set of decision trees.
+ For this purposes we will define our decision tree as 
 \begin_inset Formula $\hat{y}=T(\mathbf{x},\mathbf{w}_{l})$
 \end_inset
 
@@ -1183,7 +1232,7 @@ noprefix "false"
 
 .
  In that case we will not do this because with the assumption that given
- scopes describe initial dataset out solution will not have any sense.
+ scopes describe initial dataset our solution will not have any sense.
  
 \end_layout
 
@@ -1197,6 +1246,10 @@ With the usage of
 \end_inset
 
  we will make 
+\begin_inset Formula $\{1,...,L\},$
+\end_inset
+
+ 
 \begin_inset Formula $L\in\mathbb{N}$
 \end_inset
 
@@ -1243,13 +1296,111 @@ With the usage of
 \end_inset
 
 .
- As a result parameter space for random forests will form tuple of sets
+ As a result parameter space for random forests will form tuples of sets
  
 \begin_inset Formula $(\tilde{{\bf X}}_{l},\tilde{{\bf Y}}_{l})$
 \end_inset
 
 .
- 
+ Basin on this theory we will construct 
+\begin_inset Formula $L$
+\end_inset
+
+ decision trees 
+\begin_inset Formula $\hat{y}=T(\mathbf{x},\mathbf{w}_{l})$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{x}\in\tilde{{\bf X}}_{l}$
+\end_inset
+
+.
+ As a result for 
+\begin_inset Formula $l-$
+\end_inset
+
+th decision tree 
+\begin_inset Formula 
+\begin{equation}
+\mathbb{E}_{\pi^{*}}L=\frac{1}{N}\sum_{i=1}^{N}L(\mathbf{x}_{i,l},\mathbf{y}_{i,l},\mathbf{w}_{i})\delta(\mathbf{x}-\mathbf{x}_{i,l},\mathbf{y}-\mathbf{y}_{i,l})\label{eq:decision_tree_for_random_forest}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $(\mathbf{x}_{i,l},\mathbf{y}_{i,l})\in(\tilde{{\bf X}}_{l},\tilde{{\bf Y}}_{l})$
+\end_inset
+
+.
+ If we assume 
+\begin_inset Formula $\mathbf{w}_{l}$
+\end_inset
+
+ as a random variable then 
+\begin_inset Formula $L$
+\end_inset
+
+ decision trees form samples from probability density function 
+\begin_inset Formula $p(\text{y}|\mathbf{x},\mathbf{w})$
+\end_inset
+
+.
+ In other words 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{y}|\mathbf{x},\mathbf{w}_{l})=T(\mathbf{x},\mathbf{w}_{l}).\label{eq:decision_tree_as_random_variable}
+\end{equation}
+
+\end_inset
+
+Thus, we can say that classification probability 
+\begin_inset Formula $p(\text{\textbf{y}}|\mathbf{x})$
+\end_inset
+
+ can be written as 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{y}|\mathbf{x})=\int_{\mathbf{w}\in\mathbf{{\cal A}}}p(\mathbf{y}|\mathbf{x},\mathbf{w})p(\mathbf{w})d\mathbf{w}.\label{eq:classification_prob_for_random_forest}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula ${\cal A}$
+\end_inset
+
+ is an action space.
+ With the usage of samples 
+\begin_inset Formula $\mathbf{w}_{l}$
+\end_inset
+
+ we can approximate 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{y}|\mathbf{x})=\frac{1}{L}\sum_{l=1}^{L}T(\mathbf{x},\mathbf{w}_{l})\label{eq:approx_class_prob_for_random_forest}
+\end{equation}
+
+\end_inset
+
+where each decision tree 
+\begin_inset Formula $T(\mathbf{x},\mathbf{w}_{l})$
+\end_inset
+
+ is calculated with the usage of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:decision_tree_for_random_forest"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
 \end_layout
 
 \end_body
