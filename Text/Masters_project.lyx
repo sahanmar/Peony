@@ -111,7 +111,7 @@ Lets assume that we want to solve classification problem.
  We want to find such solution that will assign for each input value its
  class.
  Moreover, we want to make classification error as small as possible.
- Considering that input data 
+ Considering that exists data 
 \begin_inset Formula $\mathbf{x}\in{\bf X}\subset\mathbb{R}^{n}$
 \end_inset
 
@@ -123,7 +123,7 @@ Lets assume that we want to solve classification problem.
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
- is an input vectors of size 
+ are vectors of size 
 \begin_inset Formula $n$
 \end_inset
 
@@ -131,7 +131,7 @@ Lets assume that we want to solve classification problem.
 \begin_inset Formula ${\bf y}$
 \end_inset
 
- is its labels assigned to the data from space 
+ are its labels assigned to the data from space 
 \begin_inset Formula ${\bf X}$
 \end_inset
 
@@ -148,8 +148,8 @@ Lets assume that we want to solve classification problem.
 \end_layout
 
 \begin_layout Standard
-In order to make a classification with respect to some input data we must
- provide an action or in other words decision.
+In order to make a classification with respect to some data we must provide
+ an action or in other words decision.
  Let 
 \begin_inset Formula $a\in\mathcal{A}$
 \end_inset
@@ -255,8 +255,8 @@ name "subsec:decision_theory_svm"
 \end_layout
 
 \begin_layout Standard
-In this subsection will continue construction of the decision theory on
- the example of Support Vector Machine (SVM) method.
+In this subsection we will continue construction of the decision theory
+ on the example of Support Vector Machine (SVM) method.
  For simplicity lets consider linearly separable dataset.
  From the theoretical perspective SVM constructs hyperplane in high dimensional
  space that separates two classes.
@@ -337,7 +337,7 @@ where
 \end_layout
 
 \begin_layout Standard
-If we had available data 
+If we had available all data 
 \begin_inset Formula ${\bf X}$
 \end_inset
 
@@ -347,7 +347,7 @@ If we had available data
 
  we would not have to construct all this theory because all labels would
  be known and no classification problem must be solved.
- However, in most cases we would have little discrete subset 
+ However, in most cases we would have little discrete labeled subset 
 \begin_inset Formula $\tilde{{\bf X}}\subset{\bf X}$
 \end_inset
 
@@ -356,6 +356,12 @@ If we had available data
 \end_inset
 
 .
+ Of-course we have also data 
+\begin_inset Formula $\mathbf{X}\backslash\tilde{\mathbf{X}}$
+\end_inset
+
+ but we do not know their labels.
+ We know that they exist and we want to predict them.
  On the basis of 
 \begin_inset Formula $\mathbf{\tilde{X}}$
 \end_inset
@@ -364,8 +370,12 @@ If we had available data
 \begin_inset Formula $\mathbf{\tilde{Y}}$
 \end_inset
 
- we want to come up with a decision that will help us to label unlabeled
- data.
+ we want to come up with a decision that will help us to find labels of
+ the data 
+\begin_inset Formula $\mathbf{X}\backslash\tilde{\mathbf{X}}$
+\end_inset
+
+.
  In terms of SVM method we want to find such hyperplane that will label
  input values as a first class if it is 
 \begin_inset Quotes eld
@@ -1091,7 +1101,7 @@ L(\mathbf{x},\mathbf{y},\mathbf{w})=\begin{cases}
 
 \end_inset
 
-With the usage of the given dataset where 
+With the usage of the given data where 
 \begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
 \end_inset
 
@@ -1161,7 +1171,7 @@ Random Forest
 
 \begin_layout Standard
 Starting from the beginning we will assume that we work with a little discrete
- subset 
+ labeled subset 
 \begin_inset Formula $\tilde{{\bf X}}\subset{\bf X}$
 \end_inset
 
@@ -1178,8 +1188,12 @@ Starting from the beginning we will assume that we work with a little discrete
 \begin_inset Formula $\mathbf{\tilde{Y}}$
 \end_inset
 
- we want to come up with a decision that will help us to label unlabeled
- data.
+ we want to come up with a decision that will help us to predict labels
+ of data 
+\begin_inset Formula $\mathbf{X}\backslash\tilde{\mathbf{X}}$
+\end_inset
+
+.
  We want to consider 
 \begin_inset Formula $\mathbf{x}\in\mathbf{X}$
 \end_inset
