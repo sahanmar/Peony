@@ -112,11 +112,11 @@ Lets assume that we want to solve classification problem.
  class.
  Moreover, we want to make classification error as small as possible.
  Considering that exists data 
-\begin_inset Formula $\mathbf{x}\in{\bf X}\subset\mathbb{R}^{n}$
+\begin_inset Formula $\mathbf{x}\in{\cal X}\subset\mathbb{R}^{n}$
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{y\in}{\bf Y}$
+\begin_inset Formula $\mathbf{y\in}{\cal Y}$
 \end_inset
 
 , where 
@@ -132,19 +132,69 @@ Lets assume that we want to solve classification problem.
 \end_inset
 
  are its labels assigned to the data from space 
-\begin_inset Formula ${\bf X}$
+\begin_inset Formula ${\cal X}$
+\end_inset
+
+.
+ In this work we will use several definitions of the values from space 
+\begin_inset Formula ${\cal Y}$
 \end_inset
 
 .
  Each value from space 
-\begin_inset Formula $\mathbf{Y}$
+\begin_inset Formula ${\cal Y}$
 \end_inset
 
- is one or zero 
-\begin_inset Formula $\mathbf{y}\in\{0,1\}$
+ can be represented as a one hot representation that consist from ones and
+ zeros 
+\begin_inset Formula $\mathbf{y}\in\{(0,1)^{T},(1,0)^{T}\}$
 \end_inset
 
- that represents first or second class.
+ or as a scalars 
+\begin_inset Formula $\mathbf{y}=y\in\{0,1\}$
+\end_inset
+
+ (bold 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ is a vector that is why if we talk about a scalar we have to redefine 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ as 
+\begin_inset Formula $y$
+\end_inset
+
+).
+ These representations can be different with respect to the overviewed methods.
+ If we 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ is defined as a one hot representation them first class is represented
+ as 
+\begin_inset Formula $\mathbf{y}=(1,0)^{T}$
+\end_inset
+
+ and second class is represented as 
+\begin_inset Formula $\mathbf{y}=(0,1)^{T}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ is represented as scalar, then first class is 
+\begin_inset Formula $\mathbf{y}=y=1$
+\end_inset
+
+ and second class is 
+\begin_inset Formula $\mathbf{y}=y=0$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -244,6 +294,99 @@ Bayesian expected loss
 \end_layout
 
 \begin_layout Subsection
+Datasets
+\end_layout
+
+\begin_layout Standard
+Considering the data 
+\begin_inset Formula $\tilde{\mathbf{X}}$
+\end_inset
+
+ and its labels 
+\begin_inset Formula $\tilde{\mathbf{Y}}$
+\end_inset
+
+ are from spaces 
+\begin_inset Formula ${\cal X}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\cal Y}$
+\end_inset
+
+ respectively.
+ These are the data that can be assumed as a training set.
+ After we train our model we can add some more data from 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{Y}$
+\end_inset
+
+.
+ Those two sets meet the condition that 
+\begin_inset Formula $\tilde{\mathbf{X}}\subset\mathbf{X\subset{\cal X}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{\mathbf{Y}}\subset\mathbf{Y\subset{\cal Y}}$
+\end_inset
+
+.
+ We want to highlight that we do not have explicitly given labels from 
+\begin_inset Formula $\mathbf{Y}\backslash\tilde{\mathbf{Y}}$
+\end_inset
+
+.
+ What we can do is to take samples from 
+\begin_inset Formula $\mathbf{X}\backslash\tilde{\mathbf{X}}$
+\end_inset
+
+ and ask a human to label those samples.
+ For better understanding it can be described as a set of legal documents.
+ We have some documents that are labeled by a lawyer (this are sets 
+\begin_inset Formula $\tilde{\mathbf{X}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{\mathbf{Y}}$
+\end_inset
+
+).
+ However our model is not good enough for predicting labels from 
+\begin_inset Formula ${\cal X}\backslash\mathbf{X}$
+\end_inset
+
+.
+ We want to add some more training data that we will take from 
+\begin_inset Formula $\mathbf{X}\backslash\tilde{\mathbf{X}}$
+\end_inset
+
+ and ask the lawyer to label it.
+ Of-course we can use all set 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{Y}$
+\end_inset
+
+.
+ However our point is to find such an algorithm that needs as less documents
+ as possible from 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ and labels from 
+\begin_inset Formula $\mathbf{Y}$
+\end_inset
+
+ to get scores greater then our threshold.
+ 
+\end_layout
+
+\begin_layout Subsection
 Decision Theory and Support Vector Machine Algorithm
 \begin_inset CommandInset label
 LatexCommand label
@@ -285,18 +428,23 @@ In this subsection we will continue construction of the decision theory
 
 .
  From this knowledge we can define 
-\begin_inset Formula $\theta=(\mathbf{x},\mathbf{y})$
+\begin_inset Formula $\theta=(\mathbf{x},y)$
 \end_inset
 
  where tuple 
-\begin_inset Formula $(\mathbf{x},\mathbf{y})\in\mathbf{X}\times\mathbf{Y}$
+\begin_inset Formula $(\mathbf{x},y)\in{\cal X}\times{\cal Y}$
 \end_inset
 
  is parameters and 
-\begin_inset Formula $\varTheta=\mathbf{X}\times\mathbf{Y}$
+\begin_inset Formula $\varTheta={\cal X}\times{\cal Y}$
 \end_inset
 
  is a parameters' space.
+ In this case we used 
+\begin_inset Formula $\mathbf{y}=y\in\{0,1\}$
+\end_inset
+
+.
  Considering updated definitions, loss function (
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -310,7 +458,7 @@ noprefix "false"
 ) can be rewritten as
 \begin_inset Formula 
 \begin{equation}
-L=L(\mathbf{x},\mathbf{y},\mathbf{w},b).\label{eq:SVM_thoer_loss}
+L=L(\mathbf{x},y,\mathbf{w},b).\label{eq:SVM_thoer_loss}
 \end{equation}
 
 \end_inset
@@ -323,13 +471,13 @@ Following task is to understand how good is our action (hyperplane estimation)
  defined as 
 \begin_inset Formula 
 \begin{equation}
-L(\mathbf{x},\mathbf{y},\mathbf{w},b)=\max(0,1-{\bf y}\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b))\label{eq:hinge_loss}
+L(\mathbf{x},y,\mathbf{w},b)=\max(0,1-y\hat{y}(\mathbf{x},\mathbf{w},b))\label{eq:hinge_loss}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)=\mathbf{w}^{T}\mathbf{x}+b$
+\begin_inset Formula $\hat{y}(\mathbf{x},\mathbf{w},b)=\mathbf{w}^{T}\mathbf{x}+b$
 \end_inset
 
 .
@@ -337,32 +485,7 @@ where
 \end_layout
 
 \begin_layout Standard
-If we had available all data 
-\begin_inset Formula ${\bf X}$
-\end_inset
-
- and it its labels 
-\begin_inset Formula ${\bf Y}$
-\end_inset
-
- we would not have to construct all this theory because all labels would
- be known and no classification problem must be solved.
- However, in most cases we would have little discrete labeled subset 
-\begin_inset Formula $\tilde{{\bf X}}\subset{\bf X}$
-\end_inset
-
- and 
-\begin_inset Formula $\tilde{{\bf Y}}\subset{\bf Y}$
-\end_inset
-
-.
- Of-course we have also data 
-\begin_inset Formula $\mathbf{X}\backslash\tilde{\mathbf{X}}$
-\end_inset
-
- but we do not know their labels.
- We know that they exist and we want to predict them.
- On the basis of 
+On the basis of given data 
 \begin_inset Formula $\mathbf{\tilde{X}}$
 \end_inset
 
@@ -370,9 +493,9 @@ If we had available all data
 \begin_inset Formula $\mathbf{\tilde{Y}}$
 \end_inset
 
- we want to come up with a decision that will help us to find labels of
- the data 
-\begin_inset Formula $\mathbf{X}\backslash\tilde{\mathbf{X}}$
+ we want to come up with a decision that will help us to predict labels
+ of the data 
+\begin_inset Formula ${\cal X}\backslash\mathbf{X}$
 \end_inset
 
 .
@@ -403,41 +526,41 @@ below
 \begin_inset Formula $\tilde{{\bf Y}}$
 \end_inset
 
- fully describe dataset 
-\begin_inset Formula ${\bf X}$
+ fully describe spaces 
+\begin_inset Formula ${\cal X}$
 \end_inset
 
  and 
-\begin_inset Formula ${\bf Y}$
+\begin_inset Formula ${\cal Y}$
 \end_inset
 
 .
  Moreover we want to consider 
-\begin_inset Formula $\mathbf{x}\in\mathbf{X}$
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{y\in}\mathbf{Y}$
+\begin_inset Formula $y\in{\cal Y}$
 \end_inset
 
  are random variables with joint probability density function 
-\begin_inset Formula $p({\bf x},\mathbf{y})$
+\begin_inset Formula $p({\bf x},y)$
 \end_inset
 
 .
  We will also assume that 
-\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
+\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},y_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
 \end_inset
 
  are independent identically distributed.
  Probability density function 
-\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\begin_inset Formula $p(\mathbf{x},y)$
 \end_inset
 
  can be written as 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{x},\mathbf{y})=p(\mathbf{y}|\mathbf{x})p(\mathbf{x}).\label{eq:joint_prob_dist}
+p(\mathbf{x},y)=p(y|\mathbf{x})p(\mathbf{x}).\label{eq:joint_prob_dist}
 \end{equation}
 
 \end_inset
@@ -464,23 +587,23 @@ noprefix "false"
 .
  As a result, with the usage of those data, probability density function
  
-\begin_inset Formula $p({\bf x},\mathbf{y})$
+\begin_inset Formula $p({\bf x},y)$
 \end_inset
 
  can be approximated as 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{x},\mathbf{y})=\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})\label{eq:approx_of_joint_dist}
+p(\mathbf{x},y)=\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},y-y_{i})\label{eq:approx_of_joint_dist}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})$
+\begin_inset Formula $\delta(\mathbf{x}-\mathbf{x}_{i},y-y_{i})$
 \end_inset
 
  is Dirac delta function which is centered in 
-\begin_inset Formula $(\text{x}_{i},\mathbf{y}_{i})$
+\begin_inset Formula $(\text{x}_{i},y_{i})$
 \end_inset
 
 .
@@ -500,21 +623,21 @@ noprefix "false"
 ) we can evaluate expected loss function for SVM as follows 
 \begin_inset Formula 
 \begin{align*}
-\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w},b)p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\\
- & =\int_{\mathbf{X}\times\mathbf{Y}}\max(0,1-{\bf y}\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b))\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\\
- & =\frac{1}{N}\sum_{i=1}^{N}\max(0,1-{\bf y}_{i}\hat{\mathbf{y}}(\mathbf{x}_{i},\mathbf{w},b))
+\mathbb{E}_{\pi^{*}}L & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},y,\mathbf{w},b)p(\mathbf{x},y)d(\mathbf{x},y),\\
+ & =\int_{{\cal X}\times{\cal Y}}\max(0,1-y\hat{y}(\mathbf{x},\mathbf{w},b))\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},y-y_{i})d(\mathbf{x},y),\\
+ & =\frac{1}{N}\sum_{i=1}^{N}\max(0,1-y_{i}\hat{y}(\mathbf{x}_{i},\mathbf{w},b))
 \end{align*}
 
 \end_inset
 
 where 
-\begin_inset Formula $\hat{{\bf y}}(\mathbf{x}_{i},\mathbf{w},b)=\mathbf{w}^{T}\mathbf{x}_{i}+b.$
+\begin_inset Formula $\hat{y}(\mathbf{x}_{i},\mathbf{w},b)=\mathbf{w}^{T}\mathbf{x}_{i}+b.$
 \end_inset
 
  Expect loss function for SVM can be written as 
 \begin_inset Formula 
 \begin{equation}
-\rho(\mathbf{x}_{i},\mathbf{w},b)=\frac{1}{N}\sum_{i=1}^{N}\max(0,1-{\bf y}_{i}\mathbf{w}^{T}\mathbf{x}_{i}+b).\label{eq:expected_loss_SVM}
+\rho(\mathbf{x}_{i},\mathbf{w},b)=\frac{1}{N}\sum_{i=1}^{N}\max(0,1-y_{i}\mathbf{w}^{T}\mathbf{x}_{i}+b).\label{eq:expected_loss_SVM}
 \end{equation}
 
 \end_inset
@@ -547,11 +670,11 @@ noprefix "false"
 
 .
  However in this case our decision is to finds estimate 
-\begin_inset Formula $\mathbf{\hat{y}}=\mathbf{\hat{y}}(\mathbf{x},\mathbf{W},\mathbf{b})$
+\begin_inset Formula $\hat{y}=\hat{y}(\mathbf{x},\mathbf{W},\mathbf{b})$
 \end_inset
 
  of the probability density function 
-\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\begin_inset Formula $p(y|\mathbf{x})$
 \end_inset
 
  where 
@@ -561,7 +684,7 @@ noprefix "false"
  is the input data, 
 \series bold
 
-\begin_inset Formula $\mathbf{y}$
+\begin_inset Formula $\mathbf{y}=y\in\{0,1\}$
 \end_inset
 
 
@@ -584,7 +707,7 @@ noprefix "false"
 \end_inset
 
  will be parameters' and biases' space of 
-\begin_inset Formula $\mathbf{\hat{y}}$
+\begin_inset Formula $\hat{y}$
 \end_inset
 
 .
@@ -599,11 +722,11 @@ noprefix "false"
 \end_inset
 
  we can define 
-\begin_inset Formula $(\mathbf{x},\mathbf{y})$
+\begin_inset Formula $(\mathbf{x},y)$
 \end_inset
 
  are parameters of the loss function and 
-\begin_inset Formula $\mathbf{X}\times\mathbf{Y}$
+\begin_inset Formula ${\cal X}\times{\cal Y}$
 \end_inset
 
  is a parameters' space.
@@ -611,7 +734,7 @@ noprefix "false"
  entropy loss function that is defined as 
 \begin_inset Formula 
 \begin{equation}
-L(\mathbf{x},\mathbf{y},\mathbf{w},b)=-\mathbf{y}\ln\big(\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)-(1-\mathbf{y})\ln\big((1-\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big).\label{eq:cross_entropy_loss}
+L(\mathbf{x},y,\mathbf{w},b)=-y\ln\big(\hat{y}(\mathbf{x},\mathbf{w},b)\big)-(1-y)\ln\big((1-\hat{y}(\mathbf{x},\mathbf{w},b)\big).\label{eq:cross_entropy_loss}
 \end{equation}
 
 \end_inset
@@ -627,24 +750,24 @@ noprefix "false"
 \end_inset
 
  we consider 
-\begin_inset Formula $\mathbf{x}\in\mathbf{X}$
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{y\in}\mathbf{Y}$
+\begin_inset Formula $\mathbf{y\in}{\cal Y}$
 \end_inset
 
  are random variables with joint probability density function 
-\begin_inset Formula $p({\bf x},\mathbf{y})$
+\begin_inset Formula $p({\bf x},y)$
 \end_inset
 
 .
  With the usage of the given dataset where 
-\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
+\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},y_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
 \end_inset
 
  are independent identically distributed we can approximate 
-\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\begin_inset Formula $p(\mathbf{x},y)$
 \end_inset
 
  as (
@@ -672,9 +795,9 @@ noprefix "false"
  evaluated as 
 \begin_inset Formula 
 \begin{align}
-\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w},b)p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & =-\int_{\mathbf{X}\times\mathbf{Y}}\Big(\mathbf{y}\ln\big(\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y})\ln\big((1-\hat{\mathbf{y}}(\mathbf{x},\mathbf{w},b)\big)\Big)\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & =-\frac{1}{N}\sum_{i=1}^{N}\Big(\mathbf{y}_{i}\ln\big(\hat{\mathbf{y}}_{i}(\mathbf{x},\mathbf{w},b)\big)+(1-\mathbf{y}_{i})\ln\big((1-\hat{\mathbf{y}}_{i}(\mathbf{x},\mathbf{w},b)\big)\Big).\label{eq:expected_loss_cross_entropy}
+\mathbb{E}_{\pi^{*}}L & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},y,\mathbf{w},b)p(\mathbf{x},y)d(\mathbf{x},y),\nonumber \\
+ & =-\int_{\mathbf{{\cal X}}\times{\cal Y}}\Big(y\ln\big(\hat{y}(\mathbf{x},\mathbf{w},b)\big)+(1-y)\ln\big((1-\hat{y}(\mathbf{x},\mathbf{w},b)\big)\Big)\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},y-y_{i})d(\mathbf{x},y),\nonumber \\
+ & =-\frac{1}{N}\sum_{i=1}^{N}\Big(y_{i}\ln\big(\hat{y}_{i}(\mathbf{x},\mathbf{w},b)\big)+(1-y_{i})\ln\big((1-\hat{y}_{i}(\mathbf{x},\mathbf{w},b)\big)\Big).\label{eq:expected_loss_cross_entropy}
 \end{align}
 
 \end_inset
@@ -694,20 +817,17 @@ name "subsec:decision_theory_nb"
 \end_layout
 
 \begin_layout Standard
-Naive Bayes algorithm same as neural network based algorithms or SVM tries
- to find an estimate 
-\begin_inset Formula $\tilde{p}(\mathbf{y}=k|\mathbf{x},\mathbf{w})$
-\end_inset
-
- of probability density function 
-\begin_inset Formula $p(\mathbf{y}=k|\mathbf{x})$
+Naive Bayes algorithm is a bit different to the algorithm based on Neural
+ Networks and SVM.
+ In the case of Naive Bayes we want to estimate 
+\begin_inset Formula $p(\mathbf{w}|\mathbf{x},\mathbf{y})$
 \end_inset
 
  where 
 \begin_inset Formula $\mathbf{w}$
 \end_inset
 
- is set of parameters of a pdf, 
+ is set of parameters of a specific probability density function, 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
@@ -719,15 +839,30 @@ Naive Bayes algorithm same as neural network based algorithms or SVM tries
 
  
 \series default
-is the label assigned to 
+is the label in a one hot representation assigned to 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
- and 
-\begin_inset Formula $k$
+.
+ The reason why we look for an estimate of the 
+\begin_inset Formula $p(\mathbf{w}|\mathbf{x},\mathbf{y})$
 \end_inset
 
- is a class.
+ but not 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x},\mathbf{w})$
+\end_inset
+
+ is due to the fact that in the case of 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x},\mathbf{w})$
+\end_inset
+
+ we would get an expression where normalization constant would be dependent
+ on the vector 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+.
+ That fact would make our computations very complicated.
  Before continuing with a loss function construction we would like to go
  trough Naive Bayes (NB) method.
  Assuming binary classification problem.
@@ -736,22 +871,31 @@ is the label assigned to
  
 \series default
 
-\begin_inset Formula $p(\mathbf{y}=k|\mathbf{x})$
-\end_inset
-
- where 
-\begin_inset Formula $k\in\{0,1\}$
+\begin_inset Formula $p(\mathbf{w}|\mathbf{x},\mathbf{y})$
 \end_inset
 
  as follows 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{y}=k|\mathbf{x})=\frac{p(\mathbf{x}|\mathbf{y}=k)p(\mathbf{y}=k)}{\int_{\mathbf{Y}}p(\mathbf{x}|\mathbf{y})p(\mathbf{y})d\mathbf{y}}.\label{eq:bayes_rule}
+p(\mathbf{w}|\mathbf{x},\mathbf{y})=\frac{p(\mathbf{y})p(\mathbf{x}|\mathbf{y},\mathbf{w})p(\mathbf{w})}{\int_{\mathbf{{\cal W}}}p(\mathbf{x},\mathbf{y}|\mathbf{w})p(\mathbf{w})d\mathbf{w}}\label{eq:bayes_rule}
 \end{equation}
 
 \end_inset
 
-However, Naive Bayes method introduces in equation (
+where 
+\begin_inset Formula ${\cal W}$
+\end_inset
+
+ is a space of 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Naive Bayes method introduces very strong assumption in equation (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:bayes_rule"
@@ -761,19 +905,30 @@ noprefix "false"
 
 \end_inset
 
-) very strong assumption that features of vector 
+).
+ This assumption says that features of vector 
 \begin_inset Formula $\mathbf{x}=(x_{1},x_{2},...,x_{n})^{T}$
 \end_inset
 
  are conditionally independent.
  As a result estimation of 
-\begin_inset Formula $p(\mathbf{y}=k|\mathbf{x})$
+\begin_inset Formula $p(\mathbf{w}|\mathbf{x},\mathbf{y})$
 \end_inset
 
  is 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+NOT FINISHED!!!!
+\end_layout
+
+\end_inset
+
+
 \begin_inset Formula 
 \begin{equation}
-\tilde{p}(\mathbf{y}=k|\mathbf{x},\mathbf{w})=\frac{1}{Z(\mathbf{w})}p(\mathbf{y}=k)\prod_{i=1}^{n}p(x_{i}|\mathbf{y}=k,\mathbf{w}_{i}=\mathbf{w}_{i,k}),\label{eq:naive_bayes_eq}
+\tilde{p}(\mathbf{w}|\mathbf{x},\mathbf{y})=\frac{1}{Z}p(\mathbf{y})\prod_{i=1}^{n}\big(p(x_{i}|\mathbf{y},\mathbf{w}_{i})^{y_{1}}p(x_{i}|\mathbf{y},\mathbf{w}_{i})^{y_{2}}\big),\label{eq:naive_bayes_eq}
 \end{equation}
 
 \end_inset
@@ -1017,40 +1172,47 @@ Decision Tree
 \end_layout
 
 \begin_layout Standard
-In this section we expect our decision three to give us also an estimate
- 
-\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\mathbf{w})\in\{0,1\}$
+In this section we expect our decision three to give us an estimate 
+\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\mathbf{w})\in\{(0,1)^{T},(1,0)^{T}\}$
 \end_inset
 
  where 
 \begin_inset Formula $\mathbf{w}$
 \end_inset
 
- is a vector tree parameters (depth, nodes, etc.), 
-\begin_inset Formula $\mathbf{x}\in{\bf X}\subset\mathbb{R}^{n}$
+ is a vector that describes tree (depth, branches, etc.), 
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{y\in}{\bf Y}$
-\end_inset
-
-, where 
-\begin_inset Formula $\mathbf{x}$
-\end_inset
-
- is an input vectors of size 
-\begin_inset Formula $n$
-\end_inset
-
- and 
-\begin_inset Formula ${\bf y}$
-\end_inset
-
- is its labels assigned to the data from space 
-\begin_inset Formula ${\bf X}$
+\begin_inset Formula $\mathbf{y\in}{\cal Y}$
 \end_inset
 
 .
+ It is very important to mention that for different trees 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+ can be different.
+ Thus, for consistency we will assume that for all 
+\begin_inset Formula $\mathbf{w}\in{\cal W}$
+\end_inset
+
+ exists upper bound, where 
+\begin_inset Formula ${\cal W}$
+\end_inset
+
+ is redefined as a space of tree parameters.
+ As a result we will make all 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+ same length.
+ If 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+ has spare slots, they will be filled with zeros.
  Parameter space will be same as in 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1075,19 +1237,11 @@ noprefix "false"
 \begin_inset Formula $a\in{\cal A}$
 \end_inset
 
- will represent a parameters' vector 
-\begin_inset Formula $\mathbf{w}$
+ will be represented as 
+\begin_inset Formula ${\cal A}={\cal W}$
 \end_inset
 
 .
- While construction decision tree we choose such feature 
-\begin_inset Formula $x_{i}\in(x_{1},...,x_{n})^{T}=\mathbf{x}$
-\end_inset
-
- that will bring as the highest information about the system.
- This feature will form first layer, then we add another feature with the
- highest informational gain and construct second layer.
- Basing of this method we construct nodes and add more and more layers.
  In order to understand when our tree is optimal we can use zero-one loss
  function.
  Zero-one loss function is defined as 
@@ -1124,8 +1278,8 @@ noprefix "false"
  
 \begin_inset Formula 
 \begin{align*}
-\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\\
- & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\\
+\mathbb{E}_{\pi^{*}}L & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\\
+ & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\\
  & =\frac{1}{N}\sum_{i=1}^{N}L(\mathbf{x}_{i},\mathbf{y}_{i},\mathbf{w})\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})
 \end{align*}
 
@@ -1145,6 +1299,20 @@ noprefix "false"
 
 \end_inset
 
+).
+ 
+\end_layout
+
+\begin_layout Standard
+If we want to minimize expected loss we have to follow next steps.
+ While construction decision tree we choose such feature 
+\begin_inset Formula $x_{i}\in(x_{1},...,x_{n})^{T}=\mathbf{x}$
+\end_inset
+
+ that will bring as the highest information about the system.
+ This feature will form first layer, then we add another feature with the
+ highest informational gain and construct second layer.
+ Basing of this method we construct nodes and add more and more layers (branches
 ).
 \end_layout
 
@@ -1170,17 +1338,7 @@ Random Forest
 \end_layout
 
 \begin_layout Standard
-Starting from the beginning we will assume that we work with a little discrete
- labeled subset 
-\begin_inset Formula $\tilde{{\bf X}}\subset{\bf X}$
-\end_inset
-
- and 
-\begin_inset Formula $\tilde{{\bf Y}}\subset{\bf Y}$
-\end_inset
-
-.
- On the basis of 
+With the usage of the given data 
 \begin_inset Formula $\mathbf{\tilde{X}}$
 \end_inset
 
@@ -1189,17 +1347,17 @@ Starting from the beginning we will assume that we work with a little discrete
 \end_inset
 
  we want to come up with a decision that will help us to predict labels
- of data 
-\begin_inset Formula $\mathbf{X}\backslash\tilde{\mathbf{X}}$
+ of the data 
+\begin_inset Formula ${\cal X}\backslash\mathbf{X}$
 \end_inset
 
 .
  We want to consider 
-\begin_inset Formula $\mathbf{x}\in\mathbf{X}$
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{y\in}\mathbf{Y}$
+\begin_inset Formula $\mathbf{y\in}{\cal Y}$
 \end_inset
 
  are random variables with joint probability density function 
@@ -1227,36 +1385,16 @@ noprefix "false"
 \end_inset
 
 ).
- Due to the fact that we have limited scopes of the data.
- In previous section we had quite strong assumption that the data 
-\begin_inset Formula $\tilde{{\bf X}}$
-\end_inset
-
- and its labels 
-\begin_inset Formula $\tilde{{\bf Y}}$
-\end_inset
-
- fully describe dataset 
-\begin_inset Formula ${\bf X}$
-\end_inset
-
- and 
-\begin_inset Formula ${\bf Y}$
-\end_inset
-
-.
- In that case we will not do this because with the assumption that given
- scopes describe initial dataset our solution will not have any sense.
  
 \end_layout
 
 \begin_layout Standard
 With the usage of 
-\begin_inset Formula $\tilde{{\bf X}}\subset{\bf X}$
+\begin_inset Formula $\tilde{{\bf X}}$
 \end_inset
 
  and 
-\begin_inset Formula $\tilde{{\bf Y}}\subset{\bf Y}$
+\begin_inset Formula $\tilde{{\bf Y}}$
 \end_inset
 
  we will make 
@@ -1316,7 +1454,7 @@ With the usage of
 \end_inset
 
 .
- Basin on this theory we will construct 
+ Basing on this theory we will construct 
 \begin_inset Formula $L$
 \end_inset
 
@@ -1336,13 +1474,25 @@ With the usage of
 th decision tree 
 \begin_inset Formula 
 \begin{equation}
-\mathbb{E}_{\pi^{*}}L=\frac{1}{N}\sum_{i=1}^{N}L(\mathbf{x}_{i,l},\mathbf{y}_{i,l},\mathbf{w}_{i})\delta(\mathbf{x}-\mathbf{x}_{i,l},\mathbf{y}-\mathbf{y}_{i,l})\label{eq:decision_tree_for_random_forest}
+\mathbb{E}_{\pi^{*}}L=\frac{1}{N_{l}}\sum_{i=1}^{N_{l}}L(\mathbf{x}_{i,l},\mathbf{y}_{i,l},\mathbf{w}_{l})\delta(\mathbf{x}-\mathbf{x}_{i,l},\mathbf{y}-\mathbf{y}_{i,l})\label{eq:decision_tree_for_random_forest}
 \end{equation}
 
 \end_inset
 
 where 
 \begin_inset Formula $(\mathbf{x}_{i,l},\mathbf{y}_{i,l})\in(\tilde{{\bf X}}_{l},\tilde{{\bf Y}}_{l})$
+\end_inset
+
+ and 
+\begin_inset Formula $N_{l}$
+\end_inset
+
+ is a number of the data in 
+\begin_inset Formula $\tilde{{\bf X}}_{l}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{\mathbf{Y}}_{l}$
 \end_inset
 
 .
@@ -1362,12 +1512,21 @@ where
  In other words 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{y}|\mathbf{x},\mathbf{w}_{l})=T(\mathbf{x},\mathbf{w}_{l}).\label{eq:decision_tree_as_random_variable}
+p(\mathbf{y}|\mathbf{x},\mathbf{w}_{l})=T(\mathbf{x},\mathbf{w}_{l})^{y_{1}}T(\mathbf{x},\mathbf{w}_{l})^{y_{2}}\label{eq:decision_tree_as_random_variable}
 \end{equation}
 
 \end_inset
 
-Thus, we can say that classification probability 
+where label 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ is written as a one-hot representation 
+\begin_inset Formula $\mathbf{y}=(y_{1},y_{2})^{T}$
+\end_inset
+
+.
+ Thus, we can say that classification probability 
 \begin_inset Formula $p(\text{\textbf{y}}|\mathbf{x})$
 \end_inset
 
@@ -1395,7 +1554,7 @@ where
  as 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{y}|\mathbf{x})=\frac{1}{L}\sum_{l=1}^{L}T(\mathbf{x},\mathbf{w}_{l})\label{eq:approx_class_prob_for_random_forest}
+p(\mathbf{y}|\mathbf{x})=\frac{1}{L}\sum_{l=1}^{L}T(\mathbf{x},\mathbf{w}_{l})^{y_{1}}T(\mathbf{x},\mathbf{w}_{l})^{y_{2}}\label{eq:approx_class_prob_for_random_forest}
 \end{equation}
 
 \end_inset
