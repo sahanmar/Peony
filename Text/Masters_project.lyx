@@ -92,8 +92,8 @@ Decision Theory
 Marko Sahan
 \end_layout
 
-\begin_layout Section
-Introduction to Decision Theory
+\begin_layout Part
+Introduction
 \end_layout
 
 \begin_layout Standard
@@ -151,7 +151,7 @@ Lets assume that we want to solve classification problem.
 \end_inset
 
  or as a scalars 
-\begin_inset Formula $\mathbf{y}=y\in\{0,1\}$
+\begin_inset Formula $y\in\{0,1\}$
 \end_inset
 
  (bold 
@@ -187,11 +187,11 @@ Lets assume that we want to solve classification problem.
 \end_inset
 
  is represented as scalar, then first class is 
-\begin_inset Formula $\mathbf{y}=y=1$
+\begin_inset Formula $y=1\Leftrightarrow\mathbf{y}=(1,0)^{T}$
 \end_inset
 
  and second class is 
-\begin_inset Formula $\mathbf{y}=y=0$
+\begin_inset Formula $y=0\Leftrightarrow\mathbf{y}=(0,1)^{T}$
 \end_inset
 
 .
@@ -293,8 +293,42 @@ Bayesian expected loss
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 Datasets
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Datasets"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have already defined spaces 
+\begin_inset Formula ${\cal X}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\cal Y}$
+\end_inset
+
+ above.
+ However, we must define the data with which we are going to work.
+ In this project we work with tuples of variables 
+\begin_inset Formula $(\mathbf{x},\mathbf{y})\in{\cal X\times Y}$
+\end_inset
+
+.
+ For example 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ can be a text document and 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ can be its label that will show if the document is relevant or not.
 \end_layout
 
 \begin_layout Standard
@@ -315,75 +349,105 @@ Considering the data
 \end_inset
 
  respectively.
- These are the data that can be assumed as a training set.
- After we train our model we can add some more data from 
-\begin_inset Formula $\mathbf{X}$
+ These are the data that form a training set 
+\series bold
+
+\begin_inset Formula $(\tilde{\mathbf{X}}\times\mathbf{\tilde{Y}})$
 \end_inset
 
- and 
-\begin_inset Formula $\mathbf{Y}$
+
+\series default
+.
+ After we train our model we can continue training our model with the data
+ from 
+\begin_inset Formula $\mathbf{X}\in{\cal X}$
 \end_inset
 
 .
- Those two sets meet the condition that 
-\begin_inset Formula $\tilde{\mathbf{X}}\subset\mathbf{X\subset{\cal X}}$
-\end_inset
-
- and 
-\begin_inset Formula $\tilde{\mathbf{Y}}\subset\mathbf{Y\subset{\cal Y}}$
-\end_inset
-
-.
- We want to highlight that we do not have explicitly given labels from 
-\begin_inset Formula $\mathbf{Y}\backslash\tilde{\mathbf{Y}}$
-\end_inset
-
-.
- What we can do is to take samples from 
-\begin_inset Formula $\mathbf{X}\backslash\tilde{\mathbf{X}}$
-\end_inset
-
- and ask a human to label those samples.
- For better understanding it can be described as a set of legal documents.
- We have some documents that are labeled by a lawyer (this are sets 
-\begin_inset Formula $\tilde{\mathbf{X}}$
-\end_inset
-
- and 
-\begin_inset Formula $\tilde{\mathbf{Y}}$
-\end_inset
-
-).
- However our model is not good enough for predicting labels from 
-\begin_inset Formula ${\cal X}\backslash\mathbf{X}$
-\end_inset
-
-.
- We want to add some more training data that we will take from 
-\begin_inset Formula $\mathbf{X}\backslash\tilde{\mathbf{X}}$
-\end_inset
-
- and ask the lawyer to label it.
- Of-course we can use all set 
-\begin_inset Formula $\mathbf{X}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{Y}$
-\end_inset
-
-.
- However our point is to find such an algorithm that needs as less documents
- as possible from 
-\begin_inset Formula $\mathbf{X}$
-\end_inset
-
- and labels from 
-\begin_inset Formula $\mathbf{Y}$
-\end_inset
-
- to get scores greater then our threshold.
+ However it is important to understand that we have no labels for the set
  
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+.
+ We can ask for a help from an annotator that can give us those labels.
+ We assume that getting labels needs some time and is very expensive.
+ For example we can think that our model is not good enough and we want
+ to ask a group of lawyers to classify if some more unlabeled documents
+ are relevant or not.
+ Data labeling will take both some time and will be quite costly.
+ 
+\end_layout
+
+\begin_layout Standard
+In this work, set 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ will be used for the active learning section.
+ We want to show that if we choose the documents for labeling from the set
+ 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ smartly our models will start to show better scores faster then if we choose
+ the data for labeling randomly.
+ 
+\end_layout
+
+\begin_layout Standard
+Basing on the definition of the datasets above we can assume that 
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y\in{\cal Y}}$
+\end_inset
+
+ are random variables.
+ If both 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ are random variables than tuples 
+\begin_inset Formula $(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ must be samples from a joint probability density function 
+\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\end_inset
+
+.
+ With the usage of conditional probability rule 
+\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ can be written as 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{x},y)=p(y|\mathbf{x})p(\mathbf{x})
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $p(\mathbf{x})$
+\end_inset
+
+ is given and 
+\begin_inset Formula $p(y|\mathbf{x})$
+\end_inset
+
+ is a pdf that we want to estimate.
+ 
+\end_layout
+
+\begin_layout Section
+Decision Theory for Supervised Learning
 \end_layout
 
 \begin_layout Subsection
@@ -441,7 +505,7 @@ In this subsection we will continue construction of the decision theory
 
  is a parameters' space.
  In this case we used 
-\begin_inset Formula $\mathbf{y}=y\in\{0,1\}$
+\begin_inset Formula $y\in\{0,1\}$
 \end_inset
 
 .
@@ -495,7 +559,7 @@ On the basis of given data
 
  we want to come up with a decision that will help us to predict labels
  of the data 
-\begin_inset Formula ${\cal X}\backslash\mathbf{X}$
+\begin_inset Formula ${\cal X}$
 \end_inset
 
 .
@@ -535,7 +599,7 @@ below
 \end_inset
 
 .
- Moreover we want to consider 
+ Moreover we consider 
 \begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
 
@@ -742,7 +806,7 @@ L(\mathbf{x},y,\mathbf{w},b)=-y\ln\big(\hat{y}(\mathbf{x},\mathbf{w},b)\big)-(1-
 Continuing using assumptions from 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "subsec:decision_theory_svm"
+reference "subsec:Datasets"
 plural "false"
 caps "false"
 noprefix "false"
@@ -797,7 +861,7 @@ noprefix "false"
 \begin{align}
 \mathbb{E}_{\pi^{*}}L & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},y,\mathbf{w},b)p(\mathbf{x},y)d(\mathbf{x},y),\nonumber \\
  & =-\int_{\mathbf{{\cal X}}\times{\cal Y}}\Big(y\ln\big(\hat{y}(\mathbf{x},\mathbf{w},b)\big)+(1-y)\ln\big((1-\hat{y}(\mathbf{x},\mathbf{w},b)\big)\Big)\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},y-y_{i})d(\mathbf{x},y),\nonumber \\
- & =-\frac{1}{N}\sum_{i=1}^{N}\Big(y_{i}\ln\big(\hat{y}_{i}(\mathbf{x},\mathbf{w},b)\big)+(1-y_{i})\ln\big((1-\hat{y}_{i}(\mathbf{x},\mathbf{w},b)\big)\Big).\label{eq:expected_loss_cross_entropy}
+ & =-\frac{1}{N}\sum_{i=1}^{N}\Big(y_{i}\ln\big(\hat{y}_{i}(\mathbf{x}_{i},\mathbf{w},b)\big)+(1-y_{i})\ln\big((1-\hat{y}_{i}(\mathbf{x}_{i},\mathbf{w},b)\big)\Big).\label{eq:expected_loss_cross_entropy}
 \end{align}
 
 \end_inset
@@ -820,14 +884,18 @@ name "subsec:decision_theory_nb"
 Naive Bayes algorithm is a bit different to the algorithm based on Neural
  Networks and SVM.
  In the case of Naive Bayes we want to estimate 
-\begin_inset Formula $p(\mathbf{w}|\mathbf{x},\mathbf{y})$
+\begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
 \end_inset
 
  where 
-\begin_inset Formula $\mathbf{w}$
+\begin_inset Formula $\mathbf{W}\in{\cal W}$
 \end_inset
 
- is set of parameters of a specific probability density function, 
+ is set of parameters of a specific probability density function of 
+\begin_inset Formula $(\mathbf{x},\mathbf{y})$
+\end_inset
+
+, 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
@@ -845,7 +913,7 @@ is the label in a one hot representation assigned to
 
 .
  The reason why we look for an estimate of the 
-\begin_inset Formula $p(\mathbf{w}|\mathbf{x},\mathbf{y})$
+\begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
 \end_inset
 
  but not 
@@ -853,12 +921,12 @@ is the label in a one hot representation assigned to
 \end_inset
 
  is due to the fact that in the case of 
-\begin_inset Formula $p(\mathbf{y}|\mathbf{x},\mathbf{w})$
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x},\mathbf{W})$
 \end_inset
 
  we would get an expression where normalization constant would be dependent
- on the vector 
-\begin_inset Formula $\mathbf{w}$
+ on the set of parameters 
+\begin_inset Formula $\mathbf{W}$
 \end_inset
 
 .
@@ -871,13 +939,13 @@ is the label in a one hot representation assigned to
  
 \series default
 
-\begin_inset Formula $p(\mathbf{w}|\mathbf{x},\mathbf{y})$
+\begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
 \end_inset
 
  as follows 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{w}|\mathbf{x},\mathbf{y})=\frac{p(\mathbf{y})p(\mathbf{x}|\mathbf{y},\mathbf{w})p(\mathbf{w})}{\int_{\mathbf{{\cal W}}}p(\mathbf{x},\mathbf{y}|\mathbf{w})p(\mathbf{w})d\mathbf{w}}\label{eq:bayes_rule}
+p(\mathbf{W}|\mathbf{x},\mathbf{y})=\frac{p(\mathbf{y})p(\mathbf{x}|\mathbf{y},\mathbf{W})p(\mathbf{W})}{\int_{\mathbf{{\cal W}}}p(\mathbf{x},\mathbf{y}|\mathbf{W})p(\mathbf{W})d\mathbf{W}}\label{eq:bayes_rule}
 \end{equation}
 
 \end_inset
@@ -887,7 +955,7 @@ where
 \end_inset
 
  is a space of 
-\begin_inset Formula $\mathbf{w}$
+\begin_inset Formula $\mathbf{W}$
 \end_inset
 
 .
@@ -912,23 +980,13 @@ noprefix "false"
 
  are conditionally independent.
  As a result estimation of 
-\begin_inset Formula $p(\mathbf{w}|\mathbf{x},\mathbf{y})$
+\begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
 \end_inset
 
- is 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-NOT FINISHED!!!!
-\end_layout
-
-\end_inset
-
-
+ can be approximated as
 \begin_inset Formula 
 \begin{equation}
-\tilde{p}(\mathbf{w}|\mathbf{x},\mathbf{y})=\frac{1}{Z}p(\mathbf{y})\prod_{i=1}^{n}\big(p(x_{i}|\mathbf{y},\mathbf{w}_{i})^{y_{1}}p(x_{i}|\mathbf{y},\mathbf{w}_{i})^{y_{2}}\big),\label{eq:naive_bayes_eq}
+\tilde{p}(\mathbf{W}|\mathbf{x},\mathbf{y})=\frac{1}{Z}p(\mathbf{y})p(\mathbf{W})\prod_{i=1}^{n}\big(p(x_{i}|y_{1},\mathbf{w}_{i})^{y_{1}}p(x_{i}|y_{2},\mathbf{w}_{i})^{y_{2}}\big),\label{eq:naive_bayes_eq}
 \end{equation}
 
 \end_inset
@@ -936,65 +994,30 @@ NOT FINISHED!!!!
 where 
 \series bold
 
-\begin_inset Formula $p(\mathbf{y}=k)$
+\begin_inset Formula $\mathbf{y}=(y_{1},y_{2})$
 \end_inset
 
 
 \series default
- is probability density function of the labels, 
-\begin_inset Formula $p(x_{i}|\mathbf{y}=k,\mathbf{w}=\mathbf{w}_{i,k})$
+ is a one-hot representation of 
+\begin_inset Formula $\mathbf{y}$
 \end_inset
 
- is a probability density function of the data features conditioned with
- label, 
-\begin_inset Formula $Z(\mathbf{w})$
+, 
+\begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n})$
 \end_inset
 
- is a normalizing parameter for class 
-\begin_inset Formula $k$
+, 
+\begin_inset Formula $Z$
 \end_inset
 
- and 
-\begin_inset Formula $\mathbf{w}=(\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n})$
-\end_inset
-
-.
- It is important to highlight that we can have parametric distribution 
-\begin_inset Formula $p(x_{i}|\mathbf{y}=k,\mathbf{w}_{i}=\mathbf{w}_{i,k})$
-\end_inset
-
- that is dependent on parameters vector 
-\begin_inset Formula $\mathbf{\mathbf{w}}_{i,k}$
+ is a normalizing constant.
+ We want to maximize probability 
+\begin_inset Formula $\tilde{p}(\mathbf{W}|\mathbf{x},\mathbf{y})$
 \end_inset
 
 .
- We must understand that for each class 
-\begin_inset Formula $\mathbf{y}=k$
-\end_inset
-
- parameters vector 
-\begin_inset Formula $\mathbf{w}=(\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n})$
-\end_inset
-
- will be different.
- As a result for each feature 
-\begin_inset Formula $i\in\{1,2...,n\}$
-\end_inset
-
- we introduce index 
-\begin_inset Formula $k$
-\end_inset
-
- and write 
-\begin_inset Formula $\mathbf{w}_{i}=\mathbf{w}_{i,k}$
-\end_inset
-
- for 
-\begin_inset Formula $\mathbf{y}=k$
-\end_inset
-
-.
- In this case loss function will be derived from (
+ As a result, using 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:naive_bayes_eq"
@@ -1004,21 +1027,15 @@ noprefix "false"
 
 \end_inset
 
-).
- We want to maximize our probability estimate 
-\begin_inset Formula $\tilde{p}(\mathbf{y}=k|\mathbf{x},\mathbf{w})$
-\end_inset
-
-.
- Thus, loss function 
+, loss function 
 \begin_inset Formula $L$
 \end_inset
 
  will be represented as 
 \begin_inset Formula 
 \begin{align}
-L(\mathbf{y},\mathbf{x},\mathbf{w}) & =-\log\big(\tilde{p}(\mathbf{y}=k|\mathbf{x},\mathbf{w})\big),\label{eq:nb_loss}\\
- & =\log(Z(\mathbf{w})-\log\big(p(\mathbf{y}=k)\big)-\sum_{i=1}^{n}\log\big(p(x_{i}|\mathbf{y}=k,\mathbf{w}_{i}=\mathbf{w}_{i,k})\big).
+L(\mathbf{y},\mathbf{x},\mathbf{w}) & =-\log\big(\tilde{p}(\mathbf{W}|\mathbf{x},\mathbf{y}),\label{eq:nb_loss}\\
+ & =\log(Z)-\log\big(p(\mathbf{y})\big)-\log\big(p(\mathbf{W})\big)-\sum_{i=1}^{n}\log\big(p(x_{i}|y_{1},\mathbf{w}_{i})^{y_{1}}p(x_{i}|y_{2},\mathbf{w}_{i})^{y_{2}}\big).
 \end{align}
 
 \end_inset
@@ -1064,19 +1081,19 @@ noprefix "false"
 
 \begin_inset Formula 
 \begin{align}
-\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{X}\times\mathbf{Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & \int_{\mathbf{X}\times\mathbf{Y}}\Big(\xi_{k}(\mathbf{w})-\sum_{i=1}^{n}\log\big(p(x_{i}|\mathbf{y}=k,\mathbf{w}_{i}=\mathbf{w}_{i,k})\big)\Big)\frac{1}{N}\sum_{j=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{j},\mathbf{y}-\mathbf{y}_{j})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & \frac{1}{N}\sum_{j=1}^{N}\Big(\xi_{j,k}(\mathbf{w})-\sum_{i=1}^{n}\log\big(p(x_{i}|\mathbf{y}=k,\mathbf{w}_{i}=\mathbf{w}_{i,k})\big)\Big)\label{eq:expected_loss_mle_or_map}
+\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{{\cal X}}\times\mathbf{{\cal Y}}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & \int_{\mathbf{{\cal X}}\times\mathbf{{\cal Y}}}\Big(\xi(\mathbf{W},\mathbf{y})-\sum_{i=1}^{n}\log\big(p(x_{i}|y_{1},\mathbf{w}_{i})^{y_{1}}p(x_{i}|y_{2},\mathbf{w}_{i})^{y_{2}}\big)\frac{1}{N}\sum_{j=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{j},\mathbf{y}-\mathbf{y}_{j})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & \frac{1}{N}\sum_{j=1}^{N}\Big(\xi_{j}(\mathbf{W},\mathbf{y}_{j})-\sum_{i=1}^{n}\log\big(p(x_{i,j}|y_{1,j},\mathbf{w}_{i})^{y_{1,j}}p(x_{i,j}|y_{2,j},\mathbf{w}_{i})^{y_{2,j}}\big)\Big)\label{eq:expected_loss_mle_or_map}
 \end{align}
 
 \end_inset
 
 where 
-\begin_inset Formula $\xi_{k}(\mathbf{w})=\log(Z)-\log\big(p(\mathbf{y}=k)\big)$
+\begin_inset Formula $\xi(\mathbf{W},\text{y})=\log(Z)-\log\big(p(\mathbf{y})p(\mathbf{W})\big)$
 \end_inset
 
  and 
-\begin_inset Formula $\xi_{j,k}(\mathbf{w})=\log(Z(\mathbf{w})-\log\big(p(\mathbf{y}_{j}=k)\big)$
+\begin_inset Formula $\xi_{j}(\mathbf{W},\mathbf{y}_{j})=\log(Z)-\log\big(p(\mathbf{y}_{j})p(\mathbf{W})\big)$
 \end_inset
 
 .
@@ -1107,12 +1124,25 @@ noprefix "false"
  we introduce here and example when 
 \begin_inset Formula 
 \begin{equation}
-p(x_{i}|\mathbf{y}=k,\mathbf{w}=\mathbf{w}_{i,k})={\cal N}(w_{1,i,k},w_{2,i,k}).\label{eq:gaussian_conditioned_density}
+p(x_{i}|y_{k},\mathbf{w}_{i})={\cal N}(w_{1,i},w_{2,i})\label{eq:gaussian_conditioned_density}
 \end{equation}
 
 \end_inset
 
-Expected loss (
+where 
+\begin_inset Formula $\mathbf{w}_{i}=(w_{1,i},w_{2,i})$
+\end_inset
+
+, 
+\begin_inset Formula $k\in\{0,1\}$
+\end_inset
+
+ and 
+\begin_inset Formula $p(\mathbf{W})$
+\end_inset
+
+ is a uniform distribution.
+ Expected loss (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:expected_loss_mle_or_map"
@@ -1125,7 +1155,7 @@ noprefix "false"
 ) for Gaussian likelihood case can be written as 
 \begin_inset Formula 
 \[
-\mathbb{E}_{\pi^{*}}L=\frac{1}{N}\sum_{j=1}^{N}\Big(\tilde{\xi}_{j,k}(\mathbf{w})+\sum_{i=1}^{n}\frac{(x_{i,j}-w_{1,i,k})^{2}}{2w_{2,i,k}^{2}}\Big)
+\mathbb{E}_{\pi^{*}}L=\frac{1}{N}\sum_{j=1}^{N}\Big(\xi_{j}(\mathbf{W},\mathbf{y}_{j})+\sum_{i=1}^{n}\big(y_{1,j}\big(\log(\frac{1}{\sqrt{2\pi}w_{2,i}})+\frac{(x_{i,j}-w_{1,i})^{2}}{2w_{2,i}^{2}}\big)+y_{2,j}\big(\log(\frac{1}{\sqrt{2\pi}w_{2,i}})+\frac{(x_{i,j}-w_{1,i})^{2}}{2w_{2,i}^{2}}\big)\big)\Big)
 \]
 
 \end_inset
@@ -1142,7 +1172,7 @@ where
  In this case 
 \begin_inset Formula 
 \[
-w_{1,i,k}=\frac{1}{N}\sum_{j=1}^{N}x_{i,j}
+w_{1,i}=\frac{1}{N}\sum_{j=1}^{N}x_{i,j}
 \]
 
 \end_inset
@@ -1150,7 +1180,7 @@ w_{1,i,k}=\frac{1}{N}\sum_{j=1}^{N}x_{i,j}
  and 
 \begin_inset Formula 
 \[
-w_{2,i,k}=\frac{1}{N}\sum_{j=1}^{N}(x_{i,j}-w_{1,i,k})^{2}.
+w_{2,i}=\frac{1}{N}\sum_{j=1}^{N}(x_{i,j}-w_{1,i})^{2}.
 \]
 
 \end_inset
@@ -1319,7 +1349,7 @@ If we want to minimize expected loss we have to follow next steps.
 \begin_layout Standard
 In the following part we are going to work with a set of decision trees.
  For this purposes we will define our decision tree as 
-\begin_inset Formula $\hat{y}=T(\mathbf{x},\mathbf{w}_{l})$
+\begin_inset Formula $\hat{\mathbf{y}}=\big(T_{1}(\mathbf{x},\mathbf{w}_{l}),T_{2}(\mathbf{x},\mathbf{w}_{l})\big)^{T}$
 \end_inset
 
  where index 
@@ -1330,7 +1360,12 @@ In the following part we are going to work with a set of decision trees.
 \begin_inset Formula $l-$
 \end_inset
 
-th three.
+th three and indices 
+\begin_inset Formula $1,2$
+\end_inset
+
+ represent first and second value of the one-hot vector.
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -1348,10 +1383,10 @@ With the usage of the given data
 
  we want to come up with a decision that will help us to predict labels
  of the data 
-\begin_inset Formula ${\cal X}\backslash\mathbf{X}$
+\begin_inset Formula ${\cal X}$
 \end_inset
 
-.
+0.
  We want to consider 
 \begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
@@ -1512,7 +1547,7 @@ where
  In other words 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{y}|\mathbf{x},\mathbf{w}_{l})=T(\mathbf{x},\mathbf{w}_{l})^{y_{1}}T(\mathbf{x},\mathbf{w}_{l})^{y_{2}}\label{eq:decision_tree_as_random_variable}
+p(\mathbf{y}|\mathbf{x},\mathbf{w}_{l})=T_{1}(\mathbf{x},\mathbf{w}_{l})^{y_{1}}T_{2}(\mathbf{x},\mathbf{w}_{l})^{y_{2}}\label{eq:decision_tree_as_random_variable}
 \end{equation}
 
 \end_inset
@@ -1554,16 +1589,16 @@ where
  as 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{y}|\mathbf{x})=\frac{1}{L}\sum_{l=1}^{L}T(\mathbf{x},\mathbf{w}_{l})^{y_{1}}T(\mathbf{x},\mathbf{w}_{l})^{y_{2}}\label{eq:approx_class_prob_for_random_forest}
+p(\mathbf{y}|\mathbf{x})=\frac{1}{L}\sum_{l=1}^{L}T_{1}(\mathbf{x},\mathbf{w}_{l})^{y_{1}}T_{2}(\mathbf{x},\mathbf{w}_{l})^{y_{2}}\label{eq:approx_class_prob_for_random_forest}
 \end{equation}
 
 \end_inset
 
 where each decision tree 
-\begin_inset Formula $T(\mathbf{x},\mathbf{w}_{l})$
+\begin_inset Formula $\big(T_{1}(\mathbf{x},\mathbf{w}_{l}),T_{2}(\mathbf{x},\mathbf{w}_{l})\big)^{T}$
 \end_inset
 
- is calculated with the usage of (
+ is constructed with the usage of (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:decision_tree_for_random_forest"
