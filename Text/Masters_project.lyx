@@ -1089,103 +1089,15 @@ noprefix "false"
 \end_inset
 
 where 
-\begin_inset Formula $\xi(\mathbf{W},\text{y})=\log(Z)-\log\big(p(\mathbf{y})p(\mathbf{W})\big)$
+\begin_inset Formula $\xi(\mathbf{W},\text{y})=\log(Z)-\log\big(p(\mathbf{y})\big)-\log\big(p(\mathbf{W})\big)$
 \end_inset
 
  and 
-\begin_inset Formula $\xi_{j}(\mathbf{W},\mathbf{y}_{j})=\log(Z)-\log\big(p(\mathbf{y}_{j})p(\mathbf{W})\big)$
+\begin_inset Formula $\xi_{j}(\mathbf{W},\mathbf{y}_{j})=\log(Z)-\log\big(p(\mathbf{y}_{j})-\log\big(p(\mathbf{W})\big)$
 \end_inset
 
 .
  
-\end_layout
-
-\begin_layout Standard
-Due to the fact that NB method theory is slightly different with 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:decision_theory_svm"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- and
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:decision_theory_nn"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- we introduce here and example when 
-\begin_inset Formula 
-\begin{equation}
-p(x_{i}|y_{k},\mathbf{w}_{i})={\cal N}(w_{1,i},w_{2,i})\label{eq:gaussian_conditioned_density}
-\end{equation}
-
-\end_inset
-
-where 
-\begin_inset Formula $\mathbf{w}_{i}=(w_{1,i},w_{2,i})$
-\end_inset
-
-, 
-\begin_inset Formula $k\in\{0,1\}$
-\end_inset
-
- and 
-\begin_inset Formula $p(\mathbf{W})$
-\end_inset
-
- is a uniform distribution.
- Expected loss (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:expected_loss_mle_or_map"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) for Gaussian likelihood case can be written as 
-\begin_inset Formula 
-\[
-\mathbb{E}_{\pi^{*}}L=\frac{1}{N}\sum_{j=1}^{N}\Big(\xi_{j}(\mathbf{W},\mathbf{y}_{j})+\sum_{i=1}^{n}\big(y_{1,j}\big(\log(\frac{1}{\sqrt{2\pi}w_{2,i}})+\frac{(x_{i,j}-w_{1,i})^{2}}{2w_{2,i}^{2}}\big)+y_{2,j}\big(\log(\frac{1}{\sqrt{2\pi}w_{2,i}})+\frac{(x_{i,j}-w_{1,i})^{2}}{2w_{2,i}^{2}}\big)\big)\Big)
-\]
-
-\end_inset
-
-where 
-\begin_inset Formula $\tilde{\xi}_{j,k}(\mathbf{w})$
-\end_inset
-
- is normalizing parameter calculated from 
-\begin_inset Formula $\xi_{j,k}(\mathbf{w})$
-\end_inset
-
- and additional values of Gaussian pdf.
- In this case 
-\begin_inset Formula 
-\[
-w_{1,i}=\frac{1}{N}\sum_{j=1}^{N}x_{i,j}
-\]
-
-\end_inset
-
- and 
-\begin_inset Formula 
-\[
-w_{2,i}=\frac{1}{N}\sum_{j=1}^{N}(x_{i,j}-w_{1,i})^{2}.
-\]
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
@@ -1386,7 +1298,7 @@ With the usage of the given data
 \begin_inset Formula ${\cal X}$
 \end_inset
 
-0.
+.
  We want to consider 
 \begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
@@ -1609,6 +1521,279 @@ noprefix "false"
 \end_inset
 
 ).
+\end_layout
+
+\begin_layout Section
+Decision Theory for Active Learning 
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+{argmax}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+{argmin}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Active learning problem is defined as a sequence of Supervised learning
+ problems.
+ 
+\end_layout
+
+\begin_layout Standard
+Specifically, we assume that labels 
+\begin_inset Formula $\mathbf{y}\in\mathbf{\tilde{Y}}$
+\end_inset
+
+ are available only for 
+\begin_inset Formula $\mathbf{x}\in\tilde{\mathbf{X}}$
+\end_inset
+
+.
+ We have the possibility to select an unlabeled element from 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ and ask for its label.
+ Since it is expensive, we aim to have such questions that will maximize
+ scores as fast as possible.
+ Formally, we denote 
+\begin_inset Formula $J_{0}=\{j_{01},j_{02},\ldots j_{0N}\}=\{1,\ldots,N\}$
+\end_inset
+
+ the initial set of 
+\begin_inset Formula $N$
+\end_inset
+
+ available labels.
+ using only the labeled data, the supervised learning task is defined on
+ sets 
+\begin_inset Formula $\mathbf{X}_{0}=\tilde{\mathbf{X}}=\{\mathbf{x}_{i}\}_{i\in J_{0}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{Y}_{0}=\tilde{\mathbf{Y}}=\{\mathbf{y}_{i}\}_{i\in J_{0}}$
+\end_inset
+
+.
+ This set is sequentially extended with new labels gained from 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+.
+ We consider a sequence of 
+\begin_inset Formula $U$
+\end_inset
+
+ questions 
+\begin_inset Formula $u=\{1,\ldots,U\}$
+\end_inset
+
+, in each question, we select an index 
+\begin_inset Formula $j_{u}$
+\end_inset
+
+ and ask to obtain the label 
+\begin_inset Formula $\mathbf{y}_{j_{u}}$
+\end_inset
+
+ for data record 
+\begin_inset Formula $\mathbf{x}_{j_{u}}$
+\end_inset
+
+.
+ The index set and the data sets are extended as follows
+\begin_inset Formula 
+\begin{align*}
+J_{u} & =\{J_{u-1},j_{u}\}, & \mathbf{X}_{u} & =\{\mathbf{X}_{u-1},\mathbf{x}_{j_{u}}\}, & \mathbf{Y}_{u} & =\{\mathbf{Y}_{u-1},\mathbf{y}_{j_{u}}\}.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The task of active learning is to optimize the selection of indices 
+\begin_inset Formula $j_{u}$
+\end_inset
+
+ to reach as good classification metrics with as low number of questions
+ as possible.
+ As a result we have to define expected loss for each question 
+\begin_inset Formula $u$
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+rephrase!
+\end_layout
+
+\end_inset
+
+ that will be dependent on the action and parameter spaces.
+ In this case we can define our action space 
+\begin_inset Formula ${\cal A}_{u}$
+\end_inset
+
+ as a space of the data indices with respect to the parameters space 
+\begin_inset Formula $\varTheta_{u}$
+\end_inset
+
+ for each question 
+\begin_inset Formula $u$
+\end_inset
+
+.
+ Parameters space is defined as a set of possible parameters from a specific
+ model.
+ It is very important to understand that parameters for each model are obtained
+ as 
+\begin_inset Formula $\mathbf{W}_{u}=\argmin(\mathbb{E_{\pi^{*}}}L_{u})$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbb{E_{\pi^{*}}}L_{u}$
+\end_inset
+
+ is expected loss for question 
+\begin_inset Formula $u$
+\end_inset
+
+ and 
+\begin_inset Formula $L_{u}=L(\mathbf{X}_{u},\mathbf{Y}_{u},\mathbf{W})$
+\end_inset
+
+.
+ As an example, if we talk about SVM method, then parameters space for active
+ learning problem will be defined as a set of weights that form a hyperplane.
+ If we talk about the algorithm that is based on a Neural Network function,
+ then parameters space of the active learning problem will form weights
+ from neurons.
+ We wanted to highlight that parameters space will be different for each
+ problem but the idea for each algorithm is same 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Rephrase
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+As a result our task can be written as 
+\begin_inset Formula 
+\begin{equation}
+j_{u}=\argmin(\mathbb{E_{\pi^{*}}}L_{u}^{*})\label{eq:index_selection_active_learning}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbb{E_{\pi^{*}}}L_{u}^{*}$
+\end_inset
+
+ is expected loss for question 
+\begin_inset Formula $u$
+\end_inset
+
+.
+ Expected loss for the active learning problem is defined as 
+\begin_inset Formula 
+\begin{equation}
+\mathbb{E_{\pi^{*}}}L_{u}^{*}=\int_{\varTheta_{u}}L_{u}^{*}(a,\theta)p(\theta)d\theta\label{eq:Expected_loss_active_learning}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $a\in{\cal A}_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $\theta\in\varTheta_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $L_{u}^{*}$
+\end_inset
+
+ is a loss function for the active learning problem.
+ Character 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $*$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ is used only for distinguishing active learning loss from the loss function
+ which is used for different models.
+ We will specify action space because it will be the same for all models
+ that are used in the active learning section.
+ Action space 
+\begin_inset Formula ${\cal A}$
+\end_inset
+
+ is a set of possible indices 
+\begin_inset Formula $j_{u}$
+\end_inset
+
+ where 
+\begin_inset Formula $u$
+\end_inset
+
+ is a specific question.
+ Index 
+\begin_inset Formula $j_{u}$
+\end_inset
+
+ meets the condition that 
+\begin_inset Formula $(\mathbf{x}_{j_{u}},\mathbf{y}_{j_{u}})\in(\mathbf{X}\backslash\mathbf{X}_{u},\mathbf{Y}\backslash\mathbf{Y}_{u})$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Using this approach we will be able sequentially select indices from 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ and ask for a label from 
+\begin_inset Formula $\mathbf{Y}$
+\end_inset
+
+ that will help us to get higher scores faster than in the case of random
+ choice of indices.
+ 
+\end_layout
+
+\begin_layout Subsection
+Active Learning Loss Function
 \end_layout
 
 \end_body
