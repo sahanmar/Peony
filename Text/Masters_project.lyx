@@ -1702,13 +1702,13 @@ Rephrase
 As a result our task can be written as 
 \begin_inset Formula 
 \begin{equation}
-j_{u}=\argmin(\mathbb{E_{\pi^{*}}}L_{u}^{*})\label{eq:index_selection_active_learning}
+j_{u}=\argmin(\mathbb{E}_{\pi_{u}^{*}}L_{u}^{*})\label{eq:index_selection_active_learning}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $\mathbb{E_{\pi^{*}}}L_{u}^{*}$
+\begin_inset Formula $\mathbb{E}_{\pi_{u}^{*}}L_{u}^{*}$
 \end_inset
 
  is expected loss for question 
@@ -1719,7 +1719,7 @@ where
  Expected loss for the active learning problem is defined as 
 \begin_inset Formula 
 \begin{equation}
-\mathbb{E_{\pi^{*}}}L_{u}^{*}=\int_{\varTheta_{u}}L_{u}^{*}(a,\theta)p(\theta)d\theta\label{eq:Expected_loss_active_learning}
+\mathbb{E}_{\pi_{u}^{*}}L_{u}^{*}=\int_{\varTheta_{u}}L_{u}^{*}(a,\theta)p_{u}(\theta)d\theta\label{eq:Expected_loss_active_learning}
 \end{equation}
 
 \end_inset
@@ -1794,6 +1794,165 @@ Using this approach we will be able sequentially select indices from
 
 \begin_layout Subsection
 Active Learning Loss Function
+\end_layout
+
+\begin_layout Subsubsection
+Entropy Based Loss
+\end_layout
+
+\begin_layout Standard
+Considering that 
+\begin_inset Formula $\mathbf{y}\in{\cal Y}$
+\end_inset
+
+ is defined with the usage of one-hot representation.
+ Let 
+\begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x},\theta)$
+\end_inset
+
+ is an estimate of 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+.
+ However, in this case output estimate 
+\begin_inset Formula $\hat{\mathbf{y}}$
+\end_inset
+
+ is represented as a vector of probabilities that 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ is assigned to different classes.
+ As an example for well trained binary classifier, for specific 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ that is assigned to 
+\begin_inset Formula $\mathbf{y}=(1,0)^{T},$
+\end_inset
+
+ classifiers estimate of 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ can be 
+\begin_inset Formula $\mathbf{\hat{y}}=(0.95,0.05)^{T}$
+\end_inset
+
+.
+ It is very interesting that before we can solve the optimization problem
+ with choosing the index 
+\begin_inset Formula $j_{u}$
+\end_inset
+
+ we have to solve the optimization problem of finding 
+\begin_inset Formula $\hat{\mathbf{y}}$
+\end_inset
+
+.
+ This leads us to supervised learning models that we have discussed in previous
+ sections.
+\end_layout
+
+\begin_layout Standard
+We want to define our loss function as an entropy.
+ Basing of the formal definition of the entropy we can write it as 
+\begin_inset Formula 
+\begin{equation}
+H(\hat{\mathbf{y}})=\sum_{r=1}^{R}-\hat{y}_{r}(\mathbf{x},\theta)\log\big(\hat{y}_{r}(\mathbf{x},\theta)\big),\label{eq:entropy}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\hat{y}_{r}$
+\end_inset
+
+ is 
+\begin_inset Formula $r-$
+\end_inset
+
+th element of the output estimate 
+\begin_inset Formula $\mathbf{\hat{y}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is a vector of parameters for specific model.
+ As done in Passive Learning sections we want to find expected loss based
+ on entropy function.
+ We want to find expected value over the parameter space.
+ Thus, we have to define prior distribution 
+\begin_inset Formula 
+\begin{equation}
+\pi_{u}^{*}=p_{u}(\theta|\mathbf{X}_{u},\mathbf{Y}_{u}).\label{eq:prior_distribution_for_expected_entropy_loss}
+\end{equation}
+
+\end_inset
+
+We do not have explicit form of the prior pdf.
+ However, we assume that we have samples 
+\begin_inset Formula $T$
+\end_inset
+
+ samples 
+\begin_inset Formula $\theta_{t}\in\{1,...,T\}$
+\end_inset
+
+ from 
+\begin_inset Formula $p_{u}(\theta|\mathbf{X}_{u},\mathbf{Y}_{u})$
+\end_inset
+
+.
+ As a result 
+\begin_inset Formula $p_{u}(\theta|\mathbf{X}_{u},\mathbf{Y}_{u})$
+\end_inset
+
+ can be approximated as 
+\begin_inset Formula 
+\begin{equation}
+\pi_{u}^{*}=\frac{1}{T}\sum_{t=1}^{T}\delta(\theta-\theta_{t}),\label{eq:prior_distribution_for_exp_loss_estimate}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\delta(\theta-\theta_{t})$
+\end_inset
+
+ is Dirac delta function centered in 
+\begin_inset Formula $\theta_{t}$
+\end_inset
+
+.
+ With the usage of previous knowledge we can derive expected entropy loss
+ as 
+\begin_inset Formula 
+\begin{align}
+\mathbb{E}_{\pi_{u}^{*}}L_{u}^{*} & =\int_{\varTheta_{u}}H(\hat{\mathbf{y}}_{u})p_{u}(\theta|\mathbf{X}_{u},\mathbf{Y}_{u})d\theta\nonumber \\
+ & =\int_{\varTheta_{u}}H(\hat{\mathbf{y}}_{u})\frac{1}{T}\sum_{t=1}^{T}\delta(\theta-\theta_{t})d\theta\nonumber \\
+ & =\frac{1}{T}\sum_{t=1}^{T}H(\hat{\mathbf{y}}_{u}(\mathbf{x},\theta_{t}))\nonumber \\
+ & =\frac{1}{T}\sum_{t=1}^{T}\sum_{r=1}^{R}-\hat{y}_{u,r}(\mathbf{x},\theta_{t})\log\big(\hat{y}_{u,r}(\mathbf{x},\theta_{t})\big),\label{eq:expected_entropy_loss}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $\hat{\mathbf{y}}_{u}$
+\end_inset
+
+ is nothing else than 
+\begin_inset Formula $\hat{\mathbf{y}}$
+\end_inset
+
+ but with one condition that 
+\begin_inset Formula $\mathbf{x}\in\mathbf{X}\backslash\mathbf{X}_{u}$
+\end_inset
+
+.
 \end_layout
 
 \end_body
