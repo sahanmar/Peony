@@ -285,8 +285,44 @@ Bayesian expected loss
 \begin_inset Formula 
 \begin{align}
 \rho(\pi^{*},a)= & \mathbb{E}_{\pi^{*}}[L(\theta,a)],\label{eq:expected_loss-1}\\
-= & \int_{\varTheta}L(\theta,a)dF^{\pi^{*}}(\theta)
+= & \int_{\varTheta}L(\theta,a)dF^{\pi^{*}}(\theta).
 \end{align}
+
+\end_inset
+
+Basing on definition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:expected_loss-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the best action that minimizes expected loss is defined as 
+\end_layout
+
+\begin_layout Definition
+\begin_inset FormulaMacro
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+{argmax}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+{argmin}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+\begin_inset Formula 
+\begin{equation}
+a^{*}=\argmin_{a\in{\cal A}}\mathbb{E}_{\pi^{*}}[L(\theta,a)].\label{eq:optimal_action}
+\end{equation}
 
 \end_inset
 
@@ -1102,6 +1138,13 @@ where
 
 \begin_layout Subsection
 Decision Theory and Random Forest Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:random_forest_supervised_learning"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1521,6 +1564,33 @@ noprefix "false"
 \end_inset
 
 ).
+ 
+\end_layout
+
+\begin_layout Standard
+Before continuing with further sections we define output of Random Forest
+ as 
+\begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x},\mathbf{W})$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},...,\mathbf{w}_{L})$
+\end_inset
+
+ is set of parameters of specific Random Forest algorithm.
+ We define vector 
+\begin_inset Formula $\hat{\mathbf{y}}$
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{equation}
+\hat{\mathbf{y}}=\frac{1}{L}\sum_{l=1}^{L}\big(T_{1}(\mathbf{x},\mathbf{w}_{l}),T_{2}(\mathbf{x},\mathbf{w}_{l})\big).\label{eq:Random_forest_output}
+\end{equation}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1529,7 +1599,7 @@ Decision Theory for Active Learning
 
 \begin_layout Standard
 \begin_inset FormulaMacro
-\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+\renewcommand{\argmax}{\operatornamewithlimits{argmax}}
 {argmax}
 \end_inset
 
@@ -1538,7 +1608,7 @@ Decision Theory for Active Learning
 
 \begin_layout Standard
 \begin_inset FormulaMacro
-\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\renewcommand{\argmin}{\operatornamewithlimits{argmin}}
 {argmin}
 \end_inset
 
@@ -1548,6 +1618,12 @@ Decision Theory for Active Learning
 \begin_layout Standard
 Active learning problem is defined as a sequence of Supervised learning
  problems.
+ In this part we will want to get not only set of parameters for specific
+ model that minimizes its loss function but a probability distribution.
+ We will explain how to get this probability distribution later.
+ The reason why we want to get a parameters probability distribution because
+ we have to integrate through a parameters space.
+ More theory is explained further.
  
 \end_layout
 
@@ -1661,24 +1737,10 @@ rephrase!
 .
  Parameters space is defined as a set of possible parameters from a specific
  model.
- It is very important to understand that parameters for each model are obtained
- as 
-\begin_inset Formula $\mathbf{W}_{u}=\argmin(\mathbb{E_{\pi^{*}}}L_{u})$
-\end_inset
-
- where 
-\begin_inset Formula $\mathbb{E_{\pi^{*}}}L_{u}$
-\end_inset
-
- is expected loss for question 
-\begin_inset Formula $u$
-\end_inset
-
- and 
-\begin_inset Formula $L_{u}=L(\mathbf{X}_{u},\mathbf{Y}_{u},\mathbf{W})$
-\end_inset
-
-.
+ It is very important to understand that we will need not only one one set
+ of parameters but parameters distribution.
+ We need parameters distribution because we will integrate over the parameters
+ space.
  As an example, if we talk about SVM method, then parameters space for active
  learning problem will be defined as a set of weights that form a hyperplane.
  If we talk about the algorithm that is based on a Neural Network function,
@@ -1702,24 +1764,28 @@ Rephrase
 As a result our task can be written as 
 \begin_inset Formula 
 \begin{equation}
-j_{u}=\argmin(\mathbb{E}_{\pi_{u}^{*}}L_{u}^{*})\label{eq:index_selection_active_learning}
+j_{u}^{*}=\argmin_{j\in J\backslash J_{u}}(\mathbb{E}_{\pi_{u}^{*}}L^{*})\label{eq:index_selection_active_learning}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $\mathbb{E}_{\pi_{u}^{*}}L_{u}^{*}$
+\begin_inset Formula $\mathbb{E}_{\pi_{u}^{*}}L^{*}$
 \end_inset
 
- is expected loss for question 
+ is expected loss that is dependent on an action given question 
 \begin_inset Formula $u$
 \end_inset
 
-.
+ and 
+\begin_inset Formula $J$
+\end_inset
+
+ is space of all indices.
  Expected loss for the active learning problem is defined as 
 \begin_inset Formula 
 \begin{equation}
-\mathbb{E}_{\pi_{u}^{*}}L_{u}^{*}=\int_{\varTheta_{u}}L_{u}^{*}(a,\theta)p_{u}(\theta)d\theta\label{eq:Expected_loss_active_learning}
+\mathbb{E}_{\pi_{u}^{*}}L^{*}=\int_{\varTheta_{u}}L^{*}(a,\theta)\pi_{u}^{*}d\theta\label{eq:Expected_loss_active_learning}
 \end{equation}
 
 \end_inset
@@ -1733,7 +1799,7 @@ where
 \end_inset
 
  and 
-\begin_inset Formula $L_{u}^{*}$
+\begin_inset Formula $L^{*}$
 \end_inset
 
  is a loss function for the active learning problem.
@@ -1758,7 +1824,7 @@ where
 \end_inset
 
  is a set of possible indices 
-\begin_inset Formula $j_{u}$
+\begin_inset Formula $j_{u}\in J_{u}$
 \end_inset
 
  where 
@@ -1766,16 +1832,25 @@ where
 \end_inset
 
  is a specific question.
- Index 
-\begin_inset Formula $j_{u}$
+ Thus, (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Expected_loss_active_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
- meets the condition that 
-\begin_inset Formula $(\mathbf{x}_{j_{u}},\mathbf{y}_{j_{u}})\in(\mathbf{X}\backslash\mathbf{X}_{u},\mathbf{Y}\backslash\mathbf{Y}_{u})$
+) can be written as 
+\begin_inset Formula 
+\begin{equation}
+\mathbb{E}_{\pi_{u}^{*}}L^{*}=\int_{\varTheta_{u}}L^{*}(j_{u},\theta)\pi_{u}^{*}d\theta.\label{eq:Expected_loss_active_learning_with_action_space_as_indices}
+\end{equation}
+
 \end_inset
 
-.
- 
+
 \end_layout
 
 \begin_layout Standard
@@ -1794,6 +1869,13 @@ Using this approach we will be able sequentially select indices from
 
 \begin_layout Subsection
 Active Learning Loss Function
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Active-Learning-Loss"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -1807,7 +1889,7 @@ Considering that
 
  is defined with the usage of one-hot representation.
  Let 
-\begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x},\theta)$
+\begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x}_{j_{u}},\theta_{u})$
 \end_inset
 
  is an estimate of 
@@ -1820,7 +1902,7 @@ Considering that
 \end_inset
 
  is represented as a vector of probabilities that 
-\begin_inset Formula $\mathbf{x}$
+\begin_inset Formula $\mathbf{x}_{j_{u}}$
 \end_inset
 
  is assigned to different classes.
@@ -1856,11 +1938,11 @@ Considering that
 \end_layout
 
 \begin_layout Standard
-We want to define our loss function as an entropy.
+We want to define our loss function as a negative entropy.
  Basing of the formal definition of the entropy we can write it as 
 \begin_inset Formula 
 \begin{equation}
-H(\hat{\mathbf{y}})=\sum_{r=1}^{R}-\hat{y}_{r}(\mathbf{x},\theta)\log\big(\hat{y}_{r}(\mathbf{x},\theta)\big),\label{eq:entropy}
+-H(\hat{\mathbf{y}}|\mathbf{x}_{j_{u}},\theta_{u})=\sum_{r=1}^{R}\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u})\log\big(\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u})\big),\label{eq:entropy}
 \end{equation}
 
 \end_inset
@@ -1885,46 +1967,46 @@ th element of the output estimate
  As done in Passive Learning sections we want to find expected loss based
  on entropy function.
  We want to find expected value over the parameter space.
- Thus, we have to define prior distribution 
+ Thus, we have to define distribution 
 \begin_inset Formula 
 \begin{equation}
-\pi_{u}^{*}=p_{u}(\theta|\mathbf{X}_{u},\mathbf{Y}_{u}).\label{eq:prior_distribution_for_expected_entropy_loss}
+\pi_{u}^{*}=p_{u}(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u}).\label{eq:prior_distribution_for_expected_entropy_loss}
 \end{equation}
 
 \end_inset
 
-We do not have explicit form of the prior pdf.
+We do not have explicit form of the pdf.
  However, we assume that we have samples 
-\begin_inset Formula $T$
+\begin_inset Formula $Q_{u}$
 \end_inset
 
  samples 
-\begin_inset Formula $\theta_{t}\in\{1,...,T\}$
+\begin_inset Formula $\theta_{u,q}\in\{1_{u},...,Q_{u}\}$
 \end_inset
 
  from 
-\begin_inset Formula $p_{u}(\theta|\mathbf{X}_{u},\mathbf{Y}_{u})$
+\begin_inset Formula $p_{u}(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})$
 \end_inset
 
 .
  As a result 
-\begin_inset Formula $p_{u}(\theta|\mathbf{X}_{u},\mathbf{Y}_{u})$
+\begin_inset Formula $p_{u}(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})$
 \end_inset
 
  can be approximated as 
 \begin_inset Formula 
 \begin{equation}
-\pi_{u}^{*}=\frac{1}{T}\sum_{t=1}^{T}\delta(\theta-\theta_{t}),\label{eq:prior_distribution_for_exp_loss_estimate}
+\pi_{u}^{*}=\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\delta(\theta_{u}-\theta_{u,q}),\label{eq:prior_distribution_for_exp_loss_estimate}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $\delta(\theta-\theta_{t})$
+\begin_inset Formula $\delta(\theta_{u}-\theta_{u,q})$
 \end_inset
 
  is Dirac delta function centered in 
-\begin_inset Formula $\theta_{t}$
+\begin_inset Formula $\theta_{u,q}$
 \end_inset
 
 .
@@ -1932,27 +2014,205 @@ where
  as 
 \begin_inset Formula 
 \begin{align}
-\mathbb{E}_{\pi_{u}^{*}}L_{u}^{*} & =\int_{\varTheta_{u}}H(\hat{\mathbf{y}}_{u})p_{u}(\theta|\mathbf{X}_{u},\mathbf{Y}_{u})d\theta\nonumber \\
- & =\int_{\varTheta_{u}}H(\hat{\mathbf{y}}_{u})\frac{1}{T}\sum_{t=1}^{T}\delta(\theta-\theta_{t})d\theta\nonumber \\
- & =\frac{1}{T}\sum_{t=1}^{T}H(\hat{\mathbf{y}}_{u}(\mathbf{x},\theta_{t}))\nonumber \\
- & =\frac{1}{T}\sum_{t=1}^{T}\sum_{r=1}^{R}-\hat{y}_{u,r}(\mathbf{x},\theta_{t})\log\big(\hat{y}_{u,r}(\mathbf{x},\theta_{t})\big),\label{eq:expected_entropy_loss}
+\mathbb{E}_{\pi_{u}^{*}}L^{*} & =\int_{\varTheta_{u}}-H(\hat{\mathbf{y}}|\mathbf{x}_{j_{u}},\theta_{u})p_{u}(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})d\theta_{u}\nonumber \\
+ & =\int_{\varTheta_{u}}-H(\hat{\mathbf{y}}|\mathbf{x}_{j_{u}},\theta_{u})\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\delta(\theta_{u}-\theta_{u,q})d\theta_{u}\nonumber \\
+ & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}-H(\hat{\mathbf{y}}|\mathbf{x}_{j_{u}},\theta_{u,q}))\nonumber \\
+ & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\sum_{r=1}^{R}\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u,q})\log\big(\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u,q})\big).\label{eq:expected_entropy_loss}
 \end{align}
 
 \end_inset
 
-where 
-\begin_inset Formula $\hat{\mathbf{y}}_{u}$
+
+\end_layout
+
+\begin_layout Subsubsection
+Information Gain Based Function
+\end_layout
+
+\begin_layout Standard
+TBD
+\end_layout
+
+\begin_layout Subsection
+Active Learning for Random Forests Algorithm
+\end_layout
+
+\begin_layout Standard
+In Supervised Learning section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:random_forest_supervised_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
- is nothing else than 
-\begin_inset Formula $\hat{\mathbf{y}}$
+ we have derived that 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
 \end_inset
 
- but with one condition that 
-\begin_inset Formula $\mathbf{x}\in\mathbf{X}\backslash\mathbf{X}_{u}$
+ for Random Forest (RF) algorithm is written as 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:approx_class_prob_for_random_forest"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
 .
+ Active Learning algorithm requires distribution over the parameters of
+ the Random Forest algorithm.
+ We will solve this problem the way that we will get samples from 
+\begin_inset Formula $\pi_{u}^{*}$
+\end_inset
+
+ and then approximate probability distribution as (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_for_expected_entropy_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+In order to estimate samples from 
+\begin_inset Formula $\pi_{u}^{*}$
+\end_inset
+
+ we define Ensemble Random Forest Algorithm.
+ That means that we will use 
+\begin_inset Formula $Q_{u}$
+\end_inset
+
+ Random Forests in each step of Active Learning algorithm.
+ In this case parameters of each 
+\begin_inset Formula $\mathbf{\hat{y}}_{q_{u}}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{\hat{y}}$
+\end_inset
+
+ is Random Forest one-hot represented output and 
+\begin_inset Formula $q_{u}\in\{1_{u},...,Q_{u}\}$
+\end_inset
+
+, will be iid.
+ Of-course RF algorithm is already ensemble of decision trees but in this
+ case we create ensemble algorithm from ensemble algorithms.
+ Previously we defined for each decision tree 
+\begin_inset Formula $T_{l}$
+\end_inset
+
+ where 
+\begin_inset Formula $l\in\{1,...,L\}$
+\end_inset
+
+, that 
+\begin_inset Formula $\mathbf{w}_{l}$
+\end_inset
+
+ is a vector of parameters of 
+\begin_inset Formula $l-$
+\end_inset
+
+th decision tree.
+ Thus, let 
+\begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},...,\mathbf{w}_{L})$
+\end_inset
+
+ is set of parameters of specific Random Forest algorithm.
+ Thus, for 
+\begin_inset Formula $\mathbf{\hat{y}}_{q_{u}}$
+\end_inset
+
+ we have 
+\begin_inset Formula $\mathbf{W}_{q_{u}}=(\mathbf{w}_{q_{u},1},...,\mathbf{w}_{q_{u},L})$
+\end_inset
+
+.
+ As a result we can approximate 
+\begin_inset Formula $\pi_{u}^{*}$
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{equation}
+\pi_{u}^{*}=\frac{1}{Q_{u}}\sum_{q_{u}=1}^{Q_{u}}\delta(\mathbf{W}-\mathbf{W}_{q_{u}}).\label{eq:Random_forest_ensemble_parameters_distribution}
+\end{equation}
+
+\end_inset
+
+Another important point is to define 
+\begin_inset Formula $\hat{\mathbf{y}}_{q_{u}}=\hat{\mathbf{y}}(\mathbf{x}_{j_{u}},\mathbf{W}_{q_{u}})$
+\end_inset
+
+.
+ We formally define each element 
+\begin_inset Formula $\hat{y}_{r,q_{u}}$
+\end_inset
+
+ of vector 
+\begin_inset Formula $\hat{\mathbf{y}}_{q_{u}}$
+\end_inset
+
+ as 
+\begin_inset Formula 
+\[
+\hat{y}_{r,q_{u}}=\frac{1}{L}\sum_{l=1}^{L}T_{r}(\mathbf{x}_{j_{u}},\mathbf{w}_{q_{u},l}),
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $r$
+\end_inset
+
+ is 
+\begin_inset Formula $r-$
+\end_inset
+
+th class 
+\begin_inset Formula $T_{r}$
+\end_inset
+
+ is 
+\begin_inset Formula $r-$
+\end_inset
+
+th element of a decision tree vector.
+\end_layout
+
+\begin_layout Standard
+With the usage of the theory from section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Active-Learning-Loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we can write expected loss for Active Learning Random Forest Algorithm
+ as 
+\begin_inset Formula 
+\begin{equation}
+\mathbb{E}_{\pi_{u}^{*}}L_{u}^{*}=\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\sum_{r=1}^{R}\hat{y}_{r}(\mathbf{x}_{j_{u}},\mathbf{W}_{q_{u}})\log\big(\hat{y}_{r}(\mathbf{x}_{j_{u}},\mathbf{W}_{q_{u}})\big).\label{eq:Expected_entropy_loss_random_forest_active_learning}
+\end{equation}
+
+\end_inset
+
+
 \end_layout
 
 \end_body
