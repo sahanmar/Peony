@@ -2,7 +2,7 @@
 
 ## Active Learning for Text Classification
 
-![](/peony.png)
+![](https://github.com/sahanmar/Peony/blob/supporting_images/images/peony.png)
 
 ### Abstract 
 
@@ -12,6 +12,6 @@ Following project is aimed on derivation and testing of active learning techniqu
 
 This Project is separated into two folders *Peony_research_document* and *Peony_project*. 
 
-*Peony_research_document* is a folder with output PDF document and .tex, .lyx files. T 
+*Peony_research_document* is a folder with output PDF document and .tex, .lyx files.
 
 *Peopny_project* is a tech folder with codes.
