@@ -49,7 +49,7 @@ Here is JSON schema of how the data are stored and what a user will get as an ou
 				},
 				"metadata": {
 					"type": "object",
-	"description": "Any additional metadata. Can be empty field"
+					"description": "Any additional metadata. Can be empty field"
 				},
 			},
 		},
