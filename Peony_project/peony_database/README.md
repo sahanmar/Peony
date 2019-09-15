@@ -4,7 +4,7 @@
 
 ![MongoDatabase](https://github.com/sahanmar/Peony/blob/supporting_images/images/architecture_images/mongodb.png)
 
-In this project we are decided to work with NoSql database. Our choice was MongoDb. The reason why we have chosen MongoDb is used because of its simplicity and possibility of working through Docker 
+In this project we decided to work with NoSQL database. Our choice was MongoDb. The reason why we have chosen MongoDb is because of its simplicity and possibility of maintaining through Docker 
 
 ## Docker + MongoDb
 
