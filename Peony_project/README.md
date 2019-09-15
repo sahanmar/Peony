@@ -19,3 +19,6 @@ PeonyBox is a name for a machine learning component of the project. It takes an 
 ![vizualization|512x512,40%](https://github.com/sahanmar/Peony/blob/supporting_images/images/architecture_images/visualization.png)
 
 Visualization is third part component of this project that takes the data from the database (which were previously uploaded there from PeonyBox) and gives statistics and curves that help to measure quality of models.
+
+[Peony Visualization Component](https://github.com/sahanmar/Peony/tree/peony_project_documentation/Peony_project/Peony_visualization)
+
