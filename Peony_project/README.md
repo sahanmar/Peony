@@ -6,6 +6,8 @@
 
 In order to make everything consistent and let the models work with the same input format we decided to create a database that will store all the data in JSON format for the purposes of machine learning and visualizing components. 
 
+[Peony Database Architecture](https://github.com/sahanmar/Peony/blob/peony_project_documentation/Peony_project/peony_database/README.md)
+
 ## PeonyBox
 
 ![peonybox|815×720,25%](https://github.com/sahanmar/Peony/blob/supporting_images/images/architecture_images/models_1.png)

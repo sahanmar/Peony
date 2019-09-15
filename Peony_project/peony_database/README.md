@@ -2,7 +2,7 @@
 
 ## Database Description 
 
-![MongoDatabase](https://github.com/sahanmar/Peony/blob/supporting_images/images/architecture_images/mongodb.pngÂ)
+![MongoDatabase](https://github.com/sahanmar/Peony/blob/supporting_images/images/architecture_images/mongodb.png)
 
 In this project we are decided to work with NoSql database. Our choice was MongoDb. The reason why we have chosen MongoDb is used because of its simplicity and possibility of working through Docker 
 
@@ -23,7 +23,7 @@ Here is JSON schema of how the data are stored and what a user will get as an ou
 {
 	"title": "PeonyDatabase",
 	"type": "object",
-    "properties": {
+	"properties": {
     	"datasetName": {
     		"type": "string",
     		"description": "Name of the dataset"
@@ -53,7 +53,7 @@ Here is JSON schema of how the data are stored and what a user will get as an ou
     			},
     		},
     	},
-	},
+    },
 }
 ```
 
