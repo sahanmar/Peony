@@ -24,36 +24,36 @@ Here is JSON schema of how the data are stored and what a user will get as an ou
 	"title": "PeonyDatabase",
 	"type": "object",
 	"properties": {
-    	"datasetName": {
-    		"type": "string",
-    		"description": "Name of the dataset"
-    	},
-    	"datasetId": {
-    		"type": "string",
-    		"description": "Unique hash id that will be created automatically"  
-    	},
-    	"record": {
-    		"type": "object",
-    		"properties": {
-    			"id": {
-    				"type": "string",
-    				"description": "Unique hash id that will be created automatically" 
-    			},
-    			"text": {
-    				"type": "string",
-    				"description": "Text instance that is used for model"
-    			},
-    			"label": {
-    				"type": "string",
-    				"description": "Label for an instance. Can be empty if this is not validation data"
-    			},
-    			"metadata": {
-    				"type": "object",
-    				"description": "Any additional metadata. Can be empty field"
-    			},
-    		},
-    	},
-    },
+		"datasetName": {
+			"type": "string",
+			"description": "Name of the dataset"
+		},
+		"datasetId": {
+			"type": "string",
+			"description": "Unique hash id that will be created automatically"  
+		},
+		"record": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": "Unique hash id that will be created automatically" 
+				},
+				"text": {
+					"type": "string",
+					"description": "Text instance that is used for model"
+				},
+				"label": {
+					"type": "string",
+					"description": "Label for an instance. Can be empty if this is not validation data"
+				},
+				"metadata": {
+					"type": "object",
+	"description": "Any additional metadata. Can be empty field"
+				},
+			},
+		},
+	},
 }
 ```
 
