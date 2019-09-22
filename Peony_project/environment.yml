@@ -1,0 +1,9 @@
+name: peony_project
+channels: 
+  - conda-forge
+dependencies:
+  - python == 3.7.0
+  - tqdm
+  - pip:
+      - pymongo
+      - black
