@@ -15,3 +15,7 @@ This Project is separated into two folders *Peony_research_document* and *Peony_
 *Peony_research_document* is a folder with output PDF document and .tex, .lyx files.
 
 *Peopny_project* is a tech folder with codes.
+
+### Peony Deployment
+
+In order to start working with all Peony dependecies `peony_project` environment must be activated. The easiest way to activate peony environmet is to run  `conda env create -f environment.yml` (If you don't have conda, please install it before creating environment). 
