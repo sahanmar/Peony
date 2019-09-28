@@ -1,0 +1,14 @@
+version: '3'
+services:
+  MongoDb:
+    image: 'mongo'
+    container_name: 'MongoDb'
+    environment:
+      - MONGO_INITDB_DATABASE=Peony-MongoDb
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    volumes:
+      - /Users/mark/Documents/Mongo/Peony_database/db-data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    ports:
+      - '27017:27017'

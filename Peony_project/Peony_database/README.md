@@ -8,7 +8,17 @@ In this project we decided to work with NoSQL database. Our choice was MongoDb. 
 
 ## Docker + MongoDb
 
-//TODO Add description of working with Mongo through Docker and more images.
+Since Doker and MongoDb is perfect combination, Peony Database can be deployed with two lines of code (Remeber to activate `peony_project` environment)
+1. Run Docker + MongoDb with `docker-compose up -d --build`
+2. Load the data with `python3 fill_in_the_database.py --huffpost <path> --newsgroups <path> --tweets <path> --comments <path> --emotions <path>`. Each parameter representes one dataset.
+200k texts from Huffpost, 20 newsgroups datatset, 1600k tweets, emotions classification.
+
+
+[Huffpost dataset](https://www.kaggle.com/rmisra/news-category-dataset/home)
+[1600k tweets dataset](https://www.kaggle.com/kazanova/sentiment140)
+[20 newsgroups dataset](https://www.kaggle.com/crawford/20-newsgroups)
+//TODO Add references to each dataset
+
 
 
 ## MongoDb Data Format 
@@ -34,14 +44,29 @@ Here is JSON schema of how the data are stored and what a user will get as an ou
 		},
 		"record": {
 			"type": "object",
+			"description": "All information about an instance",
 			"properties": {
 				"id": {
 					"type": "string",
 					"description": "Unique hash id that will be created automatically" 
 				},
+				"snippet": {
+							"type": "string",
+							"description": "Snippet of a text. Can be empty" 
+				},
 				"text": {
-					"type": "string",
-					"description": "Text instance that is used for a model"
+					"type": "object",
+					"description": "Text instance that is used for a model",
+					"properties" : {
+						"title": {
+							"type": "string",
+							"description": "Title of a text. Can be empty"
+						},
+						"body": {
+							"type": "string",
+							"description": "Body of a text"
+						},
+					},
 				},
 				"label": {
 					"type": "string",
@@ -56,6 +81,7 @@ Here is JSON schema of how the data are stored and what a user will get as an ou
 	},
 }
 ```
+
 
 ### Models
 
