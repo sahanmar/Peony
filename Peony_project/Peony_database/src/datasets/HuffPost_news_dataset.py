@@ -6,10 +6,10 @@ from common import MongoDb, create_hash
 from tqdm import tqdm
 
 
-COLLECTION_NAME = "200k_news_dataset"
+COLLECTION_NAME = "HuffPost_dataset"
 
 
-def transorm_data(record: dict) -> dict:
+def transorm_data(record: Dict[str, any]) -> Dict[str, any]:
     transormed_record: dict = {}
     transormed_record["datasetName"] = COLLECTION_NAME
     transormed_record["datasetId"] = 1
@@ -38,18 +38,3 @@ def load_data(path: Path) -> List[dict]:
                 lines = f.readlines()
             data.extend(*[json.loads(line) for line in lines])
     return data
-
-
-def load_data_to_database(path_to_data: Path):
-
-    print("extracting 200k_news_dataset... ")
-    ids: list = []
-    data = load_data(path_to_data)
-    print("data transformation with respect to Peony database schema...")
-    transormed_data = [transorm_data(record) for record in data]
-    api = MongoDb()
-    collection = api.databse[COLLECTION_NAME]
-    print("uploading to Peony database...")
-    for record in tqdm(transormed_data):
-        ids.append(collection.insert_one(record).inserted_id)
-    print(f"{len(ids)} records from {len(data)} were successfully uploaded...")

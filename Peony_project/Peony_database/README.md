@@ -10,9 +10,13 @@ In this project we decided to work with NoSQL database. Our choice was MongoDb. 
 
 Since Doker and MongoDb is perfect combination, Peony Database can be deployed with two lines of code (Remeber to activate `peony_project` environment)
 1. Run Docker + MongoDb with `docker-compose up -d --build`
-2. Load the data with `python3 fill_in_the_database.py --huffpost <path> --newsgroups <path> --tweets <path> --comments <path> --emotiones <path> --ner <path>`. Each parameter representes one dataset.
-200k texts from Huffpost, 20 newsgroups datatset, 1600k tweets, emotions classification, NER_CONLL 2003
+2. Load the data with `python3 fill_in_the_database.py --huffpost <path> --newsgroups <path> --tweets <path> --comments <path> --emotions <path>`. Each parameter representes one dataset.
+200k texts from Huffpost, 20 newsgroups datatset, 1600k tweets, emotions classification.
 
+
+[Huffpost dataset](https://www.kaggle.com/rmisra/news-category-dataset/home)
+[1600k tweets dataset](https://www.kaggle.com/kazanova/sentiment140)
+[20 newsgroups dataset](https://www.kaggle.com/crawford/20-newsgroups)
 //TODO Add references to each dataset
 
 

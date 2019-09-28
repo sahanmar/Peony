@@ -1,9 +1,11 @@
 name: peony_project
 channels: 
   - conda-forge
+  - anaconda
 dependencies:
   - python == 3.7.0
   - tqdm
+  - pandas
   - pip:
       - pymongo
       - black

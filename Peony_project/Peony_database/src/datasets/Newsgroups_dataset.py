@@ -1,4 +1,5 @@
 import json
+import logging
 
 from pathlib import Path
 from typing import Dict, List
@@ -9,7 +10,7 @@ from tqdm import tqdm
 COLLECTION_NAME = "4_newsgroups_dataset"
 
 
-def transorm_data(record: dict) -> dict:
+def transorm_data(record: Dict[str, any]) -> Dict[str, any]:
     transormed_record: dict = {}
     transormed_record["datasetName"] = COLLECTION_NAME
     transormed_record["datasetId"] = 2
@@ -32,21 +33,7 @@ def load_data(path: Path) -> List[dict]:
                             {"text": f.read(), "label": f"{folder.stem}{folder.suffix}"}
                         )
                 except:
-                    pass
+                    logging.warning(
+                        "Some fields are missing. This record was removed from dataset"
+                    )
     return data
-
-
-def load_data_to_database(path_to_data: Path):
-
-    print("extracting 4_newsgroups_dataset... ")
-    ids: list = []
-    data = load_data(path_to_data)
-    print("data transformation with respect to Peony database schema...")
-    transormed_data = [transorm_data(record) for record in data]
-    api = MongoDb()
-    collection = api.databse[COLLECTION_NAME]
-    print("uploading to Peony database...")
-    for record in tqdm(transormed_data):
-        ids.append(collection.insert_one(record).inserted_id)
-    print(f"{len(ids)} records from {len(data)} were successfully uploaded...")
-    print("")
