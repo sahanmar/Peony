@@ -3,7 +3,7 @@ import logging
 
 from pathlib import Path
 from typing import Dict, List
-from common import MongoDb, create_hash
+from common import create_hash
 from tqdm import tqdm
 
 

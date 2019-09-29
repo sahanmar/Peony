@@ -1,7 +1,7 @@
 import argparse
 
 from pathlib import Path
-from common import MongoDb
+from PeonyPackage.PeonyDb import MongoDb
 
 # Imports for datasets upload
 from HuffPost_news_dataset import (
