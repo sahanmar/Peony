@@ -2,7 +2,7 @@ import pymongo
 import logging
 
 from pathlib import Path
-from typing import Callable, List, Dict
+from typing import Callable, List, Dict, Any
 from tqdm import tqdm
 
 
@@ -24,8 +24,8 @@ class MongoDb:
         collection_name: str,
         path_to_data: Path,
         load_data: Callable[[Path], List[dict]],
-        transorm_data: Callable[[Dict[str, any]], Dict[str, any]],
-    ):
+        transorm_data: Callable[[Dict[str, Any]], Dict[str, Any]],
+    ) -> None:
         logging.info(f"extracting {collection_name}... ")
         ids: list = []
         data = load_data(path_to_data)
@@ -47,7 +47,7 @@ class MongoDb:
         hash: str = None,
         skip: int = 0,
         limit: int = 10000,
-    ) -> List[Dict[str, any]]:
+    ) -> List[Dict[str, Any]]:
         if label is not None:
             return list(
                 self.database[collection_name].find(
@@ -61,7 +61,7 @@ class MongoDb:
                 )
             )
         elif hash is not None:
-            return list(
+            return [
                 self.database[collection_name].find_one(
                     filter={
                         "datasetName": collection_name,
@@ -70,7 +70,7 @@ class MongoDb:
                     },
                     skip=skip,
                 )
-            )
+            ]
         else:
             return list(
                 self.database[collection_name].find(

@@ -6,6 +6,8 @@ dependencies:
   - python == 3.7.0
   - tqdm
   - pandas
+  - scikit-learn 
+  - nltk
   - pip:
       - pymongo
       - black

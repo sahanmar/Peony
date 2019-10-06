@@ -1,15 +1,15 @@
 import json
 
 from pathlib import Path
-from typing import Dict, List
-from common import create_hash
+from typing import Dict, List, Any
+from Peony_database.src.datasets.common import create_hash
 from tqdm import tqdm
 
 
 COLLECTION_NAME = "Comments_dataset"
 
 
-def transorm_data(record: Dict[str, any]) -> Dict[str, any]:
+def transorm_data(record: Dict[str, Any]) -> Dict[str, Any]:
     transormed_record: dict = {}
     transormed_record["datasetName"] = COLLECTION_NAME
     transormed_record["datasetId"] = 4
