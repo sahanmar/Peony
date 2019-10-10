@@ -24,14 +24,14 @@ def main():
         collection_name=HuffPost_collection_name,
         collection_id=HuffPost_collection_id,
         label="SPORTS",
-        limit=100,
+        limit=1000,
     )
 
     comedy_records = api.get_record(
         collection_name=HuffPost_collection_name,
         collection_id=HuffPost_collection_id,
         label="COMEDY",
-        limit=100,
+        limit=1000,
     )
 
     instances = sport_records + comedy_records
@@ -45,7 +45,7 @@ def main():
         HuffPost_transformator.transform,
         instances,
         labels,
-        8,
+        10,
     )
 
     scores = [

@@ -184,5 +184,5 @@ def calculate_binary_metrics(
     if label_to_binary:
         true_vs_predicted, unique_values = transform_label_to_binary(true_vs_predicted)
 
-    # roc_and_auc_metrics(true_vs_predicted)
+    roc_and_auc_metrics(true_vs_predicted)
     plot_precision_recall_curve(true_vs_predicted)
