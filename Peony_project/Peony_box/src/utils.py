@@ -1,6 +1,7 @@
 import numpy as np
 import random
 
+from tqdm import tqdm
 from typing import Any, List, Dict, Callable, Union
 from sklearn.model_selection import KFold
 from sklearn.utils import shuffle
@@ -14,7 +15,9 @@ def k_fold_corss_validation(
     splits: int,
 ) -> List[Dict[str, np.ndarray]]:
 
+    print("transforming instances for k fold cross validation...")
     validation_instances = transformator(validation_instances)
+    print("transforming labels for k fold cross validation...")
     validation_labels = transformator(validation_labels)
 
     validation_instances, validation_labels = shuffle(
@@ -25,7 +28,8 @@ def k_fold_corss_validation(
     kf = KFold(n_splits=splits)
     kf.get_n_splits(validation_instances)
 
-    for train_index, test_index in kf.split(validation_instances):
+    print("k fold cross validation...")
+    for train_index, test_index in tqdm(list(kf.split(validation_instances))):
         X_train, X_test = (
             validation_instances[train_index],
             validation_instances[test_index],

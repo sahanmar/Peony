@@ -110,4 +110,4 @@ def transform(data: Any) -> np.ndarray:
         return transformer.fit_transform(counts)
     else:
         transformed_data = [transform_label(sample) for sample in tqdm(data)]
-        return np.matrix(transformed_data).transpose()
+        return np.asarray(transformed_data).ravel()

@@ -32,7 +32,9 @@ class GeneralizedPeonyBoxModel:
         transformation_needed: bool = True,
     ) -> None:
         if transformation_needed:
+            print("transforming instances for model training...")
             training_instances = self.transformator(training_instances)
+            print("transforming labels for model training...")
             training_labels = self.transformator(training_labels)
 
         if self.training_dataset == {}:
@@ -56,6 +58,7 @@ class GeneralizedPeonyBoxModel:
         transformation_needed: bool = True,
     ) -> List[Any]:
         if transformation_needed:
+            print("transforming instances for model prediction...")
             instances = self.transformator(instances)
         return self.model.predict(instances)
 

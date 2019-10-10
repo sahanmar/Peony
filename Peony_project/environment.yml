@@ -11,4 +11,5 @@ dependencies:
   - pip:
       - pymongo
       - black
+      - matplotlib
       - -e .

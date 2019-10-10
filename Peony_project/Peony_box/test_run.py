@@ -1,6 +1,7 @@
 import numpy as np
 
 from PeonyPackage.PeonyDb import MongoDb
+from Peony_visualization.src.peony_visualization import calculate_binary_metrics
 from Peony_box.src.peony_box_model import PeonyBoxModel
 from Peony_box.src.peony_adjusted_models.random_trees_model import PeonyRandomForest
 from Peony_box.src.transformators import HuffPost_transformator
@@ -23,14 +24,14 @@ def main():
         collection_name=HuffPost_collection_name,
         collection_id=HuffPost_collection_id,
         label="SPORTS",
-        limit=1000,
+        limit=100,
     )
 
     comedy_records = api.get_record(
         collection_name=HuffPost_collection_name,
         collection_id=HuffPost_collection_id,
         label="COMEDY",
-        limit=1000,
+        limit=100,
     )
 
     instances = sport_records + comedy_records
@@ -44,13 +45,15 @@ def main():
         HuffPost_transformator.transform,
         instances,
         labels,
-        10,
+        8,
     )
 
     scores = [
         accuracy_score(eval["true"], eval["predicted"], normalize=True)
         for eval in k_fold
     ]
+
+    calculate_binary_metrics(k_fold)
 
     print(scores)
 
