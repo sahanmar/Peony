@@ -1,7 +1,8 @@
 import numpy as np
 
 from PeonyPackage.PeonyDb import MongoDb
-from typing import List, Dict, Any, Union, overload
+from Peony_box.src.transformators.generalized_transformator import Transformator
+from typing import List, Dict, Any, Union, Optional, Tuple
 from Peony_box.src.transformators.common import (
     create_hash,
     lemmatizer,
@@ -86,28 +87,35 @@ LABEL_ENCODING = {
 #     )
 
 
-def transform_text(sample: Dict[str, Any]) -> str:
+class HuffPostTransform(Transformator):
+    def __init__(self):
+        self.transformer = TfidfTransformer(smooth_idf=False)
+        self.vectorizer = CountVectorizer()
+        self.fitted = False
+        self.dict_length = None
 
-    text = " ".join(
-        [sample["record"]["text"]["title"], sample["record"]["text"]["body"]]
-    )
-    # tokens = lemmatizer(stop_words_filter(tokenizer(text)))
-    # tokens = stop_words_filter(tokenizer(text))
-    # features = get_word_embeddings(tokens)
-    return text
+    def transform_instances(self, data: List[Dict[str, Any]]) -> np.ndarray:
+        transformed_data = [self._transform_text(sample) for sample in tqdm(data)]
+        if self.fitted is False:
+            counts = self.vectorizer.fit_transform(transformed_data)
+            self.transformer.fit_transform(counts)
+            self.fitted = True
+            self.dict_length = len(self.vectorizer.get_feature_names())
+        counts = self.vectorizer.transform(transformed_data)
+        return self.transformer.transform(counts)
 
-
-def transform_label(sample: str) -> int:
-    return LABEL_ENCODING[sample]
-
-
-def transform(data: Any) -> np.ndarray:
-    if isinstance(data[0], dict):
-        transformed_data = [transform_text(sample) for sample in tqdm(data)]
-        vectorizer = CountVectorizer()
-        transformer = TfidfTransformer(smooth_idf=False)
-        counts = vectorizer.fit_transform(transformed_data)
-        return transformer.fit_transform(counts)
-    else:
-        transformed_data = [transform_label(sample) for sample in tqdm(data)]
+    def transform_labels(self, data: List[str]) -> np.ndarray:
+        transformed_data = [self._transform_label(sample) for sample in tqdm(data)]
         return np.asarray(transformed_data).ravel()
+
+    @staticmethod
+    def _transform_text(sample: Dict[str, Any]) -> str:
+
+        text = " ".join(
+            [sample["record"]["text"]["title"], sample["record"]["text"]["body"]]
+        )
+        return text
+
+    @staticmethod
+    def _transform_label(sample: str) -> int:
+        return LABEL_ENCODING[sample]

@@ -1,17 +1,15 @@
 import numpy as np
 
-from sklearn.ensemble import forest
+from sklearn.svm import SVC
 from sklearn.base import clone
 from typing import List
 
 NUM_ENSEMBLES = 10
 
 
-class PeonyRandomForest:
+class PeonySVM:
     def __init__(self):
-        self.ensembles = [
-            forest.RandomForestClassifier(n_estimators=20) for i in range(NUM_ENSEMBLES)
-        ]
+        self.ensembles = [SVC(kernel="linear") for i in range(NUM_ENSEMBLES)]
         self.num_ensembles = NUM_ENSEMBLES
 
     def fit(self, instances: np.ndarray, labels: np.ndarray):
