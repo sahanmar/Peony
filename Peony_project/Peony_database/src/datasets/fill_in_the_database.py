@@ -1,7 +1,7 @@
 import argparse
 
 from pathlib import Path
-from common import MongoDb
+from PeonyPackage.PeonyDb import MongoDb
 
 # Imports for datasets upload
 from HuffPost_news_dataset import (
@@ -38,12 +38,12 @@ def input_args() -> argparse.ArgumentParser:
     parser.add_argument("--tweets", help="Path to 1600k tweets (emotional semantics)")
     parser.add_argument("--comments", help="Path to comments dataset")
     parser.add_argument("--emotions", help="Path to emotional texts dataset")
-    return parser.parse_args()
+    return parser
 
 
 # upload to mongo
 def main():
-    args = input_args()
+    args = input_args().parse_args()
 
     api = MongoDb()
 
