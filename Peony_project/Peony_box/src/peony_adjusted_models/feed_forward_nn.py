@@ -8,6 +8,7 @@ NUM_ENSEMBLES = 10
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
+RAND_SAMPLES_RATIO = 0.8
 
 
 class NeuralNet(nn.Module):
@@ -30,6 +31,7 @@ class PeonyFeedForwardNN:
     def __init__(self, hidden_size, num_classes):
 
         self.num_ensembles = NUM_ENSEMBLES
+        self.num_of_samples = None
 
         self.model = None
         self.criterion = None
@@ -43,6 +45,7 @@ class PeonyFeedForwardNN:
     def fit(self, instances: np.ndarray, labels: np.ndarray) -> Optional[List[str]]:
 
         loss_list: List[str] = []
+        self.num_of_samples = int(instances.shape[0] * RAND_SAMPLES_RATIO)
 
         if self.initialized is False:
             self.model = [
@@ -64,10 +67,13 @@ class PeonyFeedForwardNN:
         for index in range(self.num_ensembles):
             initial_loss_per_ensemble: List[float] = []
             fitted_loss_per_ensemble: List[float] = []
+            indices = np.random.choice(
+                instances.shape[0], self.num_of_samples, replace=False
+            )
             for epoch in range(self.num_epochs):
                 # Forward pass
-                outputs = self.model[index](instances)
-                loss = self.criterion[index](outputs, labels)
+                outputs = self.model[index](instances[indices, :])
+                loss = self.criterion[index](outputs, labels[indices])
                 # Backward and optimize
                 self.optimizer[index].zero_grad()
                 loss.backward()
