@@ -4,20 +4,21 @@ from sklearn.ensemble import forest
 from sklearn.base import clone
 from typing import List
 
+
 NUM_ENSEMBLES = 10
-RAND_SAMPLES_RATIO = 0.8
 
 
 class PeonyRandomForest:
-    def __init__(self):
+    def __init__(self, rand_sample_ratio: int):
         self.ensembles = [
             forest.RandomForestClassifier(n_estimators=20) for i in range(NUM_ENSEMBLES)
         ]
         self.num_ensembles = NUM_ENSEMBLES
-        self.num_of_samples = None
+        self.num_of_samples = 0
+        self.rand_sample_ratio = rand_sample_ratio
 
     def fit(self, instances: np.ndarray, labels: np.ndarray):
-        self.num_of_samples = int(instances.shape[0] * RAND_SAMPLES_RATIO)
+        self.num_of_samples = int(instances.shape[0] * self.rand_sample_ratio)
         for index in range(self.num_ensembles):
             indices = np.random.choice(
                 instances.shape[0], self.num_of_samples, replace=False

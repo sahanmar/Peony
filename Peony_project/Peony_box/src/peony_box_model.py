@@ -8,31 +8,38 @@ from Peony_box.src.transformators.generalized_transformator import Transformator
 from Peony_box.src.peony_adjusted_models.random_trees_model import PeonyRandomForest
 from Peony_box.src.peony_adjusted_models.svm_model import PeonySVM
 from Peony_box.src.peony_adjusted_models.feed_forward_nn import PeonyFeedForwardNN
-from Peony_box.src.acquisition_functions.functions import random_sampling
+
+RAND_SAMPLES_RATIO = 0.8
 
 
 class PeonyBoxModel:
     def __init__(
         self,
         transformator: Transformator,
-        acquisition_function: Callable[[np.ndarray], np.ndarray] = random_sampling,
+        acquisition_function: Optional[Callable[[np.ndarray, int], np.ndarray]] = None,
+        greedy_coef_decay: Optional[Callable[[float], float]] = None,
         active_learning_step: int = 1,
     ):
         self.random_forest_model = GeneralizedPeonyBoxModel(
-            model=PeonyRandomForest(),
+            model=PeonyRandomForest(rand_sample_ratio=RAND_SAMPLES_RATIO),
             transformator=transformator,
-            acquisition_function=acquisition_function,
             active_learning_step=active_learning_step,
+            acquisition_function=acquisition_function,
+            greedy_coef_decay=greedy_coef_decay,
         )
         self.svm_model = GeneralizedPeonyBoxModel(
-            model=PeonySVM(),
+            model=PeonySVM(rand_sample_ratio=RAND_SAMPLES_RATIO),
             transformator=transformator,
-            acquisition_function=acquisition_function,
             active_learning_step=active_learning_step,
+            acquisition_function=acquisition_function,
+            greedy_coef_decay=greedy_coef_decay,
         )
         self.feed_forward_nn = GeneralizedPeonyBoxModel(
-            model=PeonyFeedForwardNN(hidden_size=100, num_classes=41),
+            model=PeonyFeedForwardNN(
+                hidden_size=100, num_classes=41, rand_sample_ratio=RAND_SAMPLES_RATIO
+            ),
             transformator=transformator,
-            acquisition_function=acquisition_function,
             active_learning_step=active_learning_step,
+            acquisition_function=acquisition_function,
+            greedy_coef_decay=greedy_coef_decay,
         )

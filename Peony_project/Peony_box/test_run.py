@@ -9,6 +9,7 @@ from Peony_database.src.datasets.HuffPost_news_dataset import (
     COLLECTION_NAME as HuffPost_collection_name,
     COLLECTION_ID as HuffPost_collection_id,
 )
+from Peony_box.src.acquisition_functions.functions import entropy_sampling
 from scipy.sparse import vstack
 from sklearn.utils import shuffle
 
@@ -37,9 +38,11 @@ def main():
     instances = sport_records + comedy_records
     labels = [sample["record"]["label"] for sample in sport_records + comedy_records]
 
-    peony_model = PeonyBoxModel(HuffPostTransform, active_learning_step=5)
-    # peony_model.random_forest_model.fit(instances[50:], labels[50:])
-    # indexes = peony_model.random_forest_model.get_learning_samples(instances[:50])
+    peony_model = PeonyBoxModel(
+        HuffPostTransform, active_learning_step=5, acquisition_function=entropy_sampling
+    )
+    peony_model.random_forest_model.fit(instances[50:], labels[50:])
+    indexes = peony_model.random_forest_model.get_learning_samples(instances[:50])
 
     # add_training = [instances[index] for index in indexes.tolist()]
     # add_labels = [labels[index] for index in indexes.tolist()]

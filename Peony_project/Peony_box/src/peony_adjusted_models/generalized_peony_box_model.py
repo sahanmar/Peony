@@ -6,8 +6,12 @@ from scipy.sparse import vstack
 from sklearn.preprocessing import OneHotEncoder
 
 from typing import Callable, Any, List, Dict, Optional, Union
+from inspect import signature
+
 from Peony_box.src.peony_adjusted_models.random_trees_model import PeonyRandomForest
 from Peony_box.src.transformators.generalized_transformator import Transformator
+from Peony_box.src.acquisition_functions.functions import random_sampling
+from Peony_box.src.greedy_coef_decay_functions.functions import sigmoid_decay
 
 
 class GeneralizedPeonyBoxModel:
@@ -16,13 +20,20 @@ class GeneralizedPeonyBoxModel:
         model: Any,
         transformator: Transformator,
         active_learning_step: int,
-        acquisition_function: Callable[[np.ndarray, int], np.ndarray],
+        acquisition_function: Optional[Callable[[np.ndarray, int], np.ndarray]],
+        greedy_coef_decay: Optional[Callable[[float], float]],
     ):
         self.model = model
         self.transformator = transformator()
         self.active_learning_step = active_learning_step
         self.training_dataset: Dict[str, np.ndarray] = {}
         self.acquisition_function = acquisition_function
+        self.epsilon_greedy_coef = 0
+        self.active_learning_iteration = 0
+        if greedy_coef_decay:
+            self.greedy_coef_decay = greedy_coef_decay
+        else:
+            self.greedy_coef_decay = sigmoid_decay
 
     def fit(
         self,
@@ -86,7 +97,17 @@ class GeneralizedPeonyBoxModel:
             print("transforming instances for model getting learning sample...")
             instances = self.transformator.transform_instances(instances)
         predicted = self.model.predict(instances)
-        return self.acquisition_function(predicted, self.active_learning_step)
+        if self.acquisition_function:
+            if np.random.uniform(0, 1) > self.epsilon_greedy_coef:
+                self.active_learning_iteration += self.active_learning_step
+                return random_sampling(predicted, self.active_learning_step)
+            else:
+                self.epsilon_greedy_coef = sigmoid_decay(self.epsilon_greedy_coef)
+                self.active_learning_iteration += self.active_learning_step
+                return self.acquisition_function(predicted, self.active_learning_step)
+        else:
+            self.active_learning_iteration += self.active_learning_step
+            return random_sampling(predicted, self.active_learning_step)
 
     def add_new_learning_samples(
         self,
