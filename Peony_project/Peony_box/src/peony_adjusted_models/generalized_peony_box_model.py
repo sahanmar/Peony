@@ -6,7 +6,6 @@ from scipy.sparse import vstack
 from sklearn.preprocessing import OneHotEncoder
 
 from typing import Callable, Any, List, Dict, Optional, Union
-from inspect import signature
 
 from Peony_box.src.peony_adjusted_models.random_trees_model import PeonyRandomForest
 from Peony_box.src.transformators.generalized_transformator import Transformator
@@ -24,7 +23,7 @@ class GeneralizedPeonyBoxModel:
         greedy_coef_decay: Optional[Callable[[float], float]],
     ):
         self.model = model
-        self.transformator = transformator()
+        self.transformator = transformator
         self.active_learning_step = active_learning_step
         self.training_dataset: Dict[str, np.ndarray] = {}
         self.acquisition_function = acquisition_function
@@ -45,6 +44,7 @@ class GeneralizedPeonyBoxModel:
         fit_output: List[Any] = []
 
         if transformation_needed:
+            # self.transformator.reset()
             print("transforming instances for model training...")
             training_instances = self.transformator.transform_instances(
                 training_instances

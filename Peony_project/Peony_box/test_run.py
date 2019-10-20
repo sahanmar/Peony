@@ -15,7 +15,7 @@ from sklearn.utils import shuffle
 
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
-from Peony_box.src.utils import k_fold_corss_validation
+from Peony_box.src.utils import k_fold_corss_validation, auc_metrics
 from sklearn.metrics import accuracy_score
 
 
@@ -52,8 +52,10 @@ def main():
     # predicted = peony_model.feed_forward_nn.predict(instances)
 
     k_fold = k_fold_corss_validation(
-        peony_model.feed_forward_nn, HuffPostTransform, instances, labels, 3
+        peony_model.random_forest_model, HuffPostTransform, instances, labels, 3
     )
+
+    print(auc_metrics(k_fold))
 
     scores = [
         accuracy_score(eval["true"], eval["predicted"], normalize=True)

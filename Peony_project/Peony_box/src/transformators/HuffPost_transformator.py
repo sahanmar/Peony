@@ -108,6 +108,12 @@ class HuffPostTransform(Transformator):
         transformed_data = [self._transform_label(sample) for sample in tqdm(data)]
         return np.asarray(transformed_data).ravel()
 
+    def reset(self) -> None:
+        self.transformer = TfidfTransformer(smooth_idf=False)
+        self.vectorizer = CountVectorizer()
+        self.fitted = False
+        self.dict_length = None
+
     @staticmethod
     def _transform_text(sample: Dict[str, Any]) -> str:
 
