@@ -20,14 +20,14 @@ class GeneralizedPeonyBoxModel:
         transformator: Transformator,
         active_learning_step: int,
         acquisition_function: Optional[Callable[[np.ndarray, int], np.ndarray]],
-        greedy_coef_decay: Optional[Callable[[float], float]],
+        greedy_coef_decay: Optional[Callable[[int], float]],
     ):
         self.model = model
         self.transformator = transformator
         self.active_learning_step = active_learning_step
         self.training_dataset: Dict[str, np.ndarray] = {}
         self.acquisition_function = acquisition_function
-        self.epsilon_greedy_coef = 0
+        self.epsilon_greedy_coef = 0.0
         self.active_learning_iteration = 0
         if greedy_coef_decay:
             self.greedy_coef_decay = greedy_coef_decay
@@ -97,12 +97,17 @@ class GeneralizedPeonyBoxModel:
             print("transforming instances for model getting learning sample...")
             instances = self.transformator.transform_instances(instances)
         predicted = self.model.predict(instances)
-        if self.acquisition_function:
+        if self.acquisition_function is not None:
             if np.random.uniform(0, 1) > self.epsilon_greedy_coef:
+                self.epsilon_greedy_coef = self.greedy_coef_decay(
+                    self.active_learning_iteration
+                )
                 self.active_learning_iteration += self.active_learning_step
                 return random_sampling(predicted, self.active_learning_step)
             else:
-                self.epsilon_greedy_coef = sigmoid_decay(self.epsilon_greedy_coef)
+                self.epsilon_greedy_coef = self.greedy_coef_decay(
+                    self.active_learning_iteration
+                )
                 self.active_learning_iteration += self.active_learning_step
                 return self.acquisition_function(predicted, self.active_learning_step)
         else:

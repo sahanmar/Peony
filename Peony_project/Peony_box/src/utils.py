@@ -59,7 +59,6 @@ def k_fold_corss_validation(
 
     model_output: list = []
 
-    transformator = transformator()
     print("transforming instances for k fold cross validation...")
     validation_instances = transformator.transform_instances(validation_instances)
     print("transforming labels for k fold cross validation...")

@@ -4,7 +4,9 @@ from PeonyPackage.PeonyDb import MongoDb
 from Peony_visualization.src.peony_visualization import calculate_binary_metrics
 from Peony_box.src.peony_box_model import PeonyBoxModel
 from Peony_box.src.peony_adjusted_models.random_trees_model import PeonyRandomForest
-from Peony_box.src.transformators.HuffPost_transformator import HuffPostTransform
+from Peony_box.src.transformators.HuffPost_transformator import (
+    HuffPostTransform as transformator,
+)
 from Peony_database.src.datasets.HuffPost_news_dataset import (
     COLLECTION_NAME as HuffPost_collection_name,
     COLLECTION_ID as HuffPost_collection_id,
@@ -37,6 +39,9 @@ def main():
 
     instances = sport_records + comedy_records
     labels = [sample["record"]["label"] for sample in sport_records + comedy_records]
+
+    HuffPostTransform = transformator()
+    _ = HuffPostTransform.transform_instances(instances)
 
     peony_model = PeonyBoxModel(
         HuffPostTransform, active_learning_step=5, acquisition_function=entropy_sampling

@@ -9,7 +9,7 @@ from Peony_box.src.peony_adjusted_models.random_trees_model import PeonyRandomFo
 from Peony_box.src.peony_adjusted_models.svm_model import PeonySVM
 from Peony_box.src.peony_adjusted_models.feed_forward_nn import PeonyFeedForwardNN
 
-RAND_SAMPLES_RATIO = 0.8
+RAND_SAMPLES_RATIO = 0.7
 
 
 class PeonyBoxModel:
@@ -17,7 +17,7 @@ class PeonyBoxModel:
         self,
         transformator: Transformator,
         acquisition_function: Optional[Callable[[np.ndarray, int], np.ndarray]] = None,
-        greedy_coef_decay: Optional[Callable[[float], float]] = None,
+        greedy_coef_decay: Optional[Callable[[int], float]] = None,
         active_learning_step: int = 1,
     ):
         self.random_forest_model = GeneralizedPeonyBoxModel(
