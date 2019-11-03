@@ -42,4 +42,5 @@ class PeonyBoxModel:
             active_learning_step=active_learning_step,
             acquisition_function=acquisition_function,
             greedy_coef_decay=greedy_coef_decay,
+            reset_after_adding_new_samples=True,
         )

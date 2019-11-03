@@ -61,46 +61,24 @@ LABEL_ENCODING = {
 }
 
 
-# def normalize(embedding: Union[np.ndarray, List[float]]) -> np.ndarray:
-#     return np.asarray(embedding) / np.linalg.norm(np.asarray(embedding))
-
-
-# @lru_cache(maxsize=1000)
-# def get_embedding_from_database(api: MongoDb, token: str) -> np.ndarray:
-#     return api.get_record(
-#         collection_name="Fasttext_pretrained_embeddings",
-#         collection_id=11,
-#         hash=create_hash([token]),
-#     )[0]
-
-
-# def get_word_embeddings(tokens: List[str]) -> np.ndarray:
-#     api = MongoDb()
-#     word_embeddings = []
-#     for token in tokens:
-#         embedding = get_embedding_from_database(api, token)
-#         if embedding is not None:
-#             word_embeddings.append(embedding["record"]["value"])
-
-#     return normalize(
-#         np.sum([normalize(embedding) for embedding in word_embeddings], axis=0)
-#     )
-
-
 class HuffPostTransform(Transformator):
     def __init__(self):
         self.transformer = TfidfTransformer(smooth_idf=False)
         self.vectorizer = CountVectorizer()
-        self.fitted = False
-        self.dict_length = None
+        self.fitted: bool = False
+        self.dict_length: int = 0
 
-    def transform_instances(self, data: List[Dict[str, Any]]) -> np.ndarray:
-        transformed_data = [self._transform_text(sample) for sample in tqdm(data)]
+    def fit(self, data: List[Dict[str, Any]]) -> None:
         if self.fitted is False:
+            print("transforming data...")
+            transformed_data = [self._transform_text(sample) for sample in tqdm(data)]
             counts = self.vectorizer.fit_transform(transformed_data)
             self.transformer.fit_transform(counts)
             self.fitted = True
             self.dict_length = len(self.vectorizer.get_feature_names())
+
+    def transform_instances(self, data: List[Dict[str, Any]]) -> np.ndarray:
+        transformed_data = [self._transform_text(sample) for sample in tqdm(data)]
         counts = self.vectorizer.transform(transformed_data)
         return self.transformer.transform(counts)
 
@@ -112,7 +90,93 @@ class HuffPostTransform(Transformator):
         self.transformer = TfidfTransformer(smooth_idf=False)
         self.vectorizer = CountVectorizer()
         self.fitted = False
-        self.dict_length = None
+        self.dict_length = 0
+
+    @staticmethod
+    def _transform_text(sample: Dict[str, Any]) -> str:
+
+        text = " ".join(
+            [sample["record"]["text"]["title"], sample["record"]["text"]["body"]]
+        )
+        return text
+
+    @staticmethod
+    def _transform_label(sample: str) -> int:
+        return LABEL_ENCODING[sample]
+
+
+class HuffPostTransformWordEmbeddings(Transformator):
+    def __init__(self):
+        self.transformer = {}
+        self.fitted: bool = False
+        self.dict_length: int = 0
+        self.api = MongoDb()
+
+    def fit(self, data: List[Dict[str, Any]]) -> None:
+        if self.fitted is False:
+            print("transforming data...")
+            transformed_data = [self._transform_text(sample) for sample in tqdm(data)]
+            tokenized_text = [
+                token
+                for text in transformed_data
+                for token in stop_words_filter(tokenizer(text))
+            ]
+            distinct_tokens = set(tokenized_text)
+            print("creating (words -> embeddings) hash map...")
+            for token in tqdm(distinct_tokens):
+                embedding = self.get_embedding_from_database(token)
+                if embedding is not None:
+                    self.transformer[token] = embedding
+
+            self.fitted = True
+            self.dict_length = len(self.transformer.keys())
+
+    @staticmethod
+    def _normalize(embedding: Union[np.ndarray, List[float]]) -> np.ndarray:
+        epsilon = 0.1
+        norm = np.linalg.norm(np.asarray(embedding))
+        if norm <= epsilon:
+            return np.asarray([0.0 for i in range(300)])
+        else:
+            return np.asarray(embedding) / norm
+
+    def get_embedding_from_database(self, token: str) -> Optional[np.ndarray]:
+        embedding = self.api.get_record(
+            collection_name="Fasttext_pretrained_embeddings",
+            collection_id=11,
+            hash=create_hash([token]),
+        )[0]
+        if embedding is None:
+            return [0.0 for i in range(300)]
+        else:
+            return self._normalize(embedding["record"]["value"])
+
+    def transform_instances(self, data: List[Dict[str, Any]]) -> np.ndarray:
+        transformed_data = [self._transform_text(sample) for sample in tqdm(data)]
+        return np.asmatrix(
+            [
+                self._normalize(
+                    np.sum(
+                        [
+                            self.transformer[token]
+                            for token in stop_words_filter(tokenizer(text))
+                            if token in self.transformer
+                        ],
+                        axis=0,
+                    )
+                ).tolist()
+                for text in transformed_data
+            ]
+        )
+
+    def transform_labels(self, data: List[str]) -> np.ndarray:
+        transformed_data = [self._transform_label(sample) for sample in tqdm(data)]
+        return np.asarray(transformed_data).ravel()
+
+    def reset(self) -> None:
+        self.transformer = {}
+        self.fitted = False
+        self.dict_length = 0
 
     @staticmethod
     def _transform_text(sample: Dict[str, Any]) -> str:

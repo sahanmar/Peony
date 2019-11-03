@@ -5,6 +5,7 @@ import torch.nn as nn
 from typing import Optional, Tuple, List
 
 NUM_ENSEMBLES = 10
+EPOCHS = 300
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
@@ -34,11 +35,11 @@ class PeonyFeedForwardNN:
 
         self.model: Optional[List[NeuralNet]] = None
         self.criterion: Optional[List[nn.CrossEntropyLoss]] = None
-        self.optimizer: Optional[List[torch.optim.Adam]] = None
+        self.optimizer: Optional[List[torch.optim.SGD]] = None
 
         self.hidden_size = hidden_size
         self.num_classes = num_classes
-        self.num_epochs = 300
+        self.num_epochs = EPOCHS
         self.initialized = False
         self.rand_sample_ratio = rand_sample_ratio
 
@@ -56,12 +57,18 @@ class PeonyFeedForwardNN:
             ]
             self.criterion = [nn.CrossEntropyLoss() for i in range(self.num_ensembles)]
             self.optimizer = [
+                # torch.optim.SGD(
+                #     self.model[i].parameters(), lr=LEARNING_RATE, momentum=0.1
+                # )
                 torch.optim.Adam(self.model[i].parameters(), lr=LEARNING_RATE)
                 for i in range(self.num_ensembles)
             ]
             self.initialized = True
 
-        instances = torch.from_numpy(instances.toarray()).float()
+        try:
+            instances = torch.from_numpy(instances.toarray()).float()
+        except AttributeError:
+            instances = torch.from_numpy(instances).float()
         labels = torch.from_numpy(labels)
         for index in range(self.num_ensembles):
             initial_loss_per_ensemble: List[float] = []
@@ -88,10 +95,16 @@ class PeonyFeedForwardNN:
             f"fitted loss (ensembles mean) is {np.mean(fitted_loss_per_ensemble)}"
         )
 
+        if self.initialized:
+            self.num_epochs = 20
+
         return loss_list
 
     def predict(self, instances: np.ndarray) -> np.ndarray:
-        instances = torch.from_numpy(instances.toarray()).float()
+        try:
+            instances = torch.from_numpy(instances.toarray()).float()
+        except AttributeError:
+            instances = torch.from_numpy(instances).float()
         predicted_list = []
         for index in range(self.num_ensembles):
             with torch.no_grad():
@@ -101,6 +114,8 @@ class PeonyFeedForwardNN:
         return predicted_list
 
     def reset(self) -> None:
+        self.initialized = False
+        self.num_epochs = EPOCHS
         for index in range(self.num_ensembles):
             self.model[index].hidden.reset_parameters()
             self.model[index].output.reset_parameters()

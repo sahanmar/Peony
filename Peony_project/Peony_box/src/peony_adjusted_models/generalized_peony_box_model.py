@@ -21,6 +21,7 @@ class GeneralizedPeonyBoxModel:
         active_learning_step: int,
         acquisition_function: Optional[Callable[[np.ndarray, int], np.ndarray]],
         greedy_coef_decay: Optional[Callable[[int], float]],
+        reset_after_adding_new_samples: bool = True,
     ):
         self.model = model
         self.transformator = transformator
@@ -29,6 +30,7 @@ class GeneralizedPeonyBoxModel:
         self.acquisition_function = acquisition_function
         self.epsilon_greedy_coef = 0.0
         self.active_learning_iteration = 0
+        self.reset_after_adding_new_samples = reset_after_adding_new_samples
         if greedy_coef_decay:
             self.greedy_coef_decay = greedy_coef_decay
         else:
@@ -44,7 +46,6 @@ class GeneralizedPeonyBoxModel:
         fit_output: List[Any] = []
 
         if transformation_needed:
-            # self.transformator.reset()
             print("transforming instances for model training...")
             training_instances = self.transformator.transform_instances(
                 training_instances
@@ -118,9 +119,11 @@ class GeneralizedPeonyBoxModel:
         self,
         instances: Union[List[Dict[str, Any]], np.ndarray],
         labels: Union[List[Any], np.ndarray],
+        transformation_needed: bool = True,
     ) -> None:
-        self.reset()
-        if isinstance(instances, list):
+        if self.reset_after_adding_new_samples:
+            self.reset()
+        if transformation_needed:
             self.fit(instances, labels)
         else:
             self.fit(instances, labels, transformation_needed=False)

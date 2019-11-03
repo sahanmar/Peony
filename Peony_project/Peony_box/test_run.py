@@ -5,7 +5,7 @@ from Peony_visualization.src.peony_visualization import calculate_binary_metrics
 from Peony_box.src.peony_box_model import PeonyBoxModel
 from Peony_box.src.peony_adjusted_models.random_trees_model import PeonyRandomForest
 from Peony_box.src.transformators.HuffPost_transformator import (
-    HuffPostTransform as transformator,
+    HuffPostTransformWordEmbeddings as transformator,
 )
 from Peony_database.src.datasets.HuffPost_news_dataset import (
     COLLECTION_NAME as HuffPost_collection_name,
@@ -41,13 +41,13 @@ def main():
     labels = [sample["record"]["label"] for sample in sport_records + comedy_records]
 
     HuffPostTransform = transformator()
-    _ = HuffPostTransform.transform_instances(instances)
+    HuffPostTransform.fit(instances)
 
     peony_model = PeonyBoxModel(
         HuffPostTransform, active_learning_step=5, acquisition_function=entropy_sampling
     )
-    peony_model.random_forest_model.fit(instances[50:], labels[50:])
-    indexes = peony_model.random_forest_model.get_learning_samples(instances[:50])
+    # peony_model.svm_model.fit(instances[50:], labels[50:])
+    # indexes = peony_model.svm_model.get_learning_samples(instances[:50])
 
     # add_training = [instances[index] for index in indexes.tolist()]
     # add_labels = [labels[index] for index in indexes.tolist()]
@@ -57,7 +57,7 @@ def main():
     # predicted = peony_model.feed_forward_nn.predict(instances)
 
     k_fold = k_fold_corss_validation(
-        peony_model.random_forest_model, HuffPostTransform, instances, labels, 3
+        peony_model.feed_forward_nn, HuffPostTransform, instances, labels, 3
     )
 
     print(auc_metrics(k_fold))
