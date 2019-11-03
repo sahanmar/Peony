@@ -5,14 +5,14 @@ import torch.nn as nn
 from typing import Optional, Tuple, List
 
 NUM_ENSEMBLES = 10
+EPOCHS = 300
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
-RAND_SAMPLES_RATIO = 0.8
 
 
 class NeuralNet(nn.Module):
-    def __init__(self, input_size, hidden_size, num_classes):
+    def __init__(self, input_size: int, hidden_size: int, num_classes: int):
         super(NeuralNet, self).__init__()
         self.hidden = nn.Linear(input_size, hidden_size)
         self.output = nn.Linear(hidden_size, num_classes)
@@ -28,24 +28,25 @@ class NeuralNet(nn.Module):
 
 
 class PeonyFeedForwardNN:
-    def __init__(self, hidden_size, num_classes):
+    def __init__(self, hidden_size: int, num_classes: int, rand_sample_ratio: int):
 
         self.num_ensembles = NUM_ENSEMBLES
-        self.num_of_samples = None
+        self.num_of_samples = 0
 
-        self.model = None
-        self.criterion = None
-        self.optimizer = None
+        self.model: Optional[List[NeuralNet]] = None
+        self.criterion: Optional[List[nn.CrossEntropyLoss]] = None
+        self.optimizer: Optional[List[torch.optim.SGD]] = None
 
         self.hidden_size = hidden_size
         self.num_classes = num_classes
-        self.num_epochs = 300
+        self.num_epochs = EPOCHS
         self.initialized = False
+        self.rand_sample_ratio = rand_sample_ratio
 
     def fit(self, instances: np.ndarray, labels: np.ndarray) -> Optional[List[str]]:
 
         loss_list: List[str] = []
-        self.num_of_samples = int(instances.shape[0] * RAND_SAMPLES_RATIO)
+        self.num_of_samples = int(instances.shape[0] * self.rand_sample_ratio)
 
         if self.initialized is False:
             self.model = [
@@ -56,14 +57,19 @@ class PeonyFeedForwardNN:
             ]
             self.criterion = [nn.CrossEntropyLoss() for i in range(self.num_ensembles)]
             self.optimizer = [
+                # torch.optim.SGD(
+                #     self.model[i].parameters(), lr=LEARNING_RATE, momentum=0.1
+                # )
                 torch.optim.Adam(self.model[i].parameters(), lr=LEARNING_RATE)
                 for i in range(self.num_ensembles)
             ]
             self.initialized = True
 
-        instances = torch.from_numpy(instances.toarray()).float()
+        try:
+            instances = torch.from_numpy(instances.toarray()).float()
+        except AttributeError:
+            instances = torch.from_numpy(instances).float()
         labels = torch.from_numpy(labels)
-
         for index in range(self.num_ensembles):
             initial_loss_per_ensemble: List[float] = []
             fitted_loss_per_ensemble: List[float] = []
@@ -89,10 +95,16 @@ class PeonyFeedForwardNN:
             f"fitted loss (ensembles mean) is {np.mean(fitted_loss_per_ensemble)}"
         )
 
+        if self.initialized:
+            self.num_epochs = 20
+
         return loss_list
 
     def predict(self, instances: np.ndarray) -> np.ndarray:
-        instances = torch.from_numpy(instances.toarray()).float()
+        try:
+            instances = torch.from_numpy(instances.toarray()).float()
+        except AttributeError:
+            instances = torch.from_numpy(instances).float()
         predicted_list = []
         for index in range(self.num_ensembles):
             with torch.no_grad():
@@ -102,6 +114,8 @@ class PeonyFeedForwardNN:
         return predicted_list
 
     def reset(self) -> None:
+        self.initialized = False
+        self.num_epochs = EPOCHS
         for index in range(self.num_ensembles):
             self.model[index].hidden.reset_parameters()
             self.model[index].output.reset_parameters()

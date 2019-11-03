@@ -177,6 +177,63 @@ def plot_precision_recall_curve(true_vs_predicted: List[Dict[str, np.ndarray]]) 
     plt.show()
 
 
+def visualize_two_auc_evolutions(
+    first_auc_seq: np.ndarray, second_auc_seq: np.ndarray
+) -> None:
+
+    plt.figure(3)
+
+    first_mean = np.mean(first_auc_seq, axis=0)
+    first_std = np.std(first_auc_seq, axis=0)
+
+    second_mean = np.mean(second_auc_seq, axis=0)
+    second_std = np.std(second_auc_seq, axis=0)
+
+    plt.plot(
+        first_mean,
+        linestyle="-",
+        color="r",
+        lw=1,
+        label="Passive Learning AUC evolution mean",
+    )
+    plt.plot(first_mean + first_std, linestyle="-", color="r", alpha=0.2)
+    plt.plot(first_mean - first_std, linestyle="-", color="r", alpha=0.2)
+
+    # plt.fill_between(
+    #     first_mean.tolist,
+    #     (first_mean + first_std).tolist(),
+    #     (first_mean - first_std).tolist(),
+    #     color="r",
+    #     alpha=0.2,
+    #     label="1 std. dev.",
+    # )
+
+    plt.plot(
+        second_mean,
+        linestyle="-",
+        color="g",
+        lw=1,
+        label="Active Learning AUC evolution mean",
+    )
+    plt.plot(second_mean + second_std, linestyle="-", color="g", alpha=0.2)
+    plt.plot(second_mean - second_std, linestyle="-", color="g", alpha=0.2)
+
+    # plt.fill_between(
+    #     first_mean.tolist,
+    #     (first_mean + first_std).tolist(),
+    #     (first_mean - first_std).tolist(),
+    #     color="g",
+    #     alpha=0.2,
+    #     label="1 std. dev.",
+    # )
+
+    plt.xlabel("Learning Iterations")
+    plt.ylabel("AUC metrics")
+    plt.title("AUC and Learning Iterations dependent on choice of new training data")
+    plt.legend(loc="lower left")
+    plt.show()
+
+
 def calculate_binary_metrics(
     true_vs_predicted: List[Dict[str, np.ndarray]], label_to_binary: bool = True
 ) -> None:

@@ -1,5 +1,6 @@
 import pymongo
 import logging
+import numpy as np
 
 from pathlib import Path
 from typing import Callable, List, Dict, Any
@@ -37,6 +38,51 @@ class MongoDb:
             ids.append(collection.insert_one(record).inserted_id)
         logging.info(
             f"{len(ids)} records from {len(data)} were successfully uploaded..."
+        )
+
+    def load_model_results(
+        self,
+        model: str,
+        acquisition_function: str,
+        algorithm_runs: int,
+        learning_step: int,
+        active_learning_iterations: int,
+        initial_train_data_size: int,
+        validation_data_size: int,
+        category_1: str,
+        category_2: str,
+        data: List[List[float]],
+        category_1_ratio: float = 0.5,
+        collection_name: str = "models_results",
+    ) -> None:
+        results_dict: dict = {
+            "model": model,
+            "acquisition_function": acquisition_function,
+            "algorithm_runs": algorithm_runs,
+            "learning_step": learning_step,
+            "active_learning_iterations": active_learning_iterations,
+            "initial_train_data_size": initial_train_data_size,
+            "validation_data_size": validation_data_size,
+            "category_1": category_1,
+            "category_2": category_2,
+            "category_1_ratio": category_1_ratio,
+            "category_2_ratio": 1 - (category_1_ratio),
+            "results": data,
+        }
+        collection = self.database[collection_name]
+        collection.insert_one(results_dict).inserted_id
+
+    def get_model_results(
+        self,
+        filter_dict: dict,
+        collection_name: str = "models_results",
+        skip: int = 0,
+        limit: int = 10000,
+    ) -> List[Dict[str, Any]]:
+        return list(
+            self.database[collection_name].find(
+                filter=filter_dict, skip=skip, limit=limit
+            )
         )
 
     def get_record(
