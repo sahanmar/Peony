@@ -5,7 +5,7 @@ import torch.nn as nn
 from typing import Optional, Tuple, List
 
 NUM_ENSEMBLES = 10
-EPOCHS = 300
+EPOCHS = 600
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
