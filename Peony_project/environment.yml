@@ -5,6 +5,9 @@ channels:
   - pytorch
 dependencies:
   - python == 3.7.0
+  - numpy
+  - scipy
+  - docker-compose 
   - tqdm
   - pandas
   - scikit-learn 
@@ -12,6 +15,9 @@ dependencies:
   - jupyter
   - pytorch
   - multiprocess
+  - mkl-service
+  - theano
+  - pymc3
   - pip:
       - pymongo
       - black

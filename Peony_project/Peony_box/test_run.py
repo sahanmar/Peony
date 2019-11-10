@@ -27,14 +27,14 @@ def main():
         collection_name=HuffPost_collection_name,
         collection_id=HuffPost_collection_id,
         label="SPORTS",
-        limit=100,
+        limit=120,
     )
 
     comedy_records = api.get_record(
         collection_name=HuffPost_collection_name,
         collection_id=HuffPost_collection_id,
         label="COMEDY",
-        limit=100,
+        limit=120,
     )
 
     instances = sport_records + comedy_records
@@ -57,7 +57,7 @@ def main():
     # predicted = peony_model.feed_forward_nn.predict(instances)
 
     k_fold = k_fold_corss_validation(
-        peony_model.feed_forward_nn, HuffPostTransform, instances, labels, 3
+        peony_model.bayesian_nn, HuffPostTransform, instances, labels, 2, True
     )
 
     print(auc_metrics(k_fold))

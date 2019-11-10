@@ -8,6 +8,7 @@ from Peony_box.src.transformators.generalized_transformator import Transformator
 from Peony_box.src.peony_adjusted_models.random_trees_model import PeonyRandomForest
 from Peony_box.src.peony_adjusted_models.svm_model import PeonySVM
 from Peony_box.src.peony_adjusted_models.feed_forward_nn import PeonyFeedForwardNN
+from Peony_box.src.peony_adjusted_models.pymc3_nn import PeonyPymc3NN
 
 RAND_SAMPLES_RATIO = 0.7
 
@@ -42,5 +43,13 @@ class PeonyBoxModel:
             active_learning_step=active_learning_step,
             acquisition_function=acquisition_function,
             greedy_coef_decay=greedy_coef_decay,
-            reset_after_adding_new_samples=True,
+        )
+        self.bayesian_nn = GeneralizedPeonyBoxModel(
+            model=PeonyPymc3NN(
+                hidden_size=100, num_classes=2, rand_sample_ratio=RAND_SAMPLES_RATIO
+            ),
+            transformator=transformator,
+            active_learning_step=active_learning_step,
+            acquisition_function=acquisition_function,
+            greedy_coef_decay=greedy_coef_decay,
         )
