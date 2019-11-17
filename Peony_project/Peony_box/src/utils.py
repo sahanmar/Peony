@@ -55,6 +55,7 @@ def k_fold_corss_validation(
     validation_instances: List[Dict[str, Any]],
     validation_labels: List[Any],
     splits: int,
+    transform_label_to_binary: bool = False,
 ) -> List[Dict[str, np.ndarray]]:
 
     model_output: list = []
@@ -67,6 +68,13 @@ def k_fold_corss_validation(
     validation_instances, validation_labels = shuffle(
         validation_instances, validation_labels, random_state=0
     )
+
+    if transform_label_to_binary:
+        unique_values = np.unique(validation_labels)
+        if unique_values is not None:
+            validation_labels = np.asarray(
+                [0 if x == unique_values[0] else 1 for x in validation_labels]
+            )
 
     true_vs_predicted: List[Dict[str, np.ndarray]] = []
     kf = KFold(n_splits=splits)

@@ -2,10 +2,11 @@ import numpy as np
 import torch
 import torch.nn as nn
 
+from sklearn.preprocessing import OneHotEncoder
 from typing import Optional, Tuple, List
 
 NUM_ENSEMBLES = 10
-EPOCHS = 600
+EPOCHS = 2000
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
@@ -58,7 +59,7 @@ class PeonyFeedForwardNN:
             self.criterion = [nn.CrossEntropyLoss() for i in range(self.num_ensembles)]
             self.optimizer = [
                 # torch.optim.SGD(
-                #     self.model[i].parameters(), lr=LEARNING_RATE, momentum=0.1
+                #     self.model[i].parameters(), lr=LEARNING_RATE, momentum=0.9
                 # )
                 torch.optim.Adam(self.model[i].parameters(), lr=LEARNING_RATE)
                 for i in range(self.num_ensembles)
@@ -79,7 +80,7 @@ class PeonyFeedForwardNN:
             for epoch in range(self.num_epochs):
                 # Forward pass
                 outputs = self.model[index](instances[indices, :])
-                loss = self.criterion[index](outputs, labels[indices])
+                loss = self.criterion[index](outputs, labels[indices].long())
                 # Backward and optimize
                 self.optimizer[index].zero_grad()
                 loss.backward()
