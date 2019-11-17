@@ -27,21 +27,21 @@ def main():
         collection_name=HuffPost_collection_name,
         collection_id=HuffPost_collection_id,
         label="SPORTS",
-        limit=120,
+        limit=50,
     )
 
     comedy_records = api.get_record(
         collection_name=HuffPost_collection_name,
         collection_id=HuffPost_collection_id,
         label="COMEDY",
-        limit=120,
+        limit=50,
     )
 
     instances = sport_records + comedy_records
     labels = [sample["record"]["label"] for sample in sport_records + comedy_records]
 
     HuffPostTransform = transformator()
-    HuffPostTransform.fit(instances)
+    HuffPostTransform.fit(instances, labels)
 
     peony_model = PeonyBoxModel(
         HuffPostTransform, active_learning_step=5, acquisition_function=entropy_sampling
@@ -57,7 +57,7 @@ def main():
     # predicted = peony_model.feed_forward_nn.predict(instances)
 
     k_fold = k_fold_corss_validation(
-        peony_model.bayesian_nn, HuffPostTransform, instances, labels, 2, True
+        peony_model.bayesian_sgld_nn, HuffPostTransform, instances, labels, 2
     )
 
     print(auc_metrics(k_fold))

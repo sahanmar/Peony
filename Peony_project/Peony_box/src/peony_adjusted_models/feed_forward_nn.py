@@ -80,7 +80,7 @@ class PeonyFeedForwardNN:
             for epoch in range(self.num_epochs):
                 # Forward pass
                 outputs = self.model[index](instances[indices, :])
-                loss = self.criterion[index](outputs, labels[indices])
+                loss = self.criterion[index](outputs, labels[indices].long())
                 # Backward and optimize
                 self.optimizer[index].zero_grad()
                 loss.backward()

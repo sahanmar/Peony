@@ -18,8 +18,12 @@ dependencies:
   - mkl-service
   - theano
   - pymc3
+  - jax
+  - seaborn
   - pip:
       - pymongo
       - black
       - matplotlib
+      - numpyro
+      - git+https://github.com/MFreidank/pysgmcmc@pytorch
       - -e .
