@@ -95,6 +95,10 @@ def active_learning_simulation_round(
             peony_model.feed_forward_nn.fit(
                 training_instances, training_labels, transformation_needed
             )
+        elif model == "bayesian_sgld":
+            peony_model.bayesian_sgld_nn.fit(
+                training_instances, training_labels, transformation_needed
+            )
         else:
             peony_model.random_forest_model.fit(
                 training_instances, training_labels, transformation_needed
@@ -113,12 +117,19 @@ def active_learning_simulation_round(
                 predicted = peony_model.feed_forward_nn.predict(
                     testing_instances, transformation_needed
                 )
+            elif model == "bayesian_sgld":
+                predicted = peony_model.bayesian_sgld_nn.predict(
+                    testing_instances, transformation_needed
+                )
             else:
                 predicted = peony_model.random_forest_model.predict(
                     testing_instances, transformation_needed
                 )
 
-            labels_for_auc = list(testing_labels[:])
+            if transformation_needed:
+                labels_for_auc = transformator.transform_labels(testing_labels[:])
+            else:
+                labels_for_auc = list(testing_labels[:])
             auc_active_learning.append(
                 auc_metrics([{"true": labels_for_auc, "predicted": predicted}])
             )
@@ -132,15 +143,22 @@ def active_learning_simulation_round(
                 indices = peony_model.feed_forward_nn.get_learning_samples(
                     testing_instances, transformation_needed
                 )
+            elif model == "bayesian_sgld":
+                indices = peony_model.bayesian_sgld_nn.get_learning_samples(
+                    testing_instances, transformation_needed
+                )
             else:
                 indices = peony_model.random_forest_model.get_learning_samples(
                     testing_instances, transformation_needed
                 )
 
             # Reset validation dataset (add training data, remove testing data)
-            training_instances, training_labels, testing_instances, testing_labels = reset_validation_data(
-                testing_instances, testing_labels, indices
-            )
+            (
+                training_instances,
+                training_labels,
+                testing_instances,
+                testing_labels,
+            ) = reset_validation_data(testing_instances, testing_labels, indices)
 
             # Add new learning samples to the model and retrain
             if model == "svm":
@@ -149,6 +167,10 @@ def active_learning_simulation_round(
                 )
             elif model == "nn":
                 peony_model.feed_forward_nn.add_new_learning_samples(
+                    training_instances, training_labels, transformation_needed
+                )
+            elif model == "bayesian_sgld":
+                peony_model.bayesian_sgld_nn.add_new_learning_samples(
                     training_instances, training_labels, transformation_needed
                 )
             else:

@@ -83,6 +83,7 @@ class GeneralizedPeonyBoxModel:
         if transformation_needed:
             print("transforming instances for model prediction...")
             instances = self.transformator.transform_instances(instances)
+
         predicted = self.model.predict(instances)
         return np.mean(predicted, axis=0)
 
