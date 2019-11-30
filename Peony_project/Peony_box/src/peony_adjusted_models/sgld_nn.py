@@ -77,8 +77,8 @@ class PeonySGLDFeedForwardNN:
         except AttributeError:
             instances = torch.from_numpy(instances).float()
         labels = torch.from_numpy(labels)
+        fitted_loss_per_sample: List[float] = []
         for index in range(self.num_samples):
-            fitted_loss_per_sample: List[float] = []
             if index != 0:
                 self.model[index].load_state_dict(self.model[0].state_dict())
                 self.starting_epoch = self.num_epochs

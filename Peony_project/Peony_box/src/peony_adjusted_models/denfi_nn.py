@@ -7,6 +7,7 @@ from typing import Optional, Tuple, List
 
 NUM_ENSEMBLES = 10
 EPOCHS = 2000
+WEIGHTS_VARIANCE = 2
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
@@ -28,7 +29,7 @@ class NeuralNet(nn.Module):
         return x
 
 
-class PeonyFeedForwardNN:
+class PeonyDENFIFeedForwardNN:
     def __init__(self, hidden_size: int, num_classes: int, rand_sample_ratio: int):
 
         self.num_ensembles = NUM_ENSEMBLES
@@ -43,6 +44,8 @@ class PeonyFeedForwardNN:
         self.num_epochs = EPOCHS
         self.initialized = False
         self.rand_sample_ratio = rand_sample_ratio
+        self.variance = WEIGHTS_VARIANCE
+        self.loss_sequence: List[List[float]] = []
 
     def fit(self, instances: np.ndarray, labels: np.ndarray) -> Optional[List[str]]:
 
@@ -71,9 +74,12 @@ class PeonyFeedForwardNN:
         except AttributeError:
             instances = torch.from_numpy(instances).float()
         labels = torch.from_numpy(labels)
-        initial_loss_per_ensemble: List[float] = []
-        fitted_loss_per_ensemble: List[float] = []
+        initial_loss_per_ensemble: List[str] = []
+        fitted_loss_per_ensemble: List[str] = []
         for index in range(self.num_ensembles):
+
+            loss_sequence_per_ensemble: List[float] = []
+
             indices = np.random.choice(
                 instances.shape[0], self.num_of_samples, replace=False
             )
@@ -81,20 +87,18 @@ class PeonyFeedForwardNN:
                 # Forward pass
                 outputs = self.model[index](instances[indices, :])
                 loss = self.criterion[index](outputs, labels[indices].long())
+                loss_sequence_per_ensemble.append(float(loss.detach().numpy()))
                 # Backward and optimize
                 self.optimizer[index].zero_grad()
                 loss.backward()
                 self.optimizer[index].step()
 
                 if epoch == 0:
-                    initial_loss_per_ensemble.append(loss.detach().numpy())
-            fitted_loss_per_ensemble.append(loss.detach().numpy())
-        loss_list.append(
-            f"starting loss (ensembles mean) is {np.mean(initial_loss_per_ensemble)}"
-        )
-        loss_list.append(
-            f"fitted loss (ensembles mean) is {np.mean(fitted_loss_per_ensemble)}"
-        )
+                    initial_loss_per_ensemble.append(str(loss.detach().numpy()))
+            self.loss_sequence.append(loss_sequence_per_ensemble)
+            fitted_loss_per_ensemble.append(str(loss.detach().numpy()))
+        loss_list.append(f"starting losses are {'| '.join(initial_loss_per_ensemble)}")
+        loss_list.append(f"fitted losses are {'| '.join(fitted_loss_per_ensemble)}")
 
         if self.initialized:
             self.num_epochs = 20
@@ -118,5 +122,15 @@ class PeonyFeedForwardNN:
         self.initialized = False
         self.num_epochs = EPOCHS
         for index in range(self.num_ensembles):
-            self.model[index].hidden.reset_parameters()
-            self.model[index].output.reset_parameters()
+            torch.nn.init.normal(
+                self.model[index].hidden.weight, mean=0, std=np.sqrt(self.variance)
+            )
+            torch.nn.init.normal(
+                self.model[index].hidden.bias, mean=0, std=np.sqrt(self.variance)
+            )
+            torch.nn.init.normal(
+                self.model[index].output.weight, mean=0, std=np.sqrt(self.variance)
+            )
+            torch.nn.init.normal(
+                self.model[index].output.bias, mean=0, std=np.sqrt(self.variance)
+            )
