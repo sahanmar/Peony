@@ -36,28 +36,28 @@ def main():
     )
 
     # Define model specifications
-    model_1 = "feed_forward_nn_fast_text_embeddings"
-    model_2 = "feed_forward_nn_fast_text_embeddings"
-    algorithm = "nn"
+    model_1 = "bayesian_sgld_nn_fast_text_embeddings"
+    model_2 = "bayesian_sgld_nn_fast_text_embeddings"
+    algorithm = "bayesian_sgld"
     acquisition_function_1 = "random"
     acquisition_function_2 = "entropy"
     active_learning_loops = 10
     active_learning_step = 1
-    max_active_learning_iters = 2
+    max_active_learning_iters = 200
     initial_training_data_size = 10
     validation_data_size = 1000
     category_1 = "SPORTS"
     category_2 = "COMEDY"
-    transformation_needed = True
+    transformation_needed = False
 
     instances = sport_records + comedy_records
     labels = [sample["record"]["label"] for sample in sport_records + comedy_records]
 
     instances_from_db, labels_from_db = shuffle(instances, labels, random_state=0)
 
-    # HuffPostTransform = word_embed_transformator()
-    HuffPostTransform = transformator()
-    HuffPostTransform.fit(instances_from_db)
+    HuffPostTransform = word_embed_transformator()
+    # HuffPostTransform = transformator()
+    HuffPostTransform.fit(instances_from_db, labels_from_db)
 
     if transformation_needed:
         instances = instances_from_db
@@ -102,7 +102,7 @@ def main():
     ]
 
     # Upload results to Peony Database
-    # api.load_model_results(*list_to_upload)
+    api.load_model_results(*list_to_upload)
 
     # Get AUC results from an active learning simulation
     auc_active_learning_entropy_10_runs_nn = active_learning_simulation(
@@ -133,11 +133,7 @@ def main():
     ]
 
     # Upload results to Peony Database
-    # api.load_model_results(*list_to_upload)
-
-    visualize_two_auc_evolutions(
-        auc_active_learning_random_10_runs_nn, auc_active_learning_entropy_10_runs_nn
-    )
+    api.load_model_results(*list_to_upload)
 
 
 if __name__ == "__main__":
