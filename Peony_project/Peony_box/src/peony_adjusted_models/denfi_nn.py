@@ -7,7 +7,8 @@ from typing import Optional, Tuple, List
 
 NUM_ENSEMBLES = 10
 EPOCHS = 2000
-WEIGHTS_VARIANCE = 2
+HOT_START_EPOCHS = 500
+WEIGHTS_VARIANCE = 0.4
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
@@ -30,7 +31,13 @@ class NeuralNet(nn.Module):
 
 
 class PeonyDENFIFeedForwardNN:
-    def __init__(self, hidden_size: int, num_classes: int, rand_sample_ratio: int):
+    def __init__(
+        self,
+        hidden_size: int,
+        num_classes: int,
+        rand_sample_ratio: int,
+        cold_start: bool = True,
+    ):
 
         self.num_ensembles = NUM_ENSEMBLES
         self.num_of_samples = 0
@@ -46,10 +53,13 @@ class PeonyDENFIFeedForwardNN:
         self.rand_sample_ratio = rand_sample_ratio
         self.variance = WEIGHTS_VARIANCE
         self.loss_sequence: List[List[float]] = []
+        self.cold_start = cold_start
+        self.hot_start_epochs = HOT_START_EPOCHS
 
     def fit(self, instances: np.ndarray, labels: np.ndarray) -> Optional[List[str]]:
 
         loss_list: List[str] = []
+        self.loss_sequence: List[List[float]] = []
         self.num_of_samples = int(instances.shape[0] * self.rand_sample_ratio)
 
         if self.initialized is False:
@@ -78,6 +88,11 @@ class PeonyDENFIFeedForwardNN:
         fitted_loss_per_ensemble: List[str] = []
         for index in range(self.num_ensembles):
 
+            if self.cold_start is False:
+                with torch.no_grad():
+                    for param in self.model[index].parameters():
+                        param.add_(torch.randn(param.size()) * self.variance)
+
             loss_sequence_per_ensemble: List[float] = []
 
             indices = np.random.choice(
@@ -100,8 +115,8 @@ class PeonyDENFIFeedForwardNN:
         loss_list.append(f"starting losses are {'| '.join(initial_loss_per_ensemble)}")
         loss_list.append(f"fitted losses are {'| '.join(fitted_loss_per_ensemble)}")
 
-        if self.initialized:
-            self.num_epochs = 20
+        if self.initialized and self.cold_start is False:
+            self.num_epochs = self.hot_start_epochs
 
         return loss_list
 
