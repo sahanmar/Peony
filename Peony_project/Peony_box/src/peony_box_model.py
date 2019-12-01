@@ -10,6 +10,8 @@ from Peony_box.src.peony_adjusted_models.svm_model import PeonySVM
 from Peony_box.src.peony_adjusted_models.feed_forward_nn import PeonyFeedForwardNN
 from Peony_box.src.peony_adjusted_models.pymc3_nn import PeonyPymc3NN
 from Peony_box.src.peony_adjusted_models.sgld_nn import PeonySGLDFeedForwardNN
+from Peony_box.src.peony_adjusted_models.denfi_nn import PeonyDENFIFeedForwardNN
+
 
 RAND_SAMPLES_RATIO = 0.7
 
@@ -64,4 +66,18 @@ class PeonyBoxModel:
             active_learning_step=active_learning_step,
             acquisition_function=acquisition_function,
             greedy_coef_decay=greedy_coef_decay,
+        )
+
+        self.bayesian_denfi_nn = GeneralizedPeonyBoxModel(
+            model=PeonyDENFIFeedForwardNN(
+                hidden_size=100,
+                num_classes=number_of_classes_for_nn,
+                rand_sample_ratio=1,
+                cold_start=False,
+            ),
+            transformator=transformator,
+            active_learning_step=active_learning_step,
+            acquisition_function=acquisition_function,
+            greedy_coef_decay=greedy_coef_decay,
+            reset_after_adding_new_samples=False,
         )

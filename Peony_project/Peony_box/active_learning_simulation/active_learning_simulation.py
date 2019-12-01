@@ -36,9 +36,9 @@ def main():
     )
 
     # Define model specifications
-    model_1 = "bayesian_sgld_nn_fast_text_embeddings"
-    model_2 = "bayesian_sgld_nn_fast_text_embeddings"
-    algorithm = "bayesian_sgld"
+    model_1 = "bayesian_denfi_nn_fast_text_embeddings"
+    model_2 = "bayesian_denfi_nn_fast_text_embeddings"
+    algorithm = "bayesian_denfi"
     acquisition_function_1 = "random"
     acquisition_function_2 = "entropy"
     active_learning_loops = 10
