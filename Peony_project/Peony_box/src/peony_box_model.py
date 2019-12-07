@@ -14,6 +14,7 @@ from Peony_box.src.peony_adjusted_models.denfi_nn import PeonyDENFIFeedForwardNN
 
 
 RAND_SAMPLES_RATIO = 0.7
+ACQUISITION_FUNC_RATIO = 1
 
 
 class PeonyBoxModel:
@@ -31,6 +32,7 @@ class PeonyBoxModel:
             active_learning_step=active_learning_step,
             acquisition_function=acquisition_function,
             greedy_coef_decay=greedy_coef_decay,
+            ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
         )
         self.svm_model = GeneralizedPeonyBoxModel(
             model=PeonySVM(rand_sample_ratio=RAND_SAMPLES_RATIO),
@@ -38,6 +40,7 @@ class PeonyBoxModel:
             active_learning_step=active_learning_step,
             acquisition_function=acquisition_function,
             greedy_coef_decay=greedy_coef_decay,
+            ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
         )
         self.feed_forward_nn = GeneralizedPeonyBoxModel(
             model=PeonyFeedForwardNN(
@@ -49,6 +52,7 @@ class PeonyBoxModel:
             active_learning_step=active_learning_step,
             acquisition_function=acquisition_function,
             greedy_coef_decay=greedy_coef_decay,
+            ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
         )
         self.bayesian_nn = GeneralizedPeonyBoxModel(
             model=PeonyPymc3NN(hidden_size=10, num_classes=number_of_classes_for_nn),
@@ -56,8 +60,8 @@ class PeonyBoxModel:
             active_learning_step=active_learning_step,
             acquisition_function=acquisition_function,
             greedy_coef_decay=greedy_coef_decay,
+            ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
         )
-
         self.bayesian_sgld_nn = GeneralizedPeonyBoxModel(
             model=PeonySGLDFeedForwardNN(
                 hidden_size=100, num_classes=number_of_classes_for_nn
@@ -66,8 +70,8 @@ class PeonyBoxModel:
             active_learning_step=active_learning_step,
             acquisition_function=acquisition_function,
             greedy_coef_decay=greedy_coef_decay,
+            ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
         )
-
         self.bayesian_denfi_nn = GeneralizedPeonyBoxModel(
             model=PeonyDENFIFeedForwardNN(
                 hidden_size=100,
@@ -80,4 +84,19 @@ class PeonyBoxModel:
             acquisition_function=acquisition_function,
             greedy_coef_decay=greedy_coef_decay,
             reset_after_adding_new_samples=False,
+            ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
+        )
+        self.bayesian_denfi_nn_cold_start = GeneralizedPeonyBoxModel(
+            model=PeonyDENFIFeedForwardNN(
+                hidden_size=100,
+                num_classes=number_of_classes_for_nn,
+                rand_sample_ratio=1,
+                cold_start=True,
+            ),
+            transformator=transformator,
+            active_learning_step=active_learning_step,
+            acquisition_function=acquisition_function,
+            greedy_coef_decay=greedy_coef_decay,
+            reset_after_adding_new_samples=True,
+            ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
         )

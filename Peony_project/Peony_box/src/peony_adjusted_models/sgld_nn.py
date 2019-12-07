@@ -8,7 +8,7 @@ from typing import Optional, Tuple, List
 
 
 NUM_SAMPLES = 50
-EPOCHS_PER_SAMPLE = 20
+EPOCHS_PER_SAMPLE = 100
 EPOCHS = 2000
 STEPS_TO_BURN = 2000
 # Device configuration
