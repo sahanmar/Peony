@@ -22,6 +22,7 @@ class GeneralizedPeonyBoxModel:
         acquisition_function: Optional[Callable[[np.ndarray, int], np.ndarray]],
         greedy_coef_decay: Optional[Callable[[int], float]],
         reset_after_adding_new_samples: bool = True,
+        ascquisition_func_ratio: float = 1,
     ):
         self.model = model
         self.transformator = transformator
@@ -31,6 +32,9 @@ class GeneralizedPeonyBoxModel:
         self.epsilon_greedy_coef = 0.0
         self.active_learning_iteration = 0
         self.reset_after_adding_new_samples = reset_after_adding_new_samples
+        self.ascquisition_func_ratio = (
+            1 if active_learning_step == 1 else ascquisition_func_ratio
+        )
         if greedy_coef_decay:
             self.greedy_coef_decay = greedy_coef_decay
         else:
@@ -111,8 +115,19 @@ class GeneralizedPeonyBoxModel:
                     self.active_learning_iteration
                 )
                 self.active_learning_iteration += self.active_learning_step
-                return self.acquisition_function(
-                    np.asarray(predicted), self.active_learning_step
+                active_learning_samples = int(
+                    round(self.active_learning_step * self.ascquisition_func_ratio)
+                )
+                return np.concatenate(
+                    (
+                        self.acquisition_function(
+                            np.asarray(predicted), active_learning_samples
+                        ),
+                        random_sampling(
+                            predicted,
+                            self.active_learning_step - active_learning_samples,
+                        ),
+                    )
                 )
         else:
             self.active_learning_iteration += self.active_learning_step
