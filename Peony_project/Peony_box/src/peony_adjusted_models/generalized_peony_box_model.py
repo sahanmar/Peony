@@ -111,7 +111,9 @@ class GeneralizedPeonyBoxModel:
                     self.active_learning_iteration
                 )
                 self.active_learning_iteration += self.active_learning_step
-                return self.acquisition_function(predicted, self.active_learning_step)
+                return self.acquisition_function(
+                    np.asarray(predicted), self.active_learning_step
+                )
         else:
             self.active_learning_iteration += self.active_learning_step
             return random_sampling(predicted, self.active_learning_step)

@@ -81,3 +81,17 @@ class PeonyBoxModel:
             greedy_coef_decay=greedy_coef_decay,
             reset_after_adding_new_samples=False,
         )
+
+        self.bayesian_denfi_nn_cold_start = GeneralizedPeonyBoxModel(
+            model=PeonyDENFIFeedForwardNN(
+                hidden_size=100,
+                num_classes=number_of_classes_for_nn,
+                rand_sample_ratio=1,
+                cold_start=True,
+            ),
+            transformator=transformator,
+            active_learning_step=active_learning_step,
+            acquisition_function=acquisition_function,
+            greedy_coef_decay=greedy_coef_decay,
+            reset_after_adding_new_samples=True,
+        )

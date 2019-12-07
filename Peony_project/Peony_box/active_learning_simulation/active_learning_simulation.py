@@ -41,10 +41,10 @@ def main():
     algorithm = "bayesian_denfi"
     acquisition_function_1 = "random"
     acquisition_function_2 = "entropy"
-    active_learning_loops = 10
-    active_learning_step = 1
-    max_active_learning_iters = 200
-    initial_training_data_size = 10
+    active_learning_loops = 1
+    active_learning_step = 7
+    max_active_learning_iters = 14
+    initial_training_data_size = 14
     validation_data_size = 1000
     category_1 = "SPORTS"
     category_2 = "COMEDY"
@@ -102,7 +102,7 @@ def main():
     ]
 
     # Upload results to Peony Database
-    api.load_model_results(*list_to_upload)
+    # api.load_model_results(*list_to_upload)
 
     # Get AUC results from an active learning simulation
     auc_active_learning_entropy_10_runs_nn = active_learning_simulation(
@@ -133,7 +133,11 @@ def main():
     ]
 
     # Upload results to Peony Database
-    api.load_model_results(*list_to_upload)
+    # api.load_model_results(*list_to_upload)
+
+    visualize_two_auc_evolutions(
+        auc_active_learning_random_10_runs_nn, auc_active_learning_entropy_10_runs_nn
+    )
 
 
 if __name__ == "__main__":

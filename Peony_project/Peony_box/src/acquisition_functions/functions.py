@@ -13,7 +13,11 @@ def random_sampling(instaces: np.ndarray, len_rand_samples: int) -> np.ndarray:
 
 def entropy_sampling(instaces: np.ndarray, len_rand_samples: int) -> np.ndarray:
     max_entropy_indices: List[int] = []
-    prediction_entropy = entropy(instaces, base=BASE)
+    counts = [
+        np.unique(instaces[:, index], return_counts=True)[1]
+        for index in range(len(instaces[0, :]))
+    ]
+    prediction_entropy = np.asarray([entropy(dist, base=BASE) for dist in counts])
     for index in range(len_rand_samples):
         max_entropy_indices.append(np.argmax(prediction_entropy))
         prediction_entropy[max_entropy_indices[index]] = 0

@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 from PeonyPackage.PeonyDb import MongoDb
 from Peony_visualization.src.peony_visualization import calculate_binary_metrics
@@ -40,15 +41,18 @@ def main():
     instances = sport_records + comedy_records
     labels = [sample["record"]["label"] for sample in sport_records + comedy_records]
 
+    instances, labels = shuffle(instances, labels, random_state=0)
+
     HuffPostTransform = transformator()
     HuffPostTransform.fit(instances, labels)
 
     peony_model = PeonyBoxModel(
         HuffPostTransform, active_learning_step=5, acquisition_function=entropy_sampling
     )
-    # peony_model.bayesian_denfi_nn.fit(instances[50:], labels[50:])
+    peony_model.random_forest_model.fit(instances[50:], labels[50:])
     # peony_model.bayesian_denfi_nn.reset()
-    # indexes = peony_model.svm_model.get_learning_samples(instances[:50])
+    peony_model.random_forest_model.epsilon_greedy_coef = 1
+    indexes = peony_model.random_forest_model.get_learning_samples(instances[:50])
 
     # add_training = [instances[index] for index in indexes.tolist()]
     # add_labels = [labels[index] for index in indexes.tolist()]
@@ -57,9 +61,11 @@ def main():
     # peony_model.feed_forward_nn.fit(instances, labels)
     # predicted = peony_model.feed_forward_nn.predict(instances)
 
+    start_time = time.time()
     k_fold = k_fold_corss_validation(
-        peony_model.bayesian_denfi_nn, HuffPostTransform, instances, labels, 2
+        peony_model.random_forest_model, HuffPostTransform, instances, labels, 2
     )
+    print(f"elapsed time is {time.time() - start_time}")
 
     print(auc_metrics(k_fold))
 

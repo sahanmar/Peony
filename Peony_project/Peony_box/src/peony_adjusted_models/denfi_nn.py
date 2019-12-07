@@ -8,7 +8,7 @@ from typing import Optional, Tuple, List
 NUM_ENSEMBLES = 10
 EPOCHS = 2000
 HOT_START_EPOCHS = 500
-WEIGHTS_VARIANCE = 0.4
+WEIGHTS_VARIANCE = 0.1
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
@@ -77,6 +77,9 @@ class PeonyDENFIFeedForwardNN:
                 torch.optim.Adam(self.model[i].parameters(), lr=LEARNING_RATE)
                 for i in range(self.num_ensembles)
             ]
+            for index in range(self.num_ensembles):
+                self._init_normal_weights(index)
+
             self.initialized = True
 
         try:
@@ -87,11 +90,6 @@ class PeonyDENFIFeedForwardNN:
         initial_loss_per_ensemble: List[str] = []
         fitted_loss_per_ensemble: List[str] = []
         for index in range(self.num_ensembles):
-
-            if self.cold_start is False:
-                with torch.no_grad():
-                    for param in self.model[index].parameters():
-                        param.add_(torch.randn(param.size()) * self.variance)
 
             loss_sequence_per_ensemble: List[float] = []
 
@@ -110,8 +108,15 @@ class PeonyDENFIFeedForwardNN:
 
                 if epoch == 0:
                     initial_loss_per_ensemble.append(str(loss.detach().numpy()))
+
             self.loss_sequence.append(loss_sequence_per_ensemble)
             fitted_loss_per_ensemble.append(str(loss.detach().numpy()))
+
+            if self.cold_start is False:
+                with torch.no_grad():
+                    for param in self.model[index].parameters():
+                        param.add_(torch.randn(param.size()) * self.variance)
+
         loss_list.append(f"starting losses are {'| '.join(initial_loss_per_ensemble)}")
         loss_list.append(f"fitted losses are {'| '.join(fitted_loss_per_ensemble)}")
 
@@ -134,18 +139,20 @@ class PeonyDENFIFeedForwardNN:
         return predicted_list
 
     def reset(self) -> None:
-        self.initialized = False
         self.num_epochs = EPOCHS
         for index in range(self.num_ensembles):
-            torch.nn.init.normal(
-                self.model[index].hidden.weight, mean=0, std=np.sqrt(self.variance)
-            )
-            torch.nn.init.normal(
-                self.model[index].hidden.bias, mean=0, std=np.sqrt(self.variance)
-            )
-            torch.nn.init.normal(
-                self.model[index].output.weight, mean=0, std=np.sqrt(self.variance)
-            )
-            torch.nn.init.normal(
-                self.model[index].output.bias, mean=0, std=np.sqrt(self.variance)
-            )
+            self._init_normal_weights(index)
+
+    def _init_normal_weights(self, index: int) -> None:
+        torch.nn.init.normal(
+            self.model[index].hidden.weight, mean=0, std=np.sqrt(self.variance)
+        )
+        torch.nn.init.normal(
+            self.model[index].hidden.bias, mean=0, std=np.sqrt(self.variance)
+        )
+        torch.nn.init.normal(
+            self.model[index].output.weight, mean=0, std=np.sqrt(self.variance)
+        )
+        torch.nn.init.normal(
+            self.model[index].output.bias, mean=0, std=np.sqrt(self.variance)
+        )
