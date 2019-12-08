@@ -10,7 +10,10 @@ from Peony_database.src.datasets.HuffPost_news_dataset import (
     COLLECTION_NAME as HuffPost_collection_name,
     COLLECTION_ID as HuffPost_collection_id,
 )
-from Peony_box.src.acquisition_functions.functions import entropy_sampling
+from Peony_box.src.acquisition_functions.functions import (
+    entropy_sampling,
+    false_positive_sampling,
+)
 from Peony_visualization.src.peony_visualization import visualize_two_auc_evolutions
 
 from sklearn.utils import shuffle
@@ -38,13 +41,13 @@ def main():
     # Define model specifications
     model_1 = "bayesian_denfi_nn_fast_text_embeddings"
     model_2 = "bayesian_denfi_nn_fast_text_embeddings"
-    algorithm = "bayesian_denfi"
+    algorithm = "random_forest"
     acquisition_function_1 = "random"
-    acquisition_function_2 = "entropy"
+    acquisition_function_2 = "false_positive_sampling"
     active_learning_loops = 1
-    active_learning_step = 7
-    max_active_learning_iters = 14
-    initial_training_data_size = 14
+    active_learning_step = 10
+    max_active_learning_iters = 20
+    initial_training_data_size = 10
     validation_data_size = 1000
     category_1 = "SPORTS"
     category_2 = "COMEDY"
@@ -107,7 +110,7 @@ def main():
     # Get AUC results from an active learning simulation
     auc_active_learning_entropy_10_runs_nn = active_learning_simulation(
         HuffPostTransform,
-        entropy_sampling,
+        false_positive_sampling,
         active_learning_loops,
         max_active_learning_iters,
         active_learning_step,
