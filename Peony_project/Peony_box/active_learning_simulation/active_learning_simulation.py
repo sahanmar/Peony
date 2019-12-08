@@ -10,7 +10,10 @@ from Peony_database.src.datasets.HuffPost_news_dataset import (
     COLLECTION_NAME as HuffPost_collection_name,
     COLLECTION_ID as HuffPost_collection_id,
 )
-from Peony_box.src.acquisition_functions.functions import entropy_sampling
+from Peony_box.src.acquisition_functions.functions import (
+    entropy_sampling,
+    false_positive_sampling,
+)
 from Peony_visualization.src.peony_visualization import visualize_two_auc_evolutions
 
 from sklearn.utils import shuffle
@@ -40,7 +43,7 @@ def main():
     model_2 = "bayesian_denfi_nn_fast_text_embeddings"
     algorithm = "random_forest"
     acquisition_function_1 = "random"
-    acquisition_function_2 = "entropy"
+    acquisition_function_2 = "false_positive_sampling"
     active_learning_loops = 1
     active_learning_step = 10
     max_active_learning_iters = 20
@@ -74,32 +77,32 @@ def main():
         labels = np.asarray(HuffPostTransform.transform_labels(labels_from_db))
 
     # Get AUC results from an active learning simulation
-    # auc_active_learning_random_10_runs_nn = active_learning_simulation(
-    #     HuffPostTransform,
-    #     None,
-    #     active_learning_loops,
-    #     max_active_learning_iters,
-    #     active_learning_step,
-    #     algorithm,
-    #     instances,
-    #     labels,
-    #     initial_training_data_size,
-    #     transformation_needed,
-    # )
+    auc_active_learning_random_10_runs_nn = active_learning_simulation(
+        HuffPostTransform,
+        None,
+        active_learning_loops,
+        max_active_learning_iters,
+        active_learning_step,
+        algorithm,
+        instances,
+        labels,
+        initial_training_data_size,
+        transformation_needed,
+    )
 
-    # # Pack specifications and resutls to the list for uploading to Peony Database
-    # list_to_upload = [
-    #     model_1,
-    #     acquisition_function_1,
-    #     active_learning_loops,
-    #     active_learning_step,
-    #     max_active_learning_iters,
-    #     initial_training_data_size,
-    #     validation_data_size,
-    #     category_1,
-    #     category_2,
-    #     auc_active_learning_random_10_runs_nn,
-    # ]
+    # Pack specifications and resutls to the list for uploading to Peony Database
+    list_to_upload = [
+        model_1,
+        acquisition_function_1,
+        active_learning_loops,
+        active_learning_step,
+        max_active_learning_iters,
+        initial_training_data_size,
+        validation_data_size,
+        category_1,
+        category_2,
+        auc_active_learning_random_10_runs_nn,
+    ]
 
     # Upload results to Peony Database
     # api.load_model_results(*list_to_upload)
@@ -107,7 +110,7 @@ def main():
     # Get AUC results from an active learning simulation
     auc_active_learning_entropy_10_runs_nn = active_learning_simulation(
         HuffPostTransform,
-        entropy_sampling,
+        false_positive_sampling,
         active_learning_loops,
         max_active_learning_iters,
         active_learning_step,
