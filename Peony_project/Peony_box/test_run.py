@@ -12,7 +12,10 @@ from Peony_database.src.datasets.HuffPost_news_dataset import (
     COLLECTION_NAME as HuffPost_collection_name,
     COLLECTION_ID as HuffPost_collection_id,
 )
-from Peony_box.src.acquisition_functions.functions import entropy_sampling
+from Peony_box.src.acquisition_functions.functions import (
+    entropy_sampling,
+    false_positive_sampling,
+)
 from scipy.sparse import vstack
 from sklearn.utils import shuffle
 
@@ -47,7 +50,9 @@ def main():
     HuffPostTransform.fit(instances, labels)
 
     peony_model = PeonyBoxModel(
-        HuffPostTransform, active_learning_step=5, acquisition_function=entropy_sampling
+        HuffPostTransform,
+        active_learning_step=5,
+        acquisition_function=false_positive_sampling,
     )
     peony_model.random_forest_model.fit(instances[50:], labels[50:])
     # peony_model.bayesian_denfi_nn.reset()

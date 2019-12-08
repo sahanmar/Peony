@@ -19,7 +19,9 @@ class GeneralizedPeonyBoxModel:
         model: Any,
         transformator: Transformator,
         active_learning_step: int,
-        acquisition_function: Optional[Callable[[np.ndarray, int], np.ndarray]],
+        acquisition_function: Optional[
+            Callable[[np.ndarray, int, np.ndarray], np.ndarray]
+        ],
         greedy_coef_decay: Optional[Callable[[int], float]],
         reset_after_adding_new_samples: bool = True,
         ascquisition_func_ratio: float = 1,
@@ -121,7 +123,7 @@ class GeneralizedPeonyBoxModel:
                 return np.concatenate(
                     (
                         self.acquisition_function(
-                            np.asarray(predicted), active_learning_samples
+                            np.asarray(predicted), active_learning_samples, instances
                         ),
                         random_sampling(
                             predicted,
