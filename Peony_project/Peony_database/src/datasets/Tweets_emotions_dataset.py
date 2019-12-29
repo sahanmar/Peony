@@ -8,12 +8,13 @@ from tqdm import tqdm
 
 
 COLLECTION_NAME = "Tweets_emotions_dataset"
+COLLECTION_ID = 3
 
 
 def transorm_data(record: Dict[str, Any]) -> Dict[str, Any]:
     transormed_record: dict = {}
     transormed_record["datasetName"] = COLLECTION_NAME
-    transormed_record["datasetId"] = 3
+    transormed_record["datasetId"] = COLLECTION_ID
     transormed_record["record"] = {}
     transormed_record["record"]["id"] = create_hash(
         [record["text"], record["date"], record["user"]]
