@@ -1,14 +1,22 @@
 from PeonyPackage.PeonyDb import MongoDb
 from Peony_box.active_learning_simulation.utils import active_learning_simulation
-from Peony_box.src.transformators.HuffPost_transformator import (
-    HuffPostTransform as transformator,
+
+# from Peony_box.src.transformators.HuffPost_transformator import (
+#    HuffPostTransform as transformator,
+# )
+# from Peony_box.src.transformators.HuffPost_transformator import (
+#    HuffPostTransformWordEmbeddings as word_embed_transformator,
+# )
+# from Peony_database.src.datasets.HuffPost_news_dataset import (
+#    COLLECTION_NAME as HuffPost_collection_name,
+#    COLLECTION_ID as HuffPost_collection_id,
+# )
+from Peony_database.src.datasets.Tweets_emotions_dataset import (
+    COLLECTION_NAME as TweetsEmotions_collection_name,
+    COLLECTION_ID as TweetsEmotions_collection_id,
 )
-from Peony_box.src.transformators.HuffPost_transformator import (
-    HuffPostTransformWordEmbeddings as word_embed_transformator,
-)
-from Peony_database.src.datasets.HuffPost_news_dataset import (
-    COLLECTION_NAME as HuffPost_collection_name,
-    COLLECTION_ID as HuffPost_collection_id,
+from Peony_box.src.transformators.TweetsEmotion_transformator import (
+    TweetsEmotionsTransformWordEmbeddings as transformator,
 )
 from Peony_box.src.acquisition_functions.functions import (
     entropy_sampling,
@@ -24,42 +32,68 @@ def main():
 
     api = MongoDb()
 
-    sport_records = api.get_record(
-        collection_name=HuffPost_collection_name,
-        collection_id=HuffPost_collection_id,
-        label="SPORTS",
+    # sport_records = api.get_record(
+    #    collection_name=HuffPost_collection_name,
+    #    collection_id=HuffPost_collection_id,
+    #    label="COLLEGE",
+    #    limit=500,
+    # )
+
+    # comedy_records = api.get_record(
+    #    collection_name=HuffPost_collection_name,
+    #    collection_id=HuffPost_collection_id,
+    #    label="EDUCATION",
+    #    limit=500,
+    # )
+
+    tweet_positive_records = api.get_record(
+        collection_name=TweetsEmotions_collection_name,
+        collection_id=TweetsEmotions_collection_id,
+        label=0,
         limit=500,
     )
-
-    comedy_records = api.get_record(
-        collection_name=HuffPost_collection_name,
-        collection_id=HuffPost_collection_id,
-        label="COMEDY",
+    tweet_negative_records = api.get_record(
+        collection_name=TweetsEmotions_collection_name,
+        collection_id=TweetsEmotions_collection_id,
+        label=4,
         limit=500,
     )
 
     # Define model specifications
-    model_1 = "bayesian_denfi_nn_fast_text_embeddings"
-    model_2 = "bayesian_denfi_nn_fast_text_embeddings"
-    algorithm = "random_forest"
+    model_1 = "bayesian_denfi_nn_hot_start_fast_text_embeddings"
+    model_2 = "bayesian_denfi_nn_hot_start_fast_text_embeddings"
+    # model_1 = "bayesian_sgld_nn_fast_text_embeddings"
+    # model_2 = "bayesian_sgld_nn_fast_text_embeddings"
+    algorithm = "bayesian_denfi"
+    # algorithm = "bayesian_sgld"
     acquisition_function_1 = "random"
-    acquisition_function_2 = "false_positive_sampling"
-    active_learning_loops = 1
-    active_learning_step = 10
-    max_active_learning_iters = 20
+    acquisition_function_2 = "entropy"
+    active_learning_loops = 10
+    active_learning_step = 1
+    max_active_learning_iters = 200
     initial_training_data_size = 10
     validation_data_size = 1000
-    category_1 = "SPORTS"
-    category_2 = "COMEDY"
+    category_1 = "POSITIVE_EMOTIONS_TWEETS"
+    category_2 = "NEGATIVE_EMOTIONS_TWEETS"
     transformation_needed = False
 
-    instances = sport_records + comedy_records
-    labels = [sample["record"]["label"] for sample in sport_records + comedy_records]
+    # instances = sport_records + comedy_records
+    # labels = [sample["record"]["label"] for sample in sport_records + comedy_records]
+
+    instances = tweet_positive_records + tweet_negative_records
+    labels = [
+        sample["record"]["label"]
+        for sample in tweet_positive_records + tweet_negative_records
+    ]
 
     instances_from_db, labels_from_db = shuffle(instances, labels, random_state=0)
 
-    HuffPostTransform = word_embed_transformator()
-    # HuffPostTransform = transformator()
+    # HuffPostTransform = word_embed_transformator()
+
+    HuffPostTransform = (
+        transformator()
+    )  # I'm using here not HuffPost transformator but I'm                                         #too lazy to change all variable names
+
     HuffPostTransform.fit(instances_from_db, labels_from_db)
 
     if transformation_needed:
@@ -105,12 +139,12 @@ def main():
     ]
 
     # Upload results to Peony Database
-    # api.load_model_results(*list_to_upload)
+    api.load_model_results(*list_to_upload)
 
     # Get AUC results from an active learning simulation
     auc_active_learning_entropy_10_runs_nn = active_learning_simulation(
         HuffPostTransform,
-        false_positive_sampling,
+        entropy_sampling,  # false_positive_sampling,
         active_learning_loops,
         max_active_learning_iters,
         active_learning_step,
@@ -136,11 +170,11 @@ def main():
     ]
 
     # Upload results to Peony Database
-    # api.load_model_results(*list_to_upload)
+    api.load_model_results(*list_to_upload)
 
-    visualize_two_auc_evolutions(
-        auc_active_learning_random_10_runs_nn, auc_active_learning_entropy_10_runs_nn
-    )
+    # visualize_two_auc_evolutions(
+    #    auc_active_learning_random_10_runs_nn, auc_active_learning_entropy_10_runs_nn
+    # )
 
 
 if __name__ == "__main__":
