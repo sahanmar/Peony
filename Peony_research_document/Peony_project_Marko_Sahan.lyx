@@ -972,7 +972,14 @@ WRITE IN AN INTRODUCTION
 \end_layout
 
 \begin_layout Chapter
-Introduction
+Introduction to Decision Theory
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Introduction-to-Decision"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1076,10 +1083,10 @@ Decision Theory
 
 \begin_layout Standard
 In this section we would like to define solution of a classification problem
- as finding such set of actions (decision) that minimizes classification
- error.
- This problem is still set up vaguely because neither decision nor minimization
- of classification error was properly defined.
+ as finding such set of actions (decision) that minimizes loss.
+ By loss we can understand classification error, entropy, etc..
+ This problem is still set up vaguely because neither decision nor loss
+ was properly defined.
  
 \end_layout
 
@@ -1697,17 +1704,7 @@ where
 .
  
 \series default
-Continuing using assumptions from 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:Datasets"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- we consider 
+We consider 
 \begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
 
@@ -2425,20 +2422,38 @@ Before continuing with further sections we define output of Random Forest
 \end_inset
 
 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-FINISHED HERE!!!!!
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
 Decision Theory for Active Learning 
+\end_layout
+
+\begin_layout Standard
+As mentioned in previous sections 
+\series bold
+
+\begin_inset Formula $\tilde{\mathbf{X}}\times\mathbf{\tilde{Y}}$
+\end_inset
+
+
+\series default
+ is a validation set.
+ When we finish a model training, we may think that we need more training
+ data.
+ Thus, we can choose the data from 
+\begin_inset Formula $\mathbf{X}\subset{\cal X}\backslash\tilde{\mathbf{X}}$
+\end_inset
+
+.
+ However it is important to understand that we have no labels for the set
+ 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+.
+ We can ask for a help from an annotator that can give us those labels.
+ We assume that getting labels needs some time and is very expensive.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -2462,17 +2477,7 @@ Decision Theory for Active Learning
 \begin_layout Standard
 Active learning problem is defined as a sequence of Supervised learning
  problems.
- In this part we will want to get not only set of parameters for specific
- model that minimizes its loss function but a probability distribution.
- We will explain how to get this probability distribution later.
- The reason why we want to get a parameters probability distribution because
- we have to integrate through a parameters space.
- More theory is explained further.
- 
-\end_layout
-
-\begin_layout Standard
-Specifically, we assume that labels 
+ Specifically, we assume that labels 
 \begin_inset Formula $\mathbf{y}\in\mathbf{\tilde{Y}}$
 \end_inset
 
@@ -2583,8 +2588,8 @@ rephrase!
 .
  Parameters space is defined as a set of possible parameters from a specific
  model.
- It is very important to understand that we will need not only one one set
- of parameters but parameters distribution.
+ It is very important to understand that we will need not only one set of
+ parameters but parameters distribution.
  We need parameters distribution because we will integrate over the parameters
  space.
  As an example, if we talk about SVM method, then parameters space for active
@@ -2625,7 +2630,7 @@ where
 \begin_inset Formula $u$
 \end_inset
 
- and 
+, and 
 \begin_inset Formula $J$
 \end_inset
 
@@ -2716,18 +2721,7 @@ Using this approach we will be able sequentially select indices from
 \end_layout
 
 \begin_layout Subsection
-Active Learning Loss Function
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Active-Learning-Loss"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Entropy Based Loss
+Bayesian Approach of Classifiers' Parameters Sampling
 \end_layout
 
 \begin_layout Standard
@@ -2735,7 +2729,7 @@ Considering that
 \begin_inset Formula $\mathbf{y}\in{\cal Y}$
 \end_inset
 
- is defined with the usage of one-hot representation.
+.
  Let 
 \begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x}_{j_{u}},\theta_{u})$
 \end_inset
@@ -2786,36 +2780,23 @@ Considering that
 \end_layout
 
 \begin_layout Standard
-We want to define our loss function as a negative entropy.
- Basing of the formal definition of the entropy we can write it as 
-\begin_inset Formula 
-\begin{equation}
--H(\hat{\mathbf{y}}|\mathbf{x}_{j_{u}},\theta_{u})=\sum_{r=1}^{R}\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u})\log\big(\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u})\big),\label{eq:entropy}
-\end{equation}
+In this section we would like to construct theory around 
+\begin_inset Formula $\pi_{u}^{*}$
+\end_inset
+
+ from equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Expected_loss_active_learning_with_action_space_as_indices"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
-where 
-\begin_inset Formula $\hat{y}_{r}$
-\end_inset
-
- is 
-\begin_inset Formula $r-$
-\end_inset
-
-th element of the output estimate 
-\begin_inset Formula $\mathbf{\hat{y}}$
-\end_inset
-
- and 
-\begin_inset Formula $\theta$
-\end_inset
-
- is a vector of parameters for specific model.
- As done in Passive Learning sections we want to find expected loss based
- on entropy function.
- We want to find expected value over the parameter space.
- Thus, we have to define distribution 
+.
+ Mentioned distribution is a distribution of the models' parameters given
+ the training data that can be written as 
 \begin_inset Formula 
 \begin{equation}
 \pi_{u}^{*}=p_{u}(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u}).\label{eq:prior_distribution_for_expected_entropy_loss}
@@ -2858,7 +2839,214 @@ where
 \end_inset
 
 .
- With the usage of previous knowledge we can derive expected entropy loss
+\end_layout
+
+\begin_layout Subsubsection
+Parameters Sampling Based on Training Data Subsets
+\end_layout
+
+\begin_layout Standard
+This method is quite general and can be applied to all types of classifiers
+ in this work (Random Forest, SVM, Neural Network).
+ The idea is very simple.
+ We consider that some data samples in training dataset 
+\begin_inset Formula $\tilde{\mathbf{X}}\times\tilde{\mathbf{Y}}$
+\end_inset
+
+ are noise corrupted.
+ Thus, its obvious that we do not want our models to learn from noise corrupted
+ data.
+ As a result, we would like to randomly sample 
+\begin_inset Formula $Q_{u}$
+\end_inset
+
+ subsets from 
+\begin_inset Formula $\tilde{\mathbf{X}}$
+\end_inset
+
+ with their labels from 
+\begin_inset Formula $\tilde{\mathbf{Y}}$
+\end_inset
+
+.
+ Lets rewrite it in more mathematical form.
+ 
+\end_layout
+
+\begin_layout Standard
+Assuming 
+\begin_inset Formula $N_{u}$
+\end_inset
+
+ is amount of samples in 
+\begin_inset Formula $\mathbf{X}_{u}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $Z_{u}=\{z_{1},...,z_{N_{u}^{sub}}\}$
+\end_inset
+
+, where 
+\begin_inset Formula $N_{u}^{sub}\subset N_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $\forall k,l\in N_{u}^{sub},\ z_{k},z_{l}\in J_{u},\ z_{k}\neq z_{l}$
+\end_inset
+
+.
+ Next step is selection of indices that will form set 
+\begin_inset Formula $Z_{u}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\forall k\in N_{u}^{sub},\ z_{k}\sim U(J_{u})$
+\end_inset
+
+.
+ under condition that we don't want to have duplicate indices in 
+\begin_inset Formula $Z_{u}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{X}_{Z_{u}},\ \mathbf{Y}_{Z_{u}}$
+\end_inset
+
+ are defined as restriction of sets 
+\begin_inset Formula $\mathbf{X}_{u},\ \mathbf{Y}_{u}$
+\end_inset
+
+ on indices from 
+\begin_inset Formula $Z_{u}$
+\end_inset
+
+.
+ As a result we can approximate 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_for_expected_entropy_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{equation}
+\pi_{u}^{*}=p_{u}(\theta_{u}|\mathbf{X}_{Z_{u}},\mathbf{Y}_{Z_{u}}).\label{eq:prior_distribution_approximation_training_set_sampling}
+\end{equation}
+
+\end_inset
+
+Sampling from 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_approximation_training_set_sampling"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is very simple.
+ After training the model using 
+\begin_inset Formula $\mathbf{X}_{Z_{u}}$
+\end_inset
+
+ and 
+\begin_inset Formula $Y_{Z_{u}}$
+\end_inset
+
+ vector of model parameters will represent a single sample from 
+\begin_inset Formula $\pi_{u}^{*}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+SGLD
+\end_layout
+
+\begin_layout Standard
+Unlike previous section method, SGLD sampling is designed only for neural
+ networks based classifiers.
+ SGLD modifies Neural Network learning algorithm by adding noise in Stochastic
+ Gradient descent.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+FINISHED HERE
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+DENFI
+\end_layout
+
+\begin_layout Standard
+TBD
+\end_layout
+
+\begin_layout Subsection
+Active Learning Loss Function
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Active-Learning-Loss"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Entropy Based Active Learning Loss
+\end_layout
+
+\begin_layout Standard
+First approach of defining Active Learning loss function is negative entropy.
+ Basing of the formal definition of the entropy we can write it as 
+\begin_inset Formula 
+\begin{equation}
+-H(\hat{\mathbf{y}}|\mathbf{x}_{j_{u}},\theta_{u})=\sum_{r=1}^{R}\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u})\log\big(\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u})\big),\label{eq:entropy}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\hat{y}_{r}$
+\end_inset
+
+ is 
+\begin_inset Formula $r-$
+\end_inset
+
+th element of the output estimate 
+\begin_inset Formula $\mathbf{\hat{y}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is a vector of parameters for specific model.
+ As done in Passive Learning sections we want to find expected loss based
+ on entropy function.
+ 
+\end_layout
+
+\begin_layout Standard
+With the usage of previous knowledge we can derive expected entropy loss
  as 
 \begin_inset Formula 
 \begin{align}
@@ -2870,11 +3058,12 @@ where
 
 \end_inset
 
-
+As a result, minimization of given expected loss will lead us to a sample
+ with the highest entropy.
 \end_layout
 
 \begin_layout Subsubsection
-Information Gain Based Function
+False Positive Sampling Loss
 \end_layout
 
 \begin_layout Standard
@@ -3061,6 +3250,610 @@ noprefix "false"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Chapter
+Natural Language Processing Theory
+\end_layout
+
+\begin_layout Section
+Text Representation
+\end_layout
+
+\begin_layout Standard
+According to 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "liddy2001natural"
+literal "false"
+
+\end_inset
+
+, Natural Language Processing (NLP) is a theoretically motivated range of
+ computational techniques for analyzing and representing naturally occurring
+ texts at one or more levels of linguistic analysis for the purpose of achieving
+ human-like language processing for a range of tasks or applications.
+ 
+\end_layout
+
+\begin_layout Standard
+In this work we are focused on two techniques such as TF-IDF 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "rajaraman2011mining"
+literal "false"
+
+\end_inset
+
+ and Fast Text Word Embeddings 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mikolov2018advances"
+literal "false"
+
+\end_inset
+
+.
+ These methods are used for representation of text in a mathematical form
+ (vectors, matrices).
+ Even though TF-IDF is quite old method for text representation, it is still
+ widely used.
+ However, primary method, that used in the theses is Fast Text Word Embeddings.
+ In this project we are working with text documents (articles and tweets)
+ and their labels.
+ In the beginning of chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Introduction-to-Decision"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we defined value 
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
+\end_inset
+
+ as text features vector.
+ By features vector we mean any kind of text encoding (TF-IDF, Fast Text
+ Word Embedding, etc..).
+ 
+\end_layout
+
+\begin_layout Subsection
+TF-IDF 
+\end_layout
+
+\begin_layout Standard
+Term Frequency - Inverse Document Frequency (TF-IDF) is extremely powerful
+ tool.
+ This text encoding tool is quite simple and powerful.
+ Method's advantage is its popularity.
+ Plenty of packages in different programming languages have implementations
+ of this algorithm.
+ As mentioned in the name of this method, it is composed from two parts
+ Term Frequency and Inverse Document Frequency.
+ Term Frequency is defined as 
+\begin_inset Formula 
+\[
+TF(t,d)=\frac{f_{t,d}}{\sum_{t^{\prime}}f_{t^{\prime},d},},
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $f_{t,d}$
+\end_inset
+
+ is number of times of word 
+\begin_inset Formula $t$
+\end_inset
+
+ in a document 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ Inverse Document Frequency is defined as 
+\begin_inset Formula 
+\[
+IDF(t,d)=\log\frac{|D|}{|\{d\in D:t\in d\}|},
+\]
+
+\end_inset
+
+where numerator stand for total number of documents in the corpus and denominato
+r is number of documents where the term 
+\begin_inset Formula $t$
+\end_inset
+
+ appears.
+ We are assuming using only words that from corpus 
+\begin_inset Formula $D$
+\end_inset
+
+.
+ Thus, the denominator is always greater than zero.
+ 
+\end_layout
+
+\begin_layout Standard
+Finally, 
+\begin_inset Formula 
+\[
+TF-IDF(t,d)=TF(t,d)\cdot IDF(t,d).
+\]
+
+\end_inset
+
+
+\series bold
+N.B
+\end_layout
+
+\begin_layout Subsubsection
+TF-IDF and Information Theory
+\end_layout
+
+\begin_layout Standard
+In this part is shown the connection of TF-IDF to Information theory 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "aizawa2003information"
+literal "false"
+
+\end_inset
+
+.
+ Lets first take a look on documents' entropy given word 
+\begin_inset Formula $t$
+\end_inset
+
+,
+\begin_inset Formula 
+\begin{align}
+H(D|T=t) & =-\sum_{d}p(d|t)\log p(d|t)\nonumber \\
+ & =\log\frac{1}{|\{d\in D:t\in D\}|}\nonumber \\
+ & =-\log\frac{|\{d\in D:t\in D\}|}{D|}+\log|D|\nonumber \\
+ & =-IDF(t,d)+\log|D|,\label{eq:Documents_entropy_given_word}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $D$
+\end_inset
+
+ is a documents' random variable and 
+\begin_inset Formula $T$
+\end_inset
+
+ is words' random variable.
+ Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Documents_entropy_given_word"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is correct under condition that we have no duplicate documents in the text
+ corpus.
+ Next step is to derive an equation of mutual information of documents and
+ words as follows 
+\begin_inset Formula 
+\begin{align}
+M(D,T) & =H(D)-H(D|T)\nonumber \\
+ & =-\sum_{d}p(d)\log p(d)-\sum H(D|T=t)\cdot p(t)_{t}\nonumber \\
+ & =\sum_{t}p(t)\cdot\Big(\log\frac{1}{|D|}+IDF(t,d)-\log|D|\Big)\nonumber \\
+ & =\sum_{t}p(t)\cdot IDF(t,d)\nonumber \\
+ & =\sum_{t,d}p(t|d)\cdot p(d)\cdot IDF(t,d)\nonumber \\
+ & =\frac{1}{|D|}\sum_{t,d}TF(t,d)\cdot IDF(t,d).\label{eq:tf_idf_mutual_information}
+\end{align}
+
+\end_inset
+
+As seen from 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:tf_idf_mutual_information"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ TF-IDF has really good explanatory definition based on Information Theory.
+ As a result, it is one more advantage of this method usage.
+ However, here is one big disadvantage that can be very crucial.
+ The higher amount of words is, the bigger and sparser vectors, that represent
+ each document, will be.
+\end_layout
+
+\begin_layout Subsection
+Fast Text and CBOW Word Embeddings
+\end_layout
+
+\begin_layout Standard
+Term word embedding means a set of language modeling and feature learning
+ techniques in natural language processing where words or phrases from the
+ vocabulary are mapped to vectors of real numbers.
+ Nowadays exist plenty of word embedding methods based on neural networks
+ and co-occurrence matrices.
+ Word embeddings are used as pretrained models.
+ Words' encoding is used in order to encode the text and then text encoding
+ is used for different purposes such as classification, clustering, etc..
+ 
+\end_layout
+
+\begin_layout Standard
+The principle of word embeddings based on neural networks is explained in
+ this section.
+ We decided to describe Continuous Bag of Words Model (CBOW), because Fast
+ Text word embeddings model is a modification of this method and CBOW covers
+ all main theoretical aspects.
+\end_layout
+
+\begin_layout Subsubsection
+CBOW Word Embeddings
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mikolov2013efficient"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We would like to treat text {"The", "cat", ’over", "the’, "puddle"} as a
+ context and from these words, be able to predict or generate the center
+ word "jumped".
+ This type of model is a Continuous Bag of Words (CBOW) Model.
+ Before we continue with more theoretical part, it is good to mention that
+ mathematical notation defined here is only used for this section and has
+ no common with the same names of the variables that were defined in the
+ beginning of this theses.
+ First, we want to set up our known parameters.
+ Let the known parameters in our model be the sentence represented by one-hot
+ word vectors.
+ The input one hot vectors or context we will represent with an 
+\begin_inset Formula ${\bf x}^{(c)}$
+\end_inset
+
+.
+ And the output as 
+\begin_inset Formula ${\bf y}^{(c)}$
+\end_inset
+
+ and in the CBOW model, since we only have one output, so we just call this
+ 
+\begin_inset Formula ${\bf y}$
+\end_inset
+
+ which is the one hot vector of the known center word.
+ Now let’s define our unknowns in our model.
+ We create two matrices, 
+\begin_inset Formula ${\bf \mathcal{V}}\in\mathbb{R}^{n×|V|}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathcal{U}\in\mathbb{R}^{|V|×n}$
+\end_inset
+
+.
+ Where 
+\begin_inset Formula $n$
+\end_inset
+
+ is an arbitrary size which defines the size of our embedding space.
+ 
+\begin_inset Formula ${\bf \mathcal{V}}$
+\end_inset
+
+ is the input word matrix such that the 
+\begin_inset Formula $i-$
+\end_inset
+
+th column of 
+\begin_inset Formula ${\bf \mathcal{V}}$
+\end_inset
+
+ is the 
+\begin_inset Formula $n-$
+\end_inset
+
+dimensional embedded vector for word 
+\begin_inset Formula $w_{i}$
+\end_inset
+
+ when it is an input to this model.
+ We denote this 
+\begin_inset Formula $n×1$
+\end_inset
+
+ vector as 
+\begin_inset Formula ${\bf v}_{i}$
+\end_inset
+
+.
+ Similarly, 
+\begin_inset Formula ${\cal U}$
+\end_inset
+
+ is the output word matrix.
+ The 
+\begin_inset Formula $j-$
+\end_inset
+
+th row of 
+\begin_inset Formula ${\cal U}$
+\end_inset
+
+ is an 
+\begin_inset Formula $n-$
+\end_inset
+
+dimensional embedded vector for word 
+\begin_inset Formula $w_{j}$
+\end_inset
+
+ when it is an output of the model.
+ We denote this row of 
+\begin_inset Formula ${\cal U}$
+\end_inset
+
+ as 
+\begin_inset Formula ${\bf u}_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For this method sequence of actions can be written as follows:
+\end_layout
+
+\begin_layout Itemize
+We generate our one hot word vectors 
+\begin_inset Formula $({\bf {\bf x}}^{(c−m)},...,{\bf {\bf x}}^{(c−1)},{\bf {\bf x}}^{(c+1)},...,{\bf {\bf x}}^{(c+m)})$
+\end_inset
+
+ for the input context of size 
+\begin_inset Formula $2m$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+We get our embedded word vectors for the context 
+\begin_inset Formula $({\bf v}_{c−m}={\cal V}{\bf x}^{(c−m)},{\bf v}_{c−m+1}={\cal V}{\bf x}_{(c−m+1)},...,{\bf v}_{c+m}={\cal V}{\bf x}_{(c+m)})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Average these vectors to get 
+\begin_inset Formula $\tilde{{\bf v}}=\frac{{\bf v}_{c\text{−}m}+{\bf v}_{c\text{−}m+1}+...+{\bf v}_{c\text{+}m}}{2m}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Generate a score vector 
+\begin_inset Formula ${\bf z}={\cal U}\tilde{{\bf v}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Turn the scores into probabilities 
+\begin_inset Formula 
+\begin{equation}
+\hat{{\bf y}}=\mathrm{softmax}({\bf z})\label{eq:softmax_cbow}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+We desire our probabilities generated, 
+\begin_inset Formula $\hat{{\bf y}}$
+\end_inset
+
+, to match the true probabilities, 
+\begin_inset Formula ${\bf y}$
+\end_inset
+
+, which also happens to be the one hot vector of the actual word.
+\end_layout
+
+\begin_layout Standard
+Described method can be interpreted as a feed forward neural network with
+ one hidden layer that do not uses activation function.
+ As a loss function for this algorithm can be chosen cross-entropy loss
+ function 
+\begin_inset Formula 
+\begin{equation}
+L=\sum_{i=1}^{|V|}{\bf y_{i}\log({\bf \hat{y}}_{i})}\label{eq:cross_entropy_cbow}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbf{\hat{y}}$
+\end_inset
+
+ is sofmatx (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:softmax_cbow"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) function.
+\end_layout
+
+\begin_layout Subsubsection
+Fast Text Word Embeddings
+\end_layout
+
+\begin_layout Standard
+As mentioned previously, Fast Text method is a CBOW modification.
+ Main modification is that Fast Text is taking into account not only words
+ but also suffixes of words.
+ The words are splitted into suffixes and as a result they can handle understand
+ing of the context better.
+\backslash
+
+\end_layout
+
+\begin_layout Standard
+In this theses we used pretrained Fast Text models 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mikolov2018advances"
+literal "false"
+
+\end_inset
+
+ consisting of 1 million word vectors trained on Wikipedia 2017, UMBC webbase
+ corpus and statmt.org news dataset (16B tokens).
+\end_layout
+
+\begin_layout Chapter
+Results Validation Theory
+\end_layout
+
+\begin_layout Standard
+When the models are implemented and trained we have to compare them.
+ This part is very important because we want to define such metrics that
+ will not be biased and which will have high discriminability.
+ In this project experiments are separated into two parts.
+ First part is supervised classification with big amount of data.
+ This is done for understating what is the maximal upper bound of specific
+ classifiers.
+ These upper bounds are used as maximums which our active learning algorithms
+ must be converging to.
+ 
+\end_layout
+
+\begin_layout Section
+Receiving Operating Curve metric
+\end_layout
+
+\begin_layout Standard
+In section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Introduction-to-Decision"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we mentioned that we are limiting our problem only on binary classification.
+ Plenty of metrics such as recall, accuracy, precision, etc.
+ exists for binary classification.
+ However we decided to find a metic that is able to unify all metrics discussed
+ before and do not underperform each of them.
+ For these purposes we chose Receiving Operating Curve metric.
+ ROC visualizes the tradeoff between true positive rate (TPR) and false
+ positive rate (FPR).
+ This means that for every threshold, we are able to calculate TPR and FPR
+ and plot it on one figure.
+ 
+\end_layout
+
+\begin_layout Standard
+We are working with balanced datasets.
+ Thus, there is no problem in using ROC metrics.
+ ROC metric is also very good when we care equally about positive and negative
+ class.
+ Another advantage is that if we notice small changes in ROC it will not
+ result in big changes in other binary classification metrics.
+\end_layout
+
+\begin_layout Standard
+Receiving Operating Curve lets us to calculate area under the curve (AUC).
+ The probabilistic interpretation of ROC score is that if a positive case
+ and a negative case are chosen randomly, the probability that the positive
+ case outranks the negative case according to the classifier is given by
+ the AUC.
+ 
+\end_layout
+
+\begin_layout Section
+Supervised Learning Results Validation
+\end_layout
+
+\begin_layout Standard
+As mentioned above, supervised learning results are used as maximal upper
+ bound of specific classifiers.
+ In order to make results statistically valid we used k-fold cross validation.
+ For each batch from k-fold cross validation we calculated both ROC and
+ AUC.
+ As an output result of a classifier performance we calculated mean value
+ through all ROC and AUC results.
+ All results are calculated with respect to balanced data classes.
+\end_layout
+
+\begin_layout Section
+Active Learning Results Validation
+\end_layout
+
+\begin_layout Standard
+Active learning model evolution is based on supervised learning algorithms
+ that are sequentially retrained.
+ Thus, we are not able to display ROC for active learning algorithms because
+ amount of results is too big.
+ We decided to aggregate results and display evolution of AUC metric for
+ each step of active learning sequence.
+ AUC sequences can be well compared between different classifiers.
+ Another aspect of data validation is making the results statistically significa
+nt.
+ We are not able to use k-fold cross validation for active learning algorithms.
+ Therefore we active learning algorithm 
+\begin_inset Formula $H\in\mathbb{N}$
+\end_inset
+
+ times.
+ Due to the fact of random initializations, we are able to determine uncertainty
+ bounds that are calculated as standard deviations to mean value.
+ 
+\end_layout
+
+\begin_layout Chapter
+Data
+\end_layout
+
+\begin_layout Chapter
+Implementation Architecture
+\end_layout
+
+\begin_layout Chapter
+Passive Learning Classification as Upper Bound Threshold
+\end_layout
+
+\begin_layout Chapter
+Active Learning Classification
 \end_layout
 
 \begin_layout Chapter*
