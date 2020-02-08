@@ -1,0 +1,50 @@
+{
+  "title": "Database",
+  "type": "object",
+  "properties": {
+    "datasetName": {
+      "type": "string",
+      "description": "Name of the dataset"
+    },
+    "datasetId": {
+      "type": "int",
+      "description": "Unique hash id that will be created automatically"  
+    },
+    "record": {
+      "type": "object",
+      "description": "All information about an instance",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique hash id that will be created automatically" 
+        },
+        "snippet": {
+              "type": "string",
+              "description": "Snippet of a text. Can be empty" 
+        },
+        "text": {
+          "type": "object",
+          "description": "Text instance that is used for a model",
+          "properties" : {
+            "title": {
+              "type": "string",
+              "description": "Title of a text. Can be empty"
+            },
+            "body": {
+              "type": "string",
+              "description": "Body of a text"
+            },
+          },
+        },
+        "label": {
+          "type": "string",
+          "description": "Label for an instance. Can be empty if this is not validation data"
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Any additional metadata. Can be empty field"
+        },
+      },
+    },
+  },
+}

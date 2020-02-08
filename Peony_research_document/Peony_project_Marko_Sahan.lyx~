@@ -452,73 +452,6 @@ Final dummy paragraph.
 \end_inset
 
 
-\begin_inset Newpage newpage
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset space ~
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset VSpace vfill
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-- Zadání práce -
-\end_layout
-
-\begin_layout Standard
-\begin_inset VSpace vfill
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Newpage newpage
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset space ~
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset VSpace vfill
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-- Zadání práce (zadní strana) -
-\end_layout
-
-\begin_layout Standard
-\begin_inset VSpace vfill
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -3254,6 +3187,13 @@ noprefix "false"
 
 \begin_layout Chapter
 Natural Language Processing Theory
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Natural_Language_Processing"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -3720,8 +3660,6 @@ As mentioned previously, Fast Text method is a CBOW modification.
  but also suffixes of words.
  The words are splitted into suffixes and as a result they can handle understand
 ing of the context better.
-\backslash
-
 \end_layout
 
 \begin_layout Standard
@@ -3826,18 +3764,1149 @@ Active learning model evolution is based on supervised learning algorithms
  amount of results is too big.
  We decided to aggregate results and display evolution of AUC metric for
  each step of active learning sequence.
+ AUC sequences can be well compared between different classifiers.
+ Another aspect of data validation is making the results statistically significa
+nt.
+ We are not able to use k-fold cross validation for active learning algorithms.
+ Therefore we active learning algorithm 
+\begin_inset Formula $H\in\mathbb{N}$
+\end_inset
+
+ times.
+ Due to the fact of random initializations, we are able to determine uncertainty
+ bounds that are calculated as standard deviations to mean value.
+ 
 \end_layout
 
 \begin_layout Chapter
-Data
+Data 
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Data"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This chapter is dedicated dataset description.
+ We used two datasets for algorithms trainings and testings.
+ We consider these datasets big and diverse enough for getting unbiased
+ results.
+ We took into account size of texts (articles and tweets), diversity and
+ at the same time similarity of topics.
+ 
+\end_layout
+
+\begin_layout Section
+HuffPost 200k Articles Dataset
+\end_layout
+
+\begin_layout Standard
+HuffPost 200k Articles Dataset is publicly available at Kaggle competition
+ webpage and can be found as News Category Dataset 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dataset"
+literal "false"
+
+\end_inset
+
+ here 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.kaggle.com/rmisra/news-category-dataset
+\end_layout
+
+\end_inset
+
+.
+ Described dataset contains around 200k news headlines from the year 2012
+ to 2018 obtained from HuffPost.
+ Following dataset includes url address and label to each article.
+ HuffPost dataset has 200k articles assigned to 41 categories.
+ We used only 10 categories.
+ We are interested in binary classification, as a result we have to make
+ pairs from chosen categories.
+ These categories and pairs are listed in table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:HuffPost_Dataset_Categories"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Tuple Id
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Category Pairs
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Crime
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Good News
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sports
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Comedy
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $3$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Politics
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Business
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $4$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Science
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Tech
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Education
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+College
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:HuffPost_Dataset_Categories"
+
+\end_inset
+
+HuffPost Dataset Categories which were chosen for algorithms' training and
+ testing
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Due to the fact that there is no raw article included in the dataset, we
+ used url links in order to find the articles.
+ For each category we scraped 500 original articles from 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+www.huffpost.com
+\end_layout
+
+\end_inset
+
+.
+ Listed categories are chosen with respect to diversity and classification
+ complexity.
+ We sorted the categories in table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:HuffPost_Dataset_Categories"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ with respect to ascending classification complexity order.
+ By classification complexity we mean two sets intersections in feature
+ spaces.
+ If the classification complexity is high, then majority of feature space
+ dimensions have intersections between two datasets.
+ Thus, it is harder to find such set of features that can be used for high
+ classification performance.
+ 
+\end_layout
+
+\begin_layout Section
+1600k Tweets Dataset
+\end_layout
+
+\begin_layout Standard
+Another dataset that is used in this work is 1600k Tweets dataset which
+ is publicly available and is also taken from Kaggle competition webpage.
+ The dataset can be found as sentiment140 dataset 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tweets_dataset"
+literal "false"
+
+\end_inset
+
+ here 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.kaggle.com/kazanova/sentiment140
+\end_layout
+
+\end_inset
+
+.
+ This dataset contains 1,600,000 tweets extracted using the twitter api.
+ The tweets have been annotated as negative (
+\begin_inset Formula $0$
+\end_inset
+
+), positive (
+\begin_inset Formula $4$
+\end_inset
+
+) and they are used for sentiment detection.
+ Same as with HuffPost dataset we used 500 records for each category for
+ training and testing purposes.
+ The reason of choosing this dataset is that we wanted to show how our algorithm
+s can handle data that consist of little texts.
+ 
 \end_layout
 
 \begin_layout Chapter
-Implementation Architecture
+Project Implementation and Architecture
+\end_layout
+
+\begin_layout Standard
+Even though this work is quite theoretical with experiments that proof theoretic
+al concepts, we assume implementational part interesting as well.
+ In this chapter we show the architecture of the project and explain how
+ different dependencies cooperate with each other.
+ The codebase of this project can be easily found at 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/sahanmar/Peony
+\end_layout
+
+\end_inset
+
+
+\shape italic
+.
+
+\shape default
+ We expect this project going to continue grow and will be used not only
+ in terms of master theses.
+ 
+\end_layout
+
+\begin_layout Standard
+This project was written in Python 3.7 programming language with the usage
+ of Conda environment.
+ The project combines a lot of different tools and programs such as Docker,
+ Docker-Compose, MongoDb, Jupyter, etc..
+\end_layout
+
+\begin_layout Standard
+In this theses we used two main components that represent the database and
+ computational part.
+ We tried to unify all methods as much as possible and make the utilization
+ process very easy.
+\end_layout
+
+\begin_layout Section
+Database
+\end_layout
+
+\begin_layout Standard
+In order to make everything consistent and let the models work with the
+ same input and output format we decided to create a database that will
+ store all the data in JSON format.
+ This unification let us connect the database to machine learning and visualizin
+g components.
+ In this project we decided to work with NoSQL database.
+ Our choice was MongoDb.
+ The reason why we have chosen MongoDb is because of its simplicity and
+ possibility of maintaining through Docker.
+ Since Docker and MongoDb is perfect combination, the database can be deployed
+ with two lines of code through Docker-Compose as explained in documentation
+ on GitHub.
+ Of course it is easier to use MongoDb without Docker but our motivation
+ was measured on simplicity of creating and working with the database.
+ All experiments were run on Google Cloud Platform Virtual Machine instance.
+ Thus, we could start working with the models right away without any complicatio
+ns with installation.
+ 
+\end_layout
+
+\begin_layout Subsection
+MongoDb Data Format
+\end_layout
+
+\begin_layout Standard
+MongoDb represents the data in BSON format behind the scenes but we are
+ send and get there JSON format data.
+ Despite the fact that we are having different text datasets that we store
+ in the database, we decided to create unified JSON scheme that will let
+ us to preserve the structure of the data stored in MongoDb.
+ JSON schema of how the data are stored and what a user will get as an output
+ from a database is shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:MongoDb_JSON_schema"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Deeper explanation of JSON schema can be found at 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://json-schema.org/understanding-json-schema/
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "MongoDb_structure.json"
+lstparams "breaklines={true //--> breaks lines to margin},basicstyle={\\small}"
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:MongoDb_JSON_schema"
+
+\end_inset
+
+MongoDb JSON schema visualization
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Machine Learning Component
+\end_layout
+
+\begin_layout Standard
+Machine Learning (ML) Component is fully implemented in Python with the
+ usage of open source libraries.
+ In order to understand how to use the models, it is possible to find the
+ code and its usage in Jupyter notebook that are stored in showcase folder.
+ Showcase folder has four Jupyter notebooks that show both how to get the
+ data for the models from the database and how to start using the models.
+ 
+\end_layout
+
+\begin_layout Subsection
+Data Transformers
+\end_layout
+
+\begin_layout Standard
+Before models training and testing user has to fit the data transformer
+ that transforms text into tensors form.
+ Tensors are used as input values for models.
+ As mentioned in chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Natural_Language_Processing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we are working only with TF-IDF and Fast Text text encodings.
+ Both TF-IDF and Fast Text models are created from the documents that are
+ given to the transformer.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+TF-IDF Transformer
+\end_layout
+
+\begin_layout Standard
+TF-IDF transformer represents one article as a vector.
+ From the articles are extracted all words that exist in the vocabulary
+ and then for a document is calculated TF-IDF encoding.
+ As a result, if we make TF-IDF encoding of a set of articles, we will get
+ a matrix where each row represents specific document and each column represents
+ word from a dictionary.
+\end_layout
+
+\begin_layout Subsubsection
+Fast Text Transformer
+\end_layout
+
+\begin_layout Standard
+Fast Text model is a pretrained model that consists of one million words
+ mapped to vectors.
+ These words are stored in MongoDb.
+ When a user starts to use Fast Text model, ML component creates a words'
+ vocabulary from the texts taken for model training/testing.
+ This vocabulary is created in a form of a hash map (word -> vector) where
+ word embeddings are downloaded from MongoDb.
+ It is important to remember that Fast Text encoding represents each word
+ as a vector with predefined number of components.
+ We are using word embeddings that represent each word with 
+\begin_inset Formula $300$
+\end_inset
+
+ float values.
+ We introduce article encoding as a mean value through all words from a
+ text that is given for encoding.
+ Thus, if we make Fast Text encoding of a set of articles, we will get a
+ matrix where each row represents specific document.
+ Huge advantage of this method in comparison to TF-IDF, is that we are working
+ only with 
+\begin_inset Formula $300$
+\end_inset
+
+ float values (
+\begin_inset Formula $300$
+\end_inset
+
+ columns if we provide encoding of set of articles) than with huge dictionary.
+ Therefore we get lower features dimensionality and better context understanding.
+\end_layout
+
+\begin_layout Subsection
+Machine Learning
+\end_layout
+
+\begin_layout Standard
+In this work we created a Generalized Model thats unifies all models.
+ Generalized Model allows to work with each Machine Learning algorithm in
+ same way.
+ Generalized model is able to take a data transformer as an input argument.
+ This feature makes it easier to work with models.
+ In first chapter of this theses we introduced our models the way that we
+ want to sample from their parameters' distributions.
+ That means that we are aiming to work with ensembles.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Machine_Learning_Workflow_diagram"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown a generalized diagram of machine learning structure.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Model_diagram.png
+	scale 35
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Machine_Learning_Workflow_diagram"
+
+\end_inset
+
+Machine Learning Workflow
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We used scikit-learn 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "scikit-learn"
+literal "false"
+
+\end_inset
+
+ for basic algorithms such as Random Forests and SVMs.
+ However, core of this project is constructed around Neural Networks.
+ We used PyTorch 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "NEURIPS2019_9015"
+literal "false"
+
+\end_inset
+
+ as a Neural Networks framework.
+ In this work we have implemented and tested five classification algorithms.
+ Three of them, such as SVM, Random Forest and Feed Forward Neural Network
+ ensembles are trained on a randomly chosen subsets from the training data.
+ For each ensemble are randomly chosen 
+\begin_inset Formula $80\%$
+\end_inset
+
+ from training data that are used for training.
+ Two algorithms such as SGLD and DENFI are using full training dataset for
+ their ensembles.
+ The variability in SGLD and DENFI ensembles is reached though adding gaussian
+ noise while ensembles training.
+ We hardcoded amount of ensembles for all models to 
+\begin_inset Formula $10$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ADD HERE DESCRIPTION (AND PSEUDOCODE) FOR ALL ENSEMBLES 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+SVM and Random Forest Ensemble Setup
+\end_layout
+
+\begin_layout Standard
+Both SVM and Random Forest models were taken and used out of the box.
+ We created 
+\series bold
+
+\begin_inset Formula $10$
+\end_inset
+
+ SVM and 
+\begin_inset Formula $10$
+\end_inset
+
+ Random Forest ensembles with default scikit-learn setting.
+
+\series default
+ No modifications were provided.
+\end_layout
+
+\begin_layout Subsubsection
+Feed Forward Neural Network
+\end_layout
+
+\begin_layout Subsubsection
+SGLD
+\end_layout
+
+\begin_layout Subsubsection
+DENFI
 \end_layout
 
 \begin_layout Chapter
-Passive Learning Classification as Upper Bound Threshold
+Passive Learning Classification
+\end_layout
+
+\begin_layout Standard
+Before we can start active learning part we have to understand if implemented
+ algorithms are capable to solve the classification task.
+ Thus, we decided to test the models on Sports and Comedy categories from
+ HuffPost Dataset and on Tweets from Tweets Dataset.
+ The classification was done both for TF-IDF and Fast Text Encodings.
+ We separated experiments with respect to the dataset types.
+\end_layout
+
+\begin_layout Section
+Passive Learning HuffPost Dataset
+\end_layout
+
+\begin_layout Standard
+In this section we are illustrating ROC and AUC metrics with respect to
+ 
+\begin_inset Formula $10-$
+\end_inset
+
+fold cross validation and 
+\begin_inset Formula $500$
+\end_inset
+
+ Sports, 
+\begin_inset Formula $500$
+\end_inset
+
+ Comedy articles.
+ Vocabulary, that is created from 
+\begin_inset Formula $1000$
+\end_inset
+
+ articles corpus consists of 
+\begin_inset Formula $20$
+\end_inset
+
+ thousand unique words.
+ We would like to mention that all algorithms are trained and tested with
+ respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ ensembles.
+ Moreover, the ratio of randomly chosen training data for ensembles (SMV,
+ Random Forest, Feed Forward NN ensembles) is set to 80%.
+ 
+\end_layout
+
+\begin_layout Subsection
+SVM Ensembles
+\end_layout
+
+\begin_layout Standard
+Results for SVM Ensembles shown in figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_SVM_passive_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SVM_passive_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ These are results both for TF-IDF and Fast Text encodings.
+ As seen on these plots ROC and AUC values of 
+\begin_inset Formula $10-$
+\end_inset
+
+fold cross validation are extremely high.
+ This means that our model works very good.
+ Another interesting point is that standard deviation with respect to all
+ runs is very low.
+ It means that SVM ensembles could linearly separate Sports and Comedy sets
+ with acceptable classification error.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Passive Learning/SVM_tfidf_ROC.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TF-IDF_SVM_passive_learning"
+
+\end_inset
+
+TF-IDF ROC and AUC for 10 SVM Ensembles trained and tested on Sports and
+ Comedy data where each ensemble is trained on 
+\begin_inset Formula $80\%$
+\end_inset
+
+ of randomly chosen training data 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Passive Learning/SVM_fast_text_ROC.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SVM_passive_learning"
+
+\end_inset
+
+Fast Text ROC and AUC for 10 SVM Ensembles trained and tested on Sports
+ and Comedy data where each ensemble is trained on 
+\begin_inset Formula $80\%$
+\end_inset
+
+ of randomly chosen training data 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+It is also seen that ROC and AUC metrics are almost same for TF-IDF and
+ Fast Text encodings.
+ However, there is one significant difference.
+ The difference is in computational time because Fast Text encoded text
+ document consists of 
+\begin_inset Formula $300$
+\end_inset
+
+ float components and TF-IDF encoded text document consists of 
+\begin_inset Formula $20$
+\end_inset
+
+ thousand float components.
+ Even though we are using algorithms for sparse matrix computation for TF-IDF
+ method, computations for Fast Text encoding are five times faster.
+ The higher amount of unique words is, the higher elapsed time per article
+ for TF-IDF based encoding algorithm will be.
+ Another good aspect is that because of algorithm's simplicity, SVM is trained
+ much faster than Neural Network based models.
+ 
+\end_layout
+
+\begin_layout Standard
+It is possible to conclude that the model shows good results for this classifica
+tion problem and can be used for active learning experiments.
+ 
+\end_layout
+
+\begin_layout Subsection
+Random Forest Ensembles
+\end_layout
+
+\begin_layout Standard
+Results for Random Forest Ensembles shown in figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_RF_passive_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_RF_passive_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ These are results both for TF-IDF and Fast Text encodings.
+ Same as in SVM section, ROC and AUC values of 
+\begin_inset Formula $10-$
+\end_inset
+
+fold cross validation for Random Forest are high as well.
+ This means that our model works very good.
+ Standard deviation with respect to all runs is also very low.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Passive Learning/RF_tfidf_ROC.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TF-IDF_RF_passive_learning"
+
+\end_inset
+
+TF-IDF ROC and AUC for 10 Random Forest Ensembles trained and tested on
+ Sports and Comedy data where each ensemble is trained on 
+\begin_inset Formula $80\%$
+\end_inset
+
+ of randomly chosen training data 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Passive Learning/RF_fast_text_ROC.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_RF_passive_learning"
+
+\end_inset
+
+Fast Text ROC and AUC for 10 Random Forest Ensembles Ensembles trained and
+ tested on Sports and Comedy data where each ensemble is trained on 
+\begin_inset Formula $80\%$
+\end_inset
+
+ of randomly chosen training data 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+If we compare results for TF-IDF and Fast Text encodings, it is seen that
+ Fast Text based model outperforms results with respect to TF-IDF encoding
+ model.
+ Mean AUC value for Fast Text article encoding model is higher by 
+\begin_inset Formula $5\%$
+\end_inset
+
+.
+ It is interesting that if we apply sparse matrix algorithms for TF-IDF
+ in Random Forest ensembles model, then computational speed for Fast Text
+ and TF-IDF text will approximately same.
+ This observation was made on the basis of processing 
+\begin_inset Formula $1000$
+\end_inset
+
+ articles from Comedy and Sports sets.
+ As mentioned in SVM section we can also say that Random Forest algorithm
+ is trained much faster than Neural Network based models.
+ 
+\end_layout
+
+\begin_layout Standard
+It is possible to conclude that the model shows good results for this classifica
+tion problem and can be used for active learning experiments.
+ 
+\end_layout
+
+\begin_layout Subsection
+Feed Forward Neural Network Ensembles
 \end_layout
 
 \begin_layout Chapter

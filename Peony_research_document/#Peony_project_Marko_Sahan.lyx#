@@ -4550,12 +4550,6 @@ Despite the fact that we used very simple Neural Networks architecture,
  it showed very good results.
  We implemented Feed Forward Neural Network with the usage of PyTorch python
  package with one hidden layer that consists of 
-\begin_inset Formula $100$
-\end_inset
-
- neurons with sigmoid activation function.
- We chose softmax activation function for output layer.
- 
 \end_layout
 
 \begin_layout Subsubsection
