@@ -4918,8 +4918,602 @@ tion problem and can be used for active learning experiments.
 Feed Forward Neural Network Ensembles
 \end_layout
 
+\begin_layout Standard
+In this work we have implemented thee algorithms based on neural networks
+ such as Neural Networks Ensemble, SGLD and DENFI algorithms.
+ The difference between these methods is in parameters sampling.
+ Neural Networks Ensemble takes a randomly selected subset from training
+ data for each ensemble.
+ Thus, we decided do not show SGLD and DENFI results in this section because
+ they use whole set of training data.
+ As a result if Neural Networks Ensemble shows good results, we assume that
+ SGLD and DENFI will also perform good passive learning results.
+\end_layout
+
+\begin_layout Standard
+Results for Neural Networks Ensembles shown in figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_NN_passive_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_NN_passive_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ These are results both for TF-IDF and Fast Text encodings.
+ As seen in previous section, ROC and AUC values of 
+\begin_inset Formula $10-$
+\end_inset
+
+fold cross validation for Neural Networks are also high.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Passive Learning/NN_tfidf_ROC.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TF-IDF_NN_passive_learning"
+
+\end_inset
+
+TF-IDF ROC and AUC for 10 Neural Networks Ensembles trained and tested on
+ Sports and Comedy data where each ensemble is trained on 
+\begin_inset Formula $80\%$
+\end_inset
+
+ of randomly chosen training data 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Passive Learning/NN_fast_text_ROC.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_NN_passive_learning"
+
+\end_inset
+
+Fast Text ROC and AUC for 10 Neural Networks Ensembles trained and tested
+ on Sports and Comedy data where each ensemble is trained on 
+\begin_inset Formula $80\%$
+\end_inset
+
+ of randomly chosen training data 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Comparing the results between TF-IDF and Fast Text encoding based models
+ we can observe that Fast Text based model gives slightly better results.
+ We have already discussed fastness of algorithm training with respect to
+ different embedding models in Random Forest section.
+ In case of Neural Networks, this difference is even more significant.
+ Model that is based on Fast Text word embeddings takes 
+\begin_inset Formula $20$
+\end_inset
+
+ times less time than TF-IDF encoding based model.
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+All of tested models gave really good results in classification of Sports
+ and Comedy categories.
+ It means that we are able to continue working with these algorithms in
+ active learning section.
+ We would like to highlight that Fast Text encoding based algorithms showed
+ a bit better results than TF-IDF.
+ Fast Text based algorithms also showed significant improvement in fastness
+ of algorithm trainings.
+\end_layout
+
 \begin_layout Chapter
 Active Learning Classification
+\end_layout
+
+\begin_layout Standard
+In Passive Learning section we showed that implemented algorithms are good
+ for solving text classification task.
+ Active learning section results is the main part of this theses.
+ Therefor, we tested all five algorithms on the data mentioned in the Data
+ section.
+ The results are shown and described in further subsections.
+ However, before starting with text classification results, we would like
+ to show how our models represent uncertainty.
+ As written in theoretical introduction to active learning, we use models'
+ uncertainty for active learning loop.
+ 
+\end_layout
+
+\begin_layout Section
+Active Learning Models' Uncertainty
+\end_layout
+
+\begin_layout Standard
+Due to the fact that text encoding features space dimensionality is extremely
+ high, we introduce a 
+\begin_inset Formula $2$
+\end_inset
+
+ dimensional toy problem for uncertainty visualization.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Toy_problem_dataset"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown a dataset that is used for toy problem classification.
+ We generated this dataset with adding gaussian noise in order to make the
+ task similar to real world problems.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/Toy_problem_dataset.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Toy_problem_dataset"
+
+\end_inset
+
+Toy problem dataset visualization
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We generated 
+\begin_inset Formula $1000$
+\end_inset
+
+ data points where 
+\begin_inset Formula $500$
+\end_inset
+
+ are assigned to Class 
+\begin_inset Formula $0$
+\end_inset
+
+ and another 
+\begin_inset Formula $500$
+\end_inset
+
+ points are assigned to Class 
+\begin_inset Formula $1$
+\end_inset
+
+.
+ We used 
+\begin_inset Formula $50\%$
+\end_inset
+
+ randomly chosen data samples as a training dataset.
+ Next step, was creating a two dimensional grid that will be used for model
+ predictions.
+ We assign data sample to Class 
+\begin_inset Formula $1$
+\end_inset
+
+ if prediction value is higher than 
+\begin_inset Formula $0.5$
+\end_inset
+
+.
+ If prediction value is lower than 
+\begin_inset Formula $0.5$
+\end_inset
+
+ than the value is assigned to Class 
+\begin_inset Formula $0$
+\end_inset
+
+.
+ We consider that model is uncertain about specific data sample if its predictio
+n values is close to 
+\begin_inset Formula $0.5$
+\end_inset
+
+.
+ As a result, sampling values from maximal uncertainty region will bring
+ maximum information about the dataset.
+ Models set up for Toy Problem is same as it is defined in Machine Learning
+ Component section.
+\end_layout
+
+\begin_layout Subsection
+SVM Ensembles
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:SVM_Ensembles_posterior_toy_problem"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is visualized uncertainty for SVM Ensembles model.
+ Uncertainty bounds are linear and quite narrow.
+ Linearity of uncertainty bounds is explained with the fact that we are
+ using SVMs with linear kernel.
+ Narrowness can be explained with richness of the training dataset and linear
+ limitations of SVM decision bound.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/SVM_toy_problem_uncertainty.png
+	scale 30
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:SVM_Ensembles_posterior_toy_problem"
+
+\end_inset
+
+SVM Ensembles posterior predictive mean probability of Class 
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Random Forest Ensembles
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:RF_Ensembles_posterior_toy_problem"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is visualized uncertainty for Random Forest Ensembles model.
+ In case of Random Forest Ensembles we can see that uncertainty bounds are
+ not linear and lay near the region where two classes are splitted.
+ We see that uncertainty region is becoming wider near the places where
+ datapoint of two different classes lay near each other.
+ This is a behavior that we wanted to observe.
+ 
+\end_layout
+
+\begin_layout Standard
+It is also seen that the curve is not smooth enough.
+ This is caused with Random Forest algorithm specification.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/RF_toy_problem_uncertainty.png
+	scale 30
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:RF_Ensembles_posterior_toy_problem"
+
+\end_inset
+
+Random Forest Ensembles posterior predictive mean probability of Class 
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Neural Networks Ensembles
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:NN_Ensembles_posterior_toy_problem"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is visualized uncertainty for Neural Network Ensembles model.
+ In comparison to non-neural networks based methods that were shown above,
+ uncertainty bounds are quite smooth.
+ We can also observe that uncertainty bounds become wider when they go to
+ further from the data points.
+ This behavior can be explained with the fact that in these places algorithm
+ did not get any training data samples.
+ We could also see this behavior in SWM Ensembles but in this case, Neural
+ Network models represent the uncertainties much better.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/NN_toy_problem_uncertainty.png
+	scale 30
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:NN_Ensembles_posterior_toy_problem"
+
+\end_inset
+
+Neural Network Ensembles posterior predictive mean probability of Class
+ 
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+SGLD
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:SGLD_Ensembles_posterior_toy_problem"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is visualized uncertainty for SVM Ensembles model.
+ We see that SGLD algorithm has similar behavior to Neural Network Ensembles.
+ The difference is that all uncertainty bound curves has similar curvature.
+ This is happening due to the fact that SGLD finds loss function minimum
+ and than samples parameters' values in a neighborhood of the minimum.
+ As a result we expect decision bound for each parameters sample be similar
+ to each other.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/SGLD_toy_problem_uncertainty.png
+	scale 30
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:SGLD_Ensembles_posterior_toy_problem"
+
+\end_inset
+
+SGLD posterior predictive mean probability of Class 
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+DENFI
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:SVM_Ensembles_posterior_toy_problem"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is visualized uncertainty for SVM Ensembles model.
 \end_layout
 
 \begin_layout Chapter*
