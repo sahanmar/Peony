@@ -1553,6 +1553,105 @@ name "subsec:decision_theory_nn"
 
 \end_layout
 
+\begin_layout Subsubsection
+Neural Network 
+\end_layout
+
+\begin_layout Standard
+In this work we are using encoding of the input sample 
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
+\end_inset
+
+ and then applying Feed Forward Neural Network in order to predict the output
+ value 
+\begin_inset Formula $\mathbf{y}\in{\cal Y}.$
+\end_inset
+
+ There are plenty ways how to provide encoding of the data sample 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ but we are interested here only in Feed Forward Neural Network algorithm
+ that assigns input value to a specific class.
+ 
+\end_layout
+
+\begin_layout Standard
+First layer of NN is defined as
+\begin_inset Formula 
+\begin{equation}
+\mathbf{a}_{1}=\mathbf{W}_{1}^{T}\mathbf{x}+\mathbf{b}_{1}\label{eq:Neuron}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbf{W}_{1}$
+\end_inset
+
+ is matrix of weights and 
+\begin_inset Formula $\mathbf{b}_{1}$
+\end_inset
+
+ is a vector of bias values.
+ First layer is called input layer.
+ 
+\end_layout
+
+\begin_layout Standard
+Further layers of NN are formed as
+\begin_inset Formula 
+\begin{equation}
+\mathbf{a}_{k}=\mathbf{W}_{k}^{T}f\big(\mathbf{a}_{k-1}\big)+\mathbf{b}_{k},\ k=\{2,...,K-1\}.\label{eq:second_layer_neron}
+\end{equation}
+
+\end_inset
+
+As seen from equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:second_layer_neron"
+
+\end_inset
+
+, neurons from each layer (except of input layer) take linear combination
+ of the neurons from the previous layer.
+ Function 
+\begin_inset Formula $f$
+\end_inset
+
+ is an activation function.
+ Activation function is defined as a non-decreasing, continuous function.
+ The most usable activation functions are sigmoid, relu, elu, and hyperbolic
+ tangence functions 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bishop2006machine"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Output values are computed with
+\begin_inset Formula 
+\begin{equation}
+\hat{\mathbf{y}}=\mathbf{W}_{K}^{T}f\big(\mathbf{a}_{K-1}\big)+\mathbf{b}_{K}.\label{eq:Output_layer}
+\end{equation}
+
+\end_inset
+
+In most cases sigmoid and softmax functions for output layer are used.
+ Softmax function is used for classification problems.
+\end_layout
+
+\begin_layout Subsubsection
+Decision Theory
+\end_layout
+
 \begin_layout Standard
 Decision Theory construction for the algorithm, based on a neural network
  function, is mostly the same as in 
@@ -1567,7 +1666,7 @@ noprefix "false"
 
 .
  However in this case our decision is to find estimate 
-\begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x},\mathbf{W},\mathbf{b})$
+\begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x},\Omega)$
 \end_inset
 
  of the probability density function 
@@ -1579,14 +1678,10 @@ noprefix "false"
 \end_inset
 
  is the input data, 
-\begin_inset Formula $\mathbf{W}$
+\begin_inset Formula $\Omega=\{\mathbf{W}_{1},...\mathbf{W}_{K},\mathbf{b}_{1}...,\mathbf{b}_{K}\}$
 \end_inset
 
- is a set of all neural network function parameters and 
-\begin_inset Formula $\mathbf{b}$
-\end_inset
-
- is a vector of biases.
+ is a set of all neural network function parameters and biases.
  Action space 
 \begin_inset Formula $\mathcal{A}$
 \end_inset
@@ -1619,7 +1714,7 @@ noprefix "false"
  function, which is defined as 
 \begin_inset Formula 
 \begin{equation}
-L(\mathbf{x},\mathbf{y},\mathbf{W},\mathbf{b})=-y_{1}\ln\big(\hat{y}_{1}(\mathbf{x},\mathbf{W},\mathbf{b})\big)-y_{2}\ln\big((\hat{y}_{2}(\mathbf{x},\mathbf{W},\mathbf{b})\big),\label{eq:cross_entropy_loss}
+L(\mathbf{x},\mathbf{y},\Omega)=-y_{1}\ln\big(\hat{y}_{1}(\mathbf{x},\Omega)\big)-y_{2}\ln\big((\hat{y}_{2}(\mathbf{x},\Omega)\big),\label{eq:cross_entropy_loss}
 \end{equation}
 
 \end_inset
@@ -1683,9 +1778,9 @@ noprefix "false"
  evaluated as 
 \begin_inset Formula 
 \begin{align}
-\mathbb{E}_{\pi^{*}}L & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},y,\mathbf{W},\mathbf{b})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & =-\int_{\mathbf{{\cal X}}\times{\cal Y}}\Big(y_{1}\ln\big(\hat{y}_{1}(\mathbf{x},\mathbf{W},\mathbf{b})\big)+y_{2}\ln\big((\hat{y}_{2}(\mathbf{x},\mathbf{W},\mathbf{b})\big)\Big)\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & =-\frac{1}{N}\sum_{i=1}^{N}\Big(y_{1}\ln\big(\hat{y}_{1}(\mathbf{x},\mathbf{W},\mathbf{b})\big)+y_{2}\ln\big((\hat{y}_{2}(\mathbf{x},\mathbf{W},\mathbf{b})\big)\Big),\label{eq:expected_loss_cross_entropy}
+\mathbb{E}_{\pi^{*}}L & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},y,\Omega)p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & =-\int_{\mathbf{{\cal X}}\times{\cal Y}}\Big(y_{1}\ln\big(\hat{y}_{1}(\mathbf{x},\Omega)\big)+y_{2}\ln\big((\hat{y}_{2}(\mathbf{x},\Omega)\big)\Big)\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & =-\frac{1}{N}\sum_{i=1}^{N}\Big(y_{1}\ln\big(\hat{y}_{1}(\mathbf{x},\Omega)\big)+y_{2}\ln\big((\hat{y}_{2}(\mathbf{x},\Omega)\big)\Big),\label{eq:expected_loss_cross_entropy}
 \end{align}
 
 \end_inset
@@ -1701,6 +1796,73 @@ where
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Subsubsection
+Parameters Estimation
+\end_layout
+
+\begin_layout Standard
+In further sections we are going to introduce more methods based on Neural
+ Networks which will slightly differ between each other.
+ Thus, we would like to cover more theory around parameters estimation.
+ The very simple but efficient method is gradient descent.
+ This method is denoted with the usage of equation
+\begin_inset Formula 
+\begin{equation}
+\hat{\Omega}_{n+1}=\hat{\Omega}_{n}-\eta\nabla L(\mathbf{X},\mathbf{Y},\hat{\Omega}_{n})\label{eq:Gradient-Descent}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\hat{\mathbf{\Omega}}_{n}$
+\end_inset
+
+ is the 
+\begin_inset Formula $n-$
+\end_inset
+
+th iteration value of gradient descent of NN weights and its biases that
+ converges to 
+\begin_inset Formula $\hat{\Omega}$
+\end_inset
+
+.
+ Value of 
+\begin_inset Formula $\nabla L(\mathbf{X},\mathbf{Y},\hat{\Omega}_{n})$
+\end_inset
+
+ is a gradient of loss function and 
+\begin_inset Formula $\eta$
+\end_inset
+
+ is a value that in terms of NN is defined as learning rate.
+ As a result described method finds the way to the function minimum.
+ 
+\end_layout
+
+\begin_layout Standard
+The usual gradient descent is extremely efficient method for complex 
+\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\Omega)$
+\end_inset
+
+ but what if loss function has some local minimums? In this case, algorithm
+ will stop iterating when it will find local minimum.
+ Due to the complex functions 
+\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\Omega)$
+\end_inset
+
+, loss function of its approximation will be non convex with big amount
+ of local minimums and maximums.
+ Solution of this problem is that algorithm must jump over this local minimum.
+ In terms of probability theory this tool is represented as a random value
+ from some distribution.
+ In comparison to standard gradient descent the key difference is that only
+ one piece of data (minibatch) from the training dataset is used to calculate
+ the step.
+ The data samples (minibatch) is picked randomly at each step.
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -2758,17 +2920,17 @@ We do not have explicit form of the pdf.
  can be approximated as 
 \begin_inset Formula 
 \begin{equation}
-\pi_{u}^{*}=\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\delta(\theta_{u}-\theta_{u,q}),\label{eq:prior_distribution_for_exp_loss_estimate}
+\pi_{u}^{*}=\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\delta(\theta_{u}-\theta_{u}^{(q)}),\label{eq:prior_distribution_for_exp_loss_estimate}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $\delta(\theta_{u}-\theta_{u,q})$
+\begin_inset Formula $\delta(\theta_{u}-\theta_{u}^{(q)})$
 \end_inset
 
  is Dirac delta function centered in 
-\begin_inset Formula $\theta_{u,q}$
+\begin_inset Formula $\theta_{u}^{(q)}$
 \end_inset
 
 .
@@ -2817,38 +2979,32 @@ Assuming
 
 .
  Let 
-\begin_inset Formula $Z_{u}=\{z_{1},...,z_{N_{u}^{sub}}\}$
+\begin_inset Formula $Z_{u}=\{z_{1},...,z_{N_{u}^{sub}}\}\subset J_{u}$
 \end_inset
 
 , where 
-\begin_inset Formula $N_{u}^{sub}\subset N_{u}$
+\begin_inset Formula $N_{u}^{sub}<N_{u}$
+\end_inset
+
+ .
+ Let 
+\begin_inset Formula $p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u},Z_{u})$
+\end_inset
+
+ is a probability of model parameters 
+\begin_inset Formula $\theta_{u}$
+\end_inset
+
+ given 
+\begin_inset Formula $\mathbf{X}_{u},\mathbf{Y}_{u}$
 \end_inset
 
  and 
-\begin_inset Formula $\forall k,l\in N_{u}^{sub},\ z_{k},z_{l}\in J_{u},\ z_{k}\neq z_{l}$
-\end_inset
-
-.
- Next step is selection of indices that will form set 
 \begin_inset Formula $Z_{u}$
 \end_inset
 
 .
- Let 
-\begin_inset Formula $\forall k\in N_{u}^{sub},\ z_{k}\sim U(J_{u})$
-\end_inset
-
-.
- under condition that we don't want to have duplicate indices in 
-\begin_inset Formula $Z_{u}$
-\end_inset
-
-.
- Let 
-\begin_inset Formula $\mathbf{X}_{Z_{u}},\ \mathbf{Y}_{Z_{u}}$
-\end_inset
-
- are defined as restriction of sets 
+ The conditioning in the pdf is defined as restriction of sets 
 \begin_inset Formula $\mathbf{X}_{u},\ \mathbf{Y}_{u}$
 \end_inset
 
@@ -2869,32 +3025,38 @@ noprefix "false"
 
  as 
 \begin_inset Formula 
-\begin{equation}
-\pi_{u}^{*}=p_{u}(\theta_{u}|\mathbf{X}_{Z_{u}},\mathbf{Y}_{Z_{u}}).\label{eq:prior_distribution_approximation_training_set_sampling}
-\end{equation}
+\begin{align}
+\pi_{u}^{*} & =p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})\label{eq:prior_distribution_approximation_training_set_sampling}\\
+ & =\int p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u},Z_{u})p(Z_{u})dZ_{u}\\
+ & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u},Z_{u}^{(q)})\\
+ & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\delta(\theta_{u}-\theta_{u}^{(q)}).
+\end{align}
 
 \end_inset
 
 Sampling from 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:prior_distribution_approximation_training_set_sampling"
-plural "false"
-caps "false"
-noprefix "false"
-
+\begin_inset Formula $p(Z_{u})$
 \end_inset
 
  is very simple.
+ The only thing that must be predefined is 
+\begin_inset Formula $N_{u}^{sub}$
+\end_inset
+
+.
  After training the model using 
-\begin_inset Formula $\mathbf{X}_{Z_{u}}$
+\begin_inset Formula $\mathbf{X}_{u}$
 \end_inset
 
  and 
-\begin_inset Formula $Y_{Z_{u}}$
+\begin_inset Formula $Y_{u}$
 \end_inset
 
- vector of model parameters will represent a single sample from 
+ under restriction 
+\begin_inset Formula $Z_{u}$
+\end_inset
+
+ ,vector of model parameters will represent a single sample from 
 \begin_inset Formula $\pi_{u}^{*}$
 \end_inset
 
@@ -2910,17 +3072,83 @@ Unlike previous section method, SGLD sampling is designed only for neural
  networks based classifiers.
  SGLD modifies Neural Network learning algorithm by adding noise in Stochastic
  Gradient descent.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-FINISHED HERE
-\end_layout
+ In comparison to Normal Feed Forward Neural Network in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "welling2011bayesian"
+literal "false"
 
 \end_inset
 
+ is introduced Stochastic Gradient Langevin Dynamics Neural Network (SGLD).
+ This is type of Bayesian Neural Network algorithm.
+ In comparison to normal Feed Forward NN, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "welling2011bayesian"
+literal "false"
 
+\end_inset
+
+ proposes to add gaussian noise to the system while doing gradient descent.
+ With the usage of Bayes rule.
+ we can rewrite 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_for_expected_entropy_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{align}
+\pi_{u}^{*} & =p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})\nonumber \\
+ & \propto p(\mathbf{X}_{u},\mathbf{Y}_{u}|\theta_{u})p(\theta_{u}).\label{eq:prior_distribution_approximation_sgld}
+\end{align}
+
+\end_inset
+
+Next, we can approximate 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_approximation_sgld"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{align}
+\pi_{u}^{*} & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}p(\mathbf{X}_{u},\mathbf{Y}_{u}|\theta_{u}^{(q)})\label{eq:eq:prior_distribution_approximation_sgld_2}\\
+ & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\delta(\theta_{u}-\theta_{u}^{(q)}).\nonumber 
+\end{align}
+
+\end_inset
+
+However, for this case 
+\begin_inset Formula $\theta$
+\end_inset
+
+ must meet some constraints.
+ If we want to sample parameters from its distribution 
+\begin_inset Formula $\theta$
+\end_inset
+
+ must be independent identically distributed.
+ This is shown and proved in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "welling2011bayesian"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2928,7 +3156,67 @@ DENFI
 \end_layout
 
 \begin_layout Standard
-TBD
+In case of DENFI algorithm 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+[CITATION HERE ]
+\end_layout
+
+\end_inset
+
+ we can approximate 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_for_expected_entropy_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ with the usage of equations 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_approximation_sgld"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eq:prior_distribution_approximation_sgld_2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The equations are same but sampling from 
+\begin_inset Formula $p(\theta_{u})$
+\end_inset
+
+ is different.
+ In this work we are using modification of the initial DENFI algorithm.
+ The idea of this algorithm is to train ensemble of 
+\begin_inset Formula $Q_{u}$
+\end_inset
+
+ Feed Forward Neural Networks with the usage of stochastic gradient descent.
+ In theory, each neural network will find different local minimum due to
+ different initial weights of neurons and stochastic gradient descent.
+ The beauty of this algorithm is shown in further training iterations that
+ will be described and shown in further sections.
+ For now, we are only interested in parameters sampling from 
+\begin_inset Formula $p(\theta_{u})$
+\end_inset
+
+, that has been already covered and described.
 \end_layout
 
 \begin_layout Subsection
@@ -3676,6 +3964,10 @@ literal "false"
 \end_layout
 
 \begin_layout Chapter
+Data and Results Validation Theory 
+\end_layout
+
+\begin_layout Section
 Results Validation Theory
 \end_layout
 
@@ -3692,7 +3984,7 @@ When the models are implemented and trained we have to compare them.
  
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Receiving Operating Curve metric
 \end_layout
 
@@ -3738,7 +4030,7 @@ Receiving Operating Curve lets us to calculate area under the curve (AUC).
  
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Supervised Learning Results Validation
 \end_layout
 
@@ -3753,7 +4045,7 @@ As mentioned above, supervised learning results are used as maximal upper
  All results are calculated with respect to balanced data classes.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Active Learning Results Validation
 \end_layout
 
@@ -3778,7 +4070,7 @@ nt.
  
 \end_layout
 
-\begin_layout Chapter
+\begin_layout Section
 Data 
 \begin_inset CommandInset label
 LatexCommand label
@@ -3799,7 +4091,7 @@ This chapter is dedicated dataset description.
  
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 HuffPost 200k Articles Dataset
 \end_layout
 
@@ -4121,7 +4413,7 @@ noprefix "false"
  
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 1600k Tweets Dataset
 \end_layout
 
@@ -4560,6 +4852,25 @@ Despite the fact that we used very simple Neural Networks architecture,
 
 \begin_layout Subsubsection
 SGLD
+\end_layout
+
+\begin_layout Standard
+For SGLD we used same configuration as for Feed Forward Neural Network.
+ One significant difference is that we used whole training dataset and were
+ adding gaussian noise to a gradient descent.
+ Precise configuration of SGLD can be found in github project here 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/sahanmar/Peony/blob/master/Peony_project/Peony_box/src/peony_a
+djusted_models/sgld_nn.py
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -5447,7 +5758,7 @@ noprefix "false"
 
 \end_inset
 
- is visualized uncertainty for SVM Ensembles model.
+ is visualized uncertainty for SGLD model.
  We see that SGLD algorithm has similar behavior to Neural Network Ensembles.
  The difference is that all uncertainty bound curves has similar curvature.
  This is happening due to the fact that SGLD finds loss function minimum
@@ -5506,14 +5817,192 @@ DENFI
 In figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:SVM_Ensembles_posterior_toy_problem"
+reference "fig:DENFI_Ensembles_posterior_toy_problem"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- is visualized uncertainty for SVM Ensembles model.
+ is visualized uncertainty for DENFI model.
+ We see that uncertainty bounds are very similar to Neural Network Ensembles
+ algorithms but still a bit different.
+ As told in Pseudocode 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+HERE! ADD PSEUDOCODE REF
+\end_layout
+
+\end_inset
+
+, algorithm founds different local minimums and then we add some gaussian
+ noise to parameters values.
+ In next learning iterations the algorithm continues training using the
+ weights from previous step.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/DENFI_toy_problem_uncertainty.png
+	scale 30
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:DENFI_Ensembles_posterior_toy_problem"
+
+\end_inset
+
+DENFI posterior predictive mean probability of Class 
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The last 
+\begin_inset Formula $100$
+\end_inset
+
+ loss function values with respect to each DENFI ensemble are shown in figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:DENFI_Ensembles_100_loss_values"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ It is seen that each ensemble found its own local minimum.
+ Additional gaussian noise adds more variability to the algorithm that makes
+ samples more diverse.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/DENFI_toy_ensemble_losses.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:DENFI_Ensembles_100_loss_values"
+
+\end_inset
+
+The last 
+\begin_inset Formula $100$
+\end_inset
+
+ loss function values with respect to each DENFI ensemble
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+To conclude, we can say that the best variability representation was seen
+ in Neural Network models.
+ Of-course, we could test SVM algorithm with the usage of different kernels
+ but our prior interest was around Neural Networks.
+ We have showed that all models are able to represent variability and can
+ be used for further tests.
+\end_layout
+
+\begin_layout Section
+Active Learning on Texts with TF-IDF Encoding Based Models
+\end_layout
+
+\begin_layout Subsection
+SVM Ensembles
+\end_layout
+
+\begin_layout Subsection
+Random Forest Ensembles
+\end_layout
+
+\begin_layout Subsection
+Neural Networks Ensembles
+\end_layout
+
+\begin_layout Subsection
+SGLD
+\end_layout
+
+\begin_layout Subsection
+DENFI
+\end_layout
+
+\begin_layout Section
+Active Learning on Texts with Fast Text Encoding Based Models
+\end_layout
+
+\begin_layout Subsection
+SVM Ensembles
+\end_layout
+
+\begin_layout Subsection
+Random Forest Ensembles
+\end_layout
+
+\begin_layout Subsection
+Neural Networks Ensembles
+\end_layout
+
+\begin_layout Subsection
+SGLD
+\end_layout
+
+\begin_layout Subsection
+DENFI
 \end_layout
 
 \begin_layout Chapter*
