@@ -4413,7 +4413,7 @@ noprefix "false"
  
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 1600k Tweets Dataset
 \end_layout
 
@@ -4606,6 +4606,27 @@ MongoDb JSON schema visualization
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Computations
+\end_layout
+
+\begin_layout Standard
+All computations were done with the usage of virtual instance on Google
+ Cloud Platform.
+ We used configuration with 
+\begin_inset Formula $2$
+\end_inset
+
+ CPU, 
+\begin_inset Formula $7.5$
+\end_inset
+
+Gb memory that was running on Debian GNU/Linux 10.
+ All versions of python, python packages, docker, mongo, etc.
+ can be found in .yml files in GitHub folder with the project.
+ 
 \end_layout
 
 \begin_layout Section
@@ -5958,39 +5979,614 @@ To conclude, we can say that the best variability representation was seen
 \end_layout
 
 \begin_layout Section
+Active Learning Simulation Set Up
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Active_Learning_Simulation_set_up"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Simulation Loop
+\end_layout
+
+\begin_layout Standard
+The active learning simulation is done for comparing two strategies such
+ as random and 
+\begin_inset Quotes sld
+\end_inset
+
+smart
+\begin_inset Quotes srd
+\end_inset
+
+ selection of text documents.
+ We randomly choose initial training set that has 
+\begin_inset Formula $10$
+\end_inset
+
+ samples.
+ Described 
+\begin_inset Formula $10$
+\end_inset
+
+ random samples are chosen from 
+\begin_inset Formula $1000$
+\end_inset
+
+ text documents (
+\begin_inset Formula $500$
+\end_inset
+
+ text documents per category).
+ We define 
+\begin_inset Formula $1000$
+\end_inset
+
+ documents dataset as validation set.
+ 
+\end_layout
+
+\begin_layout Standard
+Next we start two runs.
+ One run is based on random selection of text documents and second run is
+ based on acquisition function selection of the documents.
+ Both runs start with same training dataset and then they chose additional
+ training documents basing on their strategies.
+ We consider continuous new data selection from validation set and imitating
+ annotators labeling process.
+ All in all we imitate text samples selection 200 times.
+ We select 
+\begin_inset Formula $10$
+\end_inset
+
+ random samples in the beginning, train our model, make a prediction on
+ the complement to the training dataset (
+\begin_inset Formula $990$
+\end_inset
+
+ text documents from validation set).
+ As a further step, we select 
+\begin_inset Formula $1$
+\end_inset
+
+ new sample from the set on which the prediction was done.
+ New text sample for labeling is chosen with respect to acquisition function
+ or random choice.
+ Before we extend our training dataset with new labeled sample we calculate
+ AUC metrics on the complement to the dataset (
+\begin_inset Formula $990$
+\end_inset
+
+ text documents).
+ This process is repeated 
+\begin_inset Formula $200$
+\end_inset
+
+ times.
+ Thus, by the end of the simulation, our training set will have 
+\begin_inset Formula $210$
+\end_inset
+
+ text documents and testing set (complement to a training set) will have
+ 
+\begin_inset Formula $790$
+\end_inset
+
+ data samples.
+ In order to make our results statistically valid, we repeat described simulatio
+n loop 
+\begin_inset Formula $10$
+\end_inset
+
+ times.
+\end_layout
+
+\begin_layout Subsection
+Alpha Greedy Strategy
+\end_layout
+
+\begin_layout Standard
+In this work we decided that we do not want to sample with respect to an
+ acquisition function from the beginning.
+ We decided that both active learning and random strategy are going to start
+ with random sampling.
+ The algorithms have a coefficient 
+\begin_inset Formula $\alpha\in[0,1)$
+\end_inset
+
+ that represents probability of data sampling with respect to acquisition
+ function.
+ In this work we define 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{equation}
+\alpha=\begin{cases}
+\frac{\exp(u-40)}{\exp(u-40)+1}, & u\in\{1,...,U\}\\
+0, & u=0,
+\end{cases}\label{eq:alpha_greedy_function}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $u=\{0,1,...,U\}$
+\end_inset
+
+ is set of question that results in number of text documents which will
+ be labeled by an annotator.
+ As mentioned in previous section, the number iterations (question 
+\begin_inset Formula $U$
+\end_inset
+
+) is set to 
+\begin_inset Formula $200$
+\end_inset
+
+.
+ From equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:alpha_greedy_function"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is seen that when we reach 
+\begin_inset Formula $40-$
+\end_inset
+
+th document, the probability of random sampling is 
+\begin_inset Formula $50\%$
+\end_inset
+
+.
+ This strategy showed really good results which will be shown in further
+ sections.
+\end_layout
+
+\begin_layout Section
 Active Learning on Texts with TF-IDF Encoding Based Models
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Active_Learning_on_TF-IDF_models"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We decided to show the results for TF-IDF encoding based model because described
+ text encoding provides high discriminability and relatively simple at the
+ same time.
+ However, as mentioned in passive learning section due to the high amount
+ of features, models that are using this type of encoding are harder to
+ train.
+ We were not able to train Neural Network Ensembles due to the high dimensional
+ feature space.
+ Thus, we decided to show the results only with respect to SVM and Random
+ Forest with respect to Sports and Comedy categories.
+ Therefore, there is no need to split further section to different datasets
+ because all the experiments based on TF-IDF encoding are assumed to be
+ done only for Sports and Comedy categories.
 \end_layout
 
 \begin_layout Subsection
 SVM Ensembles
 \end_layout
 
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SVM Ensembles and TF-IDF
+ encoding.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/TF-IDF/TF-IDF_SVM_active_learning.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TF-IDF_SVM_ensembles"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SVM ensembles with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations and TF-IDF encoding
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As seen from figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the results for entropy are not better than for random selection.
+ This can be explained due to low variability of SVM ensembles.
+ For this case we can conclude that there are no significant difference
+ between entropy and random data selection strategy.
+ First and second strategy has almost same uncertainty bounds and converge
+ to the same AUC results.
+ 
+\end_layout
+
 \begin_layout Subsection
 Random Forest Ensembles
 \end_layout
 
-\begin_layout Subsection
-Neural Networks Ensembles
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_Random_Forest_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for Random Forest Ensembles
+ and TF-IDF encoding.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/TF-IDF/TF-IDF_Random_Forest_active_learning.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TF-IDF_Random_Forest_ensembles"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for Random Forest ensembles with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations and TF-IDF encoding
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In comparison to SVM Ensembles, active learning strategy for Random Forest
+ Ensembles show really poor results.
+ Random data selection overcomes entropy selection and it can be said that
+ active learning strategy is not working at all for this algorithm.
+ The reason of such behavior can be explained due to very little amount
+ of training data in the beginning.
+ This fact may make algorithm to start selecting the data which have high
+ entropy but are close to each other.
+ As a result, it will not lead to high performance results.
+ 
 \end_layout
 
 \begin_layout Subsection
-SGLD
+Conclusion
 \end_layout
 
-\begin_layout Subsection
-DENFI
+\begin_layout Standard
+Even though we were able to see extremely good results for TF-IDF encoding
+ in Passive Learning section, we saw that due to the features space high
+ dimensionality we are not able to train Neural Networks models and test
+ active learning there.
+ Moreover, SVM and Random Forest Ensembles' results were unsatisfying and
+ in comparison to random sampling, active learning strategy did not show
+ good results.
 \end_layout
 
 \begin_layout Section
 Active Learning on Texts with Fast Text Encoding Based Models
 \end_layout
 
+\begin_layout Standard
+In comparison to section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Active_Learning_on_TF-IDF_models"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, in this section we show results to all models because Fast Text encoding
+ maps texts to 
+\begin_inset Formula $300$
+\end_inset
+
+ dimensional feature space.
+ This is much lower than in case of TF-IDF encoding.
+ Thus, we were able to provide computations with respect to all models.
+\end_layout
+
 \begin_layout Subsection
 SVM Ensembles
 \end_layout
 
+\begin_layout Subsubsection
+Sports and Comedy Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SVM Ensembles and Fast
+ Text encoding.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SVM_active_learning.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SVM_ensembles"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SVM ensembles with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations and Fast Text encoding
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The behavior which we observe in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is similar to figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ We can see that active learning strategy is not working for case of Fast
+ Text encoding as well.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+We can conclude that even despite good performance in Passive Learning section
+ the active learning algorithm is not working as we expected.
+ Thus, we will not continue testing this algorithm on further datasets.
+ 
+\end_layout
+
 \begin_layout Subsection
 Random Forest Ensembles
+\end_layout
+
+\begin_layout Subsubsection
+Sports and Comedy Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SVM Ensembles and Fast
+ Text encoding.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_Random_Forest_active_learning.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_Random_Forest_ensembles"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for Random Forest ensembles with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations and Fast Text encoding
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As illustrated in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we can see the strategies results are similar to each other but and in
+ active learning case, entropy based sampling is overcoming random sampling
+ strategy.
+ We can also see that in active learning case, uncertainty bounds are much
+ more narrow.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Subsection
