@@ -5696,7 +5696,7 @@ Random Forest Ensembles posterior predictive mean probability of Class
 \end_layout
 
 \begin_layout Subsection
-Neural Networks Ensembles
+Neural Network Ensembles
 \end_layout
 
 \begin_layout Standard
@@ -6504,15 +6504,15 @@ Sports and Comedy Categories
 In figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Fast_Text_SVM_ensembles"
+reference "fig:Fast_Text_Random_Forest_ensembles"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for SVM Ensembles and Fast
- Text encoding.
+ is shown active learning simulation results for Random Forest Ensembles
+ and Fast Text encoding.
  Active learning strategy is based on entropy acquisition function.
 \end_layout
 
@@ -6592,11 +6592,726 @@ Even though we could observe that active learning strategy shows better
 \end_layout
 
 \begin_layout Subsection
-Neural Networks Ensembles
+Neural Network Ensembles
+\end_layout
+
+\begin_layout Subsubsection
+Sports and Comedy Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_Feed_Forward_NN_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for Neural Networks Ensembles
+ and Fast Text encoding.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_Feed_Forward_NN_active_learning.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_Feed_Forward_NN_ensembles"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for Feed Forward Neural Network ensembles with respect
+ to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations and Fast Text encoding
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If we compare output metrics from figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_Feed_Forward_NN_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we can see significant difference in the algorithms performance.
+ In comparison to previous methods, algorithm based ob neural networks shows
+ same results by 
+\begin_inset Formula $50-$
+\end_inset
+
+th iteration.
+ That means that the probability of using non-random acquisition function
+ equals to 
+\begin_inset Formula $50\%$
+\end_inset
+
+.
+ We are able to observe significant overcome of entropy based sampling than
+ random sampling strategy.
+ We can also see, that random sampling strategy is converging very slow
+ to the results of the active learning strategy.
+ Moreover, active learning uncertainty bounds are much more narrow than
+ the uncertainty bounds of the random sampling algorithm.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+One significant disadvantage of this method is that it is very slow and
+ hard to train.
+ Each time, we have to train 
+\begin_inset Formula $10$
+\end_inset
+
+ neural networks with cold start.
+ That means training neural networks with random weights initialization
+ and no prior information from the previous training.
+ Despite the fact that the result are really good, we decided not to continue
+ with the algorithm testing because it is very slow and computationally
+ costly.
+ In next sections we introduce results based on neural networks but different
+ way of uncertainty representation.
 \end_layout
 
 \begin_layout Subsection
 SGLD
+\end_layout
+
+\begin_layout Standard
+Stochastic Gradient Langevin Dynamics algorithm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "welling2011bayesian"
+literal "false"
+
+\end_inset
+
+ is one of two algorithms that are assumed as the best algorithms (in terms
+ of this project) with good ratio of training time consumption and performance.
+ As mentioned previously, gaussian noise is added to a gradient descent
+ while training.
+ Thus approach helps us to sample different parameters vectors around the
+ loss minimum by simply continuing training.
+ In comparison to Neural Networks Ensembles, we do not have to train neural
+ network ensembles separately, but train only one neural network with some
+ additional training epochs.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Sports and Comedy Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SGLD, Fast Text encoding
+ and Sport vs Comedy categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SGLD_NN_active_learning_Sports_Comedy.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SGLD_NN"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SGLD algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Sports vs Comedy categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can see that in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ both mean and uncertainty bound curves are not smooth enough in comparison
+ to Neural Network Ensembles.
+ This behavior can be explained with low number of samples from SGLD.
+ However, we are able to observe same analogy as with Neural Network Ensembles.
+ The active learning strategy overcomes random sampling and has more narrow
+ uncertainty bounds.
+ Moreover, SGLD was trained almost three times faster than Neural Network
+ Ensembles algorithm.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Crime and Good News Categories
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:SGLD_Crime_and_Good_news_categories"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Crime_Good_news"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SGLD, Fast Text encoding
+ and Crime vs Good News categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SGLD_NN_active_learning_Crime_Good_news.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SGLD_NN_Crime_Good_news"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SGLD algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Crime vs Good News categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We expect Crime and Good News categories have small intersection.
+ As seen from 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Crime_Good_news"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ it is really true because first iteration of the simulation starts at around
+ 
+\begin_inset Formula $85\%-90\%$
+\end_inset
+
+ AUC.
+ This means that basing on only 
+\begin_inset Formula $10$
+\end_inset
+
+ training data samples algorithm could reach high performance results.
+ The evolution of two strategies is quite same as in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ We would like to pay attention to the place where the upper uncertainty
+ bound reaches the value that is greater than one.
+ It not possible for AUC to be greater than one because 
+\begin_inset Formula $\mathrm{AUC}\in[0,1]$
+\end_inset
+
+.
+ However, as mentioned previously, we construct uncertainty bounds as a
+ standard deviation from mean value.
+ In this case it is possible that upper uncertainty bound will be greater
+ than one.
+ Thus, while interpreting the results, reader has to remember that AUC metric
+ cannot be greater than one.
+\end_layout
+
+\begin_layout Subsubsection
+Politics and Business Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Politics_Business"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SGLD, Fast Text encoding
+ and Politics vs Business categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SGLD_NN_active_learning_Politics_Business.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SGLD_NN_Politics_Business"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SGLD algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Politics vs Business
+ categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+These two categories have bigger intersection what means that it is harder
+ classification task.
+ The results show again that active learning strategy easily overcomes random
+ sampling strategy.
+ Even though, the topics are harder to distinguish, active learning strategy
+ finds the patterns in the data and show much better results with more narrow
+ uncertainty bounds.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Tech and Science Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Tech_Science"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SGLD, Fast Text encoding
+ and Tech vs Science categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SGLD_NN_active_learning_Science_Tech.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SGLD_NN_Tech_Science"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SGLD algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Tech vs Science categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We observe again that active learning strategy is better even though the
+ categories are quite similar.
+ As seen from the plot uncertainty upper bound reaches the values which
+ is greater than one.
+ This is exactly the case which was already covered in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:SGLD_Crime_and_Good_news_categories"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+College and Education Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_College_Education"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SGLD, Fast Text encoding
+ and College vs Education categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SGLD_NN_active_learning_College_Education.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SGLD_NN_College_Education"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SGLD algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and College vs Education
+ categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The collected results based on College and Education category do not differ
+ to the results from previous parts of SGLD algorithm.
+ We can still see that active learning strategy outperforms random sampling
+ even despite the fact that these categories are very similar.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Positive and Negative Tweets Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Tweets"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SGLD, Fast Text encoding
+ and Positive vs Negative tweets categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SGLD_NN_active_learning_Tweets_categories.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SGLD_NN_Tweets"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SGLD algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Positive vs Negative
+ tweets categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In previous sections we tested SGLD algorithm on the data from HuffPost
+ dataset.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Tweets"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ are illustrated results with respect to tweets dataset.
+ Due to the fact that tweets are really short, it is quite hard to find
+ the patterns that can be used for high performance categories separation.
+ Thus, we can see that our classification results (AUC) is not that high
+ in comparison to previous results.
+ Moreover, we observed that for this dataset there is not difference between
+ active learning and random sampling strategy.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+To sum up, we can say that SGLD algorithm showed really impressive results
+ and proved that the active learning strategy outperforms random sampling.
+ However, there are several disadvantages.
+ First disadvantage is that the resulted curves were not smooth.
+ We think that this problem can be eliminated by sampling more parameters
+ vectors while training the model.
+ Another problem is that the algorithm do not show better active learning
+ results when it is tested on the short and quite general text data.
+ We believe that this problem can be solved with different encoding approach.
 \end_layout
 
 \begin_layout Subsection
