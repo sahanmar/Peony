@@ -7318,6 +7318,556 @@ To sum up, we can say that SGLD algorithm showed really impressive results
 DENFI
 \end_layout
 
+\begin_layout Standard
+DENFI algorithm is second algorithm which is not partitioning training dataset.
+ In addition to this we use a modification of DENFI algorithm.
+ Huge advantage of this algorithm is that it uses prior information from
+ previous training round.
+ In the first round of training, DENFI algorithms follows almost same strategy
+ as Neural Network Ensembles method.
+ It trains 
+\begin_inset Formula $10$
+\end_inset
+
+ ensembles with respect to all training data.
+ The variability in ensembles is reached with different weights initialization.
+ After the training is finished, we add some gaussian noise in order to
+ increase the variability.
+ When we add some training samples, we continue training, using the weights
+ from the previous iteration with addition of gaussian noise in the end.
+ Moreover we are using lower number of epochs.
+ This kind of 
+\begin_inset Quotes sld
+\end_inset
+
+hot start
+\begin_inset Quotes srd
+\end_inset
+
+ approach gives perfect variability that is shown in quality of results
+ in further section.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Sports and Comedy Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_SPORTS_COMEDY"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for DENFI, Fast Text encoding
+ and Sport vs Comedy categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_DENFI_NN_active_learning_Sports_Comedy.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_DENFI_NN_SPORTS_COMEDY"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for DENFI algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Sports vs Comedy categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The active learning result, displayed in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_SPORTS_COMEDY"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ outperform all the algorithms that were tested before.
+ We observe that the uncertainty bounds are extremely narrow.
+ In addition to this we see that active learning strategy has much higher
+ AUC metrics and the curves are quite smooth.
+ Moreover, due to hot start training, the time needed to fit the algorithm
+ is much lower in comparison to Neural Network Ensembles.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Crime and Good News Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_Crime_Good_news"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for DENFI, Fast Text encoding
+ and Crime vs Good News categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_DENFI_NN_active_learning_Crime_Good_news.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_DENFI_NN_Crime_Good_news"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for DENFI algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Crime vs Good News categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have already talked in SGLD section that Crime and Good news categories
+ can be well separated from each other.
+ In this case we see same behavior for active learning strategy as in previous
+ section.
+ The uncertainty bounds are narrow and the AUC scores are very high in compariso
+n to the random sampling strategy.
+\end_layout
+
+\begin_layout Subsubsection
+Politics and Business Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_Politics_Business"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for DENFI, Fast Text encoding
+ and Politics vs Business categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_DENFI_NN_active_learning_Politics_Business.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_DENFI_NN_Politics_Business"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for DENFI algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Politics vs Business
+ categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The behavior, observed in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_Politics_Business"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, is same as in previous DENFI results.
+ Moreover, we see good active learning performance, even though it is not
+ easy to separate these categories.
+ If we compare results in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_Politics_Business"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to SGLD results in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Politics_Business"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we can see DENFI is better not only because its less corrupted with noise
+ but also in higher AUC scores.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Tech and Science Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_Tech_Science"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for DENFI, Fast Text encoding
+ and Tech vs Science categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_DENFI_NN_active_learning_Science_Tech.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_DENFI_NN_Tech_Science"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for DENFI algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Tech vs Science categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The active learning strategy results for DENFI algorithm are much better
+ in comparison to SGLD method that are shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Tech_Science"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ We see that for active learning strategy case DENFI easily found the patterns
+ which helped it to learn faster and show better scores with more narrow
+ uncertainty bounds.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+College and Education Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_College_Education"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for DENFI, Fast Text encoding
+ and College vs Education categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_DENFI_NN_active_learning_College_Education.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_DENFI_NN_College_Education"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for DENFI algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and College vs Education
+ categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Last but not least results for College and Education also proof that DENFI
+ active learning strategy is not too much dependent on how big intersection
+ is between the categories.
+ The uncertainty bounds for active learning are still narrow and the AUC
+ score is much higher than for random sampling case.
+\end_layout
+
+\begin_layout Subsubsection
+Positive and Negative Tweets Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_Tweets"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for DENFI, Fast Text encoding
+ and Positive vs Negative tweets categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_DENFI_NN_active_learning_Tweets_categories.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_DENFI_NN_Tweets"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for DENFI algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Positive vs Negative
+ tweets categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In comparison to SGLD, DENFI algorithm show better active learning performance
+ for tweets dataset.
+ DENFI active learning strategy is also working on tweets whereas SGLD active
+ learning strategy was not able to overcome the random sampling.
+ We can also see that DENFI AUC scores for active learning are higher with
+ more narrow uncertainty bounds than for SGLD.
+\end_layout
+
+\begin_layout Subsubsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+To conclude we can say that DENFI showed brilliant results for all problems
+ which it was tested on.
+ In all cases active learning strategy outperformed random sapling.
+ The algorithm was tested both on the data that are easy to separate and
+ hard to separate.
+ In addition to this, the AUC scores for all active learning results were
+ higher than for different algorithm.
+ That makes DENFI algorithm the best one with the highest performance and
+ the lowest uncertainty, which was tested in term of this project.
+\end_layout
+
 \begin_layout Chapter*
 Conclusion
 \end_layout
