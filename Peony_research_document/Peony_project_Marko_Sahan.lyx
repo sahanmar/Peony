@@ -475,8 +475,14 @@ Acknowledgment:
 
 \begin_layout Standard
 \noindent
-I would like to thank ............................................
- for (his/her expert guidance) and express my gratitude to ..........................................
+I would like to thank 
+\series bold
+doc.
+ Ing.
+ Václav Šmídl, Ph.D.
+
+\series default
+ for his expert guidance and express my gratitude to ..........................................
  for (his/her language assistance).
 \end_layout
 
@@ -892,16 +898,42 @@ addcontentsline{toc}{chapter}{Introduction}
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-WRITE IN AN INTRODUCTION
+Modern approach of automating the labeling process of huge amount of unlabeled
+ data is not optimal.
+ People are randomly choosing unlabeled text data.
+ These data are annotated by the subject matter experts and used for training
+ and testing the models.
+ If the model performance is weak after the training, more text documents
+ are selected and annotated.
+ This approach is costly because nobody knows how much text documents is
+ needed to have good model scores.
+ Our active learning algorithm selects unlabeled text data that it is not
+ certain about and asks an annotator to provide the labels.
+ There are plenty of advantages in using this strategy.
+ First of all, we are able to start with lower amount of training data and
+ iteratively extend the dataset.
+ The dataset is extended using the data, which the model is not certain
+ about.
+ As a result the model will get much more information from these data than
+ from randomly chosen text samples.
+ Another huge advantage is that active learning strategy lets us to understand
+ when the algorithm is good enough and when we can stop adding new labels.
 \end_layout
 
-\end_inset
+\begin_layout Standard
+The project describes how we can formulate different algorithms with respect
+ to decision theory and then connect all the methods to active learning
+ theory.
+ This project also provides link to python implementation of active learning
+ algorithms and comparison of different results gathered with respect to
+ different data.
+ 
+\end_layout
 
-
+\begin_layout Standard
+We believe that active learning approach is able to significantly reduce
+ amount of time and expenses needed for automating text labeling process.
+ 
 \end_layout
 
 \begin_layout Chapter
@@ -3210,8 +3242,8 @@ noprefix "false"
  Feed Forward Neural Networks with the usage of stochastic gradient descent.
  In theory, each neural network will find different local minimum due to
  different initial weights of neurons and stochastic gradient descent.
- The beauty of this algorithm is shown in further training iterations that
- will be described and shown in further sections.
+ The beauty of this algorithm is in further training iterations that will
+ be described and shown in further sections.
  For now, we are only interested in parameters sampling from 
 \begin_inset Formula $p(\theta_{u})$
 \end_inset
@@ -3283,51 +3315,21 @@ As a result, minimization of given expected loss will lead us to a sample
  with the highest entropy.
 \end_layout
 
-\begin_layout Subsubsection
-False Positive Sampling Loss
-\end_layout
-
-\begin_layout Standard
-TBD
-\end_layout
-
 \begin_layout Subsection
-Active Learning for Random Forests Algorithm
+Active Learning
 \end_layout
 
 \begin_layout Standard
-In Supervised Learning section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:random_forest_supervised_learning"
-plural "false"
-caps "false"
-noprefix "false"
-
+We would like to generalize active learning part for all described algorithms
+ in order to estimates 
+\begin_inset Formula $p({\bf y}|\mathbf{x},\mathbf{X}_{u},\mathbf{Y}_{u})$
 \end_inset
 
- we have derived that 
-\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
-\end_inset
-
- for Random Forest (RF) algorithm is written as 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:approx_class_prob_for_random_forest"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
- Active Learning algorithm requires distribution over the parameters of
- the Random Forest algorithm.
- We will solve this problem the way that we will get samples from 
+ basing on samples from 
 \begin_inset Formula $\pi_{u}^{*}$
 \end_inset
 
- and then approximate probability distribution as (
+ in 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_for_expected_entropy_loss"
@@ -3337,140 +3339,82 @@ noprefix "false"
 
 \end_inset
 
-).
- 
-\end_layout
+.
+ In Supervised Learning section we have derived estimate 
+\begin_inset Formula $\hat{\mathbf{y}}$
+\end_inset
 
-\begin_layout Standard
-In order to estimate samples from 
+ of 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ for SVMs, Random Forests and Feed Forward Neural Networks.
+ Active Learning algorithm requires distribution over the parameters of
+ the algorithms.
+ We will solve this problem the way that we will get samples from 
 \begin_inset Formula $\pi_{u}^{*}$
 \end_inset
 
- we define Ensemble Random Forest Algorithm.
- That means that we will use 
-\begin_inset Formula $Q_{u}$
-\end_inset
-
- Random Forests in each step of Active Learning algorithm.
- In this case parameters of each 
-\begin_inset Formula $\mathbf{\hat{y}}_{q_{u}}$
-\end_inset
-
-, where 
-\begin_inset Formula $\mathbf{\hat{y}}$
-\end_inset
-
- is Random Forest one-hot represented output and 
-\begin_inset Formula $q_{u}\in\{1_{u},...,Q_{u}\}$
-\end_inset
-
-, will be iid.
- Of-course RF algorithm is already ensemble of decision trees but in this
- case we create ensemble algorithm from ensemble algorithms.
- Previously we defined for each decision tree 
-\begin_inset Formula $T_{l}$
-\end_inset
-
- where 
-\begin_inset Formula $l\in\{1,...,L\}$
-\end_inset
-
-, that 
-\begin_inset Formula $\mathbf{w}_{l}$
-\end_inset
-
- is a vector of parameters of 
-\begin_inset Formula $l-$
-\end_inset
-
-th decision tree.
- Thus, let 
-\begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},...,\mathbf{w}_{L})$
-\end_inset
-
- is set of parameters of specific Random Forest algorithm.
- Thus, for 
-\begin_inset Formula $\mathbf{\hat{y}}_{q_{u}}$
-\end_inset
-
- we have 
-\begin_inset Formula $\mathbf{W}_{q_{u}}=(\mathbf{w}_{q_{u},1},...,\mathbf{w}_{q_{u},L})$
-\end_inset
-
-.
- As a result we can approximate 
-\begin_inset Formula $\pi_{u}^{*}$
-\end_inset
-
- as 
-\begin_inset Formula 
-\begin{equation}
-\pi_{u}^{*}=\frac{1}{Q_{u}}\sum_{q_{u}=1}^{Q_{u}}\delta(\mathbf{W}-\mathbf{W}_{q_{u}}).\label{eq:Random_forest_ensemble_parameters_distribution}
-\end{equation}
-
-\end_inset
-
-Another important point is to define 
-\begin_inset Formula $\hat{\mathbf{y}}_{q_{u}}=\hat{\mathbf{y}}(\mathbf{x}_{j_{u}},\mathbf{W}_{q_{u}})$
-\end_inset
-
-.
- We formally define each element 
-\begin_inset Formula $\hat{y}_{r,q_{u}}$
-\end_inset
-
- of vector 
-\begin_inset Formula $\hat{\mathbf{y}}_{q_{u}}$
-\end_inset
-
- as 
-\begin_inset Formula 
-\[
-\hat{y}_{r,q_{u}}=\frac{1}{L}\sum_{l=1}^{L}T_{r}(\mathbf{x}_{j_{u}},\mathbf{w}_{q_{u},l}),
-\]
-
-\end_inset
-
-where 
-\begin_inset Formula $r$
-\end_inset
-
- is 
-\begin_inset Formula $r-$
-\end_inset
-
-th class 
-\begin_inset Formula $T_{r}$
-\end_inset
-
- is 
-\begin_inset Formula $r-$
-\end_inset
-
-th element of a decision tree vector.
-\end_layout
-
-\begin_layout Standard
-With the usage of the theory from section 
+ and then approximate probability distribution as 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "subsec:Active-Learning-Loss"
+reference "eq:prior_distribution_for_expected_entropy_loss"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- we can write expected loss for Active Learning Random Forest Algorithm
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In order to estimate 
+\begin_inset Formula $p({\bf y}|\mathbf{x},\mathbf{X}_{u},\mathbf{Y}_{u})$
+\end_inset
+
+ we define Generalized Ensemble Algorithm.
+ SGLD and DENFI can be also represented as generalized ensembles models
+ because parameters sampling (neuron weights sampling) represents different
+ configurations of neural networks.
+ Thus, each sample from 
+\begin_inset Formula $\pi_{u}^{*}$
+\end_inset
+
+ can be assumed as i.i.d.
+ ensemble.
+ As a result, we will use 
+\begin_inset Formula $Q_{u}$
+\end_inset
+
+ ensembles in each step of Active Learning algorithm.
+ Therefore, basing on the previous theory we can approximate 
+\begin_inset Formula $p({\bf y}|\mathbf{x},\mathbf{X}_{u},\mathbf{Y}_{u})$
+\end_inset
+
  as 
 \begin_inset Formula 
 \begin{equation}
-\mathbb{E}_{\pi_{u}^{*}}L_{u}^{*}=\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\sum_{r=1}^{R}\hat{y}_{r}(\mathbf{x}_{j_{u}},\mathbf{W}_{q_{u}})\log\big(\hat{y}_{r}(\mathbf{x}_{j_{u}},\mathbf{W}_{q_{u}})\big).\label{eq:Expected_entropy_loss_random_forest_active_learning}
+p({\bf y}|\mathbf{x},\mathbf{X}_{u},\mathbf{Y}_{u})=\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\hat{\mathbf{y}}_{q,u}.\label{eq:active_learning_output_estimate}
 \end{equation}
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+In this section we have fully covered decision theory for both passive and
+ active learning with respect to different algorithms and ensemble approach.
+ Passive Learning section showed how it is possible to generalize SVM, Random
+ Forest and Neural Networks in terms of decision theory problem setup, whereas
+ Active Learning section showed how to represent uncertainty of the model
+ and parameters sampling for ensembles representation.
 \end_layout
 
 \begin_layout Chapter
@@ -4896,6 +4840,138 @@ djusted_models/sgld_nn.py
 
 \begin_layout Subsubsection
 DENFI
+\end_layout
+
+\begin_layout Standard
+In this work we have simplified original DENFI algorithm.
+ The pseudocode of this algorithm is show in algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:DENFI_modification_algorithm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The main idea is that the algorithm finds different local minimums due
+ to the random weights initialization in first active learning iteration.
+ When the training is finished, gaussian noise is added to the output weights
+ in order to increase the variability.
+ In further active learning iterations, weights from previous iterations
+ with extended training dataset is used.
+ After the training we also add gaussian noise to the weights.
+ When the learning iterations are done, we can use the algorithm for predicting.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+def active_learning_iteration_training(all_ensembles, training_data):
+\end_layout
+
+\begin_layout Plain Layout
+
+  for ensemble in all_ensembles:
+\end_layout
+
+\begin_layout Plain Layout
+
+    if first_active_learning_iteration is False:
+\end_layout
+
+\begin_layout Plain Layout
+
+      ensemble.weights = ensemble.weights_prev_iteration 
+\end_layout
+
+\begin_layout Plain Layout
+
+      training_epochs = 500
+\end_layout
+
+\begin_layout Plain Layout
+
+    else:
+\end_layout
+
+\begin_layout Plain Layout
+
+      ensemble.weights = gaussian_initialization(mean=0, var=0.1)
+\end_layout
+
+\begin_layout Plain Layout
+
+      training_epochs = 2000
+\end_layout
+
+\begin_layout Plain Layout
+
+    ensemble.train(training_data)
+\end_layout
+
+\begin_layout Plain Layout
+
+	ensemble.weights = ensemble_weights 
+\end_layout
+
+\begin_layout Plain Layout
+
+                        + gaussian_noise(mean=0, var=0.1)
+\end_layout
+
+\begin_layout Plain Layout
+
+		
+\end_layout
+
+\begin_layout Plain Layout
+
+		
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:DENFI_modification_algorithm"
+
+\end_inset
+
+DENFI modification algorithm pseudocode
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter
@@ -7870,6 +7946,36 @@ To conclude we can say that DENFI showed brilliant results for all problems
 
 \begin_layout Chapter*
 Conclusion
+\end_layout
+
+\begin_layout Standard
+This project shows how active learning strategy of querying unlabeled text
+ documents for further labeling and training can beat random selection strategy.
+ We have provided not only high level theoretical description of the problem
+ but also testing results that cover different scenarios and text document
+ categories.
+ Github link for Python implementation is also available in this project.
+ 
+\end_layout
+
+\begin_layout Standard
+Basing on results, that were gathered from testing on 12 different categories,
+ we were able to see that modification of DENFI algorithm shows great performanc
+e and overcomes other algorithms in all aspect.
+ DENFI outperforms all other models both in higher AUC scores and more narrow
+ uncertainty bounds.
+ Another huge advantage that DENFI was the fastest neural network model,
+ that was implemented and tested in this theses.
+\end_layout
+
+\begin_layout Standard
+We see plenty of further opportunities how it is possible to improve the
+ algorithm, starting from better text representation and ending using other
+ DENFI modifications.
+ To conclude, we would like to say, that the ensembles showed their power
+ of solving active learning problem and in our opinion it is good field
+ for continuing the research.
+ 
 \end_layout
 
 \begin_layout Standard
