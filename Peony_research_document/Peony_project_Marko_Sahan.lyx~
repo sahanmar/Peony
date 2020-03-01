@@ -1,0 +1,8026 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\begin_preamble
+%% Font setup: please leave the LyX font settings all set to 'default'
+%% if you want to use any of these packages:
+
+%% Use Times New Roman font for text and Belleek font for math
+%% Please make sure that the 'esint' package is turned off in the
+%% 'Math options' page.
+\usepackage[varg]{txfonts}
+
+%% Use Utopia text with Fourier-GUTenberg math
+%\usepackage{fourier}
+
+%% Bitstream Charter text with Math Design math
+%\usepackage[charter]{mathdesign}
+
+%%---------------------------------------------------------------------
+
+%% Make the multiline figure/table captions indent so that the second
+%% line "hangs" right below the first one.
+%\usepackage[format=hang]{caption}
+
+%% Indent even the first paragraph in each section
+\usepackage{indentfirst}
+
+%%---------------------------------------------------------------------
+
+%% Disable page numbers in the TOC. LOF, LOT (TOC automatically
+%% adds \thispagestyle{chapter} if not overriden
+%\addtocontents{toc}{\protect\thispagestyle{empty}}
+%\addtocontents{lof}{\protect\thispagestyle{empty}}
+%\addtocontents{lot}{\protect\thispagestyle{empty}}
+
+%% Shifts the top line of the TOC (not the title) 1cm upwards 
+%% so that the whole TOC fits on 1 page. Additional page size
+%% adjustment is performed at the point where the TOC
+%% is inserted.
+%\addtocontents{toc}{\protect\vspace{-1cm}}
+
+%%---------------------------------------------------------------------
+
+% completely avoid orphans (first lines of a new paragraph on the bottom of a page)
+\clubpenalty=9500
+
+% completely avoid widows (last lines of paragraph on a new page)
+\widowpenalty=9500
+
+% disable hyphenation of acronyms
+\hyphenation{CDFA HARDI HiPPIES IKEM InterTrack MEGIDDO MIMD MPFA DICOM ASCLEPIOS MedInria}
+
+%%---------------------------------------------------------------------
+
+%% Print out all vectors in bold type instead of printing an arrow above them
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+% Replace standard \cite by the parenthetical variant \citep
+%\renewcommand{\cite}{\citep}
+\end_preamble
+\use_default_options false
+\begin_modules
+theorems-ams
+\end_modules
+\maintain_unincluded_children false
+\language american
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 0
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\topmargin 4cm
+\rightmargin 2cm
+\bottommargin 3cm
+\headheight 0.8cm
+\headsep 1cm
+\footskip 0.5cm
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style swedish
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle headings
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+documentdate{July 8, 2019}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+%%
+\backslash
+def
+\backslash
+documentdate{
+\backslash
+today}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align block
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle{empty}
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align block
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "c"
+use_parbox 0
+use_makebox 0
+width "3cm"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Images/TITLE/cvut.pdf
+	display false
+	width 3cm
+	height 3cm
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "c"
+use_parbox 0
+use_makebox 0
+width "60line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+
+\shape smallcaps
+\size large
+Czech Technical University in Prague
+\shape default
+
+\begin_inset Newline newline
+\end_inset
+
+Faculty of Nuclear Sciences and Physical Engineering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "c"
+use_parbox 0
+use_makebox 0
+width "3cm"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Images/TITLE/fjfi.pdf
+	display false
+	width 3cm
+	height 3cm
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align block
+\begin_inset VSpace 3cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align block
+
+\series bold
+\size huge
+Active Learning for Text Classification
+\end_layout
+
+\begin_layout Standard
+\align block
+\begin_inset VSpace 1cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align block
+
+\series bold
+\size huge
+Aktivní učení pro klasifikaci textů
+\end_layout
+
+\begin_layout Standard
+\align block
+\begin_inset VSpace 2cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align block
+
+\size large
+Masters's Degree Project
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ends the centered part (the required new paragraph before "}" is inserted
+ by \SpecialChar LyX
+ as "}" is on a separate line.)
+\end_layout
+
+\end_inset
+
+
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align block
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\paragraph_spacing single
+\labelwidthstring MMMMMMMMM
+Author: 
+\series bold
+Marko Sahan
+\end_layout
+
+\begin_layout Labeling
+\paragraph_spacing single
+\labelwidthstring MMMMMMMMM
+Supervisor: 
+\series bold
+doc.
+ Ing.
+ Václav Šmídl, Ph.D.
+\end_layout
+
+\begin_layout Labeling
+\paragraph_spacing single
+\labelwidthstring MMMMMMMMM
+Academic
+\begin_inset space ~
+\end_inset
+
+year: 2019/2020
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Final dummy paragraph.
+ Its function is to bear the page break flag
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\size larger
+\emph on
+Acknowledgment:
+\end_layout
+
+\begin_layout Standard
+\noindent
+I would like to thank 
+\series bold
+doc.
+ Ing.
+ Václav Šmídl, Ph.D.
+
+\series default
+ for his expert guidance and express my gratitude to ..........................................
+ for (his/her language assistance).
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+vfill
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\size larger
+\emph on
+Author's declaration:
+\end_layout
+
+\begin_layout Standard
+\noindent
+I declare that this Masters's Degree Project is entirely my own work and
+ I have listed all the used sources in the bibliography.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Prague, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+documentdate
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+Jméno Autora
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace 2cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing onehalf
+\noindent
+
+\emph on
+\lang czech
+Název práce:
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing onehalf
+\noindent
+
+\series bold
+\lang czech
+Aktivní učení pro klasifikaci textů
+\end_layout
+
+\begin_layout Standard
+
+\lang czech
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\emph on
+\lang czech
+Autor:
+\emph default
+ Marko Sahan
+\end_layout
+
+\begin_layout Standard
+
+\lang czech
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\emph on
+\lang czech
+Obor:
+\emph default
+ Aplikované matematicko-stochastické metody
+\end_layout
+
+\begin_layout Standard
+
+\lang czech
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\emph on
+\lang czech
+Druh práce:
+\emph default
+ Diplomová práce
+\end_layout
+
+\begin_layout Standard
+
+\lang czech
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\emph on
+\lang czech
+Vedoucí práce:
+\emph default
+ 
+\series bold
+\lang american
+doc.
+ Ing.
+ Václav Šmídl, Ph.D.
+\series default
+\lang czech
+, Ústav teorie informace a automatizace
+\end_layout
+
+\begin_layout Standard
+
+\lang czech
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\emph on
+\lang czech
+Abstrakt:
+\emph default
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang czech
+WRITE AN ABSTRACT IN CZECH
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang czech
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\emph on
+\lang czech
+Klíčová slova:
+\emph default
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang czech
+FILL IN THE KEYWORDS IN CZECH
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace vfill
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing onehalf
+\noindent
+
+\emph on
+Title:
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing onehalf
+\noindent
+
+\series bold
+Active learning for text classification
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\emph on
+Author:
+\emph default
+ Marko Sahan
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\emph on
+Abstract:
+\emph default
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+WRITE AND ABSTRACT IN ENGLISH
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\emph on
+Key words:
+\emph default
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+FILL IN THE KEYWORDS IN ENGLISH
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle{plain}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter*
+Introduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline{toc}{chapter}{Introduction}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Modern approach of automating the labeling process of huge amount of unlabeled
+ data is not optimal.
+ People are randomly choosing unlabeled text data.
+ These data are annotated by the subject matter experts and used for training
+ and testing the models.
+ If the model performance is weak after the training, more text documents
+ are selected and annotated.
+ This approach is costly because nobody knows how much text documents is
+ needed to have good model scores.
+ Our active learning algorithm selects unlabeled text data that it is not
+ certain about and asks an annotator to provide the labels.
+ There are plenty of advantages in using this strategy.
+ First of all, we are able to start with lower amount of training data and
+ iteratively extend the dataset.
+ The dataset is extended using the data, which the model is not certain
+ about.
+ As a result the model will get much more information from these data than
+ from randomly chosen text samples.
+ Another huge advantage is that active learning strategy lets us to understand
+ when the algorithm is good enough and when we can stop adding new labels.
+\end_layout
+
+\begin_layout Standard
+The project describes how we can formulate different algorithms with respect
+ to decision theory and then connect all the methods to active learning
+ theory.
+ This project also provides link to python implementation of active learning
+ algorithms and comparison of different results gathered with respect to
+ different data.
+ 
+\end_layout
+
+\begin_layout Standard
+We believe that active learning approach is able significantly reduce amount
+ of time and expenses needed for automating text labeling process.
+ 
+\end_layout
+
+\begin_layout Chapter
+Introduction to Decision Theory
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Introduction-to-Decision"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle{headings}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Easily speaking, decision can be defined as a set of actions.
+ We are going to work with text data and solve text classification problem.
+ Thus, our main purpose is to introduce precise mathematical abstractions
+ for an automatic and optimal decision making.
+\end_layout
+
+\begin_layout Standard
+Considering binary classification problem.
+ We are seeking to find such set of actions that will assign each input
+ value to its class.
+ 
+\end_layout
+
+\begin_layout Standard
+We would like to commence our formal definition with the data.
+ Let 
+\begin_inset Formula $\mathbf{x}\in{\cal X}\subset\mathbb{R}^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y\in}{\cal Y}=\{(0,1)^{T},(1,0)^{T}\}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ are feature vectors of size 
+\begin_inset Formula $n$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf y}$
+\end_inset
+
+ are its labels assigned to the data from space 
+\begin_inset Formula ${\cal X}$
+\end_inset
+
+.
+ Each value from space 
+\begin_inset Formula ${\cal Y}$
+\end_inset
+
+ can be represented as a one hot representation that consist from ones and
+ zeros 
+\begin_inset Formula $\mathbf{y}\in\{(0,1)^{T},(1,0)^{T}\}$
+\end_inset
+
+.
+ Therefore, first class is represented as 
+\begin_inset Formula $\mathbf{y}=(1,0)^{T}$
+\end_inset
+
+ and second class is represented as 
+\begin_inset Formula $\mathbf{y}=(0,1)^{T}$
+\end_inset
+
+.
+ As a good example of previous definition, 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ can be a text document (represented in a mathematical form in order to
+ meet a definition above) and 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ can be its label that will show if the document is relevant or not.
+ As seen from an example, label and text are forming a tuple.
+ In this work we are also considering our data as tuples of variables 
+\begin_inset Formula $(\mathbf{x},\mathbf{y})\in{\cal X\times Y}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Section
+Decision Theory
+\end_layout
+
+\begin_layout Standard
+In this section we would like to define solution of a classification problem
+ as finding such set of actions (decision) that minimizes loss.
+ By loss we can understand classification error, entropy, etc..
+ This problem is still set up vaguely because neither decision nor loss
+ was properly defined.
+ 
+\end_layout
+
+\begin_layout Standard
+Each classification problem can be summarized as finding the optimal boundary
+ that will split the dataset with respect to labels.
+ The boundary can be defined as an action that is done with respect to some
+ conditions.
+ Let 
+\begin_inset Formula $a\in\mathcal{A}$
+\end_inset
+
+ is an action and 
+\begin_inset Formula $\mathcal{A}$
+\end_inset
+
+ is an action space.
+ As mentioned previously, we would like to make a decision (action) that
+ will split the dataset in two sets and we want this classification to be
+ as good as possible.
+ Quality of the classification can be measured with specific metrics which
+ will be introduced in further sections.
+ In our case we would like to minimize losses (error of classification).
+ As a result, tandem of an action and loss minimization metric lets us to
+ understand how good the action is.
+ Subsequent step is an introduction of a loss function 
+\begin_inset Formula $L$
+\end_inset
+
+.
+ Loss function is dependent on action 
+\begin_inset Formula $a\in\mathcal{A}$
+\end_inset
+
+.
+ Formal definition of the loss function is shown next.
+ 
+\end_layout
+
+\begin_layout Standard
+According to 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Berger:1327974"
+literal "false"
+
+\end_inset
+
+ loss function 
+\begin_inset Formula $L$
+\end_inset
+
+ can be defines as 
+\begin_inset Formula 
+\begin{equation}
+L=L(\theta,a),\label{eq:loss_func}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\theta\in\varTheta$
+\end_inset
+
+ is parameters' vector where 
+\begin_inset Formula $\varTheta$
+\end_inset
+
+ is parameters space and 
+\begin_inset Formula $a\in\mathcal{A}$
+\end_inset
+
+ is an action where 
+\begin_inset Formula $\mathcal{A}$
+\end_inset
+
+ is an action space.
+ In 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Berger:1327974"
+literal "false"
+
+\end_inset
+
+, it is also said that parameter 
+\begin_inset Formula $\theta$
+\end_inset
+
+ can be understand as the true state of nature.
+ Definition above shows us loss with respect to one action and one true
+ state of nature.
+ Thus, we would like to define expected loss function.
+\end_layout
+
+\begin_layout Definition
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Berger:1327974"
+literal "false"
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "def:expected_loss"
+
+\end_inset
+
+If 
+\begin_inset Formula $\pi^{*}(\theta)$
+\end_inset
+
+ is believed probability distribution of 
+\begin_inset Formula $\theta$
+\end_inset
+
+ at the time of decision making, the 
+\shape slanted
+Bayesian expected loss
+\shape default
+ of an action 
+\begin_inset Formula $a$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\begin{align}
+\rho(\pi^{*},a)= & \mathbb{E}_{\pi^{*}}[L(\theta,a)],\label{eq:expected_loss-1}\\
+= & \int_{\varTheta}L(\theta,a)\pi^{*}d\theta.
+\end{align}
+
+\end_inset
+
+Basing on definition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:expected_loss-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the optimal action is the one that minimizes expected loss, which is defined
+ as 
+\end_layout
+
+\begin_layout Definition
+\begin_inset FormulaMacro
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+{argmax}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+{argmin}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+\begin_inset Formula 
+\begin{equation}
+a^{*}=\argmin_{a\in{\cal A}}\mathbb{E}_{\pi^{*}}[L(\theta,a)].\label{eq:optimal_action}
+\end{equation}
+
+\end_inset
+
+However, how can we connect optimal action 
+\begin_inset Formula $a^{*}$
+\end_inset
+
+ with given data? Basing on the data definitions from previous part, we
+ can assume that 
+\begin_inset Formula $\mathcal{X\times Y}$
+\end_inset
+
+ is an infinite set and 
+\begin_inset Formula $(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ are samples from this set.
+ Considering 
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y\in{\cal Y}}$
+\end_inset
+
+ are random variables.
+ If both 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ are random variables then tuple 
+\begin_inset Formula $(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ is a sample from joint probability density function 
+\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\end_inset
+
+.
+ With the usage of conditional probability rule 
+\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ can be written as 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{x},\mathbf{y})=p(\mathbf{y}|\mathbf{x})p(\mathbf{x}).\label{eq: data_bayes_rule}
+\end{equation}
+
+\end_inset
+
+At this part we are able to show which meaning this optimal action 
+\begin_inset Formula $a^{*}$
+\end_inset
+
+ has.
+ In equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq: data_bayes_rule"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\begin_inset Formula $p(\mathbf{x})$
+\end_inset
+
+ is given and 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\end_inset
+
+ is an unknown pdf that we want to estimate.
+ The optimal action will lead us to an estimate of 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Decision Theory for Supervised Learning
+\end_layout
+
+\begin_layout Standard
+Supervised learning requires validation set of the data.
+ Validation set is splitted on training and testing sets.
+ Thus, we have to extend data definition.
+\end_layout
+
+\begin_layout Standard
+Considering the data 
+\begin_inset Formula $\tilde{\mathbf{X}}\subset{\cal X}$
+\end_inset
+
+ and its labels 
+\begin_inset Formula $\tilde{\mathbf{Y}}\subset{\cal Y}$
+\end_inset
+
+.
+ We define cartesian product 
+\series bold
+
+\begin_inset Formula $\tilde{\mathbf{X}}\times\mathbf{\tilde{Y}}$
+\end_inset
+
+
+\series default
+ as a validation set.
+\end_layout
+
+\begin_layout Subsection
+Decision Theory and Support Vector Machine Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:decision_theory_svm"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this subsection we will continue construction of the decision theory
+ on the example of Support Vector Machine (SVM) method.
+ For simplicity lets consider linearly separable dataset.
+ From the theoretical perspective SVM constructs hyperplane in high dimensional
+ space that separates two classes.
+ In this case our decision (action) is a hyperplane that will separate two
+ classes.
+ Equation of the hyperplane can be written as 
+\begin_inset Formula $f(\mathbf{x},\mathbf{w},b)=\mathbf{w}^{T}\mathbf{x}+b$
+\end_inset
+
+ where 
+\begin_inset Formula $\text{\ensuremath{\mathbf{w}}\ensuremath{\in\mathbb{R}^{n}} }$
+\end_inset
+
+ is a set of hyperplane parameters and 
+\begin_inset Formula $b\in\mathbb{R}$
+\end_inset
+
+ is a bias .
+ As a result, action space is represented as 
+\begin_inset Formula $(\mathbb{R}^{n},\mathbb{R})\mathcal{=A}$
+\end_inset
+
+ and as a consequence tuple 
+\begin_inset Formula $(\ensuremath{\mathbf{w}},b)\in\mathcal{A}$
+\end_inset
+
+.
+ From this knowledge we can define 
+\begin_inset Formula $\theta=(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ where tuple 
+\begin_inset Formula $(\mathbf{\mathbf{x}},\mathbf{y})\in{\cal X}\times{\cal Y}$
+\end_inset
+
+ is parameters and 
+\begin_inset Formula $\varTheta={\cal X}\times{\cal Y}$
+\end_inset
+
+ is a parameters' space.
+ However, for now we are limited on 
+\begin_inset Formula $\varTheta=\tilde{\mathbf{X}}\times\mathbf{\tilde{Y}}$
+\end_inset
+
+.
+ Considering loss function 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:loss_func"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ that can be written as
+\begin_inset Formula 
+\begin{equation}
+L=L(\mathbf{x},\mathbf{y},\mathbf{w},b).\label{eq:SVM_thoer_loss}
+\end{equation}
+
+\end_inset
+
+Following task is to understand how good is our action (hyperplane estimation)
+ with respect to the dataset.
+ We can choose different types of loss functions such as cross entropy,
+ hinge loss, etc..
+ The most basic approach for SVM method is hinge loss function 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "rosasco2004loss"
+literal "false"
+
+\end_inset
+
+ which is defined as 
+\begin_inset Formula 
+\begin{equation}
+L(\mathbf{x},\mathbf{y},\mathbf{w},b)=\max(0,1-y\hat{y}(\mathbf{x},\mathbf{w},b))\label{eq:hinge_loss}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\hat{y}(\mathbf{x},\mathbf{w},b)=\mathbf{w}^{T}\mathbf{x}+b$
+\end_inset
+
+ and 
+\begin_inset Formula $y=\mathbf{y}_{1}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In terms of SVM method we want to find such hyperplane that will label input
+ values as a first class if it is 
+\begin_inset Quotes eld
+\end_inset
+
+above
+\begin_inset Quotes erd
+\end_inset
+
+ the hyperplane and as a second class if it is 
+\begin_inset Quotes eld
+\end_inset
+
+below
+\begin_inset Quotes erd
+\end_inset
+
+ the hyperplane.
+ At this point very important assumption will be introduced.
+ In order to find an optimal hyperplane we assume that the data 
+\begin_inset Formula $\tilde{{\bf X}}$
+\end_inset
+
+ and its labels 
+\begin_inset Formula $\tilde{{\bf Y}}$
+\end_inset
+
+ fully describe spaces 
+\begin_inset Formula ${\cal X}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\cal Y}$
+\end_inset
+
+.
+ Moreover, as mentioned earlier, we consider 
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y}\in{\cal Y}$
+\end_inset
+
+ are random variables with joint probability density function 
+\begin_inset Formula $p({\bf x},\mathbf{y})$
+\end_inset
+
+.
+ We will also assume that 
+\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
+\end_inset
+
+ are independent identically distributed.
+ As a result, with the usage of those data, probability density function
+ 
+\begin_inset Formula $p({\bf x},\mathbf{y})$
+\end_inset
+
+ can be estimated as 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{x},\mathbf{y})=\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})\label{eq:approx_of_joint_dist}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})$
+\end_inset
+
+ is Dirac delta function which is centered in 
+\begin_inset Formula $(\mathbf{x}_{i},\mathbf{y}_{i})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Using (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:expected_loss-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) we can evaluate expected loss function for SVM as follows 
+\begin_inset Formula 
+\begin{align*}
+\mathbb{E}_{\pi^{*}}L & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},\mathbf{y},\mathbf{w},b)p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\\
+ & =\int_{{\cal X}\times{\cal Y}}\max(0,1-y_{1}\hat{y}(\mathbf{x},\mathbf{w},b))\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\\
+ & =\frac{1}{N}\sum_{i=1}^{N}\max(0,1-y_{1,i}\hat{y}(\mathbf{x}_{i},\mathbf{w},b))
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\hat{y}(\mathbf{x}_{i},\mathbf{w},b)=\mathbf{w}^{T}\mathbf{x}_{i}+b$
+\end_inset
+
+ and 
+\begin_inset Formula $y_{1,i}$
+\end_inset
+
+ is first component of 
+\begin_inset Formula $i-\mathrm{th}$
+\end_inset
+
+ vector 
+\begin_inset Formula $\mathbf{y}_{i}$
+\end_inset
+
+ Expect loss function for SVM can be written as 
+\begin_inset Formula 
+\begin{equation}
+\rho(\mathbf{x}_{i},\mathbf{w},b)=\frac{1}{N}\sum_{i=1}^{N}\max(0,1-y_{i}(\mathbf{w}^{T}\mathbf{x}_{i}+b)).\label{eq:expected_loss_SVM}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Decision Theory and Algorithm Based on Neural Network Function 
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:decision_theory_nn"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Neural Network 
+\end_layout
+
+\begin_layout Standard
+In this work we are using encoding of the input sample 
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
+\end_inset
+
+ and then applying Feed Forward Neural Network in order to predict the output
+ value 
+\begin_inset Formula $\mathbf{y}\in{\cal Y}.$
+\end_inset
+
+ There are plenty ways how to provide encoding of the data sample 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ but we are interested here only in Feed Forward Neural Network algorithm
+ that assigns input value to a specific class.
+ 
+\end_layout
+
+\begin_layout Standard
+First layer of NN is defined as
+\begin_inset Formula 
+\begin{equation}
+\mathbf{a}_{1}=\mathbf{W}_{1}^{T}\mathbf{x}+\mathbf{b}_{1}\label{eq:Neuron}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbf{W}_{1}$
+\end_inset
+
+ is matrix of weights and 
+\begin_inset Formula $\mathbf{b}_{1}$
+\end_inset
+
+ is a vector of bias values.
+ First layer is called input layer.
+ 
+\end_layout
+
+\begin_layout Standard
+Further layers of NN are formed as
+\begin_inset Formula 
+\begin{equation}
+\mathbf{a}_{k}=\mathbf{W}_{k}^{T}f\big(\mathbf{a}_{k-1}\big)+\mathbf{b}_{k},\ k=\{2,...,K-1\}.\label{eq:second_layer_neron}
+\end{equation}
+
+\end_inset
+
+As seen from equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:second_layer_neron"
+
+\end_inset
+
+, neurons from each layer (except of input layer) take linear combination
+ of the neurons from the previous layer.
+ Function 
+\begin_inset Formula $f$
+\end_inset
+
+ is an activation function.
+ Activation function is defined as a non-decreasing, continuous function.
+ The most usable activation functions are sigmoid, relu, elu, and hyperbolic
+ tangence functions 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bishop2006machine"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Output values are computed with
+\begin_inset Formula 
+\begin{equation}
+\hat{\mathbf{y}}=\mathbf{W}_{K}^{T}f\big(\mathbf{a}_{K-1}\big)+\mathbf{b}_{K}.\label{eq:Output_layer}
+\end{equation}
+
+\end_inset
+
+In most cases sigmoid and softmax functions for output layer are used.
+ Softmax function is used for classification problems.
+\end_layout
+
+\begin_layout Subsubsection
+Decision Theory
+\end_layout
+
+\begin_layout Standard
+Decision Theory construction for the algorithm, based on a neural network
+ function, is mostly the same as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_svm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ However in this case our decision is to find estimate 
+\begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x},\Omega)$
+\end_inset
+
+ of the probability density function 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ is the input data, 
+\begin_inset Formula $\Omega=\{\mathbf{W}_{1},...\mathbf{W}_{K},\mathbf{b}_{1}...,\mathbf{b}_{K}\}$
+\end_inset
+
+ is a set of all neural network function parameters and biases.
+ Action space 
+\begin_inset Formula $\mathcal{A}$
+\end_inset
+
+ will be parameters' and biases' space of 
+\begin_inset Formula $\hat{\mathbf{y}}$
+\end_inset
+
+.
+ Same as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_svm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we can define 
+\begin_inset Formula $(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ are parameters of the loss function and 
+\begin_inset Formula ${\cal X}\times{\cal Y}$
+\end_inset
+
+ is a parameters' space.
+ Another example of loss functions that we will use is cross entropy loss
+ function, which is defined as 
+\begin_inset Formula 
+\begin{equation}
+L(\mathbf{x},\mathbf{y},\Omega)=-y_{1}\ln\big(\hat{y}_{1}(\mathbf{x},\Omega)\big)-y_{2}\ln\big((\hat{y}_{2}(\mathbf{x},\Omega)\big),\label{eq:cross_entropy_loss}
+\end{equation}
+
+\end_inset
+
+where 
+\series bold
+
+\begin_inset Formula $\mathbf{y}=(y_{1},y_{2})^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\hat{\mathbf{y}}=(\hat{y}_{1},\hat{y}_{2})^{T}$
+\end_inset
+
+.
+ 
+\series default
+We consider 
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y\in}{\cal Y}$
+\end_inset
+
+ are random variables with joint probability density function 
+\begin_inset Formula $p({\bf x},\mathbf{y})$
+\end_inset
+
+.
+ With the usage of the given dataset where 
+\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
+\end_inset
+
+ are independent identically distributed we can approximate 
+\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ as (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:approx_of_joint_dist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Applying definition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "def:expected_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, expected loss for the algorithm based on a neural network function is
+ evaluated as 
+\begin_inset Formula 
+\begin{align}
+\mathbb{E}_{\pi^{*}}L & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},y,\Omega)p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & =-\int_{\mathbf{{\cal X}}\times{\cal Y}}\Big(y_{1}\ln\big(\hat{y}_{1}(\mathbf{x},\Omega)\big)+y_{2}\ln\big((\hat{y}_{2}(\mathbf{x},\Omega)\big)\Big)\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & =-\frac{1}{N}\sum_{i=1}^{N}\Big(y_{1}\ln\big(\hat{y}_{1}(\mathbf{x},\Omega)\big)+y_{2}\ln\big((\hat{y}_{2}(\mathbf{x},\Omega)\big)\Big),\label{eq:expected_loss_cross_entropy}
+\end{align}
+
+\end_inset
+
+where 
+\series bold
+
+\begin_inset Formula $\mathbf{y}=(y_{1},y_{2})^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\hat{\mathbf{y}}=(\hat{y}_{1},\hat{y}_{2})^{T}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Parameters Estimation
+\end_layout
+
+\begin_layout Standard
+In further sections we are going to introduce more methods based on Neural
+ Networks which will slightly differ between each other.
+ Thus, we would like to cover more theory around parameters estimation.
+ The very simple but efficient method is gradient descent.
+ This method is denoted with the usage of equation
+\begin_inset Formula 
+\begin{equation}
+\hat{\Omega}_{n+1}=\hat{\Omega}_{n}-\eta\nabla L(\mathbf{X},\mathbf{Y},\hat{\Omega}_{n})\label{eq:Gradient-Descent}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\hat{\mathbf{\Omega}}_{n}$
+\end_inset
+
+ is the 
+\begin_inset Formula $n-$
+\end_inset
+
+th iteration value of gradient descent of NN weights and its biases that
+ converges to 
+\begin_inset Formula $\hat{\Omega}$
+\end_inset
+
+.
+ Value of 
+\begin_inset Formula $\nabla L(\mathbf{X},\mathbf{Y},\hat{\Omega}_{n})$
+\end_inset
+
+ is a gradient of loss function and 
+\begin_inset Formula $\eta$
+\end_inset
+
+ is a value that in terms of NN is defined as learning rate.
+ As a result described method finds the way to the function minimum.
+ 
+\end_layout
+
+\begin_layout Standard
+The usual gradient descent is extremely efficient method for complex 
+\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\Omega)$
+\end_inset
+
+ but what if loss function has some local minimums? In this case, algorithm
+ will stop iterating when it will find local minimum.
+ Due to the complex functions 
+\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\Omega)$
+\end_inset
+
+, loss function of its approximation will be non convex with big amount
+ of local minimums and maximums.
+ Solution of this problem is that algorithm must jump over this local minimum.
+ In terms of probability theory this tool is represented as a random value
+ from some distribution.
+ In comparison to standard gradient descent the key difference is that only
+ one piece of data (minibatch) from the training dataset is used to calculate
+ the step.
+ The data samples (minibatch) is picked randomly at each step.
+ 
+\end_layout
+
+\begin_layout Subsection
+Decision Theory and Naive Bayes Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:decision_theory_nb"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Naive Bayes algorithm is a bit different to the algorithm based on Neural
+ Networks and SVM.
+ In the case of Naive Bayes we want to estimate 
+\begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n})\subset{\cal W}$
+\end_inset
+
+ is an action (
+\begin_inset Formula $a=\mathbf{W},\ a\in\mathcal{A}$
+\end_inset
+
+).
+ The reason why we look for an estimate of the 
+\begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
+\end_inset
+
+ but not 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x},\mathbf{w})$
+\end_inset
+
+ is due to the fact that in case of estimating 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x},\mathbf{W})$
+\end_inset
+
+ we would have to work with normalization constant would be dependent on
+ the set of parameters 
+\begin_inset Formula $\mathbf{W}$
+\end_inset
+
+.
+ That fact would make our computations very complicated.
+ Before continuing with a loss function construction we would like to go
+ trough Naive Bayes (NB) method.
+\end_layout
+
+\begin_layout Subsubsection
+Naive Bayes
+\end_layout
+
+\begin_layout Standard
+Assuming binary classification problem.
+ With the usage of Bayes rule we can rewrite
+\series bold
+ 
+\series default
+
+\begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
+\end_inset
+
+ as follows 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{W}|\mathbf{x},\mathbf{y})=\frac{p(\mathbf{y})p(\mathbf{x}|\mathbf{y},\mathbf{W})p(\mathbf{W})}{\int_{\mathbf{{\cal W}}}p(\mathbf{x},\mathbf{y}|\mathbf{W})p(\mathbf{W})d\mathbf{W}}\label{eq:bayes_rule}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula ${\cal W}$
+\end_inset
+
+ is assumed as a space of 
+\begin_inset Formula $\mathbf{W}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Naive Bayes method introduces very strong assumption in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:bayes_rule"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ This assumption says that features of vector 
+\begin_inset Formula $\mathbf{x}=(x_{1},x_{2},...,x_{n})^{T}$
+\end_inset
+
+ are conditionally independent.
+ As a result estimation of 
+\begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
+\end_inset
+
+ can be estimated as
+\begin_inset Formula 
+\begin{equation}
+\tilde{p}(\mathbf{W}|\mathbf{x},\mathbf{y})=\frac{1}{Z}p(\mathbf{y})p(\mathbf{W})\prod_{i=1}^{n}\big(p(x_{i}|y_{1},\mathbf{w}_{i})^{y_{1}}p(x_{i}|y_{2},\mathbf{w}_{i})^{y_{2}}\big),\label{eq:naive_bayes_eq}
+\end{equation}
+
+\end_inset
+
+where 
+\series bold
+
+\begin_inset Formula $\mathbf{y}=(y_{1},y_{2})$
+\end_inset
+
+
+\series default
+, 
+\begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n})$
+\end_inset
+
+, 
+\begin_inset Formula $Z$
+\end_inset
+
+ is a normalizing constant.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Decision Theory
+\end_layout
+
+\begin_layout Standard
+We want to maximize probability 
+\begin_inset Formula $\tilde{p}(\mathbf{W}|\mathbf{x},\mathbf{y})$
+\end_inset
+
+.
+ As a result, using 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:naive_bayes_eq"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, loss function 
+\begin_inset Formula $L$
+\end_inset
+
+ will be represented as 
+\begin_inset Formula 
+\begin{align}
+L(\mathbf{y},\mathbf{x},\mathbf{w}) & =-\log\big(\tilde{p}(\mathbf{W}|\mathbf{x},\mathbf{y}),\label{eq:nb_loss}\\
+ & =\log(Z)-\log\big(p(\mathbf{y})\big)-\log\big(p(\mathbf{W})\big)-\sum_{i=1}^{n}\log\big(p(x_{i}|y_{1},\mathbf{w}_{i})^{y_{1}}p(x_{i}|y_{2},\mathbf{w}_{i})^{y_{2}}\big).
+\end{align}
+
+\end_inset
+
+ Same as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_svm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_nn"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we will assume that we can approximate 
+\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ as 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:approx_of_joint_dist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ From this moment everything is ready for deriving expected loss function.
+ Expected loss function for Naive Bayes method is derived as 
+\series bold
+
+\begin_inset Formula 
+\begin{align}
+\mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{{\cal X}}\times\mathbf{{\cal Y}}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & \int_{\mathbf{{\cal X}}\times\mathbf{{\cal Y}}}\Big(\xi(\mathbf{W},\mathbf{y})-\sum_{i=1}^{n}\log\big(p(x_{i}|y_{1},\mathbf{w}_{i})^{y_{1}}p(x_{i}|y_{2},\mathbf{w}_{i})^{y_{2}}\big)\frac{1}{N}\sum_{j=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{j},\mathbf{y}-\mathbf{y}_{j})d(\mathbf{x},\mathbf{y}),\nonumber \\
+ & \frac{1}{N}\sum_{j=1}^{N}\Big(\xi_{j}(\mathbf{W},\mathbf{y}_{j})-\sum_{i=1}^{n}\log\big(p(x_{i,j}|y_{1,j},\mathbf{w}_{i})^{y_{1,j}}p(x_{i,j}|y_{2,j},\mathbf{w}_{i})^{y_{2,j}}\big)\Big)\label{eq:expected_loss_mle_or_map}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $\xi(\mathbf{W},\text{y})=\log(Z)-\log\big(p(\mathbf{y})\big)-\log\big(p(\mathbf{W})\big)$
+\end_inset
+
+ and 
+\begin_inset Formula $\xi_{j}(\mathbf{W},\mathbf{y}_{j})=\log(Z)-\log\big(p(\mathbf{y}_{j})-\log\big(p(\mathbf{W})\big)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Decision Theory and Random Forest Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:random_forest_supervised_learning"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In order to work with random forests we must precisely define decision trees
+ and only then construct theory for random forests.
+\end_layout
+
+\begin_layout Subsubsection
+Decision Tree
+\end_layout
+
+\begin_layout Standard
+In this section we expect our decision three to give us an estimate 
+\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\mathbf{w})\in\{(0,1)^{T},(1,0)^{T}\}$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+ is a vector that describes tree (depth, branches, etc.), 
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y\in}{\cal Y}$
+\end_inset
+
+.
+ It is very important to mention that for different trees 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+ can have different dimensionality.
+ Thus, for consistency we will assume that for all 
+\begin_inset Formula $\mathbf{w}\in{\cal W}$
+\end_inset
+
+ exists upper bound, where 
+\begin_inset Formula ${\cal W}$
+\end_inset
+
+ is redefined as a space of tree parameters.
+ As a result we will make all 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+ same length.
+ If 
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+ has spare elements, they will be filled with zeros.
+ Parameter space will be same as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_svm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+-
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:decision_theory_nb"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, whereas action 
+\begin_inset Formula $a\in{\cal A}$
+\end_inset
+
+ will be represented as 
+\begin_inset Formula ${\cal A}={\cal W}$
+\end_inset
+
+.
+ In order to understand when our tree is optimal we can use zero-one loss
+ function.
+ Zero-one loss function is defined as 
+\begin_inset Formula 
+\begin{equation}
+L(\mathbf{x},\mathbf{y},\mathbf{w})=\begin{cases}
+1, & \mathbf{y\neq\hat{y}}(\mathbf{x},\mathbf{w})\\
+0, & \mathbf{y=\hat{y}}(\mathbf{x},\mathbf{w})
+\end{cases}.\label{eq:zero-one_loss_function}
+\end{equation}
+
+\end_inset
+
+With the usage of the given data where 
+\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
+\end_inset
+
+ are independent identically distributed we can approximate 
+\begin_inset Formula $p(\mathbf{x},\mathbf{y})$
+\end_inset
+
+ as (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:approx_of_joint_dist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ As a result, expected loss function for decision tree can be derived as
+ 
+\begin_inset Formula 
+\begin{align*}
+\mathbb{E}_{\pi^{*}}L & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\\
+ & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\\
+ & =\frac{1}{N}\sum_{i=1}^{N}L(\mathbf{x}_{i},\mathbf{y}_{i},\mathbf{w})
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\sum_{i=1}^{N}L(\mathbf{x}_{i},\mathbf{y}_{i},\mathbf{w})$
+\end_inset
+
+ is (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:zero-one_loss_function"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+If we want to minimize expected loss we have to follow next steps.
+ While construction decision tree we choose such feature 
+\begin_inset Formula $x_{i}\in(x_{1},...,x_{n})^{T}=\mathbf{x}$
+\end_inset
+
+ that will bring as the highest information about the system.
+ This feature will form first layer, then we add another feature with the
+ highest informational gain and construct second layer.
+ Basing of this method we construct nodes and add more and more layers (branches
+).
+\end_layout
+
+\begin_layout Standard
+In the following part we are going to work with a set of decision trees.
+ For this purposes we will define our decision tree as 
+\begin_inset Formula $\hat{\mathbf{y}}=\big(T_{1}(\mathbf{x},\mathbf{w}_{l}),T_{2}(\mathbf{x},\mathbf{w}_{l})\big)^{T}$
+\end_inset
+
+ where index 
+\begin_inset Formula $l$
+\end_inset
+
+ represents set of parameters for 
+\begin_inset Formula $l-$
+\end_inset
+
+th three and indices 
+\begin_inset Formula $1,2$
+\end_inset
+
+ represent first and second value of the one-hot vector.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Random Forest
+\end_layout
+
+\begin_layout Standard
+Considering 
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y\in}{\cal Y}$
+\end_inset
+
+ as random variables with joint probability density function 
+\begin_inset Formula $p({\bf x},\mathbf{y})$
+\end_inset
+
+.
+ We will also assume that 
+\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
+\end_inset
+
+ are independent identically distributed.
+ 
+\end_layout
+
+\begin_layout Standard
+With the usage of 
+\begin_inset Formula $\tilde{{\bf X}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{{\bf Y}}$
+\end_inset
+
+ we will make 
+\begin_inset Formula $\{1,...,L\},$
+\end_inset
+
+ 
+\begin_inset Formula $L\in\mathbb{N}$
+\end_inset
+
+ sets where 
+\begin_inset Formula $\forall l\in L$
+\end_inset
+
+, 
+\begin_inset Formula $\tilde{\mathbf{X}}_{l}\subset\tilde{\mathbf{X}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{{\bf Y}}_{l}\subset\tilde{{\bf Y}}$
+\end_inset
+
+.
+ The data 
+\begin_inset Formula $\tilde{\mathbf{X}}_{l}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{{\bf Y}}_{l}$
+\end_inset
+
+ are created with random uniform sampling from 
+\begin_inset Formula $\tilde{{\bf X}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{{\bf Y}}$
+\end_inset
+
+.
+ We also want each subset to contain strictly 
+\begin_inset Formula $60\%$
+\end_inset
+
+ of the data from 
+\begin_inset Formula $\mathbf{\tilde{{\bf X}}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{{\bf Y}}$
+\end_inset
+
+.
+ As a result parameter space for random forests will form tuples of sets
+ 
+\begin_inset Formula $(\tilde{{\bf X}}_{l},\tilde{{\bf Y}}_{l})$
+\end_inset
+
+.
+ Basing on this theory we will construct 
+\begin_inset Formula $L$
+\end_inset
+
+ decision trees 
+\begin_inset Formula $\hat{y}=T(\mathbf{x},\mathbf{w}_{l})$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{x}\in\tilde{{\bf X}}_{l}$
+\end_inset
+
+.
+ As a result for 
+\begin_inset Formula $l-\mathrm{th}$
+\end_inset
+
+ decision tree 
+\begin_inset Formula 
+\begin{equation}
+\mathbb{E}_{\pi^{*}}L=\frac{1}{N_{l}}\sum_{i=1}^{N_{l}}L(\mathbf{x}_{i,l},\mathbf{y}_{i,l},\mathbf{w}_{l})\delta(\mathbf{x}-\mathbf{x}_{i,l},\mathbf{y}-\mathbf{y}_{i,l})\label{eq:decision_tree_for_random_forest}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $(\mathbf{x}_{i,l},\mathbf{y}_{i,l})\in(\tilde{{\bf X}}_{l},\tilde{{\bf Y}}_{l})$
+\end_inset
+
+ and 
+\begin_inset Formula $N_{l}$
+\end_inset
+
+ is a number of the data in 
+\begin_inset Formula $\tilde{{\bf X}}_{l}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{\mathbf{Y}}_{l}$
+\end_inset
+
+.
+ If we assume 
+\begin_inset Formula $\mathbf{w}_{l}$
+\end_inset
+
+ as a random variable then 
+\begin_inset Formula $L$
+\end_inset
+
+ decision trees form samples from probability density function 
+\begin_inset Formula $p(\text{y}|\mathbf{x},\mathbf{w})$
+\end_inset
+
+.
+ In other words 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{y}|\mathbf{x},\mathbf{w}_{l})=T_{1}(\mathbf{x},\mathbf{w}_{l})^{y_{1}}T_{2}(\mathbf{x},\mathbf{w}_{l})^{y_{2}}\label{eq:decision_tree_as_random_variable}
+\end{equation}
+
+\end_inset
+
+where label 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ is written as a one-hot representation 
+\begin_inset Formula $\mathbf{y}=(y_{1},y_{2})^{T}$
+\end_inset
+
+.
+ Thus, we can say that classification probability 
+\begin_inset Formula $p(\text{\textbf{y}}|\mathbf{x})$
+\end_inset
+
+ can be written as 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{y}|\mathbf{x})=\int_{\mathbf{w}\in\mathbf{{\cal A}}}p(\mathbf{y}|\mathbf{x},\mathbf{w})p(\mathbf{w})d\mathbf{w}.\label{eq:classification_prob_for_random_forest}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula ${\cal A}$
+\end_inset
+
+ is an action space.
+ With the usage of samples 
+\begin_inset Formula $\mathbf{w}_{l}$
+\end_inset
+
+ we can approximate 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{y}|\mathbf{x})=\frac{1}{L}\sum_{l=1}^{L}T_{1}(\mathbf{x},\mathbf{w}_{l})^{y_{1}}T_{2}(\mathbf{x},\mathbf{w}_{l})^{y_{2}}\label{eq:approx_class_prob_for_random_forest}
+\end{equation}
+
+\end_inset
+
+where each decision tree 
+\begin_inset Formula $\big(T_{1}(\mathbf{x},\mathbf{w}_{l}),T_{2}(\mathbf{x},\mathbf{w}_{l})\big)^{T}$
+\end_inset
+
+ is constructed with the usage of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:decision_tree_for_random_forest"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+Before continuing with further sections we define output of Random Forest
+ as 
+\begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x},\mathbf{W})$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},...,\mathbf{w}_{L})$
+\end_inset
+
+ is set of parameters of specific Random Forest algorithm.
+ We define vector 
+\begin_inset Formula $\hat{\mathbf{y}}$
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{equation}
+\hat{\mathbf{y}}=\frac{1}{L}\sum_{l=1}^{L}\big(T_{1}(\mathbf{x},\mathbf{w}_{l}),T_{2}(\mathbf{x},\mathbf{w}_{l})\big).\label{eq:Random_forest_output}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Decision Theory for Active Learning 
+\end_layout
+
+\begin_layout Standard
+As mentioned in previous sections 
+\series bold
+
+\begin_inset Formula $\tilde{\mathbf{X}}\times\mathbf{\tilde{Y}}$
+\end_inset
+
+
+\series default
+ is a validation set.
+ When we finish a model training, we may think that we need more training
+ data.
+ Thus, we can choose the data from 
+\begin_inset Formula $\mathbf{X}\subset{\cal X}\backslash\tilde{\mathbf{X}}$
+\end_inset
+
+.
+ However it is important to understand that we have no labels for the set
+ 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+.
+ We can ask for a help from an annotator that can give us those labels.
+ We assume that getting labels needs some time and is very expensive.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\renewcommand{\argmax}{\operatornamewithlimits{argmax}}
+{argmax}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\renewcommand{\argmin}{\operatornamewithlimits{argmin}}
+{argmin}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Active learning problem is defined as a sequence of Supervised learning
+ problems.
+ Specifically, we assume that labels 
+\begin_inset Formula $\mathbf{y}\in\mathbf{\tilde{Y}}$
+\end_inset
+
+ are available only for 
+\begin_inset Formula $\mathbf{x}\in\tilde{\mathbf{X}}$
+\end_inset
+
+.
+ We have the possibility to select an unlabeled element from 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ and ask for its label.
+ Since it is expensive, we aim to have such questions that will maximize
+ scores as fast as possible.
+ Formally, we denote 
+\begin_inset Formula $J_{0}=\{j_{01},j_{02},\ldots j_{0N}\}=\{1,\ldots,N\}$
+\end_inset
+
+ the initial set of 
+\begin_inset Formula $N$
+\end_inset
+
+ available labels.
+ using only the labeled data, the supervised learning task is defined on
+ sets 
+\begin_inset Formula $\mathbf{X}_{0}=\tilde{\mathbf{X}}=\{\mathbf{x}_{i}\}_{i\in J_{0}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{Y}_{0}=\tilde{\mathbf{Y}}=\{\mathbf{y}_{i}\}_{i\in J_{0}}$
+\end_inset
+
+.
+ This set is sequentially extended with new labels gained from 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+.
+ We consider a sequence of 
+\begin_inset Formula $U$
+\end_inset
+
+ questions 
+\begin_inset Formula $u=\{1,\ldots,U\}$
+\end_inset
+
+, in each question, we select an index 
+\begin_inset Formula $j_{u}$
+\end_inset
+
+ and ask to obtain the label 
+\begin_inset Formula $\mathbf{y}_{j_{u}}$
+\end_inset
+
+ for data record 
+\begin_inset Formula $\mathbf{x}_{j_{u}}$
+\end_inset
+
+.
+ The index set and the data sets are extended as follows
+\begin_inset Formula 
+\begin{align*}
+J_{u} & =\{J_{u-1},j_{u}\}, & \mathbf{X}_{u} & =\{\mathbf{X}_{u-1},\mathbf{x}_{j_{u}}\}, & \mathbf{Y}_{u} & =\{\mathbf{Y}_{u-1},\mathbf{y}_{j_{u}}\}.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The task of active learning is to optimize the selection of indices 
+\begin_inset Formula $j_{u}$
+\end_inset
+
+ to reach as good classification metrics with as low number of questions
+ as possible.
+ As a result we have to define expected loss for each question 
+\begin_inset Formula $u$
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang english
+rephrase!
+\end_layout
+
+\end_inset
+
+ that will be dependent on the action and parameter spaces.
+ In this case we can define our action space 
+\begin_inset Formula ${\cal A}_{u}$
+\end_inset
+
+ as a space of the data indices with respect to the parameters space 
+\begin_inset Formula $\varTheta_{u}$
+\end_inset
+
+ for each question 
+\begin_inset Formula $u$
+\end_inset
+
+.
+ Parameters space is defined as a set of possible parameters from a specific
+ model.
+ It is very important to understand that we will need not only one set of
+ parameters but parameters distribution.
+ We need parameters distribution because we will integrate over the parameters
+ space.
+ As an example, if we talk about SVM method, then parameters space for active
+ learning problem will be defined as a set of weights that form a hyperplane.
+ If we talk about the algorithm that is based on a Neural Network function,
+ then parameters space of the active learning problem will form weights
+ from neurons.
+ We wanted to highlight that parameters space will be different for each
+ problem but the idea for each algorithm is same 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang english
+Rephrase
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+As a result our task can be written as 
+\begin_inset Formula 
+\begin{equation}
+j_{u}^{*}=\argmin_{j\in J\backslash J_{u}}(\mathbb{E}_{\pi_{u}^{*}}L^{*})\label{eq:index_selection_active_learning}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbb{E}_{\pi_{u}^{*}}L^{*}$
+\end_inset
+
+ is expected loss that is dependent on an action given question 
+\begin_inset Formula $u$
+\end_inset
+
+, and 
+\begin_inset Formula $J$
+\end_inset
+
+ is space of all indices.
+ Expected loss for the active learning problem is defined as 
+\begin_inset Formula 
+\begin{equation}
+\mathbb{E}_{\pi_{u}^{*}}L^{*}=\int_{\varTheta_{u}}L^{*}(a,\theta)\pi_{u}^{*}d\theta\label{eq:Expected_loss_active_learning}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $a\in{\cal A}_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $\theta\in\varTheta_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $L^{*}$
+\end_inset
+
+ is a loss function for the active learning problem.
+ Character 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $*$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ is used only for distinguishing active learning loss from the loss function
+ which is used for different models.
+ We will specify action space because it will be the same for all models
+ that are used in the active learning section.
+ Action space 
+\begin_inset Formula ${\cal A}$
+\end_inset
+
+ is a set of possible indices 
+\begin_inset Formula $j_{u}\in J_{u}$
+\end_inset
+
+ where 
+\begin_inset Formula $u$
+\end_inset
+
+ is a specific question.
+ Thus, (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Expected_loss_active_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be written as 
+\begin_inset Formula 
+\begin{equation}
+\mathbb{E}_{\pi_{u}^{*}}L^{*}=\int_{\varTheta_{u}}L^{*}(j_{u},\theta)\pi_{u}^{*}d\theta.\label{eq:Expected_loss_active_learning_with_action_space_as_indices}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using this approach we will be able sequentially select indices from 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ and ask for a label from 
+\begin_inset Formula $\mathbf{Y}$
+\end_inset
+
+ that will help us to get higher scores faster than in the case of random
+ choice of indices.
+ 
+\end_layout
+
+\begin_layout Subsection
+Bayesian Approach of Classifiers' Parameters Sampling
+\end_layout
+
+\begin_layout Standard
+Considering that 
+\begin_inset Formula $\mathbf{y}\in{\cal Y}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x}_{j_{u}},\theta_{u})$
+\end_inset
+
+ is an estimate of 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+.
+ However, in this case output estimate 
+\begin_inset Formula $\hat{\mathbf{y}}$
+\end_inset
+
+ is represented as a vector of probabilities that 
+\begin_inset Formula $\mathbf{x}_{j_{u}}$
+\end_inset
+
+ is assigned to different classes.
+ As an example for well trained binary classifier, for specific 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ that is assigned to 
+\begin_inset Formula $\mathbf{y}=(1,0)^{T},$
+\end_inset
+
+ classifiers estimate of 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ can be 
+\begin_inset Formula $\mathbf{\hat{y}}=(0.95,0.05)^{T}$
+\end_inset
+
+.
+ It is very interesting that before we can solve the optimization problem
+ with choosing the index 
+\begin_inset Formula $j_{u}$
+\end_inset
+
+ we have to solve the optimization problem of finding 
+\begin_inset Formula $\hat{\mathbf{y}}$
+\end_inset
+
+.
+ This leads us to supervised learning models that we have discussed in previous
+ sections.
+\end_layout
+
+\begin_layout Standard
+In this section we would like to construct theory around 
+\begin_inset Formula $\pi_{u}^{*}$
+\end_inset
+
+ from equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Expected_loss_active_learning_with_action_space_as_indices"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Mentioned distribution is a distribution of the models' parameters given
+ the training data that can be written as 
+\begin_inset Formula 
+\begin{equation}
+\pi_{u}^{*}=p_{u}(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u}).\label{eq:prior_distribution_for_expected_entropy_loss}
+\end{equation}
+
+\end_inset
+
+We do not have explicit form of the pdf.
+ However, we assume that we have samples 
+\begin_inset Formula $Q_{u}$
+\end_inset
+
+ samples 
+\begin_inset Formula $\theta_{u,q}\in\{1_{u},...,Q_{u}\}$
+\end_inset
+
+ from 
+\begin_inset Formula $p_{u}(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})$
+\end_inset
+
+.
+ As a result 
+\begin_inset Formula $p_{u}(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})$
+\end_inset
+
+ can be approximated as 
+\begin_inset Formula 
+\begin{equation}
+\pi_{u}^{*}=\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\delta(\theta_{u}-\theta_{u}^{(q)}),\label{eq:prior_distribution_for_exp_loss_estimate}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\delta(\theta_{u}-\theta_{u}^{(q)})$
+\end_inset
+
+ is Dirac delta function centered in 
+\begin_inset Formula $\theta_{u}^{(q)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Parameters Sampling Based on Training Data Subsets
+\end_layout
+
+\begin_layout Standard
+This method is quite general and can be applied to all types of classifiers
+ in this work (Random Forest, SVM, Neural Network).
+ The idea is very simple.
+ We consider that some data samples in training dataset 
+\begin_inset Formula $\tilde{\mathbf{X}}\times\tilde{\mathbf{Y}}$
+\end_inset
+
+ are noise corrupted.
+ Thus, its obvious that we do not want our models to learn from noise corrupted
+ data.
+ As a result, we would like to randomly sample 
+\begin_inset Formula $Q_{u}$
+\end_inset
+
+ subsets from 
+\begin_inset Formula $\tilde{\mathbf{X}}$
+\end_inset
+
+ with their labels from 
+\begin_inset Formula $\tilde{\mathbf{Y}}$
+\end_inset
+
+.
+ Lets rewrite it in more mathematical form.
+ 
+\end_layout
+
+\begin_layout Standard
+Assuming 
+\begin_inset Formula $N_{u}$
+\end_inset
+
+ is amount of samples in 
+\begin_inset Formula $\mathbf{X}_{u}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $Z_{u}=\{z_{1},...,z_{N_{u}^{sub}}\}\subset J_{u}$
+\end_inset
+
+, where 
+\begin_inset Formula $N_{u}^{sub}<N_{u}$
+\end_inset
+
+ .
+ Let 
+\begin_inset Formula $p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u},Z_{u})$
+\end_inset
+
+ is a probability of model parameters 
+\begin_inset Formula $\theta_{u}$
+\end_inset
+
+ given 
+\begin_inset Formula $\mathbf{X}_{u},\mathbf{Y}_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $Z_{u}$
+\end_inset
+
+.
+ The conditioning in the pdf is defined as restriction of sets 
+\begin_inset Formula $\mathbf{X}_{u},\ \mathbf{Y}_{u}$
+\end_inset
+
+ on indices from 
+\begin_inset Formula $Z_{u}$
+\end_inset
+
+.
+ As a result we can approximate 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_for_expected_entropy_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{align}
+\pi_{u}^{*} & =p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})\label{eq:prior_distribution_approximation_training_set_sampling}\\
+ & =\int p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u},Z_{u})p(Z_{u})dZ_{u}\\
+ & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u},Z_{u}^{(q)})\\
+ & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\delta(\theta_{u}-\theta_{u}^{(q)}).
+\end{align}
+
+\end_inset
+
+Sampling from 
+\begin_inset Formula $p(Z_{u})$
+\end_inset
+
+ is very simple.
+ The only thing that must be predefined is 
+\begin_inset Formula $N_{u}^{sub}$
+\end_inset
+
+.
+ After training the model using 
+\begin_inset Formula $\mathbf{X}_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $Y_{u}$
+\end_inset
+
+ under restriction 
+\begin_inset Formula $Z_{u}$
+\end_inset
+
+ ,vector of model parameters will represent a single sample from 
+\begin_inset Formula $\pi_{u}^{*}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+SGLD
+\end_layout
+
+\begin_layout Standard
+Unlike previous section method, SGLD sampling is designed only for neural
+ networks based classifiers.
+ SGLD modifies Neural Network learning algorithm by adding noise in Stochastic
+ Gradient descent.
+ In comparison to Normal Feed Forward Neural Network in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "welling2011bayesian"
+literal "false"
+
+\end_inset
+
+ is introduced Stochastic Gradient Langevin Dynamics Neural Network (SGLD).
+ This is type of Bayesian Neural Network algorithm.
+ In comparison to normal Feed Forward NN, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "welling2011bayesian"
+literal "false"
+
+\end_inset
+
+ proposes to add gaussian noise to the system while doing gradient descent.
+ With the usage of Bayes rule.
+ we can rewrite 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_for_expected_entropy_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{align}
+\pi_{u}^{*} & =p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})\nonumber \\
+ & \propto p(\mathbf{X}_{u},\mathbf{Y}_{u}|\theta_{u})p(\theta_{u}).\label{eq:prior_distribution_approximation_sgld}
+\end{align}
+
+\end_inset
+
+Next, we can approximate 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_approximation_sgld"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{align}
+\pi_{u}^{*} & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}p(\mathbf{X}_{u},\mathbf{Y}_{u}|\theta_{u}^{(q)})\label{eq:eq:prior_distribution_approximation_sgld_2}\\
+ & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\delta(\theta_{u}-\theta_{u}^{(q)}).\nonumber 
+\end{align}
+
+\end_inset
+
+However, for this case 
+\begin_inset Formula $\theta$
+\end_inset
+
+ must meet some constraints.
+ If we want to sample parameters from its distribution 
+\begin_inset Formula $\theta$
+\end_inset
+
+ must be independent identically distributed.
+ This is shown and proved in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "welling2011bayesian"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+DENFI
+\end_layout
+
+\begin_layout Standard
+In case of DENFI algorithm 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+[CITATION HERE ]
+\end_layout
+
+\end_inset
+
+ we can approximate 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_for_expected_entropy_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ with the usage of equations 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_approximation_sgld"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eq:prior_distribution_approximation_sgld_2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The equations are same but sampling from 
+\begin_inset Formula $p(\theta_{u})$
+\end_inset
+
+ is different.
+ In this work we are using modification of the initial DENFI algorithm.
+ The idea of this algorithm is to train ensemble of 
+\begin_inset Formula $Q_{u}$
+\end_inset
+
+ Feed Forward Neural Networks with the usage of stochastic gradient descent.
+ In theory, each neural network will find different local minimum due to
+ different initial weights of neurons and stochastic gradient descent.
+ The beauty of this algorithm is in further training iterations that will
+ be described and shown in further sections.
+ For now, we are only interested in parameters sampling from 
+\begin_inset Formula $p(\theta_{u})$
+\end_inset
+
+, that has been already covered and described.
+\end_layout
+
+\begin_layout Subsection
+Active Learning Loss Function
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Active-Learning-Loss"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Entropy Based Active Learning Loss
+\end_layout
+
+\begin_layout Standard
+First approach of defining Active Learning loss function is negative entropy.
+ Basing of the formal definition of the entropy we can write it as 
+\begin_inset Formula 
+\begin{equation}
+-H(\hat{\mathbf{y}}|\mathbf{x}_{j_{u}},\theta_{u})=\sum_{r=1}^{R}\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u})\log\big(\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u})\big),\label{eq:entropy}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\hat{y}_{r}$
+\end_inset
+
+ is 
+\begin_inset Formula $r-$
+\end_inset
+
+th element of the output estimate 
+\begin_inset Formula $\mathbf{\hat{y}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is a vector of parameters for specific model.
+ As done in Passive Learning sections we want to find expected loss based
+ on entropy function.
+ 
+\end_layout
+
+\begin_layout Standard
+With the usage of previous knowledge we can derive expected entropy loss
+ as 
+\begin_inset Formula 
+\begin{align}
+\mathbb{E}_{\pi_{u}^{*}}L^{*} & =\int_{\varTheta_{u}}-H(\hat{\mathbf{y}}|\mathbf{x}_{j_{u}},\theta_{u})p_{u}(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})d\theta_{u}\nonumber \\
+ & =\int_{\varTheta_{u}}-H(\hat{\mathbf{y}}|\mathbf{x}_{j_{u}},\theta_{u})\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\delta(\theta_{u}-\theta_{u,q})d\theta_{u}\nonumber \\
+ & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}-H(\hat{\mathbf{y}}|\mathbf{x}_{j_{u}},\theta_{u,q}))\nonumber \\
+ & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\sum_{r=1}^{R}\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u,q})\log\big(\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u,q})\big).\label{eq:expected_entropy_loss}
+\end{align}
+
+\end_inset
+
+As a result, minimization of given expected loss will lead us to a sample
+ with the highest entropy.
+\end_layout
+
+\begin_layout Subsection
+Active Learning
+\end_layout
+
+\begin_layout Standard
+We would like to generalize active learning part for all described algorithms
+ in order to estimates 
+\begin_inset Formula $p({\bf y}|\mathbf{x},\mathbf{X}_{u},\mathbf{Y}_{u})$
+\end_inset
+
+ basing on samples from 
+\begin_inset Formula $\pi_{u}^{*}$
+\end_inset
+
+ in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_for_expected_entropy_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ In Supervised Learning section we have derived estimate 
+\begin_inset Formula $\hat{\mathbf{y}}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ for SVMs, Random Forests and Feed Forward Neural Networks.
+ Active Learning algorithm requires distribution over the parameters of
+ the algorithms.
+ We will solve this problem the way that we will get samples from 
+\begin_inset Formula $\pi_{u}^{*}$
+\end_inset
+
+ and then approximate probability distribution as 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_distribution_for_expected_entropy_loss"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In order to estimate 
+\begin_inset Formula $p({\bf y}|\mathbf{x},\mathbf{X}_{u},\mathbf{Y}_{u})$
+\end_inset
+
+ we define Generalized Ensemble Algorithm.
+ SGLD and DENFI can be also represented as generalized ensembles models
+ because parameters sampling (neuron weights sampling) represents different
+ configurations of neural networks.
+ Thus, each sample from 
+\begin_inset Formula $\pi_{u}^{*}$
+\end_inset
+
+ can be assumed as i.i.d.
+ ensemble.
+ As a result, we will use 
+\begin_inset Formula $Q_{u}$
+\end_inset
+
+ ensembles in each step of Active Learning algorithm.
+ Therefore, basing on the previous theory we can approximate 
+\begin_inset Formula $p({\bf y}|\mathbf{x},\mathbf{X}_{u},\mathbf{Y}_{u})$
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{equation}
+p({\bf y}|\mathbf{x},\mathbf{X}_{u},\mathbf{Y}_{u})=\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\hat{\mathbf{y}}_{q,u}.\label{eq:active_learning_output_estimate}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+In this section we have fully covered decision theory for both passive and
+ active learning with respect to different algorithms and ensemble approach.
+ Passive Learning section showed how it is possible to generalize SVM, Random
+ Forest and Neural Networks in terms of decision theory problem setup, whereas
+ Active Learning section showed how to represent uncertainty of the model
+ and parameters sampling for ensembles representation.
+\end_layout
+
+\begin_layout Chapter
+Natural Language Processing Theory
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Natural_Language_Processing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Text Representation
+\end_layout
+
+\begin_layout Standard
+According to 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "liddy2001natural"
+literal "false"
+
+\end_inset
+
+, Natural Language Processing (NLP) is a theoretically motivated range of
+ computational techniques for analyzing and representing naturally occurring
+ texts at one or more levels of linguistic analysis for the purpose of achieving
+ human-like language processing for a range of tasks or applications.
+ 
+\end_layout
+
+\begin_layout Standard
+In this work we are focused on two techniques such as TF-IDF 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "rajaraman2011mining"
+literal "false"
+
+\end_inset
+
+ and Fast Text Word Embeddings 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mikolov2018advances"
+literal "false"
+
+\end_inset
+
+.
+ These methods are used for representation of text in a mathematical form
+ (vectors, matrices).
+ Even though TF-IDF is quite old method for text representation, it is still
+ widely used.
+ However, primary method, that used in the theses is Fast Text Word Embeddings.
+ In this project we are working with text documents (articles and tweets)
+ and their labels.
+ In the beginning of chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Introduction-to-Decision"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we defined value 
+\begin_inset Formula $\mathbf{x}\in{\cal X}$
+\end_inset
+
+ as text features vector.
+ By features vector we mean any kind of text encoding (TF-IDF, Fast Text
+ Word Embedding, etc..).
+ 
+\end_layout
+
+\begin_layout Subsection
+TF-IDF 
+\end_layout
+
+\begin_layout Standard
+Term Frequency - Inverse Document Frequency (TF-IDF) is extremely powerful
+ tool.
+ This text encoding tool is quite simple and powerful.
+ Method's advantage is its popularity.
+ Plenty of packages in different programming languages have implementations
+ of this algorithm.
+ As mentioned in the name of this method, it is composed from two parts
+ Term Frequency and Inverse Document Frequency.
+ Term Frequency is defined as 
+\begin_inset Formula 
+\[
+TF(t,d)=\frac{f_{t,d}}{\sum_{t^{\prime}}f_{t^{\prime},d},},
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $f_{t,d}$
+\end_inset
+
+ is number of times of word 
+\begin_inset Formula $t$
+\end_inset
+
+ in a document 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ Inverse Document Frequency is defined as 
+\begin_inset Formula 
+\[
+IDF(t,d)=\log\frac{|D|}{|\{d\in D:t\in d\}|},
+\]
+
+\end_inset
+
+where numerator stand for total number of documents in the corpus and denominato
+r is number of documents where the term 
+\begin_inset Formula $t$
+\end_inset
+
+ appears.
+ We are assuming using only words that from corpus 
+\begin_inset Formula $D$
+\end_inset
+
+.
+ Thus, the denominator is always greater than zero.
+ 
+\end_layout
+
+\begin_layout Standard
+Finally, 
+\begin_inset Formula 
+\[
+TF-IDF(t,d)=TF(t,d)\cdot IDF(t,d).
+\]
+
+\end_inset
+
+
+\series bold
+N.B
+\end_layout
+
+\begin_layout Subsubsection
+TF-IDF and Information Theory
+\end_layout
+
+\begin_layout Standard
+In this part is shown the connection of TF-IDF to Information theory 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "aizawa2003information"
+literal "false"
+
+\end_inset
+
+.
+ Lets first take a look on documents' entropy given word 
+\begin_inset Formula $t$
+\end_inset
+
+,
+\begin_inset Formula 
+\begin{align}
+H(D|T=t) & =-\sum_{d}p(d|t)\log p(d|t)\nonumber \\
+ & =\log\frac{1}{|\{d\in D:t\in D\}|}\nonumber \\
+ & =-\log\frac{|\{d\in D:t\in D\}|}{D|}+\log|D|\nonumber \\
+ & =-IDF(t,d)+\log|D|,\label{eq:Documents_entropy_given_word}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $D$
+\end_inset
+
+ is a documents' random variable and 
+\begin_inset Formula $T$
+\end_inset
+
+ is words' random variable.
+ Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Documents_entropy_given_word"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is correct under condition that we have no duplicate documents in the text
+ corpus.
+ Next step is to derive an equation of mutual information of documents and
+ words as follows 
+\begin_inset Formula 
+\begin{align}
+M(D,T) & =H(D)-H(D|T)\nonumber \\
+ & =-\sum_{d}p(d)\log p(d)-\sum H(D|T=t)\cdot p(t)_{t}\nonumber \\
+ & =\sum_{t}p(t)\cdot\Big(\log\frac{1}{|D|}+IDF(t,d)-\log|D|\Big)\nonumber \\
+ & =\sum_{t}p(t)\cdot IDF(t,d)\nonumber \\
+ & =\sum_{t,d}p(t|d)\cdot p(d)\cdot IDF(t,d)\nonumber \\
+ & =\frac{1}{|D|}\sum_{t,d}TF(t,d)\cdot IDF(t,d).\label{eq:tf_idf_mutual_information}
+\end{align}
+
+\end_inset
+
+As seen from 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:tf_idf_mutual_information"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ TF-IDF has really good explanatory definition based on Information Theory.
+ As a result, it is one more advantage of this method usage.
+ However, here is one big disadvantage that can be very crucial.
+ The higher amount of words is, the bigger and sparser vectors, that represent
+ each document, will be.
+\end_layout
+
+\begin_layout Subsection
+Fast Text and CBOW Word Embeddings
+\end_layout
+
+\begin_layout Standard
+Term word embedding means a set of language modeling and feature learning
+ techniques in natural language processing where words or phrases from the
+ vocabulary are mapped to vectors of real numbers.
+ Nowadays exist plenty of word embedding methods based on neural networks
+ and co-occurrence matrices.
+ Word embeddings are used as pretrained models.
+ Words' encoding is used in order to encode the text and then text encoding
+ is used for different purposes such as classification, clustering, etc..
+ 
+\end_layout
+
+\begin_layout Standard
+The principle of word embeddings based on neural networks is explained in
+ this section.
+ We decided to describe Continuous Bag of Words Model (CBOW), because Fast
+ Text word embeddings model is a modification of this method and CBOW covers
+ all main theoretical aspects.
+\end_layout
+
+\begin_layout Subsubsection
+CBOW Word Embeddings
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mikolov2013efficient"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We would like to treat text {"The", "cat", ’over", "the’, "puddle"} as a
+ context and from these words, be able to predict or generate the center
+ word "jumped".
+ This type of model is a Continuous Bag of Words (CBOW) Model.
+ Before we continue with more theoretical part, it is good to mention that
+ mathematical notation defined here is only used for this section and has
+ no common with the same names of the variables that were defined in the
+ beginning of this theses.
+ First, we want to set up our known parameters.
+ Let the known parameters in our model be the sentence represented by one-hot
+ word vectors.
+ The input one hot vectors or context we will represent with an 
+\begin_inset Formula ${\bf x}^{(c)}$
+\end_inset
+
+.
+ And the output as 
+\begin_inset Formula ${\bf y}^{(c)}$
+\end_inset
+
+ and in the CBOW model, since we only have one output, so we just call this
+ 
+\begin_inset Formula ${\bf y}$
+\end_inset
+
+ which is the one hot vector of the known center word.
+ Now let’s define our unknowns in our model.
+ We create two matrices, 
+\begin_inset Formula ${\bf \mathcal{V}}\in\mathbb{R}^{n×|V|}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathcal{U}\in\mathbb{R}^{|V|×n}$
+\end_inset
+
+.
+ Where 
+\begin_inset Formula $n$
+\end_inset
+
+ is an arbitrary size which defines the size of our embedding space.
+ 
+\begin_inset Formula ${\bf \mathcal{V}}$
+\end_inset
+
+ is the input word matrix such that the 
+\begin_inset Formula $i-$
+\end_inset
+
+th column of 
+\begin_inset Formula ${\bf \mathcal{V}}$
+\end_inset
+
+ is the 
+\begin_inset Formula $n-$
+\end_inset
+
+dimensional embedded vector for word 
+\begin_inset Formula $w_{i}$
+\end_inset
+
+ when it is an input to this model.
+ We denote this 
+\begin_inset Formula $n×1$
+\end_inset
+
+ vector as 
+\begin_inset Formula ${\bf v}_{i}$
+\end_inset
+
+.
+ Similarly, 
+\begin_inset Formula ${\cal U}$
+\end_inset
+
+ is the output word matrix.
+ The 
+\begin_inset Formula $j-$
+\end_inset
+
+th row of 
+\begin_inset Formula ${\cal U}$
+\end_inset
+
+ is an 
+\begin_inset Formula $n-$
+\end_inset
+
+dimensional embedded vector for word 
+\begin_inset Formula $w_{j}$
+\end_inset
+
+ when it is an output of the model.
+ We denote this row of 
+\begin_inset Formula ${\cal U}$
+\end_inset
+
+ as 
+\begin_inset Formula ${\bf u}_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For this method sequence of actions can be written as follows:
+\end_layout
+
+\begin_layout Itemize
+We generate our one hot word vectors 
+\begin_inset Formula $({\bf {\bf x}}^{(c−m)},...,{\bf {\bf x}}^{(c−1)},{\bf {\bf x}}^{(c+1)},...,{\bf {\bf x}}^{(c+m)})$
+\end_inset
+
+ for the input context of size 
+\begin_inset Formula $2m$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+We get our embedded word vectors for the context 
+\begin_inset Formula $({\bf v}_{c−m}={\cal V}{\bf x}^{(c−m)},{\bf v}_{c−m+1}={\cal V}{\bf x}_{(c−m+1)},...,{\bf v}_{c+m}={\cal V}{\bf x}_{(c+m)})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Average these vectors to get 
+\begin_inset Formula $\tilde{{\bf v}}=\frac{{\bf v}_{c\text{−}m}+{\bf v}_{c\text{−}m+1}+...+{\bf v}_{c\text{+}m}}{2m}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Generate a score vector 
+\begin_inset Formula ${\bf z}={\cal U}\tilde{{\bf v}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Turn the scores into probabilities 
+\begin_inset Formula 
+\begin{equation}
+\hat{{\bf y}}=\mathrm{softmax}({\bf z})\label{eq:softmax_cbow}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+We desire our probabilities generated, 
+\begin_inset Formula $\hat{{\bf y}}$
+\end_inset
+
+, to match the true probabilities, 
+\begin_inset Formula ${\bf y}$
+\end_inset
+
+, which also happens to be the one hot vector of the actual word.
+\end_layout
+
+\begin_layout Standard
+Described method can be interpreted as a feed forward neural network with
+ one hidden layer that do not uses activation function.
+ As a loss function for this algorithm can be chosen cross-entropy loss
+ function 
+\begin_inset Formula 
+\begin{equation}
+L=\sum_{i=1}^{|V|}{\bf y_{i}\log({\bf \hat{y}}_{i})}\label{eq:cross_entropy_cbow}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbf{\hat{y}}$
+\end_inset
+
+ is sofmatx (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:softmax_cbow"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) function.
+\end_layout
+
+\begin_layout Subsubsection
+Fast Text Word Embeddings
+\end_layout
+
+\begin_layout Standard
+As mentioned previously, Fast Text method is a CBOW modification.
+ Main modification is that Fast Text is taking into account not only words
+ but also suffixes of words.
+ The words are splitted into suffixes and as a result they can handle understand
+ing of the context better.
+\end_layout
+
+\begin_layout Standard
+In this theses we used pretrained Fast Text models 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mikolov2018advances"
+literal "false"
+
+\end_inset
+
+ consisting of 1 million word vectors trained on Wikipedia 2017, UMBC webbase
+ corpus and statmt.org news dataset (16B tokens).
+\end_layout
+
+\begin_layout Chapter
+Data and Results Validation Theory 
+\end_layout
+
+\begin_layout Section
+Results Validation Theory
+\end_layout
+
+\begin_layout Standard
+When the models are implemented and trained we have to compare them.
+ This part is very important because we want to define such metrics that
+ will not be biased and which will have high discriminability.
+ In this project experiments are separated into two parts.
+ First part is supervised classification with big amount of data.
+ This is done for understating what is the maximal upper bound of specific
+ classifiers.
+ These upper bounds are used as maximums which our active learning algorithms
+ must be converging to.
+ 
+\end_layout
+
+\begin_layout Subsection
+Receiving Operating Curve metric
+\end_layout
+
+\begin_layout Standard
+In section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Introduction-to-Decision"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we mentioned that we are limiting our problem only on binary classification.
+ Plenty of metrics such as recall, accuracy, precision, etc.
+ exists for binary classification.
+ However we decided to find a metic that is able to unify all metrics discussed
+ before and do not underperform each of them.
+ For these purposes we chose Receiving Operating Curve metric.
+ ROC visualizes the tradeoff between true positive rate (TPR) and false
+ positive rate (FPR).
+ This means that for every threshold, we are able to calculate TPR and FPR
+ and plot it on one figure.
+ 
+\end_layout
+
+\begin_layout Standard
+We are working with balanced datasets.
+ Thus, there is no problem in using ROC metrics.
+ ROC metric is also very good when we care equally about positive and negative
+ class.
+ Another advantage is that if we notice small changes in ROC it will not
+ result in big changes in other binary classification metrics.
+\end_layout
+
+\begin_layout Standard
+Receiving Operating Curve lets us to calculate area under the curve (AUC).
+ The probabilistic interpretation of ROC score is that if a positive case
+ and a negative case are chosen randomly, the probability that the positive
+ case outranks the negative case according to the classifier is given by
+ the AUC.
+ 
+\end_layout
+
+\begin_layout Subsection
+Supervised Learning Results Validation
+\end_layout
+
+\begin_layout Standard
+As mentioned above, supervised learning results are used as maximal upper
+ bound of specific classifiers.
+ In order to make results statistically valid we used k-fold cross validation.
+ For each batch from k-fold cross validation we calculated both ROC and
+ AUC.
+ As an output result of a classifier performance we calculated mean value
+ through all ROC and AUC results.
+ All results are calculated with respect to balanced data classes.
+\end_layout
+
+\begin_layout Subsection
+Active Learning Results Validation
+\end_layout
+
+\begin_layout Standard
+Active learning model evolution is based on supervised learning algorithms
+ that are sequentially retrained.
+ Thus, we are not able to display ROC for active learning algorithms because
+ amount of results is too big.
+ We decided to aggregate results and display evolution of AUC metric for
+ each step of active learning sequence.
+ AUC sequences can be well compared between different classifiers.
+ Another aspect of data validation is making the results statistically significa
+nt.
+ We are not able to use k-fold cross validation for active learning algorithms.
+ Therefore we active learning algorithm 
+\begin_inset Formula $H\in\mathbb{N}$
+\end_inset
+
+ times.
+ Due to the fact of random initializations, we are able to determine uncertainty
+ bounds that are calculated as standard deviations to mean value.
+ 
+\end_layout
+
+\begin_layout Section
+Data 
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Data"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This chapter is dedicated dataset description.
+ We used two datasets for algorithms trainings and testings.
+ We consider these datasets big and diverse enough for getting unbiased
+ results.
+ We took into account size of texts (articles and tweets), diversity and
+ at the same time similarity of topics.
+ 
+\end_layout
+
+\begin_layout Subsection
+HuffPost 200k Articles Dataset
+\end_layout
+
+\begin_layout Standard
+HuffPost 200k Articles Dataset is publicly available at Kaggle competition
+ webpage and can be found as News Category Dataset 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dataset"
+literal "false"
+
+\end_inset
+
+ here 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.kaggle.com/rmisra/news-category-dataset
+\end_layout
+
+\end_inset
+
+.
+ Described dataset contains around 200k news headlines from the year 2012
+ to 2018 obtained from HuffPost.
+ Following dataset includes url address and label to each article.
+ HuffPost dataset has 200k articles assigned to 41 categories.
+ We used only 10 categories.
+ We are interested in binary classification, as a result we have to make
+ pairs from chosen categories.
+ These categories and pairs are listed in table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:HuffPost_Dataset_Categories"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Tuple Id
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Category Pairs
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Crime
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Good News
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sports
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Comedy
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $3$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Politics
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Business
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $4$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Science
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Tech
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Education
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+College
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:HuffPost_Dataset_Categories"
+
+\end_inset
+
+HuffPost Dataset Categories which were chosen for algorithms' training and
+ testing
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Due to the fact that there is no raw article included in the dataset, we
+ used url links in order to find the articles.
+ For each category we scraped 500 original articles from 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+www.huffpost.com
+\end_layout
+
+\end_inset
+
+.
+ Listed categories are chosen with respect to diversity and classification
+ complexity.
+ We sorted the categories in table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:HuffPost_Dataset_Categories"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ with respect to ascending classification complexity order.
+ By classification complexity we mean two sets intersections in feature
+ spaces.
+ If the classification complexity is high, then majority of feature space
+ dimensions have intersections between two datasets.
+ Thus, it is harder to find such set of features that can be used for high
+ classification performance.
+ 
+\end_layout
+
+\begin_layout Subsection
+1600k Tweets Dataset
+\end_layout
+
+\begin_layout Standard
+Another dataset that is used in this work is 1600k Tweets dataset which
+ is publicly available and is also taken from Kaggle competition webpage.
+ The dataset can be found as sentiment140 dataset 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tweets_dataset"
+literal "false"
+
+\end_inset
+
+ here 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.kaggle.com/kazanova/sentiment140
+\end_layout
+
+\end_inset
+
+.
+ This dataset contains 1,600,000 tweets extracted using the twitter api.
+ The tweets have been annotated as negative (
+\begin_inset Formula $0$
+\end_inset
+
+), positive (
+\begin_inset Formula $4$
+\end_inset
+
+) and they are used for sentiment detection.
+ Same as with HuffPost dataset we used 500 records for each category for
+ training and testing purposes.
+ The reason of choosing this dataset is that we wanted to show how our algorithm
+s can handle data that consist of little texts.
+ 
+\end_layout
+
+\begin_layout Chapter
+Project Implementation and Architecture
+\end_layout
+
+\begin_layout Standard
+Even though this work is quite theoretical with experiments that proof theoretic
+al concepts, we assume implementational part interesting as well.
+ In this chapter we show the architecture of the project and explain how
+ different dependencies cooperate with each other.
+ The codebase of this project can be easily found at 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/sahanmar/Peony
+\end_layout
+
+\end_inset
+
+
+\shape italic
+.
+
+\shape default
+ We expect this project going to continue grow and will be used not only
+ in terms of master theses.
+ 
+\end_layout
+
+\begin_layout Standard
+This project was written in Python 3.7 programming language with the usage
+ of Conda environment.
+ The project combines a lot of different tools and programs such as Docker,
+ Docker-Compose, MongoDb, Jupyter, etc..
+\end_layout
+
+\begin_layout Standard
+In this theses we used two main components that represent the database and
+ computational part.
+ We tried to unify all methods as much as possible and make the utilization
+ process very easy.
+\end_layout
+
+\begin_layout Section
+Database
+\end_layout
+
+\begin_layout Standard
+In order to make everything consistent and let the models work with the
+ same input and output format we decided to create a database that will
+ store all the data in JSON format.
+ This unification let us connect the database to machine learning and visualizin
+g components.
+ In this project we decided to work with NoSQL database.
+ Our choice was MongoDb.
+ The reason why we have chosen MongoDb is because of its simplicity and
+ possibility of maintaining through Docker.
+ Since Docker and MongoDb is perfect combination, the database can be deployed
+ with two lines of code through Docker-Compose as explained in documentation
+ on GitHub.
+ Of course it is easier to use MongoDb without Docker but our motivation
+ was measured on simplicity of creating and working with the database.
+ All experiments were run on Google Cloud Platform Virtual Machine instance.
+ Thus, we could start working with the models right away without any complicatio
+ns with installation.
+ 
+\end_layout
+
+\begin_layout Subsection
+MongoDb Data Format
+\end_layout
+
+\begin_layout Standard
+MongoDb represents the data in BSON format behind the scenes but we are
+ send and get there JSON format data.
+ Despite the fact that we are having different text datasets that we store
+ in the database, we decided to create unified JSON scheme that will let
+ us to preserve the structure of the data stored in MongoDb.
+ JSON schema of how the data are stored and what a user will get as an output
+ from a database is shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:MongoDb_JSON_schema"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Deeper explanation of JSON schema can be found at 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://json-schema.org/understanding-json-schema/
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "MongoDb_structure.json"
+lstparams "breaklines={true //--> breaks lines to margin},basicstyle={\\small}"
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:MongoDb_JSON_schema"
+
+\end_inset
+
+MongoDb JSON schema visualization
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Computations
+\end_layout
+
+\begin_layout Standard
+All computations were done with the usage of virtual instance on Google
+ Cloud Platform.
+ We used configuration with 
+\begin_inset Formula $2$
+\end_inset
+
+ CPU, 
+\begin_inset Formula $7.5$
+\end_inset
+
+Gb memory that was running on Debian GNU/Linux 10.
+ All versions of python, python packages, docker, mongo, etc.
+ can be found in .yml files in GitHub folder with the project.
+ 
+\end_layout
+
+\begin_layout Section
+Machine Learning Component
+\end_layout
+
+\begin_layout Standard
+Machine Learning (ML) Component is fully implemented in Python with the
+ usage of open source libraries.
+ In order to understand how to use the models, it is possible to find the
+ code and its usage in Jupyter notebook that are stored in showcase folder.
+ Showcase folder has four Jupyter notebooks that show both how to get the
+ data for the models from the database and how to start using the models.
+ 
+\end_layout
+
+\begin_layout Subsection
+Data Transformers
+\end_layout
+
+\begin_layout Standard
+Before models training and testing user has to fit the data transformer
+ that transforms text into tensors form.
+ Tensors are used as input values for models.
+ As mentioned in chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Natural_Language_Processing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we are working only with TF-IDF and Fast Text text encodings.
+ Both TF-IDF and Fast Text models are created from the documents that are
+ given to the transformer.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+TF-IDF Transformer
+\end_layout
+
+\begin_layout Standard
+TF-IDF transformer represents one article as a vector.
+ From the articles are extracted all words that exist in the vocabulary
+ and then for a document is calculated TF-IDF encoding.
+ As a result, if we make TF-IDF encoding of a set of articles, we will get
+ a matrix where each row represents specific document and each column represents
+ word from a dictionary.
+\end_layout
+
+\begin_layout Subsubsection
+Fast Text Transformer
+\end_layout
+
+\begin_layout Standard
+Fast Text model is a pretrained model that consists of one million words
+ mapped to vectors.
+ These words are stored in MongoDb.
+ When a user starts to use Fast Text model, ML component creates a words'
+ vocabulary from the texts taken for model training/testing.
+ This vocabulary is created in a form of a hash map (word -> vector) where
+ word embeddings are downloaded from MongoDb.
+ It is important to remember that Fast Text encoding represents each word
+ as a vector with predefined number of components.
+ We are using word embeddings that represent each word with 
+\begin_inset Formula $300$
+\end_inset
+
+ float values.
+ We introduce article encoding as a mean value through all words from a
+ text that is given for encoding.
+ Thus, if we make Fast Text encoding of a set of articles, we will get a
+ matrix where each row represents specific document.
+ Huge advantage of this method in comparison to TF-IDF, is that we are working
+ only with 
+\begin_inset Formula $300$
+\end_inset
+
+ float values (
+\begin_inset Formula $300$
+\end_inset
+
+ columns if we provide encoding of set of articles) than with huge dictionary.
+ Therefore we get lower features dimensionality and better context understanding.
+\end_layout
+
+\begin_layout Subsection
+Machine Learning
+\end_layout
+
+\begin_layout Standard
+In this work we created a Generalized Model thats unifies all models.
+ Generalized Model allows to work with each Machine Learning algorithm in
+ same way.
+ Generalized model is able to take a data transformer as an input argument.
+ This feature makes it easier to work with models.
+ In first chapter of this theses we introduced our models the way that we
+ want to sample from their parameters' distributions.
+ That means that we are aiming to work with ensembles.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Machine_Learning_Workflow_diagram"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown a generalized diagram of machine learning structure.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Model_diagram.png
+	scale 35
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Machine_Learning_Workflow_diagram"
+
+\end_inset
+
+Machine Learning Workflow
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We used scikit-learn 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "scikit-learn"
+literal "false"
+
+\end_inset
+
+ for basic algorithms such as Random Forests and SVMs.
+ However, core of this project is constructed around Neural Networks.
+ We used PyTorch 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "NEURIPS2019_9015"
+literal "false"
+
+\end_inset
+
+ as a Neural Networks framework.
+ In this work we have implemented and tested five classification algorithms.
+ Three of them, such as SVM, Random Forest and Feed Forward Neural Network
+ ensembles are trained on a randomly chosen subsets from the training data.
+ For each ensemble are randomly chosen 
+\begin_inset Formula $80\%$
+\end_inset
+
+ from training data that are used for training.
+ Two algorithms such as SGLD and DENFI are using full training dataset for
+ their ensembles.
+ The variability in SGLD and DENFI ensembles is reached though adding gaussian
+ noise while ensembles training.
+ We hardcoded amount of ensembles for all models to 
+\begin_inset Formula $10$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ADD HERE DESCRIPTION (AND PSEUDOCODE) FOR ALL ENSEMBLES 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+SVM and Random Forest Ensemble Setup
+\end_layout
+
+\begin_layout Standard
+Both SVM and Random Forest models were taken and used out of the box.
+ We created 
+\begin_inset Formula $10$
+\end_inset
+
+ SVM and 
+\begin_inset Formula $10$
+\end_inset
+
+ Random Forest ensembles with default scikit-learn setting.
+ No modifications were provided.
+\end_layout
+
+\begin_layout Subsubsection
+Feed Forward Neural Network
+\end_layout
+
+\begin_layout Standard
+Despite the fact that we used very simple Neural Networks architecture,
+ it showed very good results.
+ We implemented Feed Forward Neural Network with the usage of PyTorch python
+ package with one hidden layer that consists of 
+\begin_inset Formula $100$
+\end_inset
+
+ neurons with sigmoid activation function.
+ We chose softmax activation function for output layer.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+SGLD
+\end_layout
+
+\begin_layout Standard
+For SGLD we used same configuration as for Feed Forward Neural Network.
+ One significant difference is that we used whole training dataset and were
+ adding gaussian noise to a gradient descent.
+ Precise configuration of SGLD can be found in github project here 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/sahanmar/Peony/blob/master/Peony_project/Peony_box/src/peony_a
+djusted_models/sgld_nn.py
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+DENFI
+\end_layout
+
+\begin_layout Standard
+In this work we have simplified original DENFI algorithm.
+ The pseudocode of this algorithm is show in algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:DENFI_modification_algorithm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The main idea is that the algorithm finds different local minimums due
+ to the random weights initialization in first active learning iteration.
+ When the training is finished, gaussian noise is added to the output weights
+ in order to increase the variability.
+ In further active learning iterations, weights from previous iterations
+ with extended training dataset is used.
+ After the training we also add gaussian noise to the weights.
+ When the learning iterations are done, we can use the algorithm for predicting.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+def active_learning_iteration_training(all_ensembles, training_data):
+\end_layout
+
+\begin_layout Plain Layout
+
+  for ensemble in all_ensembles:
+\end_layout
+
+\begin_layout Plain Layout
+
+    if first_active_learning_iteration is False:
+\end_layout
+
+\begin_layout Plain Layout
+
+      ensemble.weights = ensemble.weights_prev_iteration 
+\end_layout
+
+\begin_layout Plain Layout
+
+      training_epochs = 500
+\end_layout
+
+\begin_layout Plain Layout
+
+    else:
+\end_layout
+
+\begin_layout Plain Layout
+
+      ensemble.weights = gaussian_initialization(mean=0, var=0.1)
+\end_layout
+
+\begin_layout Plain Layout
+
+      training_epochs = 2000
+\end_layout
+
+\begin_layout Plain Layout
+
+    ensemble.train(training_data)
+\end_layout
+
+\begin_layout Plain Layout
+
+	ensemble.weights = ensemble_weights 
+\end_layout
+
+\begin_layout Plain Layout
+
+                        + gaussian_noise(mean=0, var=0.1)
+\end_layout
+
+\begin_layout Plain Layout
+
+		
+\end_layout
+
+\begin_layout Plain Layout
+
+		
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:DENFI_modification_algorithm"
+
+\end_inset
+
+DENFI modification algorithm pseudocode
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Passive Learning Classification
+\end_layout
+
+\begin_layout Standard
+Before we can start active learning part we have to understand if implemented
+ algorithms are capable to solve the classification task.
+ Thus, we decided to test the models on Sports and Comedy categories from
+ HuffPost Dataset and on Tweets from Tweets Dataset.
+ The classification was done both for TF-IDF and Fast Text Encodings.
+ We separated experiments with respect to the dataset types.
+\end_layout
+
+\begin_layout Section
+Passive Learning HuffPost Dataset
+\end_layout
+
+\begin_layout Standard
+In this section we are illustrating ROC and AUC metrics with respect to
+ 
+\begin_inset Formula $10-$
+\end_inset
+
+fold cross validation and 
+\begin_inset Formula $500$
+\end_inset
+
+ Sports, 
+\begin_inset Formula $500$
+\end_inset
+
+ Comedy articles.
+ Vocabulary, that is created from 
+\begin_inset Formula $1000$
+\end_inset
+
+ articles corpus consists of 
+\begin_inset Formula $20$
+\end_inset
+
+ thousand unique words.
+ We would like to mention that all algorithms are trained and tested with
+ respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ ensembles.
+ Moreover, the ratio of randomly chosen training data for ensembles (SMV,
+ Random Forest, Feed Forward NN ensembles) is set to 80%.
+ 
+\end_layout
+
+\begin_layout Subsection
+SVM Ensembles
+\end_layout
+
+\begin_layout Standard
+Results for SVM Ensembles shown in figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_SVM_passive_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SVM_passive_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ These are results both for TF-IDF and Fast Text encodings.
+ As seen on these plots ROC and AUC values of 
+\begin_inset Formula $10-$
+\end_inset
+
+fold cross validation are extremely high.
+ This means that our model works very good.
+ Another interesting point is that standard deviation with respect to all
+ runs is very low.
+ It means that SVM ensembles could linearly separate Sports and Comedy sets
+ with acceptable classification error.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Passive Learning/SVM_tfidf_ROC.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TF-IDF_SVM_passive_learning"
+
+\end_inset
+
+TF-IDF ROC and AUC for 10 SVM Ensembles trained and tested on Sports and
+ Comedy data where each ensemble is trained on 
+\begin_inset Formula $80\%$
+\end_inset
+
+ of randomly chosen training data 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Passive Learning/SVM_fast_text_ROC.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SVM_passive_learning"
+
+\end_inset
+
+Fast Text ROC and AUC for 10 SVM Ensembles trained and tested on Sports
+ and Comedy data where each ensemble is trained on 
+\begin_inset Formula $80\%$
+\end_inset
+
+ of randomly chosen training data 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+It is also seen that ROC and AUC metrics are almost same for TF-IDF and
+ Fast Text encodings.
+ However, there is one significant difference.
+ The difference is in computational time because Fast Text encoded text
+ document consists of 
+\begin_inset Formula $300$
+\end_inset
+
+ float components and TF-IDF encoded text document consists of 
+\begin_inset Formula $20$
+\end_inset
+
+ thousand float components.
+ Even though we are using algorithms for sparse matrix computation for TF-IDF
+ method, computations for Fast Text encoding are five times faster.
+ The higher amount of unique words is, the higher elapsed time per article
+ for TF-IDF based encoding algorithm will be.
+ Another good aspect is that because of algorithm's simplicity, SVM is trained
+ much faster than Neural Network based models.
+ 
+\end_layout
+
+\begin_layout Standard
+It is possible to conclude that the model shows good results for this classifica
+tion problem and can be used for active learning experiments.
+ 
+\end_layout
+
+\begin_layout Subsection
+Random Forest Ensembles
+\end_layout
+
+\begin_layout Standard
+Results for Random Forest Ensembles shown in figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_RF_passive_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_RF_passive_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ These are results both for TF-IDF and Fast Text encodings.
+ Same as in SVM section, ROC and AUC values of 
+\begin_inset Formula $10-$
+\end_inset
+
+fold cross validation for Random Forest are high as well.
+ This means that our model works very good.
+ Standard deviation with respect to all runs is also very low.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Passive Learning/RF_tfidf_ROC.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TF-IDF_RF_passive_learning"
+
+\end_inset
+
+TF-IDF ROC and AUC for 10 Random Forest Ensembles trained and tested on
+ Sports and Comedy data where each ensemble is trained on 
+\begin_inset Formula $80\%$
+\end_inset
+
+ of randomly chosen training data 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Passive Learning/RF_fast_text_ROC.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_RF_passive_learning"
+
+\end_inset
+
+Fast Text ROC and AUC for 10 Random Forest Ensembles Ensembles trained and
+ tested on Sports and Comedy data where each ensemble is trained on 
+\begin_inset Formula $80\%$
+\end_inset
+
+ of randomly chosen training data 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+If we compare results for TF-IDF and Fast Text encodings, it is seen that
+ Fast Text based model outperforms results with respect to TF-IDF encoding
+ model.
+ Mean AUC value for Fast Text article encoding model is higher by 
+\begin_inset Formula $5\%$
+\end_inset
+
+.
+ It is interesting that if we apply sparse matrix algorithms for TF-IDF
+ in Random Forest ensembles model, then computational speed for Fast Text
+ and TF-IDF text will approximately same.
+ This observation was made on the basis of processing 
+\begin_inset Formula $1000$
+\end_inset
+
+ articles from Comedy and Sports sets.
+ As mentioned in SVM section we can also say that Random Forest algorithm
+ is trained much faster than Neural Network based models.
+ 
+\end_layout
+
+\begin_layout Standard
+It is possible to conclude that the model shows good results for this classifica
+tion problem and can be used for active learning experiments.
+ 
+\end_layout
+
+\begin_layout Subsection
+Feed Forward Neural Network Ensembles
+\end_layout
+
+\begin_layout Standard
+In this work we have implemented thee algorithms based on neural networks
+ such as Neural Networks Ensemble, SGLD and DENFI algorithms.
+ The difference between these methods is in parameters sampling.
+ Neural Networks Ensemble takes a randomly selected subset from training
+ data for each ensemble.
+ Thus, we decided do not show SGLD and DENFI results in this section because
+ they use whole set of training data.
+ As a result if Neural Networks Ensemble shows good results, we assume that
+ SGLD and DENFI will also perform good passive learning results.
+\end_layout
+
+\begin_layout Standard
+Results for Neural Networks Ensembles shown in figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_NN_passive_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_NN_passive_learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ These are results both for TF-IDF and Fast Text encodings.
+ As seen in previous section, ROC and AUC values of 
+\begin_inset Formula $10-$
+\end_inset
+
+fold cross validation for Neural Networks are also high.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Passive Learning/NN_tfidf_ROC.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TF-IDF_NN_passive_learning"
+
+\end_inset
+
+TF-IDF ROC and AUC for 10 Neural Networks Ensembles trained and tested on
+ Sports and Comedy data where each ensemble is trained on 
+\begin_inset Formula $80\%$
+\end_inset
+
+ of randomly chosen training data 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Passive Learning/NN_fast_text_ROC.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_NN_passive_learning"
+
+\end_inset
+
+Fast Text ROC and AUC for 10 Neural Networks Ensembles trained and tested
+ on Sports and Comedy data where each ensemble is trained on 
+\begin_inset Formula $80\%$
+\end_inset
+
+ of randomly chosen training data 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Comparing the results between TF-IDF and Fast Text encoding based models
+ we can observe that Fast Text based model gives slightly better results.
+ We have already discussed fastness of algorithm training with respect to
+ different embedding models in Random Forest section.
+ In case of Neural Networks, this difference is even more significant.
+ Model that is based on Fast Text word embeddings takes 
+\begin_inset Formula $20$
+\end_inset
+
+ times less time than TF-IDF encoding based model.
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+All of tested models gave really good results in classification of Sports
+ and Comedy categories.
+ It means that we are able to continue working with these algorithms in
+ active learning section.
+ We would like to highlight that Fast Text encoding based algorithms showed
+ a bit better results than TF-IDF.
+ Fast Text based algorithms also showed significant improvement in fastness
+ of algorithm trainings.
+\end_layout
+
+\begin_layout Chapter
+Active Learning Classification
+\end_layout
+
+\begin_layout Standard
+In Passive Learning section we showed that implemented algorithms are good
+ for solving text classification task.
+ Active learning section results is the main part of this theses.
+ Therefor, we tested all five algorithms on the data mentioned in the Data
+ section.
+ The results are shown and described in further subsections.
+ However, before starting with text classification results, we would like
+ to show how our models represent uncertainty.
+ As written in theoretical introduction to active learning, we use models'
+ uncertainty for active learning loop.
+ 
+\end_layout
+
+\begin_layout Section
+Active Learning Models' Uncertainty
+\end_layout
+
+\begin_layout Standard
+Due to the fact that text encoding features space dimensionality is extremely
+ high, we introduce a 
+\begin_inset Formula $2$
+\end_inset
+
+ dimensional toy problem for uncertainty visualization.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Toy_problem_dataset"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown a dataset that is used for toy problem classification.
+ We generated this dataset with adding gaussian noise in order to make the
+ task similar to real world problems.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/Toy_problem_dataset.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Toy_problem_dataset"
+
+\end_inset
+
+Toy problem dataset visualization
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We generated 
+\begin_inset Formula $1000$
+\end_inset
+
+ data points where 
+\begin_inset Formula $500$
+\end_inset
+
+ are assigned to Class 
+\begin_inset Formula $0$
+\end_inset
+
+ and another 
+\begin_inset Formula $500$
+\end_inset
+
+ points are assigned to Class 
+\begin_inset Formula $1$
+\end_inset
+
+.
+ We used 
+\begin_inset Formula $50\%$
+\end_inset
+
+ randomly chosen data samples as a training dataset.
+ Next step, was creating a two dimensional grid that will be used for model
+ predictions.
+ We assign data sample to Class 
+\begin_inset Formula $1$
+\end_inset
+
+ if prediction value is higher than 
+\begin_inset Formula $0.5$
+\end_inset
+
+.
+ If prediction value is lower than 
+\begin_inset Formula $0.5$
+\end_inset
+
+ than the value is assigned to Class 
+\begin_inset Formula $0$
+\end_inset
+
+.
+ We consider that model is uncertain about specific data sample if its predictio
+n values is close to 
+\begin_inset Formula $0.5$
+\end_inset
+
+.
+ As a result, sampling values from maximal uncertainty region will bring
+ maximum information about the dataset.
+ Models set up for Toy Problem is same as it is defined in Machine Learning
+ Component section.
+\end_layout
+
+\begin_layout Subsection
+SVM Ensembles
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:SVM_Ensembles_posterior_toy_problem"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is visualized uncertainty for SVM Ensembles model.
+ Uncertainty bounds are linear and quite narrow.
+ Linearity of uncertainty bounds is explained with the fact that we are
+ using SVMs with linear kernel.
+ Narrowness can be explained with richness of the training dataset and linear
+ limitations of SVM decision bound.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/SVM_toy_problem_uncertainty.png
+	scale 30
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:SVM_Ensembles_posterior_toy_problem"
+
+\end_inset
+
+SVM Ensembles posterior predictive mean probability of Class 
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Random Forest Ensembles
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:RF_Ensembles_posterior_toy_problem"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is visualized uncertainty for Random Forest Ensembles model.
+ In case of Random Forest Ensembles we can see that uncertainty bounds are
+ not linear and lay near the region where two classes are splitted.
+ We see that uncertainty region is becoming wider near the places where
+ datapoint of two different classes lay near each other.
+ This is a behavior that we wanted to observe.
+ 
+\end_layout
+
+\begin_layout Standard
+It is also seen that the curve is not smooth enough.
+ This is caused with Random Forest algorithm specification.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/RF_toy_problem_uncertainty.png
+	scale 30
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:RF_Ensembles_posterior_toy_problem"
+
+\end_inset
+
+Random Forest Ensembles posterior predictive mean probability of Class 
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Neural Network Ensembles
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:NN_Ensembles_posterior_toy_problem"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is visualized uncertainty for Neural Network Ensembles model.
+ In comparison to non-neural networks based methods that were shown above,
+ uncertainty bounds are quite smooth.
+ We can also observe that uncertainty bounds become wider when they go to
+ further from the data points.
+ This behavior can be explained with the fact that in these places algorithm
+ did not get any training data samples.
+ We could also see this behavior in SWM Ensembles but in this case, Neural
+ Network models represent the uncertainties much better.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/NN_toy_problem_uncertainty.png
+	scale 30
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:NN_Ensembles_posterior_toy_problem"
+
+\end_inset
+
+Neural Network Ensembles posterior predictive mean probability of Class
+ 
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+SGLD
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:SGLD_Ensembles_posterior_toy_problem"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is visualized uncertainty for SGLD model.
+ We see that SGLD algorithm has similar behavior to Neural Network Ensembles.
+ The difference is that all uncertainty bound curves has similar curvature.
+ This is happening due to the fact that SGLD finds loss function minimum
+ and than samples parameters' values in a neighborhood of the minimum.
+ As a result we expect decision bound for each parameters sample be similar
+ to each other.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/SGLD_toy_problem_uncertainty.png
+	scale 30
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:SGLD_Ensembles_posterior_toy_problem"
+
+\end_inset
+
+SGLD posterior predictive mean probability of Class 
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+DENFI
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:DENFI_Ensembles_posterior_toy_problem"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is visualized uncertainty for DENFI model.
+ We see that uncertainty bounds are very similar to Neural Network Ensembles
+ algorithms but still a bit different.
+ As told in Pseudocode 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+HERE! ADD PSEUDOCODE REF
+\end_layout
+
+\end_inset
+
+, algorithm founds different local minimums and then we add some gaussian
+ noise to parameters values.
+ In next learning iterations the algorithm continues training using the
+ weights from previous step.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/DENFI_toy_problem_uncertainty.png
+	scale 30
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:DENFI_Ensembles_posterior_toy_problem"
+
+\end_inset
+
+DENFI posterior predictive mean probability of Class 
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The last 
+\begin_inset Formula $100$
+\end_inset
+
+ loss function values with respect to each DENFI ensemble are shown in figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:DENFI_Ensembles_100_loss_values"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ It is seen that each ensemble found its own local minimum.
+ Additional gaussian noise adds more variability to the algorithm that makes
+ samples more diverse.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/Toy_problem/DENFI_toy_ensemble_losses.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:DENFI_Ensembles_100_loss_values"
+
+\end_inset
+
+The last 
+\begin_inset Formula $100$
+\end_inset
+
+ loss function values with respect to each DENFI ensemble
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+To conclude, we can say that the best variability representation was seen
+ in Neural Network models.
+ Of-course, we could test SVM algorithm with the usage of different kernels
+ but our prior interest was around Neural Networks.
+ We have showed that all models are able to represent variability and can
+ be used for further tests.
+\end_layout
+
+\begin_layout Section
+Active Learning Simulation Set Up
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Active_Learning_Simulation_set_up"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Simulation Loop
+\end_layout
+
+\begin_layout Standard
+The active learning simulation is done for comparing two strategies such
+ as random and 
+\begin_inset Quotes sld
+\end_inset
+
+smart
+\begin_inset Quotes srd
+\end_inset
+
+ selection of text documents.
+ We randomly choose initial training set that has 
+\begin_inset Formula $10$
+\end_inset
+
+ samples.
+ Described 
+\begin_inset Formula $10$
+\end_inset
+
+ random samples are chosen from 
+\begin_inset Formula $1000$
+\end_inset
+
+ text documents (
+\begin_inset Formula $500$
+\end_inset
+
+ text documents per category).
+ We define 
+\begin_inset Formula $1000$
+\end_inset
+
+ documents dataset as validation set.
+ 
+\end_layout
+
+\begin_layout Standard
+Next we start two runs.
+ One run is based on random selection of text documents and second run is
+ based on acquisition function selection of the documents.
+ Both runs start with same training dataset and then they chose additional
+ training documents basing on their strategies.
+ We consider continuous new data selection from validation set and imitating
+ annotators labeling process.
+ All in all we imitate text samples selection 200 times.
+ We select 
+\begin_inset Formula $10$
+\end_inset
+
+ random samples in the beginning, train our model, make a prediction on
+ the complement to the training dataset (
+\begin_inset Formula $990$
+\end_inset
+
+ text documents from validation set).
+ As a further step, we select 
+\begin_inset Formula $1$
+\end_inset
+
+ new sample from the set on which the prediction was done.
+ New text sample for labeling is chosen with respect to acquisition function
+ or random choice.
+ Before we extend our training dataset with new labeled sample we calculate
+ AUC metrics on the complement to the dataset (
+\begin_inset Formula $990$
+\end_inset
+
+ text documents).
+ This process is repeated 
+\begin_inset Formula $200$
+\end_inset
+
+ times.
+ Thus, by the end of the simulation, our training set will have 
+\begin_inset Formula $210$
+\end_inset
+
+ text documents and testing set (complement to a training set) will have
+ 
+\begin_inset Formula $790$
+\end_inset
+
+ data samples.
+ In order to make our results statistically valid, we repeat described simulatio
+n loop 
+\begin_inset Formula $10$
+\end_inset
+
+ times.
+\end_layout
+
+\begin_layout Subsection
+Alpha Greedy Strategy
+\end_layout
+
+\begin_layout Standard
+In this work we decided that we do not want to sample with respect to an
+ acquisition function from the beginning.
+ We decided that both active learning and random strategy are going to start
+ with random sampling.
+ The algorithms have a coefficient 
+\begin_inset Formula $\alpha\in[0,1)$
+\end_inset
+
+ that represents probability of data sampling with respect to acquisition
+ function.
+ In this work we define 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{equation}
+\alpha=\begin{cases}
+\frac{\exp(u-40)}{\exp(u-40)+1}, & u\in\{1,...,U\}\\
+0, & u=0,
+\end{cases}\label{eq:alpha_greedy_function}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $u=\{0,1,...,U\}$
+\end_inset
+
+ is set of question that results in number of text documents which will
+ be labeled by an annotator.
+ As mentioned in previous section, the number iterations (question 
+\begin_inset Formula $U$
+\end_inset
+
+) is set to 
+\begin_inset Formula $200$
+\end_inset
+
+.
+ From equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:alpha_greedy_function"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is seen that when we reach 
+\begin_inset Formula $40-$
+\end_inset
+
+th document, the probability of random sampling is 
+\begin_inset Formula $50\%$
+\end_inset
+
+.
+ This strategy showed really good results which will be shown in further
+ sections.
+\end_layout
+
+\begin_layout Section
+Active Learning on Texts with TF-IDF Encoding Based Models
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Active_Learning_on_TF-IDF_models"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We decided to show the results for TF-IDF encoding based model because described
+ text encoding provides high discriminability and relatively simple at the
+ same time.
+ However, as mentioned in passive learning section due to the high amount
+ of features, models that are using this type of encoding are harder to
+ train.
+ We were not able to train Neural Network Ensembles due to the high dimensional
+ feature space.
+ Thus, we decided to show the results only with respect to SVM and Random
+ Forest with respect to Sports and Comedy categories.
+ Therefore, there is no need to split further section to different datasets
+ because all the experiments based on TF-IDF encoding are assumed to be
+ done only for Sports and Comedy categories.
+\end_layout
+
+\begin_layout Subsection
+SVM Ensembles
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SVM Ensembles and TF-IDF
+ encoding.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/TF-IDF/TF-IDF_SVM_active_learning.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TF-IDF_SVM_ensembles"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SVM ensembles with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations and TF-IDF encoding
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As seen from figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the results for entropy are not better than for random selection.
+ This can be explained due to low variability of SVM ensembles.
+ For this case we can conclude that there are no significant difference
+ between entropy and random data selection strategy.
+ First and second strategy has almost same uncertainty bounds and converge
+ to the same AUC results.
+ 
+\end_layout
+
+\begin_layout Subsection
+Random Forest Ensembles
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_Random_Forest_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for Random Forest Ensembles
+ and TF-IDF encoding.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/TF-IDF/TF-IDF_Random_Forest_active_learning.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TF-IDF_Random_Forest_ensembles"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for Random Forest ensembles with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations and TF-IDF encoding
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In comparison to SVM Ensembles, active learning strategy for Random Forest
+ Ensembles show really poor results.
+ Random data selection overcomes entropy selection and it can be said that
+ active learning strategy is not working at all for this algorithm.
+ The reason of such behavior can be explained due to very little amount
+ of training data in the beginning.
+ This fact may make algorithm to start selecting the data which have high
+ entropy but are close to each other.
+ As a result, it will not lead to high performance results.
+ 
+\end_layout
+
+\begin_layout Subsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+Even though we were able to see extremely good results for TF-IDF encoding
+ in Passive Learning section, we saw that due to the features space high
+ dimensionality we are not able to train Neural Networks models and test
+ active learning there.
+ Moreover, SVM and Random Forest Ensembles' results were unsatisfying and
+ in comparison to random sampling, active learning strategy did not show
+ good results.
+\end_layout
+
+\begin_layout Section
+Active Learning on Texts with Fast Text Encoding Based Models
+\end_layout
+
+\begin_layout Standard
+In comparison to section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Active_Learning_on_TF-IDF_models"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, in this section we show results to all models because Fast Text encoding
+ maps texts to 
+\begin_inset Formula $300$
+\end_inset
+
+ dimensional feature space.
+ This is much lower than in case of TF-IDF encoding.
+ Thus, we were able to provide computations with respect to all models.
+\end_layout
+
+\begin_layout Subsection
+SVM Ensembles
+\end_layout
+
+\begin_layout Subsubsection
+Sports and Comedy Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SVM Ensembles and Fast
+ Text encoding.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SVM_active_learning.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SVM_ensembles"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SVM ensembles with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations and Fast Text encoding
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The behavior which we observe in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is similar to figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TF-IDF_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ We can see that active learning strategy is not working for case of Fast
+ Text encoding as well.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+We can conclude that even despite good performance in Passive Learning section
+ the active learning algorithm is not working as we expected.
+ Thus, we will not continue testing this algorithm on further datasets.
+ 
+\end_layout
+
+\begin_layout Subsection
+Random Forest Ensembles
+\end_layout
+
+\begin_layout Subsubsection
+Sports and Comedy Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_Random_Forest_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for Random Forest Ensembles
+ and Fast Text encoding.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_Random_Forest_active_learning.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_Random_Forest_ensembles"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for Random Forest ensembles with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations and Fast Text encoding
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As illustrated in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we can see the strategies results are similar to each other but and in
+ active learning case, entropy based sampling is overcoming random sampling
+ strategy.
+ We can also see that in active learning case, uncertainty bounds are much
+ more narrow.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+Even though we could observe that active learning strategy shows better
+ results than random sampling strategy, we do not continue with further
+ experiments because the results are not significant enough.
+\end_layout
+
+\begin_layout Subsection
+Neural Network Ensembles
+\end_layout
+
+\begin_layout Subsubsection
+Sports and Comedy Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_Feed_Forward_NN_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for Neural Networks Ensembles
+ and Fast Text encoding.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_Feed_Forward_NN_active_learning.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_Feed_Forward_NN_ensembles"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for Feed Forward Neural Network ensembles with respect
+ to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations and Fast Text encoding
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If we compare output metrics from figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_Feed_Forward_NN_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SVM_ensembles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we can see significant difference in the algorithms performance.
+ In comparison to previous methods, algorithm based ob neural networks shows
+ same results by 
+\begin_inset Formula $50-$
+\end_inset
+
+th iteration.
+ That means that the probability of using non-random acquisition function
+ equals to 
+\begin_inset Formula $50\%$
+\end_inset
+
+.
+ We are able to observe significant overcome of entropy based sampling than
+ random sampling strategy.
+ We can also see, that random sampling strategy is converging very slow
+ to the results of the active learning strategy.
+ Moreover, active learning uncertainty bounds are much more narrow than
+ the uncertainty bounds of the random sampling algorithm.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+One significant disadvantage of this method is that it is very slow and
+ hard to train.
+ Each time, we have to train 
+\begin_inset Formula $10$
+\end_inset
+
+ neural networks with cold start.
+ That means training neural networks with random weights initialization
+ and no prior information from the previous training.
+ Despite the fact that the result are really good, we decided not to continue
+ with the algorithm testing because it is very slow and computationally
+ costly.
+ In next sections we introduce results based on neural networks but different
+ way of uncertainty representation.
+\end_layout
+
+\begin_layout Subsection
+SGLD
+\end_layout
+
+\begin_layout Standard
+Stochastic Gradient Langevin Dynamics algorithm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "welling2011bayesian"
+literal "false"
+
+\end_inset
+
+ is one of two algorithms that are assumed as the best algorithms (in terms
+ of this project) with good ratio of training time consumption and performance.
+ As mentioned previously, gaussian noise is added to a gradient descent
+ while training.
+ Thus approach helps us to sample different parameters vectors around the
+ loss minimum by simply continuing training.
+ In comparison to Neural Networks Ensembles, we do not have to train neural
+ network ensembles separately, but train only one neural network with some
+ additional training epochs.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Sports and Comedy Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SGLD, Fast Text encoding
+ and Sport vs Comedy categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SGLD_NN_active_learning_Sports_Comedy.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SGLD_NN"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SGLD algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Sports vs Comedy categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can see that in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ both mean and uncertainty bound curves are not smooth enough in comparison
+ to Neural Network Ensembles.
+ This behavior can be explained with low number of samples from SGLD.
+ However, we are able to observe same analogy as with Neural Network Ensembles.
+ The active learning strategy overcomes random sampling and has more narrow
+ uncertainty bounds.
+ Moreover, SGLD was trained almost three times faster than Neural Network
+ Ensembles algorithm.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Crime and Good News Categories
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:SGLD_Crime_and_Good_news_categories"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Crime_Good_news"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SGLD, Fast Text encoding
+ and Crime vs Good News categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SGLD_NN_active_learning_Crime_Good_news.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SGLD_NN_Crime_Good_news"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SGLD algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Crime vs Good News categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We expect Crime and Good News categories have small intersection.
+ As seen from 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Crime_Good_news"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ it is really true because first iteration of the simulation starts at around
+ 
+\begin_inset Formula $85\%-90\%$
+\end_inset
+
+ AUC.
+ This means that basing on only 
+\begin_inset Formula $10$
+\end_inset
+
+ training data samples algorithm could reach high performance results.
+ The evolution of two strategies is quite same as in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ We would like to pay attention to the place where the upper uncertainty
+ bound reaches the value that is greater than one.
+ It not possible for AUC to be greater than one because 
+\begin_inset Formula $\mathrm{AUC}\in[0,1]$
+\end_inset
+
+.
+ However, as mentioned previously, we construct uncertainty bounds as a
+ standard deviation from mean value.
+ In this case it is possible that upper uncertainty bound will be greater
+ than one.
+ Thus, while interpreting the results, reader has to remember that AUC metric
+ cannot be greater than one.
+\end_layout
+
+\begin_layout Subsubsection
+Politics and Business Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Politics_Business"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SGLD, Fast Text encoding
+ and Politics vs Business categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SGLD_NN_active_learning_Politics_Business.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SGLD_NN_Politics_Business"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SGLD algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Politics vs Business
+ categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+These two categories have bigger intersection what means that it is harder
+ classification task.
+ The results show again that active learning strategy easily overcomes random
+ sampling strategy.
+ Even though, the topics are harder to distinguish, active learning strategy
+ finds the patterns in the data and show much better results with more narrow
+ uncertainty bounds.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Tech and Science Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Tech_Science"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SGLD, Fast Text encoding
+ and Tech vs Science categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SGLD_NN_active_learning_Science_Tech.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SGLD_NN_Tech_Science"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SGLD algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Tech vs Science categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We observe again that active learning strategy is better even though the
+ categories are quite similar.
+ As seen from the plot uncertainty upper bound reaches the values which
+ is greater than one.
+ This is exactly the case which was already covered in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:SGLD_Crime_and_Good_news_categories"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+College and Education Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_College_Education"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SGLD, Fast Text encoding
+ and College vs Education categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SGLD_NN_active_learning_College_Education.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SGLD_NN_College_Education"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SGLD algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and College vs Education
+ categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The collected results based on College and Education category do not differ
+ to the results from previous parts of SGLD algorithm.
+ We can still see that active learning strategy outperforms random sampling
+ even despite the fact that these categories are very similar.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Positive and Negative Tweets Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Tweets"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for SGLD, Fast Text encoding
+ and Positive vs Negative tweets categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_SGLD_NN_active_learning_Tweets_categories.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_SGLD_NN_Tweets"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for SGLD algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Positive vs Negative
+ tweets categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In previous sections we tested SGLD algorithm on the data from HuffPost
+ dataset.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Tweets"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ are illustrated results with respect to tweets dataset.
+ Due to the fact that tweets are really short, it is quite hard to find
+ the patterns that can be used for high performance categories separation.
+ Thus, we can see that our classification results (AUC) is not that high
+ in comparison to previous results.
+ Moreover, we observed that for this dataset there is not difference between
+ active learning and random sampling strategy.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+To sum up, we can say that SGLD algorithm showed really impressive results
+ and proved that the active learning strategy outperforms random sampling.
+ However, there are several disadvantages.
+ First disadvantage is that the resulted curves were not smooth.
+ We think that this problem can be eliminated by sampling more parameters
+ vectors while training the model.
+ Another problem is that the algorithm do not show better active learning
+ results when it is tested on the short and quite general text data.
+ We believe that this problem can be solved with different encoding approach.
+\end_layout
+
+\begin_layout Subsection
+DENFI
+\end_layout
+
+\begin_layout Standard
+DENFI algorithm is second algorithm which is not partitioning training dataset.
+ In addition to this we use a modification of DENFI algorithm.
+ Huge advantage of this algorithm is that it uses prior information from
+ previous training round.
+ In the first round of training, DENFI algorithms follows almost same strategy
+ as Neural Network Ensembles method.
+ It trains 
+\begin_inset Formula $10$
+\end_inset
+
+ ensembles with respect to all training data.
+ The variability in ensembles is reached with different weights initialization.
+ After the training is finished, we add some gaussian noise in order to
+ increase the variability.
+ When we add some training samples, we continue training, using the weights
+ from the previous iteration with addition of gaussian noise in the end.
+ Moreover we are using lower number of epochs.
+ This kind of 
+\begin_inset Quotes sld
+\end_inset
+
+hot start
+\begin_inset Quotes srd
+\end_inset
+
+ approach gives perfect variability that is shown in quality of results
+ in further section.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Sports and Comedy Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_SPORTS_COMEDY"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for DENFI, Fast Text encoding
+ and Sport vs Comedy categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_DENFI_NN_active_learning_Sports_Comedy.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_DENFI_NN_SPORTS_COMEDY"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for DENFI algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Sports vs Comedy categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The active learning result, displayed in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_SPORTS_COMEDY"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ outperform all the algorithms that were tested before.
+ We observe that the uncertainty bounds are extremely narrow.
+ In addition to this we see that active learning strategy has much higher
+ AUC metrics and the curves are quite smooth.
+ Moreover, due to hot start training, the time needed to fit the algorithm
+ is much lower in comparison to Neural Network Ensembles.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Crime and Good News Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_Crime_Good_news"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for DENFI, Fast Text encoding
+ and Crime vs Good News categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_DENFI_NN_active_learning_Crime_Good_news.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_DENFI_NN_Crime_Good_news"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for DENFI algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Crime vs Good News categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have already talked in SGLD section that Crime and Good news categories
+ can be well separated from each other.
+ In this case we see same behavior for active learning strategy as in previous
+ section.
+ The uncertainty bounds are narrow and the AUC scores are very high in compariso
+n to the random sampling strategy.
+\end_layout
+
+\begin_layout Subsubsection
+Politics and Business Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_Politics_Business"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for DENFI, Fast Text encoding
+ and Politics vs Business categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_DENFI_NN_active_learning_Politics_Business.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_DENFI_NN_Politics_Business"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for DENFI algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Politics vs Business
+ categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The behavior, observed in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_Politics_Business"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, is same as in previous DENFI results.
+ Moreover, we see good active learning performance, even though it is not
+ easy to separate these categories.
+ If we compare results in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_Politics_Business"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to SGLD results in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Politics_Business"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we can see DENFI is better not only because its less corrupted with noise
+ but also in higher AUC scores.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Tech and Science Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_Tech_Science"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for DENFI, Fast Text encoding
+ and Tech vs Science categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_DENFI_NN_active_learning_Science_Tech.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_DENFI_NN_Tech_Science"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for DENFI algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Tech vs Science categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The active learning strategy results for DENFI algorithm are much better
+ in comparison to SGLD method that are shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_SGLD_NN_Tech_Science"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ We see that for active learning strategy case DENFI easily found the patterns
+ which helped it to learn faster and show better scores with more narrow
+ uncertainty bounds.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+College and Education Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_College_Education"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for DENFI, Fast Text encoding
+ and College vs Education categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_DENFI_NN_active_learning_College_Education.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_DENFI_NN_College_Education"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for DENFI algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and College vs Education
+ categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Last but not least results for College and Education also proof that DENFI
+ active learning strategy is not too much dependent on how big intersection
+ is between the categories.
+ The uncertainty bounds for active learning are still narrow and the AUC
+ score is much higher than for random sampling case.
+\end_layout
+
+\begin_layout Subsubsection
+Positive and Negative Tweets Categories
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Fast_Text_DENFI_NN_Tweets"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown active learning simulation results for DENFI, Fast Text encoding
+ and Positive vs Negative tweets categories.
+ Active learning strategy is based on entropy acquisition function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Images/Active Learning/FastText/Fast_Text_DENFI_NN_active_learning_Tweets_categories.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Fast_Text_DENFI_NN_Tweets"
+
+\end_inset
+
+Comparison of random and active learning text data selection mean and one
+ standard deviation for DENFI algorithm with respect to 
+\begin_inset Formula $10$
+\end_inset
+
+ samples as initial training configuration, 
+\begin_inset Formula $200$
+\end_inset
+
+ data selection iterations, Fast Text encoding and Positive vs Negative
+ tweets categories
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In comparison to SGLD, DENFI algorithm show better active learning performance
+ for tweets dataset.
+ DENFI active learning strategy is also working on tweets whereas SGLD active
+ learning strategy was not able to overcome the random sampling.
+ We can also see that DENFI AUC scores for active learning are higher with
+ more narrow uncertainty bounds than for SGLD.
+\end_layout
+
+\begin_layout Subsubsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+To conclude we can say that DENFI showed brilliant results for all problems
+ which it was tested on.
+ In all cases active learning strategy outperformed random sapling.
+ The algorithm was tested both on the data that are easy to separate and
+ hard to separate.
+ In addition to this, the AUC scores for all active learning results were
+ higher than for different algorithm.
+ That makes DENFI algorithm the best one with the highest performance and
+ the lowest uncertainty, which was tested in term of this project.
+\end_layout
+
+\begin_layout Chapter*
+Conclusion
+\end_layout
+
+\begin_layout Standard
+This project shows how active learning strategy of querying unlabeled text
+ documents for further labeling and training can beat random selection strategy.
+ We have provided not only high level theoretical description of the problem
+ but also testing results that cover different scenarios and text document
+ categories.
+ Github link for Python implementation is also available in this project.
+ 
+\end_layout
+
+\begin_layout Standard
+Basing on results, that were gathered from testing on 12 different categories,
+ we were able to see that modification of DENFI algorithm shows great performanc
+e and overcomes other algorithms in all aspect.
+ DENFI outperforms all other models both in higher AUC scores and more narrow
+ uncertainty bounds.
+ Another huge advantage that DENFI was the fastest neural network model,
+ that was implemented and tested in this theses.
+\end_layout
+
+\begin_layout Standard
+We see plenty of further opportunities how it is possible to improve the
+ algorithm, starting from better text representation and ending using other
+ DENFI modifications.
+ To conclude, we would like to say, that the ensembles showed their power
+ of solving active learning problem and in our opinion it is good field
+ for continuing the research.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle{plain}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline{toc}{chapter}{Conclusion}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Text of the conclusion\SpecialChar ldots
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "bib"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

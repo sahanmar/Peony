@@ -1,0 +1,342 @@
+%% LyX 2.1.4 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[11pt,oneside,czech,american]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\geometry{verbose,tmargin=4cm,bmargin=3cm,lmargin=3cm,rmargin=2cm,headheight=0.8cm,headsep=1cm,footskip=0.5cm}
+\pagestyle{headings}
+\setcounter{secnumdepth}{3}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{setspace}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\newenvironment{lyxlist}[1]
+{\begin{list}{}
+{\settowidth{\labelwidth}{#1}
+ \setlength{\leftmargin}{\labelwidth}
+ \addtolength{\leftmargin}{\labelsep}
+ \renewcommand{\makelabel}[1]{##1\hfil}}}
+{\end{list}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+%% Font setup: please leave the LyX font settings all set to 'default'
+%% if you want to use any of these packages:
+
+%% Use Times New Roman font for text and Belleek font for math
+%% Please make sure that the 'esint' package is turned off in the
+%% 'Math options' page.
+\usepackage[varg]{txfonts}
+
+%% Use Utopia text with Fourier-GUTenberg math
+%\usepackage{fourier}
+
+%% Bitstream Charter text with Math Design math
+%\usepackage[charter]{mathdesign}
+
+%%---------------------------------------------------------------------
+
+%% Make the multiline figure/table captions indent so that the second
+%% line "hangs" right below the first one.
+%\usepackage[format=hang]{caption}
+
+%% Indent even the first paragraph in each section
+\usepackage{indentfirst}
+
+%%---------------------------------------------------------------------
+
+%% Disable page numbers in the TOC. LOF, LOT (TOC automatically
+%% adds \thispagestyle{chapter} if not overriden
+%\addtocontents{toc}{\protect\thispagestyle{empty}}
+%\addtocontents{lof}{\protect\thispagestyle{empty}}
+%\addtocontents{lot}{\protect\thispagestyle{empty}}
+
+%% Shifts the top line of the TOC (not the title) 1cm upwards 
+%% so that the whole TOC fits on 1 page. Additional page size
+%% adjustment is performed at the point where the TOC
+%% is inserted.
+%\addtocontents{toc}{\protect\vspace{-1cm}}
+
+%%---------------------------------------------------------------------
+
+% completely avoid orphans (first lines of a new paragraph on the bottom of a page)
+\clubpenalty=9500
+
+% completely avoid widows (last lines of paragraph on a new page)
+\widowpenalty=9500
+
+% disable hyphenation of acronyms
+\hyphenation{CDFA HARDI HiPPIES IKEM InterTrack MEGIDDO MIMD MPFA DICOM ASCLEPIOS MedInria}
+
+%%---------------------------------------------------------------------
+
+%% Print out all vectors in bold type instead of printing an arrow above them
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+% Replace standard \cite by the parenthetical variant \citep
+%\renewcommand{\cite}{\citep}
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+\def\documentdate{July 8, 2019}
+
+%%\def\documentdate{\today}
+
+\pagestyle{empty}
+{\centering
+
+\noindent %
+\begin{minipage}[c]{3cm}%
+\noindent \begin{center}
+\includegraphics[width=3cm,height=3cm,keepaspectratio]{Images/TITLE/cvut}
+\par\end{center}%
+\end{minipage}%
+\begin{minipage}[c]{0.6\linewidth}%
+\begin{center}
+\textsc{\large{}Czech Technical University in Prague}{\large{}}\\
+{\large{}Faculty of Nuclear Sciences and Physical Engineering}
+\par\end{center}%
+\end{minipage}%
+\begin{minipage}[c]{3cm}%
+\noindent \begin{center}
+\includegraphics[width=3cm,height=3cm,keepaspectratio]{Images/TITLE/fjfi}
+\par\end{center}%
+\end{minipage}
+
+\vspace{3cm}
+
+
+\textbf{\huge{}Title of the Work in English Title of the Work in English
+Title of the Work in English}{\huge \par}
+
+\vspace{1cm}
+
+
+\selectlanguage{czech}%
+\textbf{\huge{}Název práce česky název práce česky název práce česky
+název práce česky}{\huge \par}
+
+\selectlanguage{american}%
+\vspace{2cm}
+
+
+{\large{}Bachelor's Degree Project}{\large \par}
+
+}
+
+\vfill{}
+
+\begin{lyxlist}{MMMMMMMMM}
+\begin{singlespace}
+\item [{Author:}] \textbf{Jméno Autora}
+\item [{Supervisor:}] \textbf{prof. Ing. Jméno Školitele, DrSc.}
+\item [{Consultant:}] \textbf{doc. RNDr. Jméno Konzultanta, CSc. }(pouze
+pokud konzultant byl jmenován.)\end{singlespace}
+
+\item [{Language~advisor:}] \textbf{Mgr. Jméno Učitelky Angličtiny}
+\begin{singlespace}
+\item [{Academic~year:}] 2018/2019\end{singlespace}
+
+\end{lyxlist}
+\newpage{}
+
+~
+
+\vfill{}
+
+
+\begin{center}
+- Zadání práce -
+\par\end{center}
+
+\vfill{}
+
+
+~\newpage{}
+
+~
+
+\vfill{}
+
+
+\begin{center}
+- Zadání práce (zadní strana) -
+\par\end{center}
+
+\vfill{}
+
+
+~\newpage{}
+
+\noindent \emph{\Large{}Acknowledgment:}{\Large \par}
+
+\noindent I would like to thank ............................................
+for (his/her expert guidance) and express my gratitude to ..........................................
+for (his/her language assistance).
+
+\vfill
+
+\noindent \emph{\Large{}Author's declaration:}{\Large \par}
+
+\noindent I declare that this Bachelor's Degree Project is entirely
+my own work and I have listed all the used sources in the bibliography.
+
+\bigskip{}
+
+
+\noindent Prague, \documentdate\hfill{}Jméno Autora
+
+\vspace{2cm}
+
+
+\newpage{}
+
+\selectlanguage{czech}%
+\begin{onehalfspace}
+\noindent \emph{Název práce:}
+
+\noindent \textbf{Název práce}
+\end{onehalfspace}
+
+\bigskip{}
+
+
+\noindent \emph{Autor:} Jméno Autora
+
+\bigskip{}
+
+
+\noindent \emph{Obor:} Celý název oboru (nikoliv zkratka)\bigskip{}
+
+
+\noindent \emph{Zaměření:} Celý název zaměření (Pokud obor neobsahuje
+zaměření, tuto řádku odstranit.)
+
+\bigskip{}
+
+
+\noindent \emph{Druh práce:} Bakalářská práce
+
+\bigskip{}
+
+
+\noindent \emph{Vedoucí práce:} prof. Ing. Jméno Školitele, DrSc.,
+pracoviště školitele (název instituce, fakulty, katedry...)
+
+\bigskip{}
+
+
+\noindent \emph{Konzultant:} doc. RNDr. Jméno Konzultanta, CSc., pracoviště
+konzultanta. Pouze pokud konzultant byl jmenován.
+
+\bigskip{}
+
+
+\noindent \emph{Abstrakt:} Abstrakt max. na 10 řádků. Abstrakt max.
+na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků.
+Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max.
+na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků.
+Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max.
+na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků.
+Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max.
+na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků.
+Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max.
+na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků.
+Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max.
+na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. 
+
+\bigskip{}
+
+
+\noindent \emph{Klíčová slova:} klíčová slova (nebo výrazy) seřazená
+podle abecedy a oddělená čárkou
+
+\selectlanguage{american}%
+\vfill{}
+~
+
+\begin{onehalfspace}
+\noindent \emph{Title:}
+
+\noindent \textbf{Title of the Work}
+\end{onehalfspace}
+
+\bigskip{}
+
+
+\noindent \emph{Author:} Author's Name
+
+\bigskip{}
+
+
+\noindent \emph{Abstract:} Max. 10 lines of English abstract text.
+Max. 10 lines of English abstract text. Max. 10 lines of English abstract
+text. Max. 10 lines of English abstract text. Max. 10 lines of English
+abstract text. Max. 10 lines of English abstract text. Max. 10 lines
+of English abstract text. Max. 10 lines of English abstract text.
+Max. 10 lines of English abstract text. Max. 10 lines of English abstract
+text. Max. 10 lines of English abstract text. Max. 10 lines of English
+abstract text. Max. 10 lines of English abstract text. Max. 10 lines
+of English abstract text. Max. 10 lines of English abstract text.
+Max. 10 lines of English abstract text. Max. 10 lines of English abstract
+text. Max. 10 lines of English abstract text. Max. 10 lines of English
+abstract text. Max. 10 lines of English abstract text. Max. 10 lines
+of English abstract text. Max. 10 lines of English abstract text.
+Max. 10 lines of English abstract text. Max. 10 lines of English abstract
+text. Max. 10 lines of English abstract text.
+
+\bigskip{}
+
+
+\noindent \emph{Key words:} keywords in alphabetical order separated
+by commas
+
+\newpage{}
+
+\pagestyle{plain}
+
+\tableofcontents{}
+
+\newpage{}
+
+
+\chapter*{Introduction}
+
+\addcontentsline{toc}{chapter}{Introduction}
+
+Paragraphs of the Introduction\ldots{}
+
+
+\chapter{Title of the First Chapter}
+
+\pagestyle{headings}
+
+
+\chapter*{Conclusion}
+
+\pagestyle{plain}
+
+\addcontentsline{toc}{chapter}{Conclusion}
+
+Text of the conclusion\ldots{}
+\begin{thebibliography}{1}
+\bibitem{Allen-Cahn}S. Allen, J. W. Cahn: \emph{A microscopic theory
+for antiphase boundary motion and its application to antiphase domain
+coarsening}. Acta Metall., 27:1084-1095, 1979.
+
+\bibitem{CINECA}G. Ballabio et al.: \emph{High Performance Systems
+User Guide}. High Performance Systems Department, CINECA, Bologna,
+2005. \url{www.cineca.it}
+
+\bibitem{rumpf3}J. Becker, T. Preusser, M. Rumpf: \emph{PDE methods
+in flow simulation post processing}. Computing and Visualization in
+Science, 3(3):159-167, 2000.\end{thebibliography}
+
+\end{document}
