@@ -936,6 +936,125 @@ We believe that active learning approach is able to significantly reduce
  
 \end_layout
 
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Articles
+\end_layout
+
+\begin_layout Plain Layout
+Ensembles
+\end_layout
+
+\begin_layout Plain Layout
+1.
+ Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles
+ (Balaji Lakshminarayanan Alexander Pritzel Charles Blundell) - Nice approach
+ of adversarial component in training ensembles.
+ They showed how their approach of ensembles outperforms dropout technique.
+ The results were shown on images MNIST, SVHN and ImageNet and toy problems.
+\end_layout
+
+\begin_layout Plain Layout
+2.
+ Can You Trust Your Model’s Uncertainty? Evaluating Predictive Uncertainty
+ Under Dataset Shift (Yaniv Ovadia Balaji Lakshminarayanan Sebastian Nowozin)
+ - Different methods for uncertainty representation are compared between
+ each other.
+ All these methods were testes on text data and image processing data.
+ It turned out that ensembles showed the best performace with repect to
+ all other methods.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Active Learning
+\end_layout
+
+\begin_layout Plain Layout
+1.
+ Active Anomaly Detection via Ensembles (Shubhomoy Das, Md Rakibul Islam,
+ Nitthilan Kannappan Jayakodi, Janardhan Rao Doppa) - Anomaly detection
+ use case.
+ They showed how it is possible to apply the weights for each ensemble where
+ the weights are based on a feedback from an annotator.
+ Nice approach of active learning on rescaling weights of each ensemble.
+\end_layout
+
+\begin_layout Plain Layout
+2.
+ Deep Bayesian Active Learning with Image Data (Yarin Gal, Riashat Islam,
+ Zoubin Ghahramani ) - Active learning classification on images with respect
+ to different acquisition functions.
+ Good examples of which acquisition function can be used.
+\end_layout
+
+\begin_layout Plain Layout
+Active Learning with texts
+\end_layout
+
+\begin_layout Plain Layout
+1.
+ Semi-Supervised Bayesian Active Learning for Text Classification (Sophie
+ Burkhardt, Julia Siekiera, Stefan Kramer) - They are doing exactly the
+ same thing that I do but with the usage of drop out based approach and
+ ayes-by-Backprop (BBB) algorithm.
+ The results are not cool at all.
+ Mine are better
+\end_layout
+
+\begin_layout Plain Layout
+2.
+ Practical Obstacles to Deploying Active Learning (David Lowell, Zachary
+ C.
+ Lipton, Byron C.
+ Wallace) - Nice try with active learning.
+ Very poor results.
+ They used LSTM, SVM and CNN for active learning.
+ They also used dropout in their work.
+\end_layout
+
+\begin_layout Plain Layout
+3.
+ Deep active learning for named entity recognition (Yanyao Shen, Hyokun
+ Yun, Zachary C.
+ Lipton, Yakov Kronrod, Animashree Anandkumar) - Dropout based active learning.
+ They are also trying to reduce amount of the training data for NER models.
+ They also consider sampling according to the measure of uncertainty proposed
+ by Gal et al.
+ (2017).
+\end_layout
+
+\begin_layout Plain Layout
+4.
+ Support Vector Machine Active Learning with Applications to Text Classification
+ (Simon Tong, Daphne Koller) - The approach of active learning method for
+ text classification that comes from 2001.
+ They go through three techniques that show different queuing strategy.
+ The results are better than in case of random sampling.
+ However, no uncertainty was measured there.
+ (Non bayesian way of querying).
+\end_layout
+
+\begin_layout Plain Layout
+Techniques 
+\end_layout
+
+\begin_layout Plain Layout
+1.
+ Shannon, Claude Elwood.
+ A mathematical theory of com- munication.
+ Bell System Technical Journal, 27(3):379– 423, 1948.
+ - Citation to entropy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Chapter
 Introduction to Decision Theory
 \begin_inset CommandInset label
