@@ -877,6 +877,268 @@ LatexCommand tableofcontents
 
 \end_layout
 
+\begin_layout Section*
+Notation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="11" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Symbol
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Definition
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+supervised learning
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{x}\in\mathcal{X}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+vector of instance
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{y}\in\mathcal{Y}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+label corresponding to 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{X}=\{\mathbf{x}_{1},\ldots\mathbf{x}_{n}\}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+set of all available data
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\tilde{\mathbf{X}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+training data
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+decision theory
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+action
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $L$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+loss function
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $p(\theta)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+probability density function of variable 
+\begin_inset Formula $\theta$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Chapter*
 Introduction
 \end_layout
@@ -938,7 +1200,7 @@ We believe that active learning approach is able to significantly reduce
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Articles
@@ -1093,71 +1355,6 @@ Easily speaking, decision can be defined as a set of actions.
 Considering binary classification problem.
  We are seeking to find such set of actions that will assign each input
  value to its class.
- 
-\end_layout
-
-\begin_layout Standard
-We would like to commence our formal definition with the data.
- Let 
-\begin_inset Formula $\mathbf{x}\in{\cal X}\subset\mathbb{R}^{n}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{y\in}{\cal Y}=\{(0,1)^{T},(1,0)^{T}\}$
-\end_inset
-
-, where 
-\begin_inset Formula $\mathbf{x}$
-\end_inset
-
- are feature vectors of size 
-\begin_inset Formula $n$
-\end_inset
-
- and 
-\begin_inset Formula ${\bf y}$
-\end_inset
-
- are its labels assigned to the data from space 
-\begin_inset Formula ${\cal X}$
-\end_inset
-
-.
- Each value from space 
-\begin_inset Formula ${\cal Y}$
-\end_inset
-
- can be represented as a one hot representation that consist from ones and
- zeros 
-\begin_inset Formula $\mathbf{y}\in\{(0,1)^{T},(1,0)^{T}\}$
-\end_inset
-
-.
- Therefore, first class is represented as 
-\begin_inset Formula $\mathbf{y}=(1,0)^{T}$
-\end_inset
-
- and second class is represented as 
-\begin_inset Formula $\mathbf{y}=(0,1)^{T}$
-\end_inset
-
-.
- As a good example of previous definition, 
-\begin_inset Formula $\mathbf{x}$
-\end_inset
-
- can be a text document (represented in a mathematical form in order to
- meet a definition above) and 
-\begin_inset Formula $\mathbf{y}$
-\end_inset
-
- can be its label that will show if the document is relevant or not.
- As seen from an example, label and text are forming a tuple.
- In this work we are also considering our data as tuples of variables 
-\begin_inset Formula $(\mathbf{x},\mathbf{y})\in{\cal X\times Y}$
-\end_inset
-
-.
  
 \end_layout
 
@@ -1343,6 +1540,99 @@ a^{*}=\argmin_{a\in{\cal A}}\mathbb{E}_{\pi^{*}}[L(\theta,a)].\label{eq:optimal_
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Section
+Decision Theory for Supervised Learning
+\end_layout
+
+\begin_layout Standard
+Supervised learning requires validation set of the data.
+ Validation set is splitted on training and testing sets.
+ Thus, we have to extend data definition.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+VS: describe in detail, cite [vapnik] Vapnik, V.
+ (2013).
+ The nature of statistical learning theory.
+ Springer science & business media.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We would like to commence our formal definition with the data.
+ Let 
+\begin_inset Formula $\mathbf{x}\in{\cal X}\subset\mathbb{R}^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y\in}{\cal Y}=\{(0,1)^{T},(1,0)^{T}\}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ are feature vectors of size 
+\begin_inset Formula $n$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf y}$
+\end_inset
+
+ are its labels assigned to the data from space 
+\begin_inset Formula ${\cal X}$
+\end_inset
+
+.
+ Each value from space 
+\begin_inset Formula ${\cal Y}$
+\end_inset
+
+ can be represented as a one hot representation that consist from ones and
+ zeros 
+\begin_inset Formula $\mathbf{y}\in\{(0,1)^{T},(1,0)^{T}\}$
+\end_inset
+
+.
+ Therefore, first class is represented as 
+\begin_inset Formula $\mathbf{y}=(1,0)^{T}$
+\end_inset
+
+ and second class is represented as 
+\begin_inset Formula $\mathbf{y}=(0,1)^{T}$
+\end_inset
+
+.
+ As a good example of previous definition, 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ can be a text document (represented in a mathematical form in order to
+ meet a definition above) and 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ can be its label that will show if the document is relevant or not.
+ As seen from an example, label and text are forming a tuple.
+ In this work we are also considering our data as tuples of variables 
+\begin_inset Formula $(\mathbf{x},\mathbf{y})\in{\cal X\times Y}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
 However, how can we connect optimal action 
 \begin_inset Formula $a^{*}$
 \end_inset
@@ -1424,16 +1714,6 @@ noprefix "false"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Section
-Decision Theory for Supervised Learning
-\end_layout
-
-\begin_layout Standard
-Supervised learning requires validation set of the data.
- Validation set is splitted on training and testing sets.
- Thus, we have to extend data definition.
 \end_layout
 
 \begin_layout Standard
@@ -1629,7 +1909,7 @@ below
  can be estimated as 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{x},\mathbf{y})=\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})\label{eq:approx_of_joint_dist}
+\pi^{*}=p(\mathbf{x},\mathbf{y})=\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})\label{eq:approx_of_joint_dist}
 \end{equation}
 
 \end_inset
@@ -1773,8 +2053,8 @@ reference "eq:second_layer_neron"
 
  is an activation function.
  Activation function is defined as a non-decreasing, continuous function.
- The most usable activation functions are sigmoid, relu, elu, and hyperbolic
- tangence functions 
+ The most commonly used activation functions are sigmoid, relu, elu, and
+ hyperbolic tangence functions 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bishop2006machine"
@@ -1790,13 +2070,26 @@ literal "false"
 Output values are computed with
 \begin_inset Formula 
 \begin{equation}
-\hat{\mathbf{y}}=\mathbf{W}_{K}^{T}f\big(\mathbf{a}_{K-1}\big)+\mathbf{b}_{K}.\label{eq:Output_layer}
+\hat{\mathbf{y}}=f_{sm}\left(\mathbf{W}_{K}^{T}f\big(\mathbf{a}_{K-1}\big)+\mathbf{b}_{K}\right).\label{eq:Output_layer}
 \end{equation}
 
 \end_inset
 
-In most cases sigmoid and softmax functions for output layer are used.
- Softmax function is used for classification problems.
+where 
+\begin_inset Formula $f_{sm}$
+\end_inset
+
+ is the softmax function 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+VS: vzorec
+\end_layout
+
+\end_inset
+
+ that is typically used for classification problems.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1829,7 +2122,7 @@ noprefix "false"
 \end_inset
 
  is the input data, 
-\begin_inset Formula $\Omega=\{\mathbf{W}_{1},...\mathbf{W}_{K},\mathbf{b}_{1}...,\mathbf{b}_{K}\}$
+\begin_inset Formula $\Omega=(\mathbf{W}_{1},...\mathbf{W}_{K},\mathbf{b}_{1}...,\mathbf{b}_{K})$
 \end_inset
 
  is a set of all neural network function parameters and biases.
@@ -1871,19 +2164,25 @@ L(\mathbf{x},\mathbf{y},\Omega)=-y_{1}\ln\big(\hat{y}_{1}(\mathbf{x},\Omega)\big
 \end_inset
 
 where 
-\series bold
-
-\begin_inset Formula $\mathbf{y}=(y_{1},y_{2})^{T}$
+\begin_inset Formula $\mathbf{y}=[y_{1},y_{2}]^{T}$
 \end_inset
 
- and 
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+VS: vectors are in []
+\end_layout
+
+\end_inset
+
+and 
 \begin_inset Formula $\hat{\mathbf{y}}=(\hat{y}_{1},\hat{y}_{2})^{T}$
 \end_inset
 
 .
- 
-\series default
-We consider 
+ We consider 
 \begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
 
@@ -1937,8 +2236,6 @@ noprefix "false"
 \end_inset
 
 where 
-\series bold
-
 \begin_inset Formula $\mathbf{y}=(y_{1},y_{2})^{T}$
 \end_inset
 
@@ -1961,7 +2258,7 @@ In further sections we are going to introduce more methods based on Neural
  This method is denoted with the usage of equation
 \begin_inset Formula 
 \begin{equation}
-\hat{\Omega}_{n+1}=\hat{\Omega}_{n}-\eta\nabla L(\mathbf{X},\mathbf{Y},\hat{\Omega}_{n})\label{eq:Gradient-Descent}
+\hat{\Omega}_{n+1}=\hat{\Omega}_{n}-\eta_{n}\nabla L(\tilde{\mathbf{X}},\tilde{\mathbf{Y}},\hat{\Omega}_{n},Z_{n})\label{eq:Gradient-Descent}
 \end{equation}
 
 \end_inset
@@ -2010,8 +2307,21 @@ The usual gradient descent is extremely efficient method for complex
  In terms of probability theory this tool is represented as a random value
  from some distribution.
  In comparison to standard gradient descent the key difference is that only
- one piece of data (minibatch) from the training dataset is used to calculate
- the step.
+ one piece of data (minibatch) 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+VS: use 
+\begin_inset Formula $Z_{n}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+from the training dataset is used to calculate the step.
  The data samples (minibatch) is picked randomly at each step.
  
 \end_layout
@@ -2230,6 +2540,8 @@ noprefix "false"
 
 \end_inset
 
+
+\series default
 where 
 \begin_inset Formula $\xi(\mathbf{W},\text{y})=\log(Z)-\log\big(p(\mathbf{y})\big)-\log\big(p(\mathbf{W})\big)$
 \end_inset
@@ -2750,11 +3062,11 @@ Active learning problem is defined as a sequence of Supervised learning
  available labels.
  using only the labeled data, the supervised learning task is defined on
  sets 
-\begin_inset Formula $\mathbf{X}_{0}=\tilde{\mathbf{X}}=\{\mathbf{x}_{i}\}_{i\in J_{0}}$
+\begin_inset Formula $\mathbf{X}_{0}=\{\mathbf{x}_{i}\}_{i\in J_{0}}$
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{Y}_{0}=\tilde{\mathbf{Y}}=\{\mathbf{y}_{i}\}_{i\in J_{0}}$
+\begin_inset Formula $\mathbf{Y}_{0}=\{\mathbf{y}_{i}\}_{i\in J_{0}}$
 \end_inset
 
 .
@@ -2895,6 +3207,28 @@ where
 
  and 
 \begin_inset Formula $\theta\in\varTheta_{u}$
+\end_inset
+
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+VS: make assigment 
+\begin_inset Formula $\theta=(\mathbf{w},\mathbf{b})$
+\end_inset
+
+ SVM, by 
+\begin_inset Formula $\theta=$
+\end_inset
+
+
+\begin_inset Formula $\Omega$
+\end_inset
+
+ (NN)
+\end_layout
+
 \end_inset
 
  and 
@@ -3241,7 +3575,7 @@ literal "false"
 
 \end_inset
 
- proposes to add gaussian noise to the system while doing gradient descent.
+ proposes to add Gaussian noise to the system while doing gradient descent.
  With the usage of Bayes rule.
  we can rewrite 
 \begin_inset CommandInset ref
@@ -3300,6 +3634,33 @@ literal "false"
 \end_inset
 
 .
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+VS: upraveny gradient descent 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\hat{\Omega}_{n+1}=\hat{\Omega}_{n}-\eta_{n}\nabla L(\tilde{\mathbf{X}},\tilde{\mathbf{Y}},\hat{\Omega}_{n},Z_{n})\label{eq:Gradient-Descent-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Dropout
+\end_layout
+
+\begin_layout Standard
+dropout layer....
+ [Gal]
 \end_layout
 
 \begin_layout Subsubsection
@@ -3375,6 +3736,19 @@ Active Learning Loss Function
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:Active-Learning-Loss"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Summary: aquisition functions [Gal]
+\end_layout
 
 \end_inset
 
@@ -4068,8 +4442,21 @@ noprefix "false"
  However we decided to find a metic that is able to unify all metrics discussed
  before and do not underperform each of them.
  For these purposes we chose Receiving Operating Curve metric.
- ROC visualizes the tradeoff between true positive rate (TPR) and false
- positive rate (FPR).
+ ROC visualizes the tradeoff between true positive rate (TPR)
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+VS: napsat matematicky, cite [] Fawcett, Tom (2006).
+ "An Introduction to ROC Analysis" (PDF).
+ Pattern Recognition Letters.
+ 27 (8): 861–874.
+ 
+\end_layout
+
+\end_inset
+
+ and false positive rate (FPR).
  This means that for every threshold, we are able to calculate TPR and FPR
  and plot it on one figure.
  
@@ -4810,7 +5197,7 @@ noprefix "false"
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -4989,7 +5376,7 @@ noprefix "false"
 \begin_inset Float algorithm
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset listings
@@ -5337,7 +5724,7 @@ fold cross validation for Random Forest are high as well.
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -5379,7 +5766,7 @@ TF-IDF ROC and AUC for 10 Random Forest Ensembles trained and tested on
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -5491,7 +5878,7 @@ fold cross validation for Neural Networks are also high.
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -5536,7 +5923,7 @@ TF-IDF ROC and AUC for 10 Neural Networks Ensembles trained and tested on
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
