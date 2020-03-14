@@ -883,7 +883,7 @@ Notation
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="11" columns="2">
+<lyxtabular version="3" rows="18" columns="2">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="left" valignment="top">
@@ -902,26 +902,6 @@ Symbol
 
 \begin_layout Plain Layout
 Definition
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-supervised learning
-\end_layout
-
-\end_inset
-</cell>
-<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
 \end_layout
 
 \end_inset
@@ -967,7 +947,7 @@ vector of instance
 \begin_inset Text
 
 \begin_layout Plain Layout
-label corresponding to 
+one hot encoded label of a specific instance
 \end_layout
 
 \end_inset
@@ -978,7 +958,7 @@ label corresponding to
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{X}=\{\mathbf{x}_{1},\ldots\mathbf{x}_{n}\}$
+\begin_inset Formula $\mathbf{X}=\{\mathbf{x}_{1},\ldots\mathbf{x}_{M}\}$
 \end_inset
 
 
@@ -990,7 +970,30 @@ label corresponding to
 \begin_inset Text
 
 \begin_layout Plain Layout
-set of all available data
+set of available instances
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{Y}=\{\mathbf{y}_{1},\dots,\mathbf{y}_{M}\}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+set of labels that can be provided by an annotator
 \end_layout
 
 \end_inset
@@ -1013,7 +1016,7 @@ set of all available data
 \begin_inset Text
 
 \begin_layout Plain Layout
-training data
+set of training instances
 \end_layout
 
 \end_inset
@@ -1024,47 +1027,7 @@ training data
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-decision theory
-\end_layout
-
-\end_inset
-</cell>
-<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $a$
+\begin_inset Formula $\hat{\mathbf{Y}}$
 \end_inset
 
 
@@ -1076,7 +1039,53 @@ decision theory
 \begin_inset Text
 
 \begin_layout Plain Layout
-action
+set of training labels
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $a\in{\cal A}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+action with respect to a loss function
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\theta\in\varTheta$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+parameter with respect to a loss function
 \end_layout
 
 \end_inset
@@ -1106,11 +1115,11 @@ loss function
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $p(\theta)$
+\begin_inset Formula $\pi^{*}$
 \end_inset
 
 
@@ -1118,7 +1127,7 @@ loss function
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1127,6 +1136,185 @@ probability density function of variable
 \end_inset
 
 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+probability density function of label 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ given instance 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{\hat{y}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+estimate of 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ given 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\begin_inset Formula $\mathbf{w}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+vector of SVM or decision tree weights 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $b$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+SVM bias (scalar) 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{W}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+matrix of naive bayes or neural network single layer parameters
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{b}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+vector of neural network single layer biases
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+set of neural network parameters (all weights and biases)
 \end_layout
 
 \end_inset
@@ -1160,8 +1348,34 @@ addcontentsline{toc}{chapter}{Introduction}
 \end_layout
 
 \begin_layout Standard
-Modern approach of automating the labeling process of huge amount of unlabeled
- data is not optimal.
+Active Learning strategy lets the machine learning models iteratively and
+ strategically query the labels of some instances for reducing human labeling
+ efforts.
+ This project shows how it is possible to connect active learning and text
+ data.
+ People has been already solving same problem for anomaly detection 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "das2018active"
+literal "false"
+
+\end_inset
+
+, image processing 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gal2017deep"
+literal "false"
+
+\end_inset
+
+, etc..
+ 
+\end_layout
+
+\begin_layout Standard
+If we take a look on modern approach of automating the labeling process
+ of huge amount of unlabeled data is not optimal.
  People are randomly choosing unlabeled text data.
  These data are annotated by the subject matter experts and used for training
  and testing the models.
@@ -1169,38 +1383,119 @@ Modern approach of automating the labeling process of huge amount of unlabeled
  are selected and annotated.
  This approach is costly because nobody knows how much text documents is
  needed to have good model scores.
- Our active learning algorithm selects unlabeled text data that it is not
- certain about and asks an annotator to provide the labels.
- There are plenty of advantages in using this strategy.
+ Our active learning strategy proposes selection of unlabeled text data
+ that the model is not certain about.
+ Unlabeled text data are given to a subject matter expert to provide the
+ labels.
+ This problem has already been solving for long period of time.
+ Some active learning approaches for text classification dates back to 2001
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tong2001support"
+literal "false"
+
+\end_inset
+
+ where are shown different querying strategies and results of the active
+ learning superiority over randoms sampling strategies.
+ There is no clue that active learning strategy brings a lot advantages.
  First of all, we are able to start with lower amount of training data and
  iteratively extend the dataset.
  The dataset is extended using the data, which the model is not certain
  about.
- As a result the model will get much more information from these data than
- from randomly chosen text samples.
- Another huge advantage is that active learning strategy lets us to understand
- when the algorithm is good enough and when we can stop adding new labels.
+ In this work we are extending our dataset with only one sample per active
+ learning iteration.
+ However, it was also show that strategies which sample batches with more
+ than one sample also can perform good results 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "an2018deep"
+literal "false"
+
+\end_inset
+
+.
+ Thus, basing on the active learning approach the model will get much more
+ information from non-randomly chosen text samples.
 \end_layout
 
 \begin_layout Standard
 The project describes how we can formulate different algorithms with respect
  to decision theory and then connect all the methods to active learning
  theory.
- This project also provides link to python implementation of active learning
- algorithms and comparison of different results gathered with respect to
- different data.
+ All the methods used in this work can be represented in ensembles way.
+ Basing on 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "snoek2019can"
+literal "false"
+
+\end_inset
+
+ it was show that ensembles deep learning algorithms show the best performance
+ both for Text and Image Processing data.
+ Plenty of related active learning works for text classifications follow
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gal2017deep"
+literal "false"
+
+\end_inset
+
+ with using acquisition functions and dropout algorithm for uncertainty
+ representations e.g.
+ named entity recognition 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "shen2017deep"
+literal "false"
+
+\end_inset
+
+ and text classification 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lowell2019practical"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "burkhardt2018semisupervised"
+literal "false"
+
+\end_inset
+
+.
+ We are concerned that ensembles outperform dropout uncertainty representation
+ for text data as it was shown in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lakshminarayanan2017simple"
+literal "false"
+
+\end_inset
+
+ for image classification.
  
 \end_layout
 
 \begin_layout Standard
-We believe that active learning approach is able to significantly reduce
+This project also provides link to python implementation of active learning
+ algorithms and comparison of different results gathered with respect to
+ different data.
+ We believe that active learning approach is able to significantly reduce
  amount of time and expenses needed for automating text labeling process.
  
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Articles
@@ -1298,6 +1593,17 @@ Active Learning with texts
  The results are better than in case of random sampling.
  However, no uncertainty was measured there.
  (Non bayesian way of querying).
+\end_layout
+
+\begin_layout Plain Layout
+5.
+ Deep Active Learning for Text Classification (Bang An, Wenjun Wu, Huimin
+ Han) - SVM and RNN (LSTM) multiclass text classification.
+ No bayesian approach of neural networks.
+ Trying to sample not 1 sample but batch.
+ Their approach is only based on acquisition function.
+ The uncertainty is measured only through output labels based on one set
+ of parameters (point-wise estimate) 
 \end_layout
 
 \begin_layout Plain Layout
@@ -2777,32 +3083,32 @@ With the usage of
 \end_inset
 
  we will make 
-\begin_inset Formula $\{1,...,L\},$
+\begin_inset Formula $\{1,...,V\},$
 \end_inset
 
  
-\begin_inset Formula $L\in\mathbb{N}$
+\begin_inset Formula $V\in\mathbb{N}$
 \end_inset
 
  sets where 
-\begin_inset Formula $\forall l\in L$
+\begin_inset Formula $\forall v\in V$
 \end_inset
 
 , 
-\begin_inset Formula $\tilde{\mathbf{X}}_{l}\subset\tilde{\mathbf{X}}$
+\begin_inset Formula $\tilde{\mathbf{X}}_{v}\subset\tilde{\mathbf{X}}$
 \end_inset
 
  and 
-\begin_inset Formula $\tilde{{\bf Y}}_{l}\subset\tilde{{\bf Y}}$
+\begin_inset Formula $\tilde{{\bf Y}}_{v}\subset\tilde{{\bf Y}}$
 \end_inset
 
 .
  The data 
-\begin_inset Formula $\tilde{\mathbf{X}}_{l}$
+\begin_inset Formula $\tilde{\mathbf{X}}_{v}$
 \end_inset
 
  and 
-\begin_inset Formula $\tilde{{\bf Y}}_{l}$
+\begin_inset Formula $\tilde{{\bf Y}}_{v}$
 \end_inset
 
  are created with random uniform sampling from 
@@ -2815,7 +3121,7 @@ With the usage of
 
 .
  We also want each subset to contain strictly 
-\begin_inset Formula $60\%$
+\begin_inset Formula $80\%$
 \end_inset
 
  of the data from 
@@ -2829,7 +3135,7 @@ With the usage of
 .
  As a result parameter space for random forests will form tuples of sets
  
-\begin_inset Formula $(\tilde{{\bf X}}_{l},\tilde{{\bf Y}}_{l})$
+\begin_inset Formula $(\tilde{{\bf X}}_{v},\tilde{{\bf Y}}_{v})$
 \end_inset
 
 .
@@ -2847,36 +3153,36 @@ With the usage of
 
 .
  As a result for 
-\begin_inset Formula $l-\mathrm{th}$
+\begin_inset Formula $v-\mathrm{th}$
 \end_inset
 
  decision tree 
 \begin_inset Formula 
 \begin{equation}
-\mathbb{E}_{\pi^{*}}L=\frac{1}{N_{l}}\sum_{i=1}^{N_{l}}L(\mathbf{x}_{i,l},\mathbf{y}_{i,l},\mathbf{w}_{l})\delta(\mathbf{x}-\mathbf{x}_{i,l},\mathbf{y}-\mathbf{y}_{i,l})\label{eq:decision_tree_for_random_forest}
+\mathbb{E}_{\pi^{*}}L=\frac{1}{N_{l}}\sum_{i=1}^{N_{l}}L(\mathbf{x}_{i,v},\mathbf{y}_{i,v},\mathbf{w}_{l})\delta(\mathbf{x}-\mathbf{x}_{i,v},\mathbf{y}-\mathbf{y}_{i,v})\label{eq:decision_tree_for_random_forest}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $(\mathbf{x}_{i,l},\mathbf{y}_{i,l})\in(\tilde{{\bf X}}_{l},\tilde{{\bf Y}}_{l})$
+\begin_inset Formula $(\mathbf{x}_{i,v},\mathbf{y}_{i,v})\in(\tilde{{\bf X}}_{v},\tilde{{\bf Y}}_{v})$
 \end_inset
 
  and 
-\begin_inset Formula $N_{l}$
+\begin_inset Formula $N_{v}$
 \end_inset
 
  is a number of the data in 
-\begin_inset Formula $\tilde{{\bf X}}_{l}$
+\begin_inset Formula $\tilde{{\bf X}}_{v}$
 \end_inset
 
  and 
-\begin_inset Formula $\tilde{\mathbf{Y}}_{l}$
+\begin_inset Formula $\tilde{\mathbf{Y}}_{v}$
 \end_inset
 
 .
  If we assume 
-\begin_inset Formula $\mathbf{w}_{l}$
+\begin_inset Formula $\mathbf{w}_{v}$
 \end_inset
 
  as a random variable then 
@@ -2891,7 +3197,7 @@ where
  In other words 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{y}|\mathbf{x},\mathbf{w}_{l})=T_{1}(\mathbf{x},\mathbf{w}_{l})^{y_{1}}T_{2}(\mathbf{x},\mathbf{w}_{l})^{y_{2}}\label{eq:decision_tree_as_random_variable}
+p(\mathbf{y}|\mathbf{x},\mathbf{w}_{v})=T_{1}(\mathbf{x},\mathbf{w}_{v})^{y_{1}}T_{2}(\mathbf{x},\mathbf{w}_{v})^{y_{2}}\label{eq:decision_tree_as_random_variable}
 \end{equation}
 
 \end_inset
@@ -2923,7 +3229,7 @@ where
 
  is an action space.
  With the usage of samples 
-\begin_inset Formula $\mathbf{w}_{l}$
+\begin_inset Formula $\mathbf{w}_{v}$
 \end_inset
 
  we can approximate 
@@ -2933,13 +3239,13 @@ where
  as 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{y}|\mathbf{x})=\frac{1}{L}\sum_{l=1}^{L}T_{1}(\mathbf{x},\mathbf{w}_{l})^{y_{1}}T_{2}(\mathbf{x},\mathbf{w}_{l})^{y_{2}}\label{eq:approx_class_prob_for_random_forest}
+p(\mathbf{y}|\mathbf{x})=\frac{1}{V}\sum_{l=1}^{V}T_{1}(\mathbf{x},\mathbf{w}_{v})^{y_{1}}T_{2}(\mathbf{x},\mathbf{w}_{v})^{y_{2}}\label{eq:approx_class_prob_for_random_forest}
 \end{equation}
 
 \end_inset
 
 where each decision tree 
-\begin_inset Formula $\big(T_{1}(\mathbf{x},\mathbf{w}_{l}),T_{2}(\mathbf{x},\mathbf{w}_{l})\big)^{T}$
+\begin_inset Formula $\big(T_{1}(\mathbf{x},\mathbf{w}_{v}),T_{2}(\mathbf{x},\mathbf{w}_{v})\big)^{T}$
 \end_inset
 
  is constructed with the usage of (
@@ -2963,7 +3269,7 @@ Before continuing with further sections we define output of Random Forest
 \end_inset
 
 , where 
-\begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},...,\mathbf{w}_{L})$
+\begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},...,\mathbf{w}_{V})$
 \end_inset
 
  is set of parameters of specific Random Forest algorithm.
@@ -2974,7 +3280,7 @@ Before continuing with further sections we define output of Random Forest
  as 
 \begin_inset Formula 
 \begin{equation}
-\hat{\mathbf{y}}=\frac{1}{L}\sum_{l=1}^{L}\big(T_{1}(\mathbf{x},\mathbf{w}_{l}),T_{2}(\mathbf{x},\mathbf{w}_{l})\big).\label{eq:Random_forest_output}
+\hat{\mathbf{y}}=\frac{1}{V}\sum_{v=1}^{V}\big(T_{1}(\mathbf{x},\mathbf{w}_{v}),T_{2}(\mathbf{x},\mathbf{w}_{v})\big).\label{eq:Random_forest_output}
 \end{equation}
 
 \end_inset
