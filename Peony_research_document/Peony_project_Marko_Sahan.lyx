@@ -883,7 +883,7 @@ Notation
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="18" columns="2">
+<lyxtabular version="3" rows="24" columns="2">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="left" valignment="top">
@@ -1040,6 +1040,75 @@ set of training instances
 
 \begin_layout Plain Layout
 set of training labels
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $[x_{1},x_{2},...,x_{S}]^{T}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+transposed vector notation
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $(\mathbf{x},\mathbf{y})$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+tuple notation
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\{\mathbf{x}_{1},\mathbf{x}_{2},...,\mathbf{x}_{R}\}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+set notation
 \end_layout
 
 \end_inset
@@ -1298,7 +1367,7 @@ vector of neural network single layer biases
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1310,11 +1379,74 @@ vector of neural network single layer biases
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 set of neural network parameters (all weights and biases)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\delta$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Dirac delta function
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -1652,7 +1784,7 @@ pagestyle{headings}
 
 \begin_layout Standard
 Easily speaking, decision can be defined as a set of actions.
- We are going to work with text data and solve text classification problem.
+ We are going to work with the text data and solve text classification problem.
  Thus, our main purpose is to introduce precise mathematical abstractions
  for an automatic and optimal decision making.
 \end_layout
@@ -1854,23 +1986,19 @@ Decision Theory for Supervised Learning
 \end_layout
 
 \begin_layout Standard
-Supervised learning requires validation set of the data.
- Validation set is splitted on training and testing sets.
- Thus, we have to extend data definition.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-VS: describe in detail, cite [vapnik] Vapnik, V.
- (2013).
- The nature of statistical learning theory.
- Springer science & business media.
-\end_layout
+Supervised learning requires the data.
+ The labeled data are usually splitted into three sets such as validation,
+ training and testing datasets 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "vapnik2013nature"
+literal "false"
 
 \end_inset
 
-
+.
+ Thus, we have to extend data definition.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1880,14 +2008,14 @@ We would like to commence our formal definition with the data.
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{y\in}{\cal Y}=\{(0,1)^{T},(1,0)^{T}\}$
+\begin_inset Formula $\mathbf{y\in}{\cal Y}=\{[0,1]^{T},[1,0]^{T}\}$
 \end_inset
 
 , where 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
- are feature vectors of size 
+ is feature vector of size 
 \begin_inset Formula $n$
 \end_inset
 
@@ -1895,7 +2023,7 @@ We would like to commence our formal definition with the data.
 \begin_inset Formula ${\bf y}$
 \end_inset
 
- are its labels assigned to the data from space 
+ is its label assigned to the data instance from space 
 \begin_inset Formula ${\cal X}$
 \end_inset
 
@@ -1906,16 +2034,16 @@ We would like to commence our formal definition with the data.
 
  can be represented as a one hot representation that consist from ones and
  zeros 
-\begin_inset Formula $\mathbf{y}\in\{(0,1)^{T},(1,0)^{T}\}$
+\begin_inset Formula $\mathbf{y}\in\{[0,1]^{T},[1,0]^{T}\}$
 \end_inset
 
 .
  Therefore, first class is represented as 
-\begin_inset Formula $\mathbf{y}=(1,0)^{T}$
+\begin_inset Formula $\mathbf{y}=[1,0]^{T}$
 \end_inset
 
  and second class is represented as 
-\begin_inset Formula $\mathbf{y}=(0,1)^{T}$
+\begin_inset Formula $\mathbf{y}=[0,1]^{T}$
 \end_inset
 
 .
@@ -2023,7 +2151,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-Considering the data 
+Considering the training data 
 \begin_inset Formula $\tilde{\mathbf{X}}\subset{\cal X}$
 \end_inset
 
@@ -2040,7 +2168,7 @@ Considering the data
 
 
 \series default
- as a validation set.
+ as a training set.
 \end_layout
 
 \begin_layout Subsection
@@ -2385,17 +2513,30 @@ where
 \begin_inset Formula $f_{sm}$
 \end_inset
 
- is the softmax function 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-VS: vzorec
-\end_layout
+ is the softmax function that is typically used for classification problems.
+ The softmax function is defined as 
+\begin_inset Formula 
+\[
+f_{sm,i}=\frac{\exp(\mathbf{z}_{i})}{\sum_{i=1}^{2}\exp(\mathbf{z}_{i})},
+\]
 
 \end_inset
 
- that is typically used for classification problems.
+where 
+\begin_inset Formula 
+\[
+\mathbf{z}=\mathbf{W}_{K}^{T}f\big(\mathbf{a}_{K-1}\big)+\mathbf{b}_{K}
+\]
+
+\end_inset
+
+ is an output vector before activation function is applied.
+ Output vector has same size a label 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -2428,7 +2569,7 @@ noprefix "false"
 \end_inset
 
  is the input data, 
-\begin_inset Formula $\Omega=(\mathbf{W}_{1},...\mathbf{W}_{K},\mathbf{b}_{1}...,\mathbf{b}_{K})$
+\begin_inset Formula $\Omega=\{\mathbf{W}_{1},...\mathbf{W}_{K},\mathbf{b}_{1}...,\mathbf{b}_{K}\}$
 \end_inset
 
  is a set of all neural network function parameters and biases.
@@ -2473,18 +2614,8 @@ where
 \begin_inset Formula $\mathbf{y}=[y_{1},y_{2}]^{T}$
 \end_inset
 
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-VS: vectors are in []
-\end_layout
-
-\end_inset
-
-and 
-\begin_inset Formula $\hat{\mathbf{y}}=(\hat{y}_{1},\hat{y}_{2})^{T}$
+ and 
+\begin_inset Formula $\hat{\mathbf{y}}=[\hat{y}_{1},\hat{y}_{2}]^{T}$
 \end_inset
 
 .
@@ -2542,11 +2673,11 @@ noprefix "false"
 \end_inset
 
 where 
-\begin_inset Formula $\mathbf{y}=(y_{1},y_{2})^{T}$
+\begin_inset Formula $\mathbf{y}=[y_{1},y_{2}]^{T}$
 \end_inset
 
  and 
-\begin_inset Formula $\hat{\mathbf{y}}=(\hat{y}_{1},\hat{y}_{2})^{T}$
+\begin_inset Formula $\hat{\mathbf{y}}=[\hat{y}_{1},\hat{y}_{2}]^{T}$
 \end_inset
 
 .
@@ -2584,14 +2715,36 @@ th iteration value of gradient descent of NN weights and its biases that
 
 .
  Value of 
-\begin_inset Formula $\nabla L(\mathbf{X},\mathbf{Y},\hat{\Omega}_{n})$
+\begin_inset Formula $\nabla L(\mathbf{X},\mathbf{Y},\hat{\Omega}_{n},Z_{n})$
 \end_inset
 
  is a gradient of loss function and 
-\begin_inset Formula $\eta$
+\begin_inset Formula $\eta_{n}$
 \end_inset
 
- is a value that in terms of NN is defined as learning rate.
+ is 
+\begin_inset Formula $n-$
+\end_inset
+
+th iteration of a value that in terms of NN is defined as learning rate
+ with a decay.
+ Term 
+\begin_inset Formula $Z_{n}$
+\end_inset
+
+ represents indices from 
+\begin_inset Formula $X$
+\end_inset
+
+ and 
+\begin_inset Formula $Y$
+\end_inset
+
+ that are used in 
+\begin_inset Formula $n-$
+\end_inset
+
+th iteration of loss function.
  As a result described method finds the way to the function minimum.
  
 \end_layout
@@ -2613,21 +2766,21 @@ The usual gradient descent is extremely efficient method for complex
  In terms of probability theory this tool is represented as a random value
  from some distribution.
  In comparison to standard gradient descent the key difference is that only
- one piece of data (minibatch) 
-\begin_inset Note Note
-status open
+ one piece of data (minibatch) from the training dataset is used to calculate
+ the step 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bishop2006machine"
+literal "false"
 
-\begin_layout Plain Layout
-VS: use 
+\end_inset
+
+.
+ The minibatch is represented with value 
 \begin_inset Formula $Z_{n}$
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
-from the training dataset is used to calculate the step.
+ that says which training indices to use.
  The data samples (minibatch) is picked randomly at each step.
  
 \end_layout
@@ -2651,7 +2804,7 @@ Naive Bayes algorithm is a bit different to the algorithm based on Neural
 \end_inset
 
  where 
-\begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n})\subset{\cal W}$
+\begin_inset Formula $\mathbf{W}=\{\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n}\}\subset{\cal W}$
 \end_inset
 
  is an action (
@@ -2729,7 +2882,7 @@ noprefix "false"
 
 .
  This assumption says that features of vector 
-\begin_inset Formula $\mathbf{x}=(x_{1},x_{2},...,x_{n})^{T}$
+\begin_inset Formula $\mathbf{x}=[x_{1},x_{2},...,x_{n}]^{T}$
 \end_inset
 
  are conditionally independent.
@@ -2748,13 +2901,13 @@ noprefix "false"
 where 
 \series bold
 
-\begin_inset Formula $\mathbf{y}=(y_{1},y_{2})$
+\begin_inset Formula $\mathbf{y}=[y_{1},y_{2}]$
 \end_inset
 
 
 \series default
 , 
-\begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n})$
+\begin_inset Formula $\mathbf{W}=\{\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n}\}$
 \end_inset
 
 , 
@@ -2882,7 +3035,7 @@ Decision Tree
 
 \begin_layout Standard
 In this section we expect our decision three to give us an estimate 
-\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\mathbf{w})\in\{(0,1)^{T},(1,0)^{T}\}$
+\begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\mathbf{w})\in\{[0,1]^{T},[1,0]^{T}\}$
 \end_inset
 
  where 
@@ -3015,7 +3168,7 @@ noprefix "false"
 \begin_layout Standard
 If we want to minimize expected loss we have to follow next steps.
  While construction decision tree we choose such feature 
-\begin_inset Formula $x_{i}\in(x_{1},...,x_{n})^{T}=\mathbf{x}$
+\begin_inset Formula $x_{i}\in[x_{1},...,x_{n}]^{T}=\mathbf{x}$
 \end_inset
 
  that will bring as the highest information about the system.
@@ -3028,7 +3181,7 @@ If we want to minimize expected loss we have to follow next steps.
 \begin_layout Standard
 In the following part we are going to work with a set of decision trees.
  For this purposes we will define our decision tree as 
-\begin_inset Formula $\hat{\mathbf{y}}=\big(T_{1}(\mathbf{x},\mathbf{w}_{l}),T_{2}(\mathbf{x},\mathbf{w}_{l})\big)^{T}$
+\begin_inset Formula $\hat{\mathbf{y}}=[T_{1}(\mathbf{x},\mathbf{w}_{l}),T_{2}(\mathbf{x},\mathbf{w}_{l})]^{T}$
 \end_inset
 
  where index 
@@ -3245,7 +3398,7 @@ p(\mathbf{y}|\mathbf{x})=\frac{1}{V}\sum_{l=1}^{V}T_{1}(\mathbf{x},\mathbf{w}_{v
 \end_inset
 
 where each decision tree 
-\begin_inset Formula $\big(T_{1}(\mathbf{x},\mathbf{w}_{v}),T_{2}(\mathbf{x},\mathbf{w}_{v})\big)^{T}$
+\begin_inset Formula $[T_{1}(\mathbf{x},\mathbf{w}_{v}),T_{2}(\mathbf{x},\mathbf{w}_{v})]^{T}$
 \end_inset
 
  is constructed with the usage of (
@@ -3269,7 +3422,7 @@ Before continuing with further sections we define output of Random Forest
 \end_inset
 
 , where 
-\begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},...,\mathbf{w}_{V})$
+\begin_inset Formula $\mathbf{W}=\{\mathbf{w}_{1},...,\mathbf{w}_{V}\}$
 \end_inset
 
  is set of parameters of specific Random Forest algorithm.
@@ -3639,7 +3792,7 @@ Considering that
 \end_inset
 
  that is assigned to 
-\begin_inset Formula $\mathbf{y}=(1,0)^{T},$
+\begin_inset Formula $\mathbf{y}=[1,0]^{T},$
 \end_inset
 
  classifiers estimate of 
@@ -3647,7 +3800,7 @@ Considering that
 \end_inset
 
  can be 
-\begin_inset Formula $\mathbf{\hat{y}}=(0.95,0.05)^{T}$
+\begin_inset Formula $\mathbf{\hat{y}}=[0.95,0.05]^{T}$
 \end_inset
 
 .
@@ -3882,6 +4035,8 @@ literal "false"
 \end_inset
 
  proposes to add Gaussian noise to the system while doing gradient descent.
+ In fact, when the algorithm is almost trained, additional noise lets us
+ to sample i.i.d parameters values in a neighborhood of a minimum.
  With the usage of Bayes rule.
  we can rewrite 
 \begin_inset CommandInset ref
@@ -3931,7 +4086,7 @@ However, for this case
 \end_inset
 
  must be independent identically distributed.
- This is shown and proved in 
+ Basing on 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "welling2011bayesian"
@@ -3939,25 +4094,32 @@ literal "false"
 
 \end_inset
 
-.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-VS: upraveny gradient descent 
-\end_layout
-
-\end_inset
-
-
+ the updated gradient for SGLD can be written as 
 \begin_inset Formula 
-\begin{equation}
-\hat{\Omega}_{n+1}=\hat{\Omega}_{n}-\eta_{n}\nabla L(\tilde{\mathbf{X}},\tilde{\mathbf{Y}},\hat{\Omega}_{n},Z_{n})\label{eq:Gradient-Descent-1}
-\end{equation}
+\begin{align}
+\hat{\Omega}_{n+1} & =\frac{N}{N_{minibatch}}\frac{\eta_{n}}{2}\Big(\hat{\Omega}_{n}-\eta_{n}\nabla L(\tilde{\mathbf{X}},\tilde{\mathbf{Y}},\hat{\Omega}_{n},Z_{n})\Big)+\epsilon_{n},\label{eq:SGLD_gradient_descent}\\
+\epsilon_{n} & \sim{\cal N}(0,\eta_{n})
+\end{align}
 
 \end_inset
 
+where 
+\begin_inset Formula $N$
+\end_inset
 
+ is amount of training data, 
+\begin_inset Formula $N_{minibatch}$
+\end_inset
+
+ is amount of the data in minibatch and 
+\begin_inset Formula $\eta_{n}$
+\end_inset
+
+ is 
+\begin_inset Formula $n-$
+\end_inset
+
+th iteration of a learning rate.
 \end_layout
 
 \begin_layout Subsubsection
@@ -3965,8 +4127,42 @@ Dropout
 \end_layout
 
 \begin_layout Standard
-dropout layer....
- [Gal]
+Dropout is another technique similar to SGLD how to sample from a neural
+ network parameters distribution.
+ This type of sampling can be also considered as a Bayesian Neural Network
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gal2017deep"
+literal "false"
+
+\end_inset
+
+.
+ The idea is randomly turn off some neurons while training.
+ When the algorithm is almost trained we are able to start sampling the
+ i.i.d.
+ parameters in a same way as it was done for SGLD case.
+ Thus, an estimate of 
+\begin_inset Formula 
+\begin{align*}
+\pi_{u}^{*} & =p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})\\
+ & \propto p(\mathbf{X}_{u},\mathbf{Y}_{u}|\theta_{u})p(\theta_{u})
+\end{align*}
+
+\end_inset
+
+ can be written with the usage of 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eq:prior_distribution_approximation_sgld_2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -4049,16 +4245,19 @@ name "subsec:Active-Learning-Loss"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Summary: aquisition functions [Gal]
-\end_layout
+The acquisition function is a function that helps us to decide which data
+ sample is the best for model learning given models uncertainty.
+ Wide overview of different acquisition functions is shown in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gal2017deep"
+literal "false"
 
 \end_inset
 
-
+ e.g.
+ entropy, information or mean standard deviation maximization.
+ However in our work we decided to sample the data 
 \end_layout
 
 \begin_layout Subsubsection
@@ -4067,7 +4266,15 @@ Entropy Based Active Learning Loss
 
 \begin_layout Standard
 First approach of defining Active Learning loss function is negative entropy.
- Basing of the formal definition of the entropy we can write it as 
+ Basing of the formal definition of the entropy 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "shannon1948mathematical"
+literal "false"
+
+\end_inset
+
+ we can write it as 
 \begin_inset Formula 
 \begin{equation}
 -H(\hat{\mathbf{y}}|\mathbf{x}_{j_{u}},\theta_{u})=\sum_{r=1}^{R}\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u})\log\big(\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u})\big),\label{eq:entropy}
@@ -4112,6 +4319,13 @@ With the usage of previous knowledge we can derive expected entropy loss
 
 As a result, minimization of given expected loss will lead us to a sample
  with the highest entropy.
+ Thus, we are seeking for a an index of maximal entropy data sample.
+ In other words 
+\begin_inset Formula $j_{u}^{*}=\argmin_{j\in J\backslash J_{u}}(\mathbb{E}_{\pi_{u}^{*}}L^{*})$
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Subsection
