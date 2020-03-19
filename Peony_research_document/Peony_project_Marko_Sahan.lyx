@@ -1755,6 +1755,21 @@ Techniques
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+{\text{argmax}}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+{\text{argmin}}
+\end_inset
+
+
+\end_layout
+
 \begin_layout Chapter
 Introduction to Decision Theory
 \begin_inset CommandInset label
@@ -1783,17 +1798,25 @@ pagestyle{headings}
 \end_layout
 
 \begin_layout Standard
-Easily speaking, decision can be defined as a set of actions.
- We are going to work with the text data and solve text classification problem.
- Thus, our main purpose is to introduce precise mathematical abstractions
- for an automatic and optimal decision making.
-\end_layout
-
-\begin_layout Standard
-Considering binary classification problem.
- We are seeking to find such set of actions that will assign each input
- value to its class.
+The process of decision making is a defined as selection of the optimal
+ action from a set of possibilities that can be applied at some operating
+ conditions.
+ The criteria of optimality is formalized by a loss function.
+ The process of selection of the optimal action is thus formalized as the
+ optimization problem.
+ However, the operating conditions are often not known exactly since we
+ have incomplete information about them.
+ Therefore, we will use the theory of decision making under uncertainty
  
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Berger:1327974"
+literal "false"
+
+\end_inset
+
+, where the uncertainty is represented by probability density functions.
+ We will now briefly review the theoretical background.
 \end_layout
 
 \begin_layout Section
@@ -1801,89 +1824,58 @@ Decision Theory
 \end_layout
 
 \begin_layout Standard
-In this section we would like to define solution of a classification problem
- as finding such set of actions (decision) that minimizes loss.
- By loss we can understand classification error, entropy, etc..
- This problem is still set up vaguely because neither decision nor loss
- was properly defined.
- 
-\end_layout
-
-\begin_layout Standard
-Each classification problem can be summarized as finding the optimal boundary
- that will split the dataset with respect to labels.
- The boundary can be defined as an action that is done with respect to some
- conditions.
- Let 
-\begin_inset Formula $a\in\mathcal{A}$
-\end_inset
-
- is an action and 
+The theory of decision making has three basic elements: i) the set of possible
+ actions 
 \begin_inset Formula $\mathcal{A}$
 \end_inset
 
- is an action space.
- As mentioned previously, we would like to make a decision (action) that
- will split the dataset in two sets and we want this classification to be
- as good as possible.
- Quality of the classification can be measured with specific metrics which
- will be introduced in further sections.
- In our case we would like to minimize losses (error of classification).
- As a result, tandem of an action and loss minimization metric lets us to
- understand how good the action is.
- Subsequent step is an introduction of a loss function 
-\begin_inset Formula $L$
+ from which we should select an optimal action 
+\begin_inset Formula $a^{*}\in\mathcal{A}$
 \end_inset
 
-.
- Loss function is dependent on action 
-\begin_inset Formula $a\in\mathcal{A}$
-\end_inset
-
-.
- Formal definition of the loss function is shown next.
- 
-\end_layout
-
-\begin_layout Standard
-According to 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Berger:1327974"
-literal "false"
-
-\end_inset
-
- loss function 
-\begin_inset Formula $L$
-\end_inset
-
- can be defines as 
-\begin_inset Formula 
-\begin{equation}
-L=L(\theta,a),\label{eq:loss_func}
-\end{equation}
-
-\end_inset
-
-where 
+, ii) the vector 
 \begin_inset Formula $\theta\in\varTheta$
 \end_inset
 
- is parameters' vector where 
+ defining operating conditions under which we make the decision, where 
 \begin_inset Formula $\varTheta$
 \end_inset
 
- is parameters space and 
-\begin_inset Formula $a\in\mathcal{A}$
+ is parameters space, iii) the loss function 
+\begin_inset Formula 
+\begin{align}
+L & =L(\theta,a),\label{eq:loss_func}
+\end{align}
+
 \end_inset
 
- is an action where 
-\begin_inset Formula $\mathcal{A}$
+that defines our preference of the action, in the sense that action 
+\begin_inset Formula $a$
 \end_inset
 
- is an action space.
- In 
+ that has the lowest value from the action set of the loss function is preferred.
+ For complete knowledge of the operating conditions 
+\begin_inset Formula $\theta$
+\end_inset
+
+ the task is turned into simple optimization of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:loss_func"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ However, with incomplete information, we have to consider a range of possible
+ states 
+\begin_inset Formula $\theta$
+\end_inset
+
+.
+ The theory of decision making under runcertainty 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Berger:1327974"
@@ -1891,14 +1883,7 @@ literal "false"
 
 \end_inset
 
-, it is also said that parameter 
-\begin_inset Formula $\theta$
-\end_inset
-
- can be understand as the true state of nature.
- Definition above shows us loss with respect to one action and one true
- state of nature.
- Thus, we would like to define expected loss function.
+ defines the expected loss function that takes into account the uncertainty.
 \end_layout
 
 \begin_layout Definition
@@ -1934,14 +1919,13 @@ Bayesian expected loss
 
  is 
 \begin_inset Formula 
-\begin{align}
-\rho(\pi^{*},a)= & \mathbb{E}_{\pi^{*}}[L(\theta,a)],\label{eq:expected_loss-1}\\
-= & \int_{\varTheta}L(\theta,a)\pi^{*}d\theta.
-\end{align}
+\begin{equation}
+\rho(\pi^{*},a)=\mathbb{E}_{\pi^{*}}[L(\theta,a)]=\int_{\varTheta}L(\theta,a)\pi^{*}d\theta.\label{eq:expected_loss-1}
+\end{equation}
 
 \end_inset
 
-Basing on definition 
+Based on definition 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:expected_loss-1"
@@ -1951,23 +1935,7 @@ noprefix "false"
 
 \end_inset
 
-, the optimal action is the one that minimizes expected loss, which is defined
- as 
-\end_layout
-
-\begin_layout Definition
-\begin_inset FormulaMacro
-\newcommand{\argmax}{\operatornamewithlimits{argmax}}
-{argmax}
-\end_inset
-
-
-\begin_inset FormulaMacro
-\newcommand{\argmin}{\operatornamewithlimits{argmin}}
-{argmin}
-\end_inset
-
-
+, the optimal action is defined as the one that minimizes the expected loss:
 \end_layout
 
 \begin_layout Definition
@@ -1981,23 +1949,23 @@ a^{*}=\argmin_{a\in{\cal A}}\mathbb{E}_{\pi^{*}}[L(\theta,a)].\label{eq:optimal_
 
 \end_layout
 
+\begin_layout Standard
+The key task of application of decision theory is the choice of the action
+ space, parameter space, loss function and method of evaluating the probability
+ measure.
+ In the following Sections, we discuss examples of application of the theory
+ to the problem of supervised learning and active learning, respectively.
+\end_layout
+
 \begin_layout Section
 Decision Theory for Supervised Learning
 \end_layout
 
 \begin_layout Standard
-Supervised learning requires the data.
- The labeled data are usually splitted into three sets such as validation,
- training and testing datasets 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "vapnik2013nature"
-literal "false"
-
-\end_inset
-
-.
- Thus, we have to extend data definition.
+Supervised learning is defined as learning from the data with known target
+ value.
+ Specifically, for the classification problem, the target value is the class
+ where each data point belongs.
  
 \end_layout
 
@@ -2032,17 +2000,17 @@ We would like to commence our formal definition with the data.
 \begin_inset Formula ${\cal Y}$
 \end_inset
 
- can be represented as a one hot representation that consist from ones and
- zeros 
+ can be represented as a one hot representation which is a vector consisting
+ from ones and zeros.
+ In the case of binary classification 
 \begin_inset Formula $\mathbf{y}\in\{[0,1]^{T},[1,0]^{T}\}$
 \end_inset
 
-.
- Therefore, first class is represented as 
+ where, the first class is represented as 
 \begin_inset Formula $\mathbf{y}=[1,0]^{T}$
 \end_inset
 
- and second class is represented as 
+ and the second class is represented as 
 \begin_inset Formula $\mathbf{y}=[0,1]^{T}$
 \end_inset
 
@@ -2056,9 +2024,9 @@ We would like to commence our formal definition with the data.
 \begin_inset Formula $\mathbf{y}$
 \end_inset
 
- can be its label that will show if the document is relevant or not.
- As seen from an example, label and text are forming a tuple.
- In this work we are also considering our data as tuples of variables 
+ can be its category such as sports or comedy.
+ As seen from this example, the label and text are forming a tuple.
+ In this work we are considering our data as tuples of variables 
 \begin_inset Formula $(\mathbf{x},\mathbf{y})\in{\cal X\times Y}$
 \end_inset
 
@@ -2080,38 +2048,22 @@ However, how can we connect optimal action
 \begin_inset Formula $(\mathbf{x},\mathbf{y})$
 \end_inset
 
- are samples from this set.
- Considering 
-\begin_inset Formula $\mathbf{x}\in{\cal X}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{y\in{\cal Y}}$
-\end_inset
-
- are random variables.
- If both 
-\begin_inset Formula $\mathbf{x}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{y}$
-\end_inset
-
- are random variables then tuple 
-\begin_inset Formula $(\mathbf{x},\mathbf{y})$
-\end_inset
-
- is a sample from joint probability density function 
+ is a sample from this set.
+ We assume that all available data tuples are sampled independently from
+ a joint probability density function 
 \begin_inset Formula $p(\mathbf{x},\mathbf{y})$
 \end_inset
 
 .
- With the usage of conditional probability rule 
+ If 
 \begin_inset Formula $p(\mathbf{x},\mathbf{y})$
 \end_inset
 
- can be written as 
+ was known, the optimal classifier 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
+\end_inset
+
+ can be obtained by the chain rule of probability 
 \begin_inset Formula 
 \begin{equation}
 p(\mathbf{x},\mathbf{y})=p(\mathbf{y}|\mathbf{x})p(\mathbf{x}).\label{eq: data_bayes_rule}
@@ -2119,56 +2071,57 @@ p(\mathbf{x},\mathbf{y})=p(\mathbf{y}|\mathbf{x})p(\mathbf{x}).\label{eq: data_b
 
 \end_inset
 
-At this part we are able to show which meaning this optimal action 
-\begin_inset Formula $a^{*}$
+However, since we do not know analytical form of the joint probability distribut
+ion we aim at selecting the best possible approximation within a chosen
+ class.
+ Specifically, we choose a parameteric form 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x},a)$
 \end_inset
 
- has.
- In equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq: data_bayes_rule"
-plural "false"
-caps "false"
-noprefix "false"
-
+ where 
+\begin_inset Formula $a$
 \end_inset
 
+ is the parameter to be optimized.
  
-\begin_inset Formula $p(\mathbf{x})$
-\end_inset
-
- is given and 
-\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
-\end_inset
-
- is an unknown pdf that we want to estimate.
- The optimal action will lead us to an estimate of 
-\begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard
-Considering the training data 
-\begin_inset Formula $\tilde{\mathbf{X}}\subset{\cal X}$
+The uncertainty of the decision task is representation of the joint probability
+ distribution.
+ We will consider the uncertainty 
+\begin_inset Formula $\theta$
 \end_inset
 
- and its labels 
-\begin_inset Formula $\tilde{\mathbf{Y}}\subset{\cal Y}$
+ to be represented by empirical distribution: 
+\begin_inset Formula 
+\begin{equation}
+\pi^{*}=p(\mathbf{x},\mathbf{y})=\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})\label{eq:approx_of_joint_dist-1}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbf{x}_{i},\mathbf{y}_{i}$
+\end_inset
+
+ are elements of the training set 
+\begin_inset Formula $(\tilde{\mathbf{X}}\subset{\cal X},\tilde{\mathbf{Y}}\subset{\cal Y})$
 \end_inset
 
 .
- We define cartesian product 
-\series bold
+ The training set is usually a subset of all available data on which the
+ optimization is performed, the rest of the data is used for validation
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "vapnik2013nature"
+literal "false"
 
-\begin_inset Formula $\tilde{\mathbf{X}}\times\mathbf{\tilde{Y}}$
 \end_inset
 
-
-\series default
- as a training set.
+.
+ 
 \end_layout
 
 \begin_layout Subsection
