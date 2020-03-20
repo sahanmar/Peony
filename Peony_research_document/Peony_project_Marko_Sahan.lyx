@@ -1027,7 +1027,7 @@ set of training instances
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\hat{\mathbf{Y}}$
+\begin_inset Formula $\tilde{\mathbf{Y}}$
 \end_inset
 
 
@@ -2155,7 +2155,7 @@ In this subsection we will continue construction of the decision theory
 \begin_inset Formula $b\in\mathbb{R}$
 \end_inset
 
- is a bias .
+ is a bias.
  As a result, action space is represented as 
 \begin_inset Formula $(\mathbb{R}^{n},\mathbb{R})\mathcal{=A}$
 \end_inset
@@ -2165,7 +2165,17 @@ In this subsection we will continue construction of the decision theory
 \end_inset
 
 .
- From this knowledge we can define 
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Get rid of (x,y), refer to (5)
+\end_layout
+
+\end_inset
+
+From this knowledge we can define 
 \begin_inset Formula $\theta=(\mathbf{x},\mathbf{y})$
 \end_inset
 
@@ -2205,7 +2215,7 @@ Following task is to understand how good is our action (hyperplane estimation)
  with respect to the dataset.
  We can choose different types of loss functions such as cross entropy,
  hinge loss, etc..
- The most basic approach for SVM method is hinge loss function 
+ The most basic approach for SVM method is the hinge loss function 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "rosasco2004loss"
@@ -2283,7 +2293,17 @@ below
 \end_inset
 
 .
- We will also assume that 
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Get rid of the following, refer to (5)
+\end_layout
+
+\end_inset
+
+We will also assume that 
 \begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
 \end_inset
 
@@ -2376,6 +2396,17 @@ Neural Network
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Do not mention encodings.
+ So far, x were given.
+ Introduce encodings later.
+\end_layout
+
+\end_inset
+
 In this work we are using encoding of the input sample 
 \begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
@@ -2385,7 +2416,7 @@ In this work we are using encoding of the input sample
 \begin_inset Formula $\mathbf{y}\in{\cal Y}.$
 \end_inset
 
- There are plenty ways how to provide encoding of the data sample 
+ There are plenty of ways how to provide encoding of the data sample 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
@@ -2412,7 +2443,7 @@ where
 \end_inset
 
  is a vector of bias values.
- First layer is called input layer.
+ First layer is called the input layer.
  
 \end_layout
 
@@ -2645,7 +2676,7 @@ In further sections we are going to introduce more methods based on Neural
  Networks which will slightly differ between each other.
  Thus, we would like to cover more theory around parameters estimation.
  The very simple but efficient method is gradient descent.
- This method is denoted with the usage of equation
+ This method is using equation
 \begin_inset Formula 
 \begin{equation}
 \hat{\Omega}_{n+1}=\hat{\Omega}_{n}-\eta_{n}\nabla L(\tilde{\mathbf{X}},\tilde{\mathbf{Y}},\hat{\Omega}_{n},Z_{n})\label{eq:Gradient-Descent}
@@ -2671,7 +2702,7 @@ th iteration value of gradient descent of NN weights and its biases that
 \begin_inset Formula $\nabla L(\mathbf{X},\mathbf{Y},\hat{\Omega}_{n},Z_{n})$
 \end_inset
 
- is a gradient of loss function and 
+ is a gradient of the loss function and 
 \begin_inset Formula $\eta_{n}$
 \end_inset
 
@@ -2703,22 +2734,60 @@ th iteration of loss function.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+If you are using ADAM, you can mention it as a way how to define 
+\begin_inset Formula $\eta_{n}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The usual gradient descent is extremely efficient method for complex 
 \begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\Omega)$
 \end_inset
 
- but what if loss function has some local minimums? In this case, algorithm
- will stop iterating when it will find local minimum.
+ but may struggle with local minima.
+ In this case, the algorithm may stop iterating even in a very shallow local
+ minimum.
  Due to the complex functions 
 \begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\Omega)$
 \end_inset
 
-, loss function of its approximation will be non convex with big amount
- of local minimums and maximums.
- Solution of this problem is that algorithm must jump over this local minimum.
+, the loss function of its approximation will be non convex with large amount
+ of local minima and maxima.
+ Solution of this problem is that algorithm must jump over this local minimum
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Are you talking about momentum? use reference
+\end_layout
+
+\end_inset
+
+.
  In terms of probability theory this tool is represented as a random value
  from some distribution.
- In comparison to standard gradient descent the key difference is that only
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This is about SGD? It will escape only sharp minima, not flat ones.
+\end_layout
+
+\end_inset
+
+In comparison to standard gradient descent the key difference is that only
  one piece of data (minibatch) from the training dataset is used to calculate
  the step 
 \begin_inset CommandInset citation
@@ -2793,8 +2862,8 @@ Naive Bayes
 \end_layout
 
 \begin_layout Standard
-Assuming binary classification problem.
- With the usage of Bayes rule we can rewrite
+Consider a binary classification problem.
+ With the usage of the Bayes rule we can rewrite
 \series bold
  
 \series default
@@ -2814,7 +2883,7 @@ where
 \begin_inset Formula ${\cal W}$
 \end_inset
 
- is assumed as a space of 
+ is the space of possible values of 
 \begin_inset Formula $\mathbf{W}$
 \end_inset
 
@@ -3022,7 +3091,7 @@ In this section we expect our decision three to give us an estimate
 \begin_inset Formula $\mathbf{w}$
 \end_inset
 
- same length.
+ to have the same length.
  If 
 \begin_inset Formula $\mathbf{w}$
 \end_inset
@@ -3089,8 +3158,8 @@ noprefix "false"
 \end_inset
 
 ).
- As a result, expected loss function for decision tree can be derived as
- 
+ As a result, expected loss function for a decision tree can be derived
+ as 
 \begin_inset Formula 
 \begin{align*}
 \mathbb{E}_{\pi^{*}}L & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\\
@@ -3120,19 +3189,18 @@ noprefix "false"
 
 \begin_layout Standard
 If we want to minimize expected loss we have to follow next steps.
- While construction decision tree we choose such feature 
+ While constructing a decision tree we choose such feature 
 \begin_inset Formula $x_{i}\in[x_{1},...,x_{n}]^{T}=\mathbf{x}$
 \end_inset
 
- that will bring as the highest information about the system.
+ that will bring the highest information about the system.
  This feature will form first layer, then we add another feature with the
- highest informational gain and construct second layer.
- Basing of this method we construct nodes and add more and more layers (branches
-).
+ highest information gain and construct second layer.
+ Using this method, we construct nodes and add more and more layers (branches).
 \end_layout
 
 \begin_layout Standard
-In the following part we are going to work with a set of decision trees.
+In the following part, we are going to work with a set of decision trees.
  For this purposes we will define our decision tree as 
 \begin_inset Formula $\hat{\mathbf{y}}=[T_{1}(\mathbf{x},\mathbf{w}_{l}),T_{2}(\mathbf{x},\mathbf{w}_{l})]^{T}$
 \end_inset
@@ -3245,7 +3313,7 @@ With the usage of
 \end_inset
 
 .
- Basing on this theory we will construct 
+ Using this theory we will construct 
 \begin_inset Formula $L$
 \end_inset
 
@@ -3354,7 +3422,7 @@ where each decision tree
 \begin_inset Formula $[T_{1}(\mathbf{x},\mathbf{w}_{v}),T_{2}(\mathbf{x},\mathbf{w}_{v})]^{T}$
 \end_inset
 
- is constructed with the usage of (
+ is constructed with the use of (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:decision_tree_for_random_forest"
@@ -3369,7 +3437,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-Before continuing with further sections we define output of Random Forest
+Before continuing with further sections we define output of the Random Forest
  as 
 \begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x},\mathbf{W})$
 \end_inset
@@ -3407,7 +3475,7 @@ As mentioned in previous sections
 
 
 \series default
- is a validation set.
+ is the training set.
  When we finish a model training, we may think that we need more training
  data.
  Thus, we can choose the data from 
@@ -3421,27 +3489,32 @@ As mentioned in previous sections
 \end_inset
 
 .
- We can ask for a help from an annotator that can give us those labels.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+How can I 
+\begin_inset Quotes sld
+\end_inset
+
+understand
+\begin_inset Quotes srd
+\end_inset
+
+ that? You should define an additional set of 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ without labels.
+ Maybe using a different letter.
+\end_layout
+
+\end_inset
+
+We can ask for a help from an annotator that can give us those labels.
  We assume that getting labels needs some time and is very expensive.
  
-\end_layout
-
-\begin_layout Standard
-\begin_inset FormulaMacro
-\renewcommand{\argmax}{\operatornamewithlimits{argmax}}
-{argmax}
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset FormulaMacro
-\renewcommand{\argmin}{\operatornamewithlimits{argmin}}
-{argmin}
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -3526,7 +3599,7 @@ The task of active learning is to optimize the selection of indices
 
  to reach as good classification metrics with as low number of questions
  as possible.
- As a result we have to define expected loss for each question 
+ As a result we have to define the expected loss for each question 
 \begin_inset Formula $u$
 \end_inset
 
@@ -3568,7 +3641,8 @@ rephrase!
  then parameters space of the active learning problem will form weights
  from neurons.
  We wanted to highlight that parameters space will be different for each
- problem but the idea for each algorithm is same 
+ problem but the idea for each algorithm is the same.
+ 
 \begin_inset Note Note
 status open
 
@@ -3584,7 +3658,7 @@ Rephrase
 \end_layout
 
 \begin_layout Standard
-As a result our task can be written as 
+The decision task for this particular problem can be written as 
 \begin_inset Formula 
 \begin{equation}
 j_{u}^{*}=\argmin_{j\in J\backslash J_{u}}(\mathbb{E}_{\pi_{u}^{*}}L^{*})\label{eq:index_selection_active_learning}
@@ -3596,7 +3670,7 @@ where
 \begin_inset Formula $\mathbb{E}_{\pi_{u}^{*}}L^{*}$
 \end_inset
 
- is expected loss that is dependent on an action given question 
+ is the expected loss that is dependent on an action given question 
 \begin_inset Formula $u$
 \end_inset
 
@@ -3604,8 +3678,19 @@ where
 \begin_inset Formula $J$
 \end_inset
 
- is space of all indices.
- Expected loss for the active learning problem is defined as 
+ is the space of all indices.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+In (27) a is replaced by j_u.
+ Do the same here and define (28) directly as (29)
+\end_layout
+
+\end_inset
+
+The expected loss for the active learning problem is defined as 
 \begin_inset Formula 
 \begin{equation}
 \mathbb{E}_{\pi_{u}^{*}}L^{*}=\int_{\varTheta_{u}}L^{*}(a,\theta)\pi_{u}^{*}d\theta\label{eq:Expected_loss_active_learning}
@@ -3740,7 +3825,7 @@ Considering that
 \end_inset
 
  is assigned to different classes.
- As an example for well trained binary classifier, for specific 
+ As an example for a well trained binary classifier, for specific 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
@@ -3797,7 +3882,7 @@ noprefix "false"
 \end_inset
 
 We do not have explicit form of the pdf.
- However, we assume that we have samples 
+ However, we assume that we have 
 \begin_inset Formula $Q_{u}$
 \end_inset
 
@@ -3846,8 +3931,8 @@ This method is quite general and can be applied to all types of classifiers
 \end_inset
 
  are noise corrupted.
- Thus, its obvious that we do not want our models to learn from noise corrupted
- data.
+ Thus, it is obvious that we do not want our models to learn from noise
+ corrupted data.
  As a result, we would like to randomly sample 
 \begin_inset Formula $Q_{u}$
 \end_inset
@@ -3888,7 +3973,7 @@ Assuming
 \begin_inset Formula $p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u},Z_{u})$
 \end_inset
 
- is a probability of model parameters 
+ be a probability of model parameters 
 \begin_inset Formula $\theta_{u}$
 \end_inset
 
@@ -3966,7 +4051,7 @@ SGLD
 
 \begin_layout Standard
 Unlike previous section method, SGLD sampling is designed only for neural
- networks based classifiers.
+ network based classifiers.
  SGLD modifies Neural Network learning algorithm by adding noise in Stochastic
  Gradient descent.
  In comparison to Normal Feed Forward Neural Network in 
@@ -4029,6 +4114,16 @@ noprefix "false"
 
 \end_inset
 
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+How is (37) different from (35)?
+\end_layout
+
+\end_inset
+
 However, for this case 
 \begin_inset Formula $\theta$
 \end_inset
@@ -4048,6 +4143,16 @@ literal "false"
 \end_inset
 
  the updated gradient for SGLD can be written as 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+The formula (38) is not correct!
+\end_layout
+
+\end_inset
+
+
 \begin_inset Formula 
 \begin{align}
 \hat{\Omega}_{n+1} & =\frac{N}{N_{minibatch}}\frac{\eta_{n}}{2}\Big(\hat{\Omega}_{n}-\eta_{n}\nabla L(\tilde{\mathbf{X}},\tilde{\mathbf{Y}},\hat{\Omega}_{n},Z_{n})\Big)+\epsilon_{n},\label{eq:SGLD_gradient_descent}\\
@@ -4095,8 +4200,18 @@ literal "false"
  The idea is randomly turn off some neurons while training.
  When the algorithm is almost trained we are able to start sampling the
  i.i.d.
- parameters in a same way as it was done for SGLD case.
+ parameters in the same way as it was done for SGLD case.
  Thus, an estimate of 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+I do not see why is the Bayes rule needed.
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset Formula 
 \begin{align*}
 \pi_{u}^{*} & =p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})\\
@@ -4120,6 +4235,19 @@ noprefix "false"
 
 \begin_layout Subsubsection
 DENFI
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Extension of Deep Ensembles []
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4210,7 +4338,7 @@ literal "false"
 
  e.g.
  entropy, information or mean standard deviation maximization.
- However in our work we decided to sample the data 
+ However in our work we decided to use only the entropy loss.
 \end_layout
 
 \begin_layout Subsubsection
@@ -4375,9 +4503,9 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-In this section we have fully covered decision theory for both passive and
- active learning with respect to different algorithms and ensemble approach.
- Passive Learning section showed how it is possible to generalize SVM, Random
+In this section we have covered decision theory for both passive and active
+ learning with respect to different algorithms and ensemble approach.
+ Passive Learning section showed how it is possible to view SVM, Random
  Forest and Neural Networks in terms of decision theory problem setup, whereas
  Active Learning section showed how to represent uncertainty of the model
  and parameters sampling for ensembles representation.
@@ -4436,7 +4564,8 @@ literal "false"
  (vectors, matrices).
  Even though TF-IDF is quite old method for text representation, it is still
  widely used.
- However, primary method, that used in the theses is Fast Text Word Embeddings.
+ However, primary method, that is used in the thesis is the Fast Text Word
+ Embeddings.
  In this project we are working with text documents (articles and tweets)
  and their labels.
  In the beginning of chapter 
@@ -4527,7 +4656,19 @@ TF-IDF(t,d)=TF(t,d)\cdot IDF(t,d).
 
 
 \series bold
-N.B
+N.B 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+What is this?
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -4616,7 +4757,7 @@ Fast Text and CBOW Word Embeddings
 \end_layout
 
 \begin_layout Standard
-Term word embedding means a set of language modeling and feature learning
+Term ``embedding'' means a set of language modeling and feature learning
  techniques in natural language processing where words or phrases from the
  vocabulary are mapped to vectors of real numbers.
  Nowadays exist plenty of word embedding methods based on neural networks
@@ -4659,6 +4800,18 @@ We would like to treat text {"The", "cat", ’over", "the’, "puddle"} as a
  mathematical notation defined here is only used for this section and has
  no common with the same names of the variables that were defined in the
  beginning of this theses.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This is strange.
+ There is very few symbols below.
+ It would be best to choose unique symbols to avoid conflict.
+\end_layout
+
+\end_inset
+
  First, we want to set up our known parameters.
  Let the known parameters in our model be the sentence represented by one-hot
  word vectors.
@@ -4821,7 +4974,7 @@ We desire our probabilities generated,
 
 \begin_layout Standard
 Described method can be interpreted as a feed forward neural network with
- one hidden layer that do not uses activation function.
+ one hidden layer that do not use activation function.
  As a loss function for this algorithm can be chosen cross-entropy loss
  function 
 \begin_inset Formula 
@@ -4835,7 +4988,7 @@ where
 \begin_inset Formula $\mathbf{\hat{y}}$
 \end_inset
 
- is sofmatx (
+ is softmax (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:softmax_cbow"
@@ -4874,11 +5027,11 @@ literal "false"
 \end_layout
 
 \begin_layout Chapter
-Data and Results Validation Theory 
+Data and Evaluation Metrics
 \end_layout
 
 \begin_layout Section
-Results Validation Theory
+Evaluation metrics
 \end_layout
 
 \begin_layout Standard
@@ -4889,13 +5042,13 @@ When the models are implemented and trained we have to compare them.
  First part is supervised classification with big amount of data.
  This is done for understating what is the maximal upper bound of specific
  classifiers.
- These upper bounds are used as maximums which our active learning algorithms
- must be converging to.
+ These upper bounds are used as maxima to which our active learning algorithms
+ should be converging.
  
 \end_layout
 
 \begin_layout Subsection
-Receiving Operating Curve metric
+Receiver Operating Curve metric
 \end_layout
 
 \begin_layout Standard
@@ -4914,13 +5067,14 @@ noprefix "false"
  exists for binary classification.
  However we decided to find a metic that is able to unify all metrics discussed
  before and do not underperform each of them.
- For these purposes we chose Receiving Operating Curve metric.
+ For these purposes we chose Receiver Operating Curve metric.
  ROC visualizes the tradeoff between true positive rate (TPR)
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
-VS: napsat matematicky, cite [] Fawcett, Tom (2006).
+VS: napsat matematicky, co to je.
+ cite [] Fawcett, Tom (2006).
  "An Introduction to ROC Analysis" (PDF).
  Pattern Recognition Letters.
  27 (8): 861–874.
@@ -4945,11 +5099,23 @@ We are working with balanced datasets.
 \end_layout
 
 \begin_layout Standard
-Receiving Operating Curve lets us to calculate area under the curve (AUC).
+For unique comparison, the metric should be compacted into a single number.
+ This is typically done by integrating the area under the ROC, which is
+ known as the area under the curve (AUC).
  The probabilistic interpretation of ROC score is that if a positive case
  and a negative case are chosen randomly, the probability that the positive
  case outranks the negative case according to the classifier is given by
- the AUC.
+ the AUC 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+cite []
+\end_layout
+
+\end_inset
+
+.
  
 \end_layout
 
@@ -4976,20 +5142,20 @@ Active Learning Results Validation
 Active learning model evolution is based on supervised learning algorithms
  that are sequentially retrained.
  Thus, we are not able to display ROC for active learning algorithms because
- amount of results is too big.
+ the amount of results is too big.
  We decided to aggregate results and display evolution of AUC metric for
- each step of active learning sequence.
+ each step of the active learning sequence.
  AUC sequences can be well compared between different classifiers.
  Another aspect of data validation is making the results statistically significa
 nt.
  We are not able to use k-fold cross validation for active learning algorithms.
- Therefore we active learning algorithm 
+ Therefore we run the active learning algorithm 
 \begin_inset Formula $H\in\mathbb{N}$
 \end_inset
 
- times.
- Due to the fact of random initializations, we are able to determine uncertainty
- bounds that are calculated as standard deviations to mean value.
+ times with different random selection of the initial training set.
+ Due to random initializations, we are able to determine uncertainty bounds
+ that are calculated as standard deviations from the mean value.
  
 \end_layout
 
@@ -5005,8 +5171,8 @@ name "chap:Data"
 \end_layout
 
 \begin_layout Standard
-This chapter is dedicated dataset description.
- We used two datasets for algorithms trainings and testings.
+This chapter is dedicated to dataset description.
+ We used two datasets for algorithms training and testings.
  We consider these datasets big and diverse enough for getting unbiased
  results.
  We took into account size of texts (articles and tweets), diversity and
@@ -5030,7 +5196,7 @@ literal "false"
 
  here 
 \begin_inset Flex URL
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -5065,7 +5231,7 @@ noprefix "false"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -5342,7 +5508,7 @@ noprefix "false"
 
 \begin_layout Standard
 Another dataset that is used in this work is 1600k Tweets dataset which
- is publicly available and is also taken from Kaggle competition webpage.
+ is publicly available and is also taken from the Kaggle competition webpage.
  The dataset can be found as sentiment140 dataset 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -5386,7 +5552,7 @@ Project Implementation and Architecture
 
 \begin_layout Standard
 Even though this work is quite theoretical with experiments that proof theoretic
-al concepts, we assume implementational part interesting as well.
+al concepts, we consider implementational part interesting as well.
  In this chapter we show the architecture of the project and explain how
  different dependencies cooperate with each other.
  The codebase of this project can be easily found at 
@@ -5431,16 +5597,16 @@ Database
 \begin_layout Standard
 In order to make everything consistent and let the models work with the
  same input and output format we decided to create a database that will
- store all the data in JSON format.
+ store all the data in the JSON format.
  This unification let us connect the database to machine learning and visualizin
 g components.
  In this project we decided to work with NoSQL database.
  Our choice was MongoDb.
  The reason why we have chosen MongoDb is because of its simplicity and
  possibility of maintaining through Docker.
- Since Docker and MongoDb is perfect combination, the database can be deployed
- with two lines of code through Docker-Compose as explained in documentation
- on GitHub.
+ Since Docker and MongoDb is a perfect combination, the database can be
+ deployed with two lines of code through Docker-Compose as explained in
+ documentation on GitHub.
  Of course it is easier to use MongoDb without Docker but our motivation
  was measured on simplicity of creating and working with the database.
  All experiments were run on Google Cloud Platform Virtual Machine instance.
@@ -5457,8 +5623,8 @@ MongoDb Data Format
 MongoDb represents the data in BSON format behind the scenes but we are
  send and get there JSON format data.
  Despite the fact that we are having different text datasets that we store
- in the database, we decided to create unified JSON scheme that will let
- us to preserve the structure of the data stored in MongoDb.
+ in the database, we decided to create a unified JSON scheme that will let
+ us preserve the structure of the data stored in MongoDb.
  JSON schema of how the data are stored and what a user will get as an output
  from a database is shown in figure 
 \begin_inset CommandInset ref
@@ -5644,9 +5810,9 @@ Machine Learning
 \end_layout
 
 \begin_layout Standard
-In this work we created a Generalized Model thats unifies all models.
+In this work we created a Generalized Model that unifies all models.
  Generalized Model allows to work with each Machine Learning algorithm in
- same way.
+ the same way.
  Generalized model is able to take a data transformer as an input argument.
  This feature makes it easier to work with models.
  In first chapter of this theses we introduced our models the way that we
@@ -5799,10 +5965,20 @@ SGLD
 \end_layout
 
 \begin_layout Standard
-For SGLD we used same configuration as for Feed Forward Neural Network.
+For SGLD we used the same configuration as for Feed Forward Neural Network.
  One significant difference is that we used whole training dataset and were
  adding gaussian noise to a gradient descent.
- Precise configuration of SGLD can be found in github project here 
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+refer to theory and equation number 
+\end_layout
+
+\end_inset
+
+Precise configuration of SGLD can be found in github project here 
 \begin_inset Flex URL
 status open
 
@@ -6452,14 +6628,14 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-All of tested models gave really good results in classification of Sports
+All of the tested models gave really good results in classification of Sports
  and Comedy categories.
  It means that we are able to continue working with these algorithms in
  active learning section.
  We would like to highlight that Fast Text encoding based algorithms showed
  a bit better results than TF-IDF.
- Fast Text based algorithms also showed significant improvement in fastness
- of algorithm trainings.
+ Fast Text based algorithms also showed significant improvement in evaluation
+ speed of algorithm training.
 \end_layout
 
 \begin_layout Chapter
@@ -6467,10 +6643,10 @@ Active Learning Classification
 \end_layout
 
 \begin_layout Standard
-In Passive Learning section we showed that implemented algorithms are good
- for solving text classification task.
+In Passive Learning section we showed that all implemented algorithms are
+ good for solving passive text classification task.
  Active learning section results is the main part of this theses.
- Therefor, we tested all five algorithms on the data mentioned in the Data
+ Therefore, we tested all five algorithms on the data mentioned in the Data
  section.
  The results are shown and described in further subsections.
  However, before starting with text classification results, we would like
@@ -6490,7 +6666,7 @@ Due to the fact that text encoding features space dimensionality is extremely
 \begin_inset Formula $2$
 \end_inset
 
- dimensional toy problem for uncertainty visualization.
+-dimensional toy problem for uncertainty visualization.
  In figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -6606,8 +6782,18 @@ n values is close to
 .
  As a result, sampling values from maximal uncertainty region will bring
  maximum information about the dataset.
- Models set up for Toy Problem is same as it is defined in Machine Learning
- Component section.
+ Models set up for Toy Problem is the same as it is defined in the Machine
+ Learning Component section 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Put section number
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -6615,7 +6801,7 @@ SVM Ensembles
 \end_layout
 
 \begin_layout Standard
-In figure 
+Uncertainty for the SVM Ensembles model is visualized in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:SVM_Ensembles_posterior_toy_problem"
@@ -6625,7 +6811,7 @@ noprefix "false"
 
 \end_inset
 
- is visualized uncertainty for SVM Ensembles model.
+.
  Uncertainty bounds are linear and quite narrow.
  Linearity of uncertainty bounds is explained with the fact that we are
  using SVMs with linear kernel.
@@ -6695,8 +6881,8 @@ noprefix "false"
 \end_inset
 
  is visualized uncertainty for Random Forest Ensembles model.
- In case of Random Forest Ensembles we can see that uncertainty bounds are
- not linear and lay near the region where two classes are splitted.
+ In the case of Random Forest Ensembles we can see that uncertainty bounds
+ are not linear and lay near the region where two classes are splitted.
  We see that uncertainty region is becoming wider near the places where
  datapoint of two different classes lay near each other.
  This is a behavior that we wanted to observe.
@@ -6705,7 +6891,17 @@ noprefix "false"
 
 \begin_layout Standard
 It is also seen that the curve is not smooth enough.
- This is caused with Random Forest algorithm specification.
+ This is caused by Random Forest algorithm specification 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Namely? What are these specifications....
+\end_layout
+
+\end_inset
+
+.
  
 \end_layout
 
@@ -6772,7 +6968,7 @@ noprefix "false"
  further from the data points.
  This behavior can be explained with the fact that in these places algorithm
  did not get any training data samples.
- We could also see this behavior in SWM Ensembles but in this case, Neural
+ We could also see this behavior in SVM Ensembles but in this case, Neural
  Network models represent the uncertainties much better.
  
 \end_layout
@@ -6900,7 +7096,7 @@ noprefix "false"
 
 \end_inset
 
- is visualized uncertainty for DENFI model.
+ is visualized uncertainty for the DENFI model.
  We see that uncertainty bounds are very similar to Neural Network Ensembles
  algorithms but still a bit different.
  As told in Pseudocode 
@@ -6916,7 +7112,7 @@ HERE! ADD PSEUDOCODE REF
 , algorithm founds different local minimums and then we add some gaussian
  noise to parameters values.
  In next learning iterations the algorithm continues training using the
- weights from previous step.
+ weights from the previous step.
 \end_layout
 
 \begin_layout Standard
@@ -7089,8 +7285,8 @@ smart
 Next we start two runs.
  One run is based on random selection of text documents and second run is
  based on acquisition function selection of the documents.
- Both runs start with same training dataset and then they chose additional
- training documents basing on their strategies.
+ Both runs start with the same training dataset and then they chose additional
+ training documents based on their strategies.
  We consider continuous new data selection from validation set and imitating
  annotators labeling process.
  All in all we imitate text samples selection 200 times.
@@ -7111,8 +7307,8 @@ Next we start two runs.
  new sample from the set on which the prediction was done.
  New text sample for labeling is chosen with respect to acquisition function
  or random choice.
- Before we extend our training dataset with new labeled sample we calculate
- AUC metrics on the complement to the dataset (
+ Before we extend our training dataset with a new labeled sample we calculate
+ the AUC metrics on the complement to the dataset (
 \begin_inset Formula $990$
 \end_inset
 
@@ -7132,8 +7328,8 @@ Next we start two runs.
 \end_inset
 
  data samples.
- In order to make our results statistically valid, we repeat described simulatio
-n loop 
+ In order to make our results statistically valid, we repeat the described
+ simulation loop 
 \begin_inset Formula $10$
 \end_inset
 
@@ -7141,7 +7337,21 @@ n loop
 \end_layout
 
 \begin_layout Subsection
-Alpha Greedy Strategy
+Epsilon Greedy Strategy
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Cite[]: Watkins, C.: Learning from Delayed Rewards.
+ PhD thesis, University of Cambridge, Cambridge, England (1989)
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -7150,7 +7360,7 @@ In this work we decided that we do not want to sample with respect to an
  We decided that both active learning and random strategy are going to start
  with random sampling.
  The algorithms have a coefficient 
-\begin_inset Formula $\alpha\in[0,1)$
+\begin_inset Formula $\epsilon\in[0,1)$
 \end_inset
 
  that represents probability of data sampling with respect to acquisition
@@ -7162,7 +7372,7 @@ In this work we decided that we do not want to sample with respect to an
  as 
 \begin_inset Formula 
 \begin{equation}
-\alpha=\begin{cases}
+\epsilon=\begin{cases}
 \frac{\exp(u-40)}{\exp(u-40)+1}, & u\in\{1,...,U\}\\
 0, & u=0,
 \end{cases}\label{eq:alpha_greedy_function}
@@ -7435,7 +7645,7 @@ noprefix "false"
 \end_inset
 
  dimensional feature space.
- This is much lower than in case of TF-IDF encoding.
+ This is much lower than in the case of TF-IDF encoding.
  Thus, we were able to provide computations with respect to all models.
 \end_layout
 
@@ -7531,8 +7741,8 @@ noprefix "false"
 \end_inset
 
 .
- We can see that active learning strategy is not working for case of Fast
- Text encoding as well.
+ We can see that active learning strategy is not working for the case of
+ Fast Text encoding as well.
  
 \end_layout
 
@@ -8938,9 +9148,9 @@ This project shows how active learning strategy of querying unlabeled text
 \end_layout
 
 \begin_layout Standard
-Basing on results, that were gathered from testing on 12 different categories,
- we were able to see that modification of DENFI algorithm shows great performanc
-e and overcomes other algorithms in all aspect.
+Based on the achived result that were gathered from testing on 12 different
+ categories, we were able to see that a modification of the DENFI algorithm
+ shows great performance and overcomes other algorithms in all aspect.
  DENFI outperforms all other models both in higher AUC scores and more narrow
  uncertainty bounds.
  Another huge advantage that DENFI was the fastest neural network model,
