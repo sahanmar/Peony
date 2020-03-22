@@ -883,7 +883,7 @@ Notation
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="24" columns="2">
+<lyxtabular version="3" rows="22" columns="2">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="left" valignment="top">
@@ -1131,7 +1131,7 @@ set notation
 \begin_inset Text
 
 \begin_layout Plain Layout
-action with respect to a loss function
+action from a set of all possible actions
 \end_layout
 
 \end_inset
@@ -1154,7 +1154,7 @@ action with respect to a loss function
 \begin_inset Text
 
 \begin_layout Plain Layout
-parameter with respect to a loss function
+decision theory uncertainty parameter
 \end_layout
 
 \end_inset
@@ -1337,7 +1337,7 @@ SVM bias (scalar)
 \begin_inset Text
 
 \begin_layout Plain Layout
-matrix of naive bayes or neural network single layer parameters
+matrix of Naive Bayes, random forest or neural network single layer parameters
 \end_layout
 
 \end_inset
@@ -1390,7 +1390,7 @@ set of neural network parameters (all weights and biases)
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1402,51 +1402,11 @@ set of neural network parameters (all weights and biases)
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Dirac delta function
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Dirac delta function
 \end_layout
 
 \end_inset
@@ -1798,7 +1758,7 @@ pagestyle{headings}
 \end_layout
 
 \begin_layout Standard
-The process of decision making is a defined as selection of the optimal
+The process of decision making is defined as a selection of the optimal
  action from a set of possibilities that can be applied at some operating
  conditions.
  The criteria of optimality is formalized by a loss function.
@@ -1853,7 +1813,8 @@ that defines our preference of the action, in the sense that action
 \begin_inset Formula $a$
 \end_inset
 
- that has the lowest value from the action set of the loss function is preferred.
+ which has the lowest value from the action set of the loss function is
+ preferred.
  For complete knowledge of the operating conditions 
 \begin_inset Formula $\theta$
 \end_inset
@@ -1875,7 +1836,7 @@ noprefix "false"
 \end_inset
 
 .
- The theory of decision making under runcertainty 
+ The theory of decision making under uncertainty 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Berger:1327974"
@@ -1991,7 +1952,11 @@ We would like to commence our formal definition with the data.
 \begin_inset Formula ${\bf y}$
 \end_inset
 
- is its label assigned to the data instance from space 
+ is its label assigned to the data instance 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ from space 
 \begin_inset Formula ${\cal X}$
 \end_inset
 
@@ -2035,12 +2000,7 @@ We would like to commence our formal definition with the data.
 \end_layout
 
 \begin_layout Standard
-However, how can we connect optimal action 
-\begin_inset Formula $a^{*}$
-\end_inset
-
- with given data? Basing on the data definitions from previous part, we
- can assume that 
+Basing on the data definitions from previous part, we can assume that 
 \begin_inset Formula $\mathcal{X\times Y}$
 \end_inset
 
@@ -2074,7 +2034,7 @@ p(\mathbf{x},\mathbf{y})=p(\mathbf{y}|\mathbf{x})p(\mathbf{x}).\label{eq: data_b
 However, since we do not know analytical form of the joint probability distribut
 ion we aim at selecting the best possible approximation within a chosen
  class.
- Specifically, we choose a parameteric form 
+ Specifically, we choose a parametric form 
 \begin_inset Formula $p(\mathbf{y}|\mathbf{x},a)$
 \end_inset
 
@@ -2170,30 +2130,31 @@ In this subsection we will continue construction of the decision theory
 status open
 
 \begin_layout Plain Layout
-Get rid of (x,y), refer to (5)
+Get rid of (x,y), refer to (5) MS: Correction done
 \end_layout
 
 \end_inset
 
-From this knowledge we can define 
-\begin_inset Formula $\theta=(\mathbf{x},\mathbf{y})$
+From this knowledge we consider the uncertainty 
+\begin_inset Formula $\theta$
 \end_inset
 
- where tuple 
-\begin_inset Formula $(\mathbf{\mathbf{x}},\mathbf{y})\in{\cal X}\times{\cal Y}$
+ described with (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:approx_of_joint_dist-1"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
- is parameters and 
-\begin_inset Formula $\varTheta={\cal X}\times{\cal Y}$
-\end_inset
-
- is a parameters' space.
- However, for now we are limited on 
-\begin_inset Formula $\varTheta=\tilde{\mathbf{X}}\times\mathbf{\tilde{Y}}$
+) that meets the condition of the limitation on 
+\begin_inset Formula $\varTheta=(\tilde{\mathbf{X}}\subset{\cal X},\tilde{\mathbf{Y}}\subset{\cal Y})$
 \end_inset
 
 .
- Considering loss function 
+ Considering loss function (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:loss_func"
@@ -2203,7 +2164,7 @@ noprefix "false"
 
 \end_inset
 
- that can be written as
+) that can be written as
 \begin_inset Formula 
 \begin{equation}
 L=L(\mathbf{x},\mathbf{y},\mathbf{w},b).\label{eq:SVM_thoer_loss}
@@ -2280,56 +2241,28 @@ below
 \end_inset
 
 .
- Moreover, as mentioned earlier, we consider 
-\begin_inset Formula $\mathbf{x}\in{\cal X}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{y}\in{\cal Y}$
-\end_inset
-
- are random variables with joint probability density function 
-\begin_inset Formula $p({\bf x},\mathbf{y})$
-\end_inset
-
-.
  
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-Get rid of the following, refer to (5)
+MS: Correction done
 \end_layout
 
 \end_inset
 
-We will also assume that 
-\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
+Thus, the uncertainty of the decision task can be defined as (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:approx_of_joint_dist-1"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
- are independent identically distributed.
- As a result, with the usage of those data, probability density function
+).
  
-\begin_inset Formula $p({\bf x},\mathbf{y})$
-\end_inset
-
- can be estimated as 
-\begin_inset Formula 
-\begin{equation}
-\pi^{*}=p(\mathbf{x},\mathbf{y})=\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})\label{eq:approx_of_joint_dist}
-\end{equation}
-
-\end_inset
-
-where 
-\begin_inset Formula $\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})$
-\end_inset
-
- is Dirac delta function which is centered in 
-\begin_inset Formula $(\mathbf{x}_{i},\mathbf{y}_{i})$
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard
@@ -2403,25 +2336,22 @@ status open
 Do not mention encodings.
  So far, x were given.
  Introduce encodings later.
+ MS: Correction done
 \end_layout
 
 \end_inset
 
-In this work we are using encoding of the input sample 
+Given the instance 
 \begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
 
- and then applying Feed Forward Neural Network in order to predict the output
- value 
+ with further application of Feed Forward Neural Network we are able to
+ predict an output value 
 \begin_inset Formula $\mathbf{y}\in{\cal Y}.$
 \end_inset
 
- There are plenty of ways how to provide encoding of the data sample 
-\begin_inset Formula $\mathbf{x}$
-\end_inset
-
- but we are interested here only in Feed Forward Neural Network algorithm
- that assigns input value to a specific class.
+ In this part of the work our prior interest is around Feed Forward Neural
+ Network algorithm that assigns input value to a specific class.
  
 \end_layout
 
@@ -2456,14 +2386,14 @@ Further layers of NN are formed as
 
 \end_inset
 
-As seen from equation 
+As seen from equation (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:second_layer_neron"
 
 \end_inset
 
-, neurons from each layer (except of input layer) take linear combination
+), neurons from each layer (except of input layer) take linear combination
  of the neurons from the previous layer.
  Function 
 \begin_inset Formula $f$
@@ -2603,21 +2533,18 @@ where
 \end_inset
 
 .
- We consider 
-\begin_inset Formula $\mathbf{x}\in{\cal X}$
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+MS: Correction done
+\end_layout
+
 \end_inset
 
- and 
-\begin_inset Formula $\mathbf{y\in}{\cal Y}$
-\end_inset
-
- are random variables with joint probability density function 
-\begin_inset Formula $p({\bf x},\mathbf{y})$
-\end_inset
-
-.
  With the usage of the given dataset where 
-\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
+\begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{(\tilde{\mathbf{X}}\subset{\cal X},\tilde{\mathbf{Y}}\subset{\cal Y})}$
 \end_inset
 
  are independent identically distributed we can approximate 
@@ -2627,7 +2554,7 @@ where
  as (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:approx_of_joint_dist"
+reference "eq:approx_of_joint_dist-1"
 plural "false"
 caps "false"
 noprefix "false"
@@ -2635,7 +2562,7 @@ noprefix "false"
 \end_inset
 
 ).
- Applying definition 
+ Applying definition (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "def:expected_loss"
@@ -2645,7 +2572,7 @@ noprefix "false"
 
 \end_inset
 
-, expected loss for the algorithm based on a neural network function is
+), expected loss for the algorithm based on a neural network function is
  evaluated as 
 \begin_inset Formula 
 \begin{align}
@@ -2729,7 +2656,18 @@ th iteration of a value that in terms of NN is defined as learning rate
 \end_inset
 
 th iteration of loss function.
- As a result described method finds the way to the function minimum.
+ Learning rate decay is not obligatory feature.
+ It can be constant as well.
+ However, it is very strong feature that increases performance.
+ In this work we are using ADAM optimization 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "kingma2014adam"
+literal "false"
+
+\end_inset
+
+ which includes learning rate decay.
  
 \end_layout
 
@@ -2742,7 +2680,7 @@ If you are using ADAM, you can mention it as a way how to define
 \begin_inset Formula $\eta_{n}$
 \end_inset
 
-
+ MS: Correction done
 \end_layout
 
 \end_inset
@@ -2764,32 +2702,41 @@ The usual gradient descent is extremely efficient method for complex
 
 , the loss function of its approximation will be non convex with large amount
  of local minima and maxima.
- Solution of this problem is that algorithm must jump over this local minimum
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Are you talking about momentum? use reference
-\end_layout
+ Solution of this problem is that algorithm must jump over or walk around
+ the local minimum.
+ Stochastic gradient descent (SGD) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bishop2006machine"
+literal "false"
 
 \end_inset
 
-.
- In terms of probability theory this tool is represented as a random value
- from some distribution.
+ lets us to provide this operations.
  
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-This is about SGD? It will escape only sharp minima, not flat ones.
+Are you talking about momentum? use reference MS: Correction done
 \end_layout
 
 \end_inset
 
-In comparison to standard gradient descent the key difference is that only
- one piece of data (minibatch) from the training dataset is used to calculate
- the step 
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This is about SGD? It will escape only sharp minima, not flat ones MS: Correctio
+n done
+\end_layout
+
+\end_inset
+
+In comparison to standard gradient descent the key difference is that SGD
+ allows us to use only one piece of data (minibatch) from the training dataset
+ in order to calculate the step 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bishop2006machine"
@@ -2892,7 +2839,7 @@ where
 \end_layout
 
 \begin_layout Standard
-Naive Bayes method introduces very strong assumption in equation 
+Naive Bayes method introduces very strong assumption in equation (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:bayes_rule"
@@ -2902,7 +2849,7 @@ noprefix "false"
 
 \end_inset
 
-.
+).
  This assumption says that features of vector 
 \begin_inset Formula $\mathbf{x}=[x_{1},x_{2},...,x_{n}]^{T}$
 \end_inset
@@ -2950,7 +2897,7 @@ We want to maximize probability
 \end_inset
 
 .
- As a result, using 
+ As a result, using (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:naive_bayes_eq"
@@ -2960,7 +2907,7 @@ noprefix "false"
 
 \end_inset
 
-, loss function 
+), loss function 
 \begin_inset Formula $L$
 \end_inset
 
@@ -3000,7 +2947,7 @@ noprefix "false"
  as 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:approx_of_joint_dist"
+reference "eq:approx_of_joint_dist-1"
 plural "false"
 caps "false"
 noprefix "false"
@@ -3150,7 +3097,7 @@ With the usage of the given data where
  as (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:approx_of_joint_dist"
+reference "eq:approx_of_joint_dist-1"
 plural "false"
 caps "false"
 noprefix "false"
@@ -3702,11 +3649,27 @@ where
 \begin_inset Formula $a\in{\cal A}_{u}$
 \end_inset
 
- and 
+, 
 \begin_inset Formula $\theta\in\varTheta_{u}$
 \end_inset
 
- 
+ (
+\begin_inset Formula $\theta=(\mathbf{w},\mathbf{b})$
+\end_inset
+
+ for SVM, 
+\begin_inset Formula $\theta=$
+\end_inset
+
+
+\begin_inset Formula $\Omega$
+\end_inset
+
+ for NN, 
+\begin_inset Formula $\theta=\mathbf{W}$
+\end_inset
+
+ for RF and NB) 
 \begin_inset Note Note
 status open
 
@@ -3723,7 +3686,8 @@ VS: make assigment
 \begin_inset Formula $\Omega$
 \end_inset
 
- (NN)
+ (NN).
+ MS: Correction done
 \end_layout
 
 \end_inset
@@ -3861,7 +3825,7 @@ In this section we would like to construct theory around
 \begin_inset Formula $\pi_{u}^{*}$
 \end_inset
 
- from equation 
+ from equation (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:Expected_loss_active_learning_with_action_space_as_indices"
@@ -3871,7 +3835,7 @@ noprefix "false"
 
 \end_inset
 
-.
+).
  Mentioned distribution is a distribution of the models' parameters given
  the training data that can be written as 
 \begin_inset Formula 
@@ -3995,7 +3959,7 @@ Assuming
 \end_inset
 
 .
- As a result we can approximate 
+ As a result we can approximate (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_for_expected_entropy_loss"
@@ -4005,13 +3969,13 @@ noprefix "false"
 
 \end_inset
 
- as 
+) as 
 \begin_inset Formula 
 \begin{align}
 \pi_{u}^{*} & =p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})\label{eq:prior_distribution_approximation_training_set_sampling}\\
  & =\int p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u},Z_{u})p(Z_{u})dZ_{u}\\
  & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u},Z_{u}^{(q)})\\
- & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\delta(\theta_{u}-\theta_{u}^{(q)}).
+ & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\delta(\theta_{u}-\theta_{u}^{(q)}).\label{eq:prior_disctribution_approximation_training_set_sampling_final}
 \end{align}
 
 \end_inset
@@ -4076,7 +4040,7 @@ literal "false"
  In fact, when the algorithm is almost trained, additional noise lets us
  to sample i.i.d parameters values in a neighborhood of a minimum.
  With the usage of Bayes rule.
- we can rewrite 
+ we can rewrit (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_for_expected_entropy_loss"
@@ -4086,7 +4050,7 @@ noprefix "false"
 
 \end_inset
 
- as 
+) as 
 \begin_inset Formula 
 \begin{align}
 \pi_{u}^{*} & =p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})\nonumber \\
@@ -4095,7 +4059,7 @@ noprefix "false"
 
 \end_inset
 
-Next, we can approximate 
+Next, we can approximate (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_approximation_sgld"
@@ -4105,11 +4069,10 @@ noprefix "false"
 
 \end_inset
 
- as 
+) as 
 \begin_inset Formula 
 \begin{align}
-\pi_{u}^{*} & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}p(\mathbf{X}_{u},\mathbf{Y}_{u}|\theta_{u}^{(q)})\label{eq:eq:prior_distribution_approximation_sgld_2}\\
- & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}\delta(\theta_{u}-\theta_{u}^{(q)}).\nonumber 
+\pi_{u}^{*} & =\frac{1}{Q_{u}}\sum_{q=1}^{Q_{u}}p(\mathbf{X}_{u},\mathbf{Y}_{u}|\theta_{u}^{(q)})
 \end{align}
 
 \end_inset
@@ -4119,12 +4082,23 @@ noprefix "false"
 status open
 
 \begin_layout Plain Layout
-How is (37) different from (35)?
+How is (37) different from (35)? MS: Corrected
 \end_layout
 
 \end_inset
 
-However, for this case 
+that results in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior_disctribution_approximation_training_set_sampling_final"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ However, for this case 
 \begin_inset Formula $\theta$
 \end_inset
 
@@ -4207,6 +4181,7 @@ status open
 
 \begin_layout Plain Layout
 I do not see why is the Bayes rule needed.
+ MS: Correction done
 \end_layout
 
 \end_inset
@@ -4214,8 +4189,7 @@ I do not see why is the Bayes rule needed.
  
 \begin_inset Formula 
 \begin{align*}
-\pi_{u}^{*} & =p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})\\
- & \propto p(\mathbf{X}_{u},\mathbf{Y}_{u}|\theta_{u})p(\theta_{u})
+\pi_{u}^{*} & =p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})
 \end{align*}
 
 \end_inset
@@ -4223,7 +4197,7 @@ I do not see why is the Bayes rule needed.
  can be written with the usage of 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:eq:prior_distribution_approximation_sgld_2"
+reference "eq:prior_disctribution_approximation_training_set_sampling_final"
 plural "false"
 caps "false"
 noprefix "false"
@@ -4261,7 +4235,7 @@ status open
 
 \end_inset
 
- we can approximate 
+ we can approximate (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_for_expected_entropy_loss"
@@ -4271,7 +4245,7 @@ noprefix "false"
 
 \end_inset
 
- with the usage of equations 
+) with the usage of equations (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_approximation_sgld"
@@ -4281,17 +4255,17 @@ noprefix "false"
 
 \end_inset
 
- and 
+) and (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:eq:prior_distribution_approximation_sgld_2"
+reference "eq:prior_disctribution_approximation_training_set_sampling_final"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-.
+).
  The equations are same but sampling from 
 \begin_inset Formula $p(\theta_{u})$
 \end_inset
@@ -4423,7 +4397,7 @@ We would like to generalize active learning part for all described algorithms
 \begin_inset Formula $\pi_{u}^{*}$
 \end_inset
 
- in 
+ in (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_for_expected_entropy_loss"
@@ -4433,7 +4407,7 @@ noprefix "false"
 
 \end_inset
 
-.
+).
  In Supervised Learning section we have derived estimate 
 \begin_inset Formula $\hat{\mathbf{y}}$
 \end_inset
@@ -4449,7 +4423,7 @@ noprefix "false"
 \begin_inset Formula $\pi_{u}^{*}$
 \end_inset
 
- and then approximate probability distribution as 
+ and then approximate probability distribution as (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_for_expected_entropy_loss"
@@ -4459,7 +4433,7 @@ noprefix "false"
 
 \end_inset
 
-.
+).
  
 \end_layout
 
@@ -4655,20 +4629,6 @@ TF-IDF(t,d)=TF(t,d)\cdot IDF(t,d).
 \end_inset
 
 
-\series bold
-N.B 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\series bold
-What is this?
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsubsection
@@ -4709,7 +4669,7 @@ where
 \end_inset
 
  is words' random variable.
- Equation 
+ Equation (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:Documents_entropy_given_word"
@@ -4719,8 +4679,8 @@ noprefix "false"
 
 \end_inset
 
- is correct under condition that we have no duplicate documents in the text
- corpus.
+) is correct under condition that we have no duplicate documents in the
+ text corpus.
  Next step is to derive an equation of mutual information of documents and
  words as follows 
 \begin_inset Formula 
@@ -4735,7 +4695,7 @@ M(D,T) & =H(D)-H(D|T)\nonumber \\
 
 \end_inset
 
-As seen from 
+As seen from (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:tf_idf_mutual_information"
@@ -4745,7 +4705,7 @@ noprefix "false"
 
 \end_inset
 
- TF-IDF has really good explanatory definition based on Information Theory.
+) TF-IDF has really good explanatory definition based on Information Theory.
  As a result, it is one more advantage of this method usage.
  However, here is one big disadvantage that can be very crucial.
  The higher amount of words is, the bigger and sparser vectors, that represent
@@ -4793,13 +4753,9 @@ literal "false"
 
 \begin_layout Standard
 We would like to treat text {"The", "cat", ’over", "the’, "puddle"} as a
- context and from these words, be able to predict or generate the center
- word "jumped".
- This type of model is a Continuous Bag of Words (CBOW) Model.
- Before we continue with more theoretical part, it is good to mention that
- mathematical notation defined here is only used for this section and has
- no common with the same names of the variables that were defined in the
- beginning of this theses.
+ context and basing on the context we would like to predict or generate
+ the center word "jumped".
+ This type of model is Continuous Bag of Words (CBOW) Model.
  
 \begin_inset Note Note
 status open
@@ -4808,29 +4764,27 @@ status open
 This is strange.
  There is very few symbols below.
  It would be best to choose unique symbols to avoid conflict.
+ MS: Corrections added, text changed 
 \end_layout
 
 \end_inset
 
- First, we want to set up our known parameters.
- Let the known parameters in our model be the sentence represented by one-hot
- word vectors.
- The input one hot vectors or context we will represent with an 
+ Let the known parameters in our model be the sentence represented with
+ one-hot encoded word vectors.
+ The input one hot encoded context vector is defined as 
 \begin_inset Formula ${\bf x}^{(c)}$
 \end_inset
 
+, where 
+\begin_inset Formula $c$
+\end_inset
+
+ is position of a word in the context.
+ The predicted context word is defined as 
+\begin_inset Formula ${\bf h}$
+\end_inset
+
 .
- And the output as 
-\begin_inset Formula ${\bf y}^{(c)}$
-\end_inset
-
- and in the CBOW model, since we only have one output, so we just call this
- 
-\begin_inset Formula ${\bf y}$
-\end_inset
-
- which is the one hot vector of the known center word.
- Now let’s define our unknowns in our model.
  We create two matrices, 
 \begin_inset Formula ${\bf \mathcal{V}}\in\mathbb{R}^{n×|V|}$
 \end_inset
@@ -4881,7 +4835,7 @@ dimensional embedded vector for word
 
  is the output word matrix.
  The 
-\begin_inset Formula $j-$
+\begin_inset Formula $k-$
 \end_inset
 
 th row of 
@@ -4893,7 +4847,7 @@ th row of
 \end_inset
 
 dimensional embedded vector for word 
-\begin_inset Formula $w_{j}$
+\begin_inset Formula $w_{k}$
 \end_inset
 
  when it is an output of the model.
@@ -4902,7 +4856,7 @@ dimensional embedded vector for word
 \end_inset
 
  as 
-\begin_inset Formula ${\bf u}_{j}$
+\begin_inset Formula ${\bf u}_{k}$
 \end_inset
 
 .
@@ -4952,7 +4906,7 @@ Generate a score vector
 Turn the scores into probabilities 
 \begin_inset Formula 
 \begin{equation}
-\hat{{\bf y}}=\mathrm{softmax}({\bf z})\label{eq:softmax_cbow}
+\hat{{\bf h}}=\mathrm{softmax}({\bf z})\label{eq:softmax_cbow}
 \end{equation}
 
 \end_inset
@@ -4962,7 +4916,7 @@ Turn the scores into probabilities
 
 \begin_layout Itemize
 We desire our probabilities generated, 
-\begin_inset Formula $\hat{{\bf y}}$
+\begin_inset Formula $\hat{{\bf h}}$
 \end_inset
 
 , to match the true probabilities, 
@@ -4979,7 +4933,7 @@ Described method can be interpreted as a feed forward neural network with
  function 
 \begin_inset Formula 
 \begin{equation}
-L=\sum_{i=1}^{|V|}{\bf y_{i}\log({\bf \hat{y}}_{i})}\label{eq:cross_entropy_cbow}
+L=\sum_{i=1}^{|V|}{\bf h_{i}\log({\bf \hat{h}}_{i})}\label{eq:cross_entropy_cbow}
 \end{equation}
 
 \end_inset
@@ -5068,7 +5022,15 @@ noprefix "false"
  However we decided to find a metic that is able to unify all metrics discussed
  before and do not underperform each of them.
  For these purposes we chose Receiver Operating Curve metric.
- ROC visualizes the tradeoff between true positive rate (TPR)
+ ROC visualizes the tradeoff between true positive rate (TPR) 
+\begin_inset Formula 
+\[
+\mathrm{TPR}=\frac{\mathrm{true\ positive}}{\mathrm{true\ positive+false\ negative}}
+\]
+
+\end_inset
+
+ 
 \begin_inset Note Note
 status open
 
@@ -5078,15 +5040,33 @@ VS: napsat matematicky, co to je.
  "An Introduction to ROC Analysis" (PDF).
  Pattern Recognition Letters.
  27 (8): 861–874.
- 
+ MS: Correction done 
 \end_layout
 
 \end_inset
 
- and false positive rate (FPR).
+ and false positive rate (FPR) 
+\begin_inset Formula 
+\[
+\mathrm{FPR}=\frac{\mathrm{false\ positive}}{\mathrm{false\ positive+true\ negative}},
+\]
+
+\end_inset
+
+where terminology true/false positive/negative, true or false refers to
+ the assigned classification being correct or incorrect, while positive
+ or negative refers to assignment to the positive or the negative category
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "fawcett2006introduction"
+literal "false"
+
+\end_inset
+
+.
  This means that for every threshold, we are able to calculate TPR and FPR
  and plot it on one figure.
- 
 \end_layout
 
 \begin_layout Standard
@@ -5106,12 +5086,10 @@ For unique comparison, the metric should be compacted into a single number.
  and a negative case are chosen randomly, the probability that the positive
  case outranks the negative case according to the classifier is given by
  the AUC 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-cite []
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "fawcett2006introduction"
+literal "false"
 
 \end_inset
 
@@ -5720,6 +5698,13 @@ Gb memory that was running on Debian GNU/Linux 10.
 
 \begin_layout Section
 Machine Learning Component
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Machine-Learning-Component"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -5967,13 +5952,31 @@ SGLD
 \begin_layout Standard
 For SGLD we used the same configuration as for Feed Forward Neural Network.
  One significant difference is that we used whole training dataset and were
- adding gaussian noise to a gradient descent.
+ adding gaussian noise to a gradient descent 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "welling2011bayesian"
+literal "false"
+
+\end_inset
+
+ as shown in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:SGLD_gradient_descent"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
  
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-refer to theory and equation number 
+refer to theory and equation number MS: Correction done
 \end_layout
 
 \end_inset
@@ -5990,7 +5993,7 @@ djusted_models/sgld_nn.py
 
 \end_inset
 
-
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -6784,11 +6787,21 @@ n values is close to
  maximum information about the dataset.
  Models set up for Toy Problem is the same as it is defined in the Machine
  Learning Component section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Machine-Learning-Component"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-Put section number
+Put section number MS: Correction done
 \end_layout
 
 \end_inset
@@ -6891,12 +6904,13 @@ noprefix "false"
 
 \begin_layout Standard
 It is also seen that the curve is not smooth enough.
- This is caused by Random Forest algorithm specification 
+ This is caused by Random Forest decision boundary 
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
 Namely? What are these specifications....
+ MS: Correction done
 \end_layout
 
 \end_inset
@@ -7099,13 +7113,13 @@ noprefix "false"
  is visualized uncertainty for the DENFI model.
  We see that uncertainty bounds are very similar to Neural Network Ensembles
  algorithms but still a bit different.
- As told in Pseudocode 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-HERE! ADD PSEUDOCODE REF
-\end_layout
+ As told in pseudocode 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:DENFI_modification_algorithm"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
@@ -7346,7 +7360,8 @@ status open
 
 \begin_layout Plain Layout
 Cite[]: Watkins, C.: Learning from Delayed Rewards.
- PhD thesis, University of Cambridge, Cambridge, England (1989)
+ PhD thesis, University of Cambridge, Cambridge, England (1989) MS: Correction
+ is done
 \end_layout
 
 \end_inset
@@ -7356,7 +7371,16 @@ Cite[]: Watkins, C.: Learning from Delayed Rewards.
 
 \begin_layout Standard
 In this work we decided that we do not want to sample with respect to an
- acquisition function from the beginning.
+ acquisition function from the beginning but follow with epsilon greedy
+ strategy 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "watkins1989learning"
+literal "false"
+
+\end_inset
+
+.
  We decided that both active learning and random strategy are going to start
  with random sampling.
  The algorithms have a coefficient 
@@ -7366,7 +7390,7 @@ In this work we decided that we do not want to sample with respect to an
  that represents probability of data sampling with respect to acquisition
  function.
  In this work we define 
-\begin_inset Formula $\alpha$
+\begin_inset Formula $\epsilon$
 \end_inset
 
  as 
@@ -9148,7 +9172,7 @@ This project shows how active learning strategy of querying unlabeled text
 \end_layout
 
 \begin_layout Standard
-Based on the achived result that were gathered from testing on 12 different
+Based on the achieved result that were gathered from testing on 12 different
  categories, we were able to see that a modification of the DENFI algorithm
  shows great performance and overcomes other algorithms in all aspect.
  DENFI outperforms all other models both in higher AUC scores and more narrow
