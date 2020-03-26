@@ -377,7 +377,7 @@ status open
 
 
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 ends the centered part (the required new paragraph before "}" is inserted
@@ -2125,17 +2125,7 @@ In this subsection we will continue construction of the decision theory
 \end_inset
 
 .
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Get rid of (x,y), refer to (5) MS: Correction done
-\end_layout
-
-\end_inset
-
-From this knowledge we consider the uncertainty 
+ From this knowledge we consider the uncertainty 
 \begin_inset Formula $\theta$
 \end_inset
 
@@ -2241,17 +2231,7 @@ below
 \end_inset
 
 .
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-MS: Correction done
-\end_layout
-
-\end_inset
-
-Thus, the uncertainty of the decision task can be defined as (
+ Thus, the uncertainty of the decision task can be defined as (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:approx_of_joint_dist-1"
@@ -2329,18 +2309,6 @@ Neural Network
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Do not mention encodings.
- So far, x were given.
- Introduce encodings later.
- MS: Correction done
-\end_layout
-
-\end_inset
-
 Given the instance 
 \begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
@@ -2445,7 +2413,7 @@ where
 \end_inset
 
  is an output vector before activation function is applied.
- Output vector has same size a label 
+ Output vector has same size as label 
 \begin_inset Formula $\mathbf{y}$
 \end_inset
 
@@ -2483,10 +2451,10 @@ noprefix "false"
 \end_inset
 
  is the input data, 
-\begin_inset Formula $\Omega=\{\mathbf{W}_{1},...\mathbf{W}_{K},\mathbf{b}_{1}...,\mathbf{b}_{K}\}$
+\begin_inset Formula $\Omega=(\mathbf{W}_{1},...\mathbf{W}_{K},\mathbf{b}_{1}...,\mathbf{b}_{K})$
 \end_inset
 
- is a set of all neural network function parameters and biases.
+ is a collection of all neural network function parameters and biases.
  Action space 
 \begin_inset Formula $\mathcal{A}$
 \end_inset
@@ -2533,16 +2501,6 @@ where
 \end_inset
 
 .
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-MS: Correction done
-\end_layout
-
-\end_inset
-
  With the usage of the given dataset where 
 \begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{(\tilde{\mathbf{X}}\subset{\cal X},\tilde{\mathbf{Y}}\subset{\cal Y})}$
 \end_inset
@@ -2658,8 +2616,9 @@ th iteration of a value that in terms of NN is defined as learning rate
 th iteration of loss function.
  Learning rate decay is not obligatory feature.
  It can be constant as well.
- However, it is very strong feature that increases performance.
- In this work we are using ADAM optimization 
+ However, the best performance is obtained when the learning rate is estimated
+ from the data, which is the main idea of adaptive methods such as RMSProp
+ or ADAM 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "kingma2014adam"
@@ -2667,29 +2626,12 @@ literal "false"
 
 \end_inset
 
- which includes learning rate decay.
+.
  
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-If you are using ADAM, you can mention it as a way how to define 
-\begin_inset Formula $\eta_{n}$
-\end_inset
-
- MS: Correction done
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The usual gradient descent is extremely efficient method for complex 
+The usual gradient descent is an efficient method for complex 
 \begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\Omega)$
 \end_inset
 
@@ -2702,9 +2644,8 @@ The usual gradient descent is extremely efficient method for complex
 
 , the loss function of its approximation will be non convex with large amount
  of local minima and maxima.
- Solution of this problem is that algorithm must jump over or walk around
- the local minimum.
- Stochastic gradient descent (SGD) 
+ Multiple solution to this problem has been proposed in the form of gradient
+ descent with momentum, or stochastic gradient descent (SGD) 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bishop2006machine"
@@ -2712,29 +2653,8 @@ literal "false"
 
 \end_inset
 
- lets us to provide this operations.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Are you talking about momentum? use reference MS: Correction done
-\end_layout
-
-\end_inset
-
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-This is about SGD? It will escape only sharp minima, not flat ones MS: Correctio
-n done
-\end_layout
-
-\end_inset
-
-In comparison to standard gradient descent the key difference is that SGD
+.
+ In comparison to standard gradient descent the key difference is that SGD
  allows us to use only one piece of data (minibatch) from the training dataset
  in order to calculate the step 
 \begin_inset CommandInset citation
@@ -2754,6 +2674,20 @@ literal "false"
  
 \end_layout
 
+\begin_layout Standard
+In this work, we are using the ADAM optimization 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "kingma2014adam"
+literal "false"
+
+\end_inset
+
+ which is a stochastic gradient optimization including adaptation of the
+ learning rate as well as coefficient of the momentum.
+ 
+\end_layout
+
 \begin_layout Subsection
 Decision Theory and Naive Bayes Algorithm
 \begin_inset CommandInset label
@@ -2768,19 +2702,20 @@ name "subsec:decision_theory_nb"
 \begin_layout Standard
 Naive Bayes algorithm is a bit different to the algorithm based on Neural
  Networks and SVM.
- In the case of Naive Bayes we want to estimate 
+ In the case of Naive Bayes, we want to estimate 
 \begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
 \end_inset
 
  where 
-\begin_inset Formula $\mathbf{W}=\{\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n}\}\subset{\cal W}$
+\begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n})\subset{\cal W}$
 \end_inset
 
- is an action (
+ is a collection of parameters of individual classifiers and will be used
+ as an action (
 \begin_inset Formula $a=\mathbf{W},\ a\in\mathcal{A}$
 \end_inset
 
-).
+) it the following decision task.
  The reason why we look for an estimate of the 
 \begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
 \end_inset
@@ -2793,8 +2728,8 @@ Naive Bayes algorithm is a bit different to the algorithm based on Neural
 \begin_inset Formula $p(\mathbf{y}|\mathbf{x},\mathbf{W})$
 \end_inset
 
- we would have to work with normalization constant would be dependent on
- the set of parameters 
+ we would have to work with normalization constant which would be dependent
+ on the set of parameters 
 \begin_inset Formula $\mathbf{W}$
 \end_inset
 
@@ -2994,8 +2929,8 @@ name "subsec:random_forest_supervised_learning"
 \end_layout
 
 \begin_layout Standard
-In order to work with random forests we must precisely define decision trees
- and only then construct theory for random forests.
+In order to work with random forests, we must precisely define decision
+ trees and only then construct theory for random forests.
 \end_layout
 
 \begin_layout Subsubsection
@@ -3003,7 +2938,7 @@ Decision Tree
 \end_layout
 
 \begin_layout Standard
-In this section we expect our decision three to give us an estimate 
+In this section, we expect our decision three to give us an estimate 
 \begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\mathbf{w})\in\{[0,1]^{T},[1,0]^{T}\}$
 \end_inset
 
@@ -3011,7 +2946,7 @@ In this section we expect our decision three to give us an estimate
 \begin_inset Formula $\mathbf{w}$
 \end_inset
 
- is a vector that describes tree (depth, branches, etc.), 
+ is a vector that describes tree (depth, branches, etc.), for each 
 \begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
 
@@ -3029,7 +2964,7 @@ In this section we expect our decision three to give us an estimate
 \begin_inset Formula $\mathbf{w}\in{\cal W}$
 \end_inset
 
- exists upper bound, where 
+ exist a single upper bound, where 
 \begin_inset Formula ${\cal W}$
 \end_inset
 
@@ -3044,38 +2979,22 @@ In this section we expect our decision three to give us an estimate
 \end_inset
 
  has spare elements, they will be filled with zeros.
- Parameter space will be same as in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:decision_theory_svm"
-plural "false"
-caps "false"
-noprefix "false"
-
+ Parameter space will be 
+\begin_inset Formula $\mathbf{w}\in{\cal W}$
 \end_inset
 
--
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:decision_theory_nb"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, whereas action 
+.
+ The action 
 \begin_inset Formula $a\in{\cal A}$
 \end_inset
 
- will be represented as 
+ will be represented as elements of the action space 
 \begin_inset Formula ${\cal A}={\cal W}$
 \end_inset
 
 .
- In order to understand when our tree is optimal we can use zero-one loss
- function.
- Zero-one loss function is defined as 
+ The loss function of the decision tree is the zero-one loss function, defined
+ as 
 \begin_inset Formula 
 \begin{equation}
 L(\mathbf{x},\mathbf{y},\mathbf{w})=\begin{cases}
@@ -3086,11 +3005,11 @@ L(\mathbf{x},\mathbf{y},\mathbf{w})=\begin{cases}
 
 \end_inset
 
-With the usage of the given data where 
+With the use of the given data, where 
 \begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{\tilde{X}\times\tilde{Y}}$
 \end_inset
 
- are independent identically distributed we can approximate 
+ are independent identically distributed, we can approximate 
 \begin_inset Formula $p(\mathbf{x},\mathbf{y})$
 \end_inset
 
@@ -3105,7 +3024,7 @@ noprefix "false"
 \end_inset
 
 ).
- As a result, expected loss function for a decision tree can be derived
+ As a result, the expected loss function for a decision tree can be derived
  as 
 \begin_inset Formula 
 \begin{align*}
@@ -3135,36 +3054,39 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-If we want to minimize expected loss we have to follow next steps.
- While constructing a decision tree we choose such feature 
+The conventional optimization procedure for decision trees is a heuristic
+ that works as follows.
+ In the process of constructing a decision tree we choose such feature 
 \begin_inset Formula $x_{i}\in[x_{1},...,x_{n}]^{T}=\mathbf{x}$
 \end_inset
 
- that will bring the highest information about the system.
- This feature will form first layer, then we add another feature with the
- highest information gain and construct second layer.
+ that will bring the highest information about the system (e.g.
+ highest entropy of the features).
+ This feature will form first layer on which a classification rule is designed.
+ Then we add another feature with the highest information gain and construct
+ the second layer.
  Using this method, we construct nodes and add more and more layers (branches).
-\end_layout
-
-\begin_layout Standard
-In the following part, we are going to work with a set of decision trees.
- For this purposes we will define our decision tree as 
-\begin_inset Formula $\hat{\mathbf{y}}=[T_{1}(\mathbf{x},\mathbf{w}_{l}),T_{2}(\mathbf{x},\mathbf{w}_{l})]^{T}$
+ However, such a procedure can be sub-optimal and improvement was achieved
+ using a set of decision trees.
+ For this purposes we will define our decision tree 
+\begin_inset Formula $T(\mathbf{x},\mathbf{w}_{l})$
 \end_inset
 
- where index 
+ which has a one-hot encoded classification, i.e.
+ two dimensional vector 
+\begin_inset Formula $\hat{\mathbf{y}}$
+\end_inset
+
+ for the binary classification problem.
+ Index 
 \begin_inset Formula $l$
 \end_inset
 
- represents set of parameters for 
-\begin_inset Formula $l-$
+ represents the set of parameters for the 
+\begin_inset Formula $l$
 \end_inset
 
-th three and indices 
-\begin_inset Formula $1,2$
-\end_inset
-
- represent first and second value of the one-hot vector.
+-th three.
  
 \end_layout
 
@@ -3173,7 +3095,7 @@ Random Forest
 \end_layout
 
 \begin_layout Standard
-Considering 
+Consider 
 \begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
 
@@ -3195,7 +3117,7 @@ Considering
 \end_layout
 
 \begin_layout Standard
-With the usage of 
+We will use the training set (
 \begin_inset Formula $\tilde{{\bf X}}$
 \end_inset
 
@@ -3203,24 +3125,20 @@ With the usage of
 \begin_inset Formula $\tilde{{\bf Y}}$
 \end_inset
 
- we will make 
-\begin_inset Formula $\{1,...,V\},$
-\end_inset
-
- 
+) as a set from which we sample we sample 
 \begin_inset Formula $V\in\mathbb{N}$
 \end_inset
 
- sets where 
-\begin_inset Formula $\forall v\in V$
-\end_inset
-
-, 
+ sets, 
 \begin_inset Formula $\tilde{\mathbf{X}}_{v}\subset\tilde{\mathbf{X}}$
 \end_inset
 
  and 
 \begin_inset Formula $\tilde{{\bf Y}}_{v}\subset\tilde{{\bf Y}}$
+\end_inset
+
+, 
+\begin_inset Formula $\forall v\in\{1,...,V\}$
 \end_inset
 
 .
@@ -3232,7 +3150,7 @@ With the usage of
 \begin_inset Formula $\tilde{{\bf Y}}_{v}$
 \end_inset
 
- are created with random uniform sampling from 
+ are created with random uniform sampling of indeces of instances in 
 \begin_inset Formula $\tilde{{\bf X}}$
 \end_inset
 
@@ -3240,7 +3158,7 @@ With the usage of
 \begin_inset Formula $\tilde{{\bf Y}}$
 \end_inset
 
-.
+ without repetition.
  We also want each subset to contain strictly 
 \begin_inset Formula $80\%$
 \end_inset
@@ -3254,33 +3172,25 @@ With the usage of
 \end_inset
 
 .
- As a result parameter space for random forests will form tuples of sets
- 
+ As a result, the parameter space for random forests will form tuples of
+ sets 
 \begin_inset Formula $(\tilde{{\bf X}}_{v},\tilde{{\bf Y}}_{v})$
 \end_inset
 
 .
- Using this theory we will construct 
-\begin_inset Formula $L$
+ Using this theory, we will construct 
+\begin_inset Formula $V$
 \end_inset
 
  decision trees 
-\begin_inset Formula $\hat{y}=T(\mathbf{x},\mathbf{w}_{l})$
-\end_inset
-
-, where 
-\begin_inset Formula $\mathbf{x}\in\tilde{{\bf X}}_{l}$
+\begin_inset Formula $\hat{\mathbf{y}}_{v}=T(\mathbf{x},\mathbf{w}_{v})$
 \end_inset
 
 .
- As a result for 
-\begin_inset Formula $v-\mathrm{th}$
-\end_inset
-
- decision tree 
+ As a result, the expected loss is 
 \begin_inset Formula 
 \begin{equation}
-\mathbb{E}_{\pi^{*}}L=\frac{1}{N_{l}}\sum_{i=1}^{N_{l}}L(\mathbf{x}_{i,v},\mathbf{y}_{i,v},\mathbf{w}_{l})\delta(\mathbf{x}-\mathbf{x}_{i,v},\mathbf{y}-\mathbf{y}_{i,v})\label{eq:decision_tree_for_random_forest}
+\mathbb{E}_{\pi^{*}}L=\frac{1}{V}\sum_{v=1}^{V}\frac{1}{N_{v}}\sum_{i=1}^{N_{v}}L(\mathbf{x}_{i,v},\mathbf{y}_{i,v},\mathbf{w}_{v})\delta(\mathbf{x}-\mathbf{x}_{i,v},\mathbf{y}-\mathbf{y}_{i,v})\label{eq:decision_tree_for_random_forest}
 \end{equation}
 
 \end_inset
@@ -3293,7 +3203,7 @@ where
 \begin_inset Formula $N_{v}$
 \end_inset
 
- is a number of the data in 
+ is the number of the data samples in 
 \begin_inset Formula $\tilde{{\bf X}}_{v}$
 \end_inset
 
@@ -3306,19 +3216,19 @@ where
 \begin_inset Formula $\mathbf{w}_{v}$
 \end_inset
 
- as a random variable then 
-\begin_inset Formula $L$
+ to be a random variable then 
+\begin_inset Formula $V$
 \end_inset
 
- decision trees form samples from probability density function 
-\begin_inset Formula $p(\text{y}|\mathbf{x},\mathbf{w})$
+ decision trees form samples from the probability density function 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x},\mathbf{w})$
 \end_inset
 
 .
  In other words 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{y}|\mathbf{x},\mathbf{w}_{v})=T_{1}(\mathbf{x},\mathbf{w}_{v})^{y_{1}}T_{2}(\mathbf{x},\mathbf{w}_{v})^{y_{2}}\label{eq:decision_tree_as_random_variable}
+p(\mathbf{y}|\mathbf{x},\mathbf{w}_{v})=\hat{y}_{v,1}^{y_{1}}\hat{y}_{v,2}^{y_{2}}\label{eq:decision_tree_as_random_variable}
 \end{equation}
 
 \end_inset
@@ -3327,8 +3237,9 @@ where label
 \begin_inset Formula $\mathbf{y}$
 \end_inset
 
- is written as a one-hot representation 
-\begin_inset Formula $\mathbf{y}=(y_{1},y_{2})^{T}$
+ is written as a one-hot representation, and the estimate is in the same
+ form 
+\begin_inset Formula $\hat{\mathbf{y}}_{v}=[\hat{y}_{v,1},\hat{y}_{v,2}]^{T}$
 \end_inset
 
 .
@@ -3360,13 +3271,13 @@ where
  as 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{y}|\mathbf{x})=\frac{1}{V}\sum_{l=1}^{V}T_{1}(\mathbf{x},\mathbf{w}_{v})^{y_{1}}T_{2}(\mathbf{x},\mathbf{w}_{v})^{y_{2}}\label{eq:approx_class_prob_for_random_forest}
+p(\mathbf{y}|\mathbf{x})=\frac{1}{V}\sum_{l=1}^{V}\hat{y}_{v,1}^{y_{1}}\hat{y}_{v,2}^{y_{2}}\label{eq:approx_class_prob_for_random_forest}
 \end{equation}
 
 \end_inset
 
 where each decision tree 
-\begin_inset Formula $[T_{1}(\mathbf{x},\mathbf{w}_{v}),T_{2}(\mathbf{x},\mathbf{w}_{v})]^{T}$
+\begin_inset Formula $T(\mathbf{x},\mathbf{w}_{v})$
 \end_inset
 
  is constructed with the use of (
@@ -3390,7 +3301,7 @@ Before continuing with further sections we define output of the Random Forest
 \end_inset
 
 , where 
-\begin_inset Formula $\mathbf{W}=\{\mathbf{w}_{1},...,\mathbf{w}_{V}\}$
+\begin_inset Formula $\mathbf{W}=\{\mathbf{w}_{1},...,\mathbf{w}_{V}\}\in\mathcal{W}$
 \end_inset
 
  is set of parameters of specific Random Forest algorithm.
@@ -3401,7 +3312,7 @@ Before continuing with further sections we define output of the Random Forest
  as 
 \begin_inset Formula 
 \begin{equation}
-\hat{\mathbf{y}}=\frac{1}{V}\sum_{v=1}^{V}\big(T_{1}(\mathbf{x},\mathbf{w}_{v}),T_{2}(\mathbf{x},\mathbf{w}_{v})\big).\label{eq:Random_forest_output}
+\hat{\mathbf{y}}=\frac{1}{V}\sum_{l=1}^{V}\hat{\mathbf{y}}_{v}\label{eq:Random_forest_output}
 \end{equation}
 
 \end_inset
@@ -3414,96 +3325,57 @@ Decision Theory for Active Learning
 \end_layout
 
 \begin_layout Standard
-As mentioned in previous sections 
-\series bold
-
+As mentioned in previous sections the training set 
 \begin_inset Formula $\tilde{\mathbf{X}}\times\mathbf{\tilde{Y}}$
 \end_inset
 
+ is only a subset of all available data.
+ It is important that each point 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
 
-\series default
- is the training set.
- When we finish a model training, we may think that we need more training
- data.
- Thus, we can choose the data from 
-\begin_inset Formula $\mathbf{X}\subset{\cal X}\backslash\tilde{\mathbf{X}}$
+ in the training set has a label 
+\begin_inset Formula $y$
 \end_inset
 
 .
- However it is important to understand that we have no labels for the set
- 
-\begin_inset Formula $\mathbf{X}$
+ In many situations, the labels are expensive to obtain and the number 
+\begin_inset Formula $N$
+\end_inset
+
+ of all available samples 
+\begin_inset Formula $\mathbf{x}\in\mathbf{X}$
+\end_inset
+
+ is large, while labels are available only for the initial subset 
+\begin_inset Formula $J_{0}=\{1,\ldots,N_{0}\},N_{0}\ll N$
 \end_inset
 
 .
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-How can I 
-\begin_inset Quotes sld
-\end_inset
-
-understand
-\begin_inset Quotes srd
-\end_inset
-
- that? You should define an additional set of 
-\begin_inset Formula $\mathbf{X}$
-\end_inset
-
- without labels.
- Maybe using a different letter.
+ This problem is known as semi-supervised learning.
 \end_layout
 
+\begin_layout Standard
+We consider a setup in which we can ask for a label for and arbitrary 
+\begin_inset Formula $\mathbf{x}$
 \end_inset
 
-We can ask for a help from an annotator that can give us those labels.
+, that can be provided for example by a human an annotator.
  We assume that getting labels needs some time and is very expensive.
+ The task is to choose which sample we will ask to label.
  
 \end_layout
 
 \begin_layout Standard
-Active learning problem is defined as a sequence of Supervised learning
+The active learning problem is defined as a sequence of Supervised learning
  problems.
- Specifically, we assume that labels 
-\begin_inset Formula $\mathbf{y}\in\mathbf{\tilde{Y}}$
-\end_inset
-
- are available only for 
-\begin_inset Formula $\mathbf{x}\in\tilde{\mathbf{X}}$
-\end_inset
-
-.
- We have the possibility to select an unlabeled element from 
-\begin_inset Formula $\mathbf{X}$
-\end_inset
-
- and ask for its label.
- Since it is expensive, we aim to have such questions that will maximize
- scores as fast as possible.
- Formally, we denote 
-\begin_inset Formula $J_{0}=\{j_{01},j_{02},\ldots j_{0N}\}=\{1,\ldots,N\}$
-\end_inset
-
- the initial set of 
-\begin_inset Formula $N$
-\end_inset
-
- available labels.
- using only the labeled data, the supervised learning task is defined on
- sets 
+ Specifically, we assume that the initial sets for supervised learning are
+ 
 \begin_inset Formula $\mathbf{X}_{0}=\{\mathbf{x}_{i}\}_{i\in J_{0}}$
 \end_inset
 
  and 
 \begin_inset Formula $\mathbf{Y}_{0}=\{\mathbf{y}_{i}\}_{i\in J_{0}}$
-\end_inset
-
-.
- This set is sequentially extended with new labels gained from 
-\begin_inset Formula $\mathbf{X}$
 \end_inset
 
 .
@@ -3550,65 +3422,58 @@ The task of active learning is to optimize the selection of indices
 \begin_inset Formula $u$
 \end_inset
 
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\lang english
-rephrase!
-\end_layout
-
-\end_inset
-
  that will be dependent on the action and parameter spaces.
- In this case we can define our action space 
-\begin_inset Formula ${\cal A}_{u}$
+ In this case we can define our action space as a space of the data indices
+ of the unlabeled data 
+\begin_inset Formula $\mathbf{x}$
 \end_inset
 
- as a space of the data indices with respect to the parameters space 
-\begin_inset Formula $\varTheta_{u}$
-\end_inset
-
- for each question 
-\begin_inset Formula $u$
+, 
+\begin_inset Formula $a=j_{u}\in\mathcal{A}_{u}=J\backslash J_{u}$
 \end_inset
 
 .
- Parameters space is defined as a set of possible parameters from a specific
- model.
- It is very important to understand that we will need not only one set of
- parameters but parameters distribution.
- We need parameters distribution because we will integrate over the parameters
- space.
- As an example, if we talk about SVM method, then parameters space for active
- learning problem will be defined as a set of weights that form a hyperplane.
+ The uncertainty of the decision task if the parameter space 
+\begin_inset Formula $\varTheta$
+\end_inset
+
+ of the used classifiers, i.e.
+ 
+\begin_inset Formula $\theta=(\mathbf{w},\mathbf{b})$
+\end_inset
+
+ for SVM, 
+\begin_inset Formula $\theta=$
+\end_inset
+
+
+\begin_inset Formula $\Omega$
+\end_inset
+
+ for NN, 
+\begin_inset Formula $\theta=\mathbf{W}$
+\end_inset
+
+ for RF and NB.
+ It is very important to understand that point estimate of the parameters
+ that was designed in supervised learning is not sufficient for this task.
+ We need full distribution on the parameters because we will integrate over
+ the parameters space.
+ As an example, if we talk about the SVM method, then parameters space for
+ active learning problem will be defined as a set of weights that form a
+ hyperplane.
  If we talk about the algorithm that is based on a Neural Network function,
  then parameters space of the active learning problem will form weights
  from neurons.
  We wanted to highlight that parameters space will be different for each
  problem but the idea for each algorithm is the same.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\lang english
-Rephrase
-\end_layout
-
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard
 The decision task for this particular problem can be written as 
 \begin_inset Formula 
 \begin{equation}
-j_{u}^{*}=\argmin_{j\in J\backslash J_{u}}(\mathbb{E}_{\pi_{u}^{*}}L^{*})\label{eq:index_selection_active_learning}
+j_{u}^{*}=\argmin_{j_{u}\in J\backslash J_{u}}(\mathbb{E}_{\pi_{u}^{*}}L^{*})\label{eq:index_selection_active_learning}
 \end{equation}
 
 \end_inset
@@ -3626,70 +3491,20 @@ where
 \end_inset
 
  is the space of all indices.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-In (27) a is replaced by j_u.
- Do the same here and define (28) directly as (29)
-\end_layout
-
-\end_inset
-
-The expected loss for the active learning problem is defined as 
+ The expected loss for the active learning problem is defined as 
 \begin_inset Formula 
 \begin{equation}
-\mathbb{E}_{\pi_{u}^{*}}L^{*}=\int_{\varTheta_{u}}L^{*}(a,\theta)\pi_{u}^{*}d\theta\label{eq:Expected_loss_active_learning}
+\mathbb{E}_{\pi_{u}^{*}}L^{*}=\int_{\varTheta}L^{*}(j_{u},\theta)\pi_{u}^{*}d\theta\label{eq:Expected_loss_active_learning}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $a\in{\cal A}_{u}$
+\begin_inset Formula $j_{u}\in J\backslash J_{u}$
 \end_inset
 
 , 
-\begin_inset Formula $\theta\in\varTheta_{u}$
-\end_inset
-
- (
-\begin_inset Formula $\theta=(\mathbf{w},\mathbf{b})$
-\end_inset
-
- for SVM, 
-\begin_inset Formula $\theta=$
-\end_inset
-
-
-\begin_inset Formula $\Omega$
-\end_inset
-
- for NN, 
-\begin_inset Formula $\theta=\mathbf{W}$
-\end_inset
-
- for RF and NB) 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-VS: make assigment 
-\begin_inset Formula $\theta=(\mathbf{w},\mathbf{b})$
-\end_inset
-
- SVM, by 
-\begin_inset Formula $\theta=$
-\end_inset
-
-
-\begin_inset Formula $\Omega$
-\end_inset
-
- (NN).
- MS: Correction done
-\end_layout
-
+\begin_inset Formula $\theta\in\varTheta$
 \end_inset
 
  and 
@@ -3711,44 +3526,20 @@ VS: make assigment
 
  is used only for distinguishing active learning loss from the loss function
  which is used for different models.
- We will specify action space because it will be the same for all models
- that are used in the active learning section.
- Action space 
-\begin_inset Formula ${\cal A}$
-\end_inset
-
- is a set of possible indices 
-\begin_inset Formula $j_{u}\in J_{u}$
-\end_inset
-
- where 
-\begin_inset Formula $u$
-\end_inset
-
- is a specific question.
- Thus, (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:Expected_loss_active_learning"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) can be written as 
-\begin_inset Formula 
-\begin{equation}
-\mathbb{E}_{\pi_{u}^{*}}L^{*}=\int_{\varTheta_{u}}L^{*}(j_{u},\theta)\pi_{u}^{*}d\theta.\label{eq:Expected_loss_active_learning_with_action_space_as_indices}
-\end{equation}
-
-\end_inset
-
-
+ 
 \end_layout
 
 \begin_layout Standard
-Using this approach we will be able sequentially select indices from 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+VS: move to evaluation
+\end_layout
+
+\end_inset
+
+Using this approach, we will be able sequentially select indices from 
 \begin_inset Formula $\mathbf{X}$
 \end_inset
 
@@ -3828,7 +3619,7 @@ In this section we would like to construct theory around
  from equation (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:Expected_loss_active_learning_with_action_space_as_indices"
+reference "eq:Expected_loss_active_learning"
 plural "false"
 caps "false"
 noprefix "false"
@@ -4077,16 +3868,6 @@ noprefix "false"
 
 \end_inset
 
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-How is (37) different from (35)? MS: Corrected
-\end_layout
-
-\end_inset
-
 that results in (
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -4117,20 +3898,10 @@ literal "false"
 \end_inset
 
  the updated gradient for SGLD can be written as 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-The formula (38) is not correct!
-\end_layout
-
-\end_inset
-
-
 \begin_inset Formula 
 \begin{align}
-\hat{\Omega}_{n+1} & =\frac{N}{N_{minibatch}}\frac{\eta_{n}}{2}\Big(\hat{\Omega}_{n}-\eta_{n}\nabla L(\tilde{\mathbf{X}},\tilde{\mathbf{Y}},\hat{\Omega}_{n},Z_{n})\Big)+\epsilon_{n},\label{eq:SGLD_gradient_descent}\\
-\epsilon_{n} & \sim{\cal N}(0,\eta_{n})
+\hat{\Omega}_{n+1} & =\hat{\Omega}_{n}-\frac{N}{N_{minibatch}}\frac{\eta_{n}}{2}\Big(\nabla L(\tilde{\mathbf{X}},\tilde{\mathbf{Y}},\hat{\Omega}_{n},Z_{n})\Big)+\epsilon_{n},\label{eq:SGLD_gradient_descent}\\
+\epsilon_{n} & \sim{\cal N}(0,\eta_{n}I)
 \end{align}
 
 \end_inset
@@ -4172,36 +3943,30 @@ literal "false"
 
 .
  The idea is randomly turn off some neurons while training.
- When the algorithm is almost trained we are able to start sampling the
- i.i.d.
- parameters in the same way as it was done for SGLD case.
  Thus, an estimate of 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-I do not see why is the Bayes rule needed.
- MS: Correction done
-\end_layout
-
+\begin_inset Formula $\pi_{u}^{*}=p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})$
 \end_inset
 
- 
-\begin_inset Formula 
-\begin{align*}
-\pi_{u}^{*} & =p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})
-\end{align*}
-
-\end_inset
-
- can be written with the usage of 
+ is again the Dirac function 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:prior_disctribution_approximation_training_set_sampling_final"
+reference "eq:prior_distribution_for_exp_loss_estimate"
 plural "false"
 caps "false"
 noprefix "false"
 
+\end_inset
+
+,where When the algorithm is almost trained we are able to start sampling
+ the i.i.d.
+ parameter masks.
+ The process of generating samples 
+\begin_inset Formula $\theta^{(q)}$
+\end_inset
+
+ are generated after each step of the SGD, where different mask of neural
+ weight and biases is sampled for each 
+\begin_inset Formula $q$
 \end_inset
 
 .
@@ -4216,7 +3981,7 @@ DENFI
 status open
 
 \begin_layout Plain Layout
-Extension of Deep Ensembles []
+Extension of Deep Ensembles [cite Lamakrishnan?]
 \end_layout
 
 \end_inset
@@ -4230,7 +3995,7 @@ In case of DENFI algorithm
 status open
 
 \begin_layout Plain Layout
-[CITATION HERE ]
+[CITATION HERE]
 \end_layout
 
 \end_inset
@@ -4748,6 +4513,16 @@ literal "false"
 
 \end_inset
 
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+VS: Write full sentence
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -4786,11 +4561,11 @@ This is strange.
 
 .
  We create two matrices, 
-\begin_inset Formula ${\bf \mathcal{V}}\in\mathbb{R}^{n×|V|}$
+\begin_inset Formula ${\bf V}\in\mathbb{R}^{n×|V|}$
 \end_inset
 
  and 
-\begin_inset Formula $\mathcal{U}\in\mathbb{R}^{|V|×n}$
+\begin_inset Formula $U\in\mathbb{R}^{|V|×n}$
 \end_inset
 
 .
@@ -4800,7 +4575,7 @@ This is strange.
 
  is an arbitrary size which defines the size of our embedding space.
  
-\begin_inset Formula ${\bf \mathcal{V}}$
+\begin_inset Formula ${\bf V}$
 \end_inset
 
  is the input word matrix such that the 
@@ -4808,7 +4583,7 @@ This is strange.
 \end_inset
 
 th column of 
-\begin_inset Formula ${\bf \mathcal{V}}$
+\begin_inset Formula ${\bf V}$
 \end_inset
 
  is the 
@@ -4830,7 +4605,7 @@ dimensional embedded vector for word
 
 .
  Similarly, 
-\begin_inset Formula ${\cal U}$
+\begin_inset Formula $U$
 \end_inset
 
  is the output word matrix.
@@ -4839,7 +4614,7 @@ dimensional embedded vector for word
 \end_inset
 
 th row of 
-\begin_inset Formula ${\cal U}$
+\begin_inset Formula $U$
 \end_inset
 
  is an 
@@ -4852,7 +4627,7 @@ dimensional embedded vector for word
 
  when it is an output of the model.
  We denote this row of 
-\begin_inset Formula ${\cal U}$
+\begin_inset Formula $U$
 \end_inset
 
  as 
@@ -4880,7 +4655,7 @@ We generate our one hot word vectors
 
 \begin_layout Itemize
 We get our embedded word vectors for the context 
-\begin_inset Formula $({\bf v}_{c−m}={\cal V}{\bf x}^{(c−m)},{\bf v}_{c−m+1}={\cal V}{\bf x}_{(c−m+1)},...,{\bf v}_{c+m}={\cal V}{\bf x}_{(c+m)})$
+\begin_inset Formula $({\bf v}_{c−m}=V{\bf x}^{(c−m)},{\bf v}_{c−m+1}=V{\bf x}_{(c−m+1)},...,{\bf v}_{c+m}=V{\bf x}_{(c+m)})$
 \end_inset
 
 
@@ -4896,7 +4671,7 @@ Average these vectors to get
 
 \begin_layout Itemize
 Generate a score vector 
-\begin_inset Formula ${\bf z}={\cal U}\tilde{{\bf v}}$
+\begin_inset Formula ${\bf z}=U\tilde{{\bf v}}$
 \end_inset
 
 
@@ -5027,21 +4802,6 @@ noprefix "false"
 \[
 \mathrm{TPR}=\frac{\mathrm{true\ positive}}{\mathrm{true\ positive+false\ negative}}
 \]
-
-\end_inset
-
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-VS: napsat matematicky, co to je.
- cite [] Fawcett, Tom (2006).
- "An Introduction to ROC Analysis" (PDF).
- Pattern Recognition Letters.
- 27 (8): 861–874.
- MS: Correction done 
-\end_layout
 
 \end_inset
 
@@ -5971,17 +5731,7 @@ noprefix "false"
 \end_inset
 
 ).
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-refer to theory and equation number MS: Correction done
-\end_layout
-
-\end_inset
-
-Precise configuration of SGLD can be found in github project here 
+ Precise configuration of SGLD can be found in github project here 
 \begin_inset Flex URL
 status open
 
@@ -6796,17 +6546,7 @@ noprefix "false"
 
 \end_inset
 
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Put section number MS: Correction done
-\end_layout
-
-\end_inset
-
-.
+ .
 \end_layout
 
 \begin_layout Subsection
@@ -6904,18 +6644,7 @@ noprefix "false"
 
 \begin_layout Standard
 It is also seen that the curve is not smooth enough.
- This is caused by Random Forest decision boundary 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Namely? What are these specifications....
- MS: Correction done
-\end_layout
-
-\end_inset
-
-.
+ This is caused by Random Forest decision boundary.
  
 \end_layout
 
@@ -7352,21 +7081,6 @@ Next we start two runs.
 
 \begin_layout Subsection
 Epsilon Greedy Strategy
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Cite[]: Watkins, C.: Learning from Delayed Rewards.
- PhD thesis, University of Cambridge, Cambridge, England (1989) MS: Correction
- is done
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
