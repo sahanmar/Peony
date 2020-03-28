@@ -1337,7 +1337,7 @@ SVM bias (scalar)
 \begin_inset Text
 
 \begin_layout Plain Layout
-matrix of Naive Bayes, random forest or neural network single layer parameters
+tuple of Naive Bayes, random forest or neural network (single layer) parameters
 \end_layout
 
 \end_inset
@@ -1383,7 +1383,7 @@ vector of neural network single layer biases
 \begin_inset Text
 
 \begin_layout Plain Layout
-set of neural network parameters (all weights and biases)
+tuple of neural network parameters (all weights and biases)
 \end_layout
 
 \end_inset
@@ -3981,16 +3981,22 @@ DENFI
 status open
 
 \begin_layout Plain Layout
-Extension of Deep Ensembles [cite Lamakrishnan?]
+Extension of Deep Ensembles [cite Lamakrishnan?] MS.
+ Done
 \end_layout
 
 \end_inset
 
+ DENFI algorithm is an extension of deep ensembles 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lakshminarayanan2017simple"
+literal "false"
 
-\end_layout
+\end_inset
 
-\begin_layout Standard
-In case of DENFI algorithm 
+.
+ In case of DENFI algorithm 
 \begin_inset Note Note
 status open
 
@@ -4514,40 +4520,54 @@ literal "false"
 \end_inset
 
  
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-VS: Write full sentence
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
-We would like to treat text {"The", "cat", ’over", "the’, "puddle"} as a
- context and basing on the context we would like to predict or generate
- the center word "jumped".
- This type of model is Continuous Bag of Words (CBOW) Model.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-This is strange.
- There is very few symbols below.
- It would be best to choose unique symbols to avoid conflict.
- MS: Corrections added, text changed 
-\end_layout
-
+Consider the sentence 
+\begin_inset Quotes sld
 \end_inset
 
- Let the known parameters in our model be the sentence represented with
+A beautiful cat jumped over a puddle
+\begin_inset Quotes srd
+\end_inset
+
+.
+ We choose the window of 
+\begin_inset Formula $2m+1,\ m\in\mathbb{N}$
+\end_inset
+
+ words and try to predict the word with index 
+\begin_inset Formula $m+1$
+\end_inset
+
+, basing on the context of size 
+\begin_inset Formula $2m$
+\end_inset
+
+, where 
+\begin_inset Formula $m$
+\end_inset
+
+ words are before the prediction word and 
+\begin_inset Formula $m$
+\end_inset
+
+ words are after the prediction word.
+ We would like to treat tuple ("a", 
+\begin_inset Quotes sld
+\end_inset
+
+beautiful
+\begin_inset Quotes srd
+\end_inset
+
+, "cat", ’over", "a’, "puddle") as a context, and basing on the context
+ we would like to predict or generate the word "jumped".
+ This type of model is Continuous Bag of Words (CBOW) model.
+ Let the known parameters in our model be the contexts represented with
  one-hot encoded word vectors.
- The input one hot encoded context vector is defined as 
-\begin_inset Formula ${\bf x}^{(c)}$
+ The input one hot encoded word vector is defined as 
+\begin_inset Formula ${\bf c}^{(c)}$
 \end_inset
 
 , where 
@@ -4556,26 +4576,31 @@ This is strange.
 
  is position of a word in the context.
  The predicted context word is defined as 
-\begin_inset Formula ${\bf h}$
+\begin_inset Formula ${\bf c}_{\mathrm{pred}}$
 \end_inset
 
 .
  We create two matrices, 
-\begin_inset Formula ${\bf V}\in\mathbb{R}^{n×|V|}$
+\begin_inset Formula ${\bf E}\in\mathbb{R}^{E×|\mathbf{v}|}$
 \end_inset
 
  and 
-\begin_inset Formula $U\in\mathbb{R}^{|V|×n}$
+\begin_inset Formula $\mathbf{U}\in\mathbb{R}^{|\mathbf{v}|×E}$
 \end_inset
 
 .
  Where 
-\begin_inset Formula $n$
+\begin_inset Formula $E$
 \end_inset
 
- is an arbitrary size which defines the size of our embedding space.
+ is an arbitrary size which defines the size of our embedding space and
  
-\begin_inset Formula ${\bf V}$
+\begin_inset Formula $|\mathbf{v}|$
+\end_inset
+
+ is a vocabulary size of all words from all contexts.
+ 
+\begin_inset Formula ${\bf E}$
 \end_inset
 
  is the input word matrix such that the 
@@ -4583,29 +4608,29 @@ This is strange.
 \end_inset
 
 th column of 
-\begin_inset Formula ${\bf V}$
+\begin_inset Formula ${\bf E}$
 \end_inset
 
  is the 
-\begin_inset Formula $n-$
+\begin_inset Formula $E$
 \end_inset
 
-dimensional embedded vector for word 
-\begin_inset Formula $w_{i}$
+-dimensional embedded vector for word 
+\begin_inset Formula $\mathbf{c}_{i}$
 \end_inset
 
- when it is an input to this model.
+.
  We denote this 
-\begin_inset Formula $n×1$
+\begin_inset Formula $E×1$
 \end_inset
 
  vector as 
-\begin_inset Formula ${\bf v}_{i}$
+\begin_inset Formula ${\bf e}_{i}$
 \end_inset
 
 .
  Similarly, 
-\begin_inset Formula $U$
+\begin_inset Formula $\mathbf{U}$
 \end_inset
 
  is the output word matrix.
@@ -4614,20 +4639,20 @@ dimensional embedded vector for word
 \end_inset
 
 th row of 
-\begin_inset Formula $U$
+\begin_inset Formula $\mathbf{U}$
 \end_inset
 
  is an 
-\begin_inset Formula $n-$
+\begin_inset Formula $E$
 \end_inset
 
-dimensional embedded vector for word 
-\begin_inset Formula $w_{k}$
+-dimensional embedded vector for word 
+\begin_inset Formula $\mathbf{c}_{\mathrm{pred},k}$
 \end_inset
 
  when it is an output of the model.
  We denote this row of 
-\begin_inset Formula $U$
+\begin_inset Formula $\mathbf{U}$
 \end_inset
 
  as 
@@ -4643,7 +4668,7 @@ For this method sequence of actions can be written as follows:
 
 \begin_layout Itemize
 We generate our one hot word vectors 
-\begin_inset Formula $({\bf {\bf x}}^{(c−m)},...,{\bf {\bf x}}^{(c−1)},{\bf {\bf x}}^{(c+1)},...,{\bf {\bf x}}^{(c+m)})$
+\begin_inset Formula $({\bf {\bf c}}^{(c−m)},...,{\bf {\bf c}}^{(c−1)},{\bf {\bf c}}^{(c+1)},...,{\bf {\bf c}}^{(c+m)})$
 \end_inset
 
  for the input context of size 
@@ -4655,7 +4680,7 @@ We generate our one hot word vectors
 
 \begin_layout Itemize
 We get our embedded word vectors for the context 
-\begin_inset Formula $({\bf v}_{c−m}=V{\bf x}^{(c−m)},{\bf v}_{c−m+1}=V{\bf x}_{(c−m+1)},...,{\bf v}_{c+m}=V{\bf x}_{(c+m)})$
+\begin_inset Formula $({\bf e}_{c−m}=\mathbf{E}{\bf c}^{(c−m)},{\bf e}_{c−m+1}=\mathbf{E}{\bf c}_{(c−m+1)},...,{\bf e}_{c+m}=\mathbf{E}{\bf c}_{(c+m)})$
 \end_inset
 
 
@@ -4663,7 +4688,7 @@ We get our embedded word vectors for the context
 
 \begin_layout Itemize
 Average these vectors to get 
-\begin_inset Formula $\tilde{{\bf v}}=\frac{{\bf v}_{c\text{−}m}+{\bf v}_{c\text{−}m+1}+...+{\bf v}_{c\text{+}m}}{2m}$
+\begin_inset Formula $\tilde{{\bf e}}=\frac{{\bf e}_{c\text{−}m}+{\bf e}_{c\text{−}m+1}+...+{\bf e}_{c\text{+}m}}{2m}$
 \end_inset
 
 
@@ -4671,7 +4696,7 @@ Average these vectors to get
 
 \begin_layout Itemize
 Generate a score vector 
-\begin_inset Formula ${\bf z}=U\tilde{{\bf v}}$
+\begin_inset Formula ${\bf z}=\mathbf{U}\tilde{{\bf e}}$
 \end_inset
 
 
@@ -4681,7 +4706,7 @@ Generate a score vector
 Turn the scores into probabilities 
 \begin_inset Formula 
 \begin{equation}
-\hat{{\bf h}}=\mathrm{softmax}({\bf z})\label{eq:softmax_cbow}
+\hat{{\bf c}}_{\mathrm{pred}}=\mathrm{softmax}({\bf \mathbf{z}})\label{eq:softmax_cbow}
 \end{equation}
 
 \end_inset
@@ -4690,12 +4715,12 @@ Turn the scores into probabilities
 \end_layout
 
 \begin_layout Itemize
-We desire our probabilities generated, 
-\begin_inset Formula $\hat{{\bf h}}$
+We desire our probabilities generated 
+\begin_inset Formula $\hat{{\bf \mathbf{c}}}_{\mathrm{pred}}$
 \end_inset
 
 , to match the true probabilities, 
-\begin_inset Formula ${\bf y}$
+\begin_inset Formula ${\bf c}_{\mathrm{pred}}$
 \end_inset
 
 , which also happens to be the one hot vector of the actual word.
@@ -4703,18 +4728,18 @@ We desire our probabilities generated,
 
 \begin_layout Standard
 Described method can be interpreted as a feed forward neural network with
- one hidden layer that do not use activation function.
- As a loss function for this algorithm can be chosen cross-entropy loss
- function 
+ only input and output layers.
+ The optimization is provided with respect to cross entropy loss function
+ 
 \begin_inset Formula 
 \begin{equation}
-L=\sum_{i=1}^{|V|}{\bf h_{i}\log({\bf \hat{h}}_{i})}\label{eq:cross_entropy_cbow}
+L=\sum_{i=1}^{|\mathbf{v}|}\mathbf{c}_{\mathrm{pred},i}\log({\bf \hat{\mathbf{c}}}_{\mathrm{pred},i})\label{eq:cross_entropy_cbow}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $\mathbf{\hat{y}}$
+\begin_inset Formula $\mathbf{\hat{c}}_{\mathrm{pred}}$
 \end_inset
 
  is softmax (
@@ -4728,6 +4753,45 @@ noprefix "false"
 \end_inset
 
 ) function.
+ When the weights in neural network are trained, matrix 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ represents 
+\begin_inset Formula $|\mathbf{v}|$
+\end_inset
+
+ word embeddings where 
+\begin_inset Formula $i$
+\end_inset
+
+-th word from vocabulary 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+ is 
+\begin_inset Formula $i$
+\end_inset
+
+-th row in 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Previously we mentioned that all the methods take an instance (text) 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ as an input value and predict its class.
+ Instance 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ is calculated as a mean value from all words embeddings in the text.
 \end_layout
 
 \begin_layout Subsubsection
@@ -5655,19 +5719,6 @@ literal "false"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-ADD HERE DESCRIPTION (AND PSEUDOCODE) FOR ALL ENSEMBLES 
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsubsection
@@ -7020,7 +7071,7 @@ smart
 \begin_inset Formula $1000$
 \end_inset
 
- documents dataset as validation set.
+ documents dataset as a set which is splitted on testing and training data.
  
 \end_layout
 
@@ -7030,8 +7081,8 @@ Next we start two runs.
  based on acquisition function selection of the documents.
  Both runs start with the same training dataset and then they chose additional
  training documents based on their strategies.
- We consider continuous new data selection from validation set and imitating
- annotators labeling process.
+ We consider continuous new data selection from 1000 documents dataset and
+ imitating annotators labeling process.
  All in all we imitate text samples selection 200 times.
  We select 
 \begin_inset Formula $10$
