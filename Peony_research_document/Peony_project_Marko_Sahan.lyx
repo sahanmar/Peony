@@ -4512,6 +4512,7 @@ CBOW Word Embeddings
 \end_layout
 
 \begin_layout Standard
+The CBOW embedding has been introduced in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "mikolov2013efficient"
@@ -4519,11 +4520,19 @@ literal "false"
 
 \end_inset
 
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+check.
  
 \end_layout
 
-\begin_layout Standard
-Consider the sentence 
+\end_inset
+
+ Consider the sentence 
 \begin_inset Quotes sld
 \end_inset
 
@@ -4561,12 +4570,22 @@ beautiful
 \begin_inset Quotes srd
 \end_inset
 
-, "cat", ’over", "a’, "puddle") as a context, and basing on the context
+, "cat", ’over", "a’, "puddle") as a context, and based on the context,
  we would like to predict or generate the word "jumped".
- This type of model is Continuous Bag of Words (CBOW) model.
+ This type of model is the Continuous Bag of Words (CBOW) model.
  Let the known parameters in our model be the contexts represented with
  one-hot encoded word vectors.
- The input one hot encoded word vector is defined as 
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Introduce vocabulary (as a set?).
+\end_layout
+
+\end_inset
+
+ The input one hot encoded word vector is denoted as 
 \begin_inset Formula ${\bf c}^{(c)}$
 \end_inset
 
@@ -4574,7 +4593,7 @@ beautiful
 \begin_inset Formula $c$
 \end_inset
 
- is position of a word in the context.
+ is the position of the word in the context.
  The predicted context word is defined as 
 \begin_inset Formula ${\bf c}_{\mathrm{pred}}$
 \end_inset
@@ -4663,7 +4682,15 @@ th row of
 \end_layout
 
 \begin_layout Standard
-For this method sequence of actions can be written as follows:
+The matrices 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ are obtained by the following sequence of actions:
 \end_layout
 
 \begin_layout Itemize
@@ -4680,7 +4707,7 @@ We generate our one hot word vectors
 
 \begin_layout Itemize
 We get our embedded word vectors for the context 
-\begin_inset Formula $({\bf e}_{c−m}=\mathbf{E}{\bf c}^{(c−m)},{\bf e}_{c−m+1}=\mathbf{E}{\bf c}_{(c−m+1)},...,{\bf e}_{c+m}=\mathbf{E}{\bf c}_{(c+m)})$
+\begin_inset Formula $({\bf e}_{c−m}=\mathbf{E}{\bf c}^{(c−m)},{\bf e}_{c−m+1}=\mathbf{E}{\bf c}^{(c−m+1)},...,{\bf e}_{c+m}=\mathbf{E}{\bf c}^{(c+m)})$
 \end_inset
 
 
@@ -4715,11 +4742,19 @@ Turn the scores into probabilities
 \end_layout
 
 \begin_layout Itemize
-We desire our probabilities generated 
+We optimize 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ to maximize the match between the predicted vectors 
 \begin_inset Formula $\hat{{\bf \mathbf{c}}}_{\mathrm{pred}}$
 \end_inset
 
-, to match the true probabilities, 
+, and the true vectors, 
 \begin_inset Formula ${\bf c}_{\mathrm{pred}}$
 \end_inset
 
@@ -4791,7 +4826,23 @@ Previously we mentioned that all the methods take an instance (text)
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
- is calculated as a mean value from all words embeddings in the text.
+ is calculated as a mean value from all words embeddings in the text
+\begin_inset Formula 
+\[
+\mathbf{x}_{i}=\frac{1}{|\mathcal{D}_{i}|}\sum_{j\in\mathcal{D}_{i}}\mathbf{E}\mathbf{c}^{(j)},
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathcal{D}_{i}$
+\end_inset
+
+ is the set of indeces of all words in the 
+\begin_inset Formula $i$
+\end_inset
+
+th document in the common vocabulary.
 \end_layout
 
 \begin_layout Subsubsection
@@ -7039,8 +7090,8 @@ Simulation Loop
 \end_layout
 
 \begin_layout Standard
-The active learning simulation is done for comparing two strategies such
- as random and 
+The active learning simulation is done for comparing two strategies: i)
+ random, and ii) 
 \begin_inset Quotes sld
 \end_inset
 
@@ -7067,11 +7118,11 @@ smart
 \end_inset
 
  text documents per category).
- We define 
+ We reduce the size of all above mentioned dataset to 
 \begin_inset Formula $1000$
 \end_inset
 
- documents dataset as a set which is splitted on testing and training data.
+ documents, each dataset is split on testing and training data.
  
 \end_layout
 
@@ -7083,7 +7134,11 @@ Next we start two runs.
  training documents based on their strategies.
  We consider continuous new data selection from 1000 documents dataset and
  imitating annotators labeling process.
- All in all we imitate text samples selection 200 times.
+ All in all we imitate text samples selection 200 times (
+\begin_inset Formula $U=200$
+\end_inset
+
+).
  We select 
 \begin_inset Formula $10$
 \end_inset
@@ -7203,8 +7258,7 @@ th document, the probability of random sampling is
 \end_inset
 
 .
- This strategy showed really good results which will be shown in further
- sections.
+ This strategy provides good results which will be shown in further sections.
 \end_layout
 
 \begin_layout Section
@@ -7405,9 +7459,9 @@ Conclusion
 
 \begin_layout Standard
 Even though we were able to see extremely good results for TF-IDF encoding
- in Passive Learning section, we saw that due to the features space high
- dimensionality we are not able to train Neural Networks models and test
- active learning there.
+ in Passive Learning section, we were not able to train Neural Networks
+ models and test active learning there, due to high dimensionality of the
+ feature space.
  Moreover, SVM and Random Forest Ensembles' results were unsatisfying and
  in comparison to random sampling, active learning strategy did not show
  good results.
@@ -7760,8 +7814,8 @@ th iteration.
 \end_inset
 
 .
- We are able to observe significant overcome of entropy based sampling than
- random sampling strategy.
+ We are able to observe significant improvement of entropy based sampling
+ over the random sampling strategy.
  We can also see, that random sampling strategy is converging very slow
  to the results of the active learning strategy.
  Moreover, active learning uncertainty bounds are much more narrow than
@@ -7896,9 +7950,9 @@ noprefix "false"
  to Neural Network Ensembles.
  This behavior can be explained with low number of samples from SGLD.
  However, we are able to observe same analogy as with Neural Network Ensembles.
- The active learning strategy overcomes random sampling and has more narrow
- uncertainty bounds.
- Moreover, SGLD was trained almost three times faster than Neural Network
+ The active learning strategy improves over random sampling and has more
+ narrow uncertainty bounds.
+ Moreover, SGLD was trained almost three times faster than the Neural Network
  Ensembles algorithm.
  
 \end_layout
@@ -8093,10 +8147,10 @@ Comparison of random and active learning text data selection mean and one
 \end_layout
 
 \begin_layout Standard
-These two categories have bigger intersection what means that it is harder
+These two categories have bigger intersection what means that it is a harder
  classification task.
- The results show again that active learning strategy easily overcomes random
- sampling strategy.
+ The results show again that active learning strategy easily improves over
+ random sampling strategy.
  Even though, the topics are harder to distinguish, active learning strategy
  finds the patterns in the data and show much better results with more narrow
  uncertainty bounds.
@@ -8913,11 +8967,11 @@ Conclusion
 \begin_layout Standard
 To conclude we can say that DENFI showed brilliant results for all problems
  which it was tested on.
- In all cases active learning strategy outperformed random sapling.
+ In all cases the active learning strategy outperformed the random sapling.
  The algorithm was tested both on the data that are easy to separate and
  hard to separate.
- In addition to this, the AUC scores for all active learning results were
- higher than for different algorithm.
+ In addition to this, the AUC scores for all active learning results with
+ DENFI were higher than for all other algorithms.
  That makes DENFI algorithm the best one with the highest performance and
  the lowest uncertainty, which was tested in term of this project.
 \end_layout
@@ -8939,11 +8993,11 @@ This project shows how active learning strategy of querying unlabeled text
 \begin_layout Standard
 Based on the achieved result that were gathered from testing on 12 different
  categories, we were able to see that a modification of the DENFI algorithm
- shows great performance and overcomes other algorithms in all aspect.
+ shows great performance and overcomes other algorithms in all aspects.
  DENFI outperforms all other models both in higher AUC scores and more narrow
  uncertainty bounds.
- Another huge advantage that DENFI was the fastest neural network model,
- that was implemented and tested in this theses.
+ Another huge advantage of DENFI is that it is the fastest neural network
+ model that was implemented and tested in this theses.
 \end_layout
 
 \begin_layout Standard
@@ -8980,11 +9034,6 @@ addcontentsline{toc}{chapter}{Conclusion}
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-Text of the conclusion\SpecialChar ldots
 
 \end_layout
 
