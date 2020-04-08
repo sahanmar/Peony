@@ -11,6 +11,7 @@ from Peony_box.src.peony_adjusted_models.feed_forward_nn import PeonyFeedForward
 from Peony_box.src.peony_adjusted_models.pymc3_nn import PeonyPymc3NN
 from Peony_box.src.peony_adjusted_models.sgld_nn import PeonySGLDFeedForwardNN
 from Peony_box.src.peony_adjusted_models.denfi_nn import PeonyDENFIFeedForwardNN
+from Peony_box.src.peony_adjusted_models.dropout_nn import PeonyDropoutFeedForwardNN
 
 
 RAND_SAMPLES_RATIO = 0.7
@@ -84,5 +85,15 @@ class PeonyBoxModel:
             acquisition_function=acquisition_function,
             greedy_coef_decay=greedy_coef_decay,
             reset_after_adding_new_samples=False,
+            ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
+        )
+        self.bayesian_dropout_nn = GeneralizedPeonyBoxModel(
+            model=PeonyDropoutFeedForwardNN(
+                hidden_size=100, num_classes=number_of_classes_for_nn
+            ),
+            transformator=transformator,
+            active_learning_step=active_learning_step,
+            acquisition_function=acquisition_function,
+            greedy_coef_decay=greedy_coef_decay,
             ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
         )

@@ -482,8 +482,8 @@ doc.
  Václav Šmídl, Ph.D.
 
 \series default
- for his expert guidance and express my gratitude to ..........................................
- for (his/her language assistance).
+ for his expert guidance and express my gratitude to Yana for (his/her language
+ assistance).
 \end_layout
 
 \begin_layout Standard
@@ -542,7 +542,7 @@ documentdate
 \begin_inset space \hfill{}
 \end_inset
 
-Jméno Autora
+Marko Sahan
 \end_layout
 
 \begin_layout Standard
@@ -687,24 +687,23 @@ doc.
 \lang czech
 Abstrakt:
 \emph default
+ Proces sběru dat a jejich labelů pro účely trenování modelu muže být kompliková
+ný a drahý.
+ Hlavním cílem je výběr takových dat pro annotování, které přinesou největší
+ diskriminabilitu o datasetu.
+ Popsaný problem už se dlouho řeší v různých oborech, ktere využivají modely
+ s učitelem.
+ Tento projekt ukazuje naše řešení výběru neannotovaných dat na problemu
+ klassifikace textů.
+ Chceme představit algoritmus aktivního účení, který iterativně vybíra neannotov
+ané data a ptá se na label u annotatora.
+ Výběr neannotovaných dat je umožněný pomocí reprezentaci neurčítosti modelu.
+ Modely hlubokého účení ukázali state-of-the-art výsledky v ruzných odvětvích
+ zpracování přirozeného jazyka a také i klassifikací textu.
+ Kombinace aktivního účení pro výber dat a reprezentace neurcitosti, stavená
+ na ensemblu hlubokých neuronových sití davá signifikantně lepší výsledky
+ nez strategie náhodného výberu.
  
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\lang czech
-WRITE AN ABSTRACT IN CZECH
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\lang czech
 \begin_inset VSpace bigskip
 \end_inset
 
@@ -718,19 +717,8 @@ WRITE AN ABSTRACT IN CZECH
 \lang czech
 Klíčová slova:
 \emph default
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\lang czech
-FILL IN THE KEYWORDS IN CZECH
-\end_layout
-
-\end_inset
-
-
+ Aktivní účení, ensemble modely hlubokého účení, klasifikace textu, teorie
+ rozhodování,
 \end_layout
 
 \begin_layout Standard
@@ -789,17 +777,23 @@ Author:
 \emph on
 Abstract:
 \emph default
+ The process of data labels collection for purposes of model training can
+ be complex and costly.
+ The main task is how to select the data for labeling, that will bring the
+ highest discriminability of the dataset.
+ Described problem has been solving in many different fields that use supervised
+ learning models.
+ In this project we show our approach for unlabeled data selection on a
+ text classification problem.
+ We introduce an active learning algorithm that iteratively selects the
+ unlabeled data and asks an annotator for a label.
+ The unlabeled data selection is done with respect to a classifiers uncertainty.
+ Deep learning models showed state-of-the-art performance in different natural
+ language processing tasks, including text classification.
+ The combination of active learning data selection and uncertainty representatio
+n, based on deep learning ensembles algorithm achieves significantly better
+ results than random data selection strategy.
  
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-WRITE AND ABSTRACT IN ENGLISH
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -815,17 +809,7 @@ WRITE AND ABSTRACT IN ENGLISH
 \emph on
 Key words:
 \emph default
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-FILL IN THE KEYWORDS IN ENGLISH
-\end_layout
-
-\end_inset
-
-
+ Active learning, decision theory , deep learning ensembles, text classification.
 \end_layout
 
 \begin_layout Standard
@@ -1440,12 +1424,12 @@ addcontentsline{toc}{chapter}{Introduction}
 \end_layout
 
 \begin_layout Standard
-Active Learning strategy lets the machine learning models iteratively and
+Active learning strategy lets the machine learning models iteratively and
  strategically query the labels of some instances for reducing human labeling
  efforts.
  This project shows how it is possible to connect active learning and text
  data.
- People has been already solving same problem for anomaly detection 
+ People has already been solving same problem for anomaly detection 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "das2018active"
@@ -1467,19 +1451,19 @@ literal "false"
 
 \begin_layout Standard
 If we take a look on modern approach of automating the labeling process
- of huge amount of unlabeled data is not optimal.
+ of huge amount of unlabeled data, it is not optimal.
  People are randomly choosing unlabeled text data.
- These data are annotated by the subject matter experts and used for training
+ These data are annotated by the subject matter experts, and used for training
  and testing the models.
  If the model performance is weak after the training, more text documents
  are selected and annotated.
- This approach is costly because nobody knows how much text documents is
- needed to have good model scores.
+ This approach is costly because nobody knows how much text documents must
+ be selected to have good model scores.
  Our active learning strategy proposes selection of unlabeled text data
  that the model is not certain about.
  Unlabeled text data are given to a subject matter expert to provide the
  labels.
- This problem has already been solving for long period of time.
+ Discussed problem was introduced almost two decades ago.
  Some active learning approaches for text classification dates back to 2001
  
 \begin_inset CommandInset citation
@@ -1489,17 +1473,17 @@ literal "false"
 
 \end_inset
 
- where are shown different querying strategies and results of the active
- learning superiority over randoms sampling strategies.
- There is no clue that active learning strategy brings a lot advantages.
- First of all, we are able to start with lower amount of training data and
- iteratively extend the dataset.
+, where are shown different querying strategies, and results of the active
+ learning superiority over random sampling strategies.
+ There is no clue that active learning strategy brings a lot of advantages.
+ First of all, we are able to start with lower amount of training data,
+ and iteratively extend the dataset.
  The dataset is extended using the data, which the model is not certain
  about.
  In this work we are extending our dataset with only one sample per active
  learning iteration.
- However, it was also show that strategies which sample batches with more
- than one sample also can perform good results 
+ However, it was also shown that the strategies, which sample batches with
+ more than one sample, also perform good results 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "an2018deep"
@@ -1508,15 +1492,14 @@ literal "false"
 \end_inset
 
 .
- Thus, basing on the active learning approach the model will get much more
+ Thus, basing on the active learning approach, the model will get much more
  information from non-randomly chosen text samples.
 \end_layout
 
 \begin_layout Standard
-The project describes how we can formulate different algorithms with respect
- to decision theory and then connect all the methods to active learning
- theory.
- All the methods used in this work can be represented in ensembles way.
+The project describes different algorithms formulation with respect to decision
+ theory, and then connection of all the methods to active learning theory.
+ All methods used in this work are represented as ensemble models.
  Basing on 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1525,8 +1508,8 @@ literal "false"
 
 \end_inset
 
- it was show that ensembles deep learning algorithms show the best performance
- both for Text and Image Processing data.
+ it was shown that ensemble deep learning algorithms give the best performance
+ both for text and image processing data.
  Plenty of related active learning works for text classifications follow
  
 \begin_inset CommandInset citation
@@ -1536,8 +1519,8 @@ literal "false"
 
 \end_inset
 
- with using acquisition functions and dropout algorithm for uncertainty
- representations e.g.
+, with use of acquisition functions and dropout, for uncertainty representation
+ e.g.
  named entity recognition 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1564,7 +1547,7 @@ literal "false"
 
 .
  We are concerned that ensembles outperform dropout uncertainty representation
- for text data as it was shown in 
+ for text data, as it was shown in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "lakshminarayanan2017simple"
@@ -1577,10 +1560,10 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-This project also provides link to python implementation of active learning
+This project also provides the link to Python implementation of active learning
  algorithms and comparison of different results gathered with respect to
  different data.
- We believe that active learning approach is able to significantly reduce
+ We believe, that active learning approach is able to significantly reduce
  amount of time and expenses needed for automating text labeling process.
  
 \end_layout
@@ -1762,9 +1745,9 @@ The process of decision making is defined as a selection of the optimal
  action from a set of possibilities that can be applied at some operating
  conditions.
  The criteria of optimality is formalized by a loss function.
- The process of selection of the optimal action is thus formalized as the
- optimization problem.
- However, the operating conditions are often not known exactly since we
+ The process of selection of the optimal action is, thus, formalized as
+ the optimization problem.
+ However, the operating conditions are often not known exactly, since we
  have incomplete information about them.
  Therefore, we will use the theory of decision making under uncertainty
  
@@ -1912,9 +1895,9 @@ a^{*}=\argmin_{a\in{\cal A}}\mathbb{E}_{\pi^{*}}[L(\theta,a)].\label{eq:optimal_
 
 \begin_layout Standard
 The key task of application of decision theory is the choice of the action
- space, parameter space, loss function and method of evaluating the probability
+ space, parameter space, loss function, and method of evaluating the probability
  measure.
- In the following Sections, we discuss examples of application of the theory
+ In the following sections, we discuss examples of application of the theory
  to the problem of supervised learning and active learning, respectively.
 \end_layout
 
@@ -1925,7 +1908,7 @@ Decision Theory for Supervised Learning
 \begin_layout Standard
 Supervised learning is defined as learning from the data with known target
  value.
- Specifically, for the classification problem, the target value is the class
+ Specifically, for the classification problem, the target value is the class,
  where each data point belongs.
  
 \end_layout
@@ -1948,7 +1931,7 @@ We would like to commence our formal definition with the data.
 \begin_inset Formula $n$
 \end_inset
 
- and 
+, and 
 \begin_inset Formula ${\bf y}$
 \end_inset
 
@@ -1965,13 +1948,13 @@ We would like to commence our formal definition with the data.
 \begin_inset Formula ${\cal Y}$
 \end_inset
 
- can be represented as a one hot representation which is a vector consisting
+ can be represented as a one hot representation, which is a vector consisting
  from ones and zeros.
  In the case of binary classification 
 \begin_inset Formula $\mathbf{y}\in\{[0,1]^{T},[1,0]^{T}\}$
 \end_inset
 
- where, the first class is represented as 
+, where the first class is represented as 
 \begin_inset Formula $\mathbf{y}=[1,0]^{T}$
 \end_inset
 
@@ -1989,8 +1972,8 @@ We would like to commence our formal definition with the data.
 \begin_inset Formula $\mathbf{y}$
 \end_inset
 
- can be its category such as sports or comedy.
- As seen from this example, the label and text are forming a tuple.
+ can be its category, such as sports or comedy.
+ As seen from this example, the label and the text are forming a tuple.
  In this work we are considering our data as tuples of variables 
 \begin_inset Formula $(\mathbf{x},\mathbf{y})\in{\cal X\times Y}$
 \end_inset
@@ -2009,7 +1992,7 @@ Basing on the data definitions from previous part, we can assume that
 \end_inset
 
  is a sample from this set.
- We assume that all available data tuples are sampled independently from
+ We assume, that all available data tuples are sampled independently from
  a joint probability density function 
 \begin_inset Formula $p(\mathbf{x},\mathbf{y})$
 \end_inset
@@ -2032,13 +2015,13 @@ p(\mathbf{x},\mathbf{y})=p(\mathbf{y}|\mathbf{x})p(\mathbf{x}).\label{eq: data_b
 \end_inset
 
 However, since we do not know analytical form of the joint probability distribut
-ion we aim at selecting the best possible approximation within a chosen
+ion, we aim at selecting the best possible approximation within a chosen
  class.
  Specifically, we choose a parametric form 
 \begin_inset Formula $p(\mathbf{y}|\mathbf{x},a)$
 \end_inset
 
- where 
+, where 
 \begin_inset Formula $a$
 \end_inset
 
@@ -2047,8 +2030,8 @@ ion we aim at selecting the best possible approximation within a chosen
 \end_layout
 
 \begin_layout Standard
-The uncertainty of the decision task is representation of the joint probability
- distribution.
+The uncertainty of the decision task is a representation of the joint probabilit
+y distribution.
  We will consider the uncertainty 
 \begin_inset Formula $\theta$
 \end_inset
@@ -2065,7 +2048,7 @@ where
 \begin_inset Formula $\mathbf{x}_{i},\mathbf{y}_{i}$
 \end_inset
 
- are elements of the training set 
+ are elements of training set 
 \begin_inset Formula $(\tilde{\mathbf{X}}\subset{\cal X},\tilde{\mathbf{Y}}\subset{\cal Y})$
 \end_inset
 
@@ -2096,18 +2079,18 @@ name "subsec:decision_theory_svm"
 \end_layout
 
 \begin_layout Standard
-In this subsection we will continue construction of the decision theory
+In this subsection, we will continue construction of the decision theory
  on the example of Support Vector Machine (SVM) method.
- For simplicity lets consider linearly separable dataset.
- From the theoretical perspective SVM constructs hyperplane in high dimensional
- space that separates two classes.
- In this case our decision (action) is a hyperplane that will separate two
- classes.
+ For simplicity, let us consider a linearly separable dataset.
+ From the theoretical perspective, SVM constructs hyperplane in high dimensional
+ space.
+ In this case, our decision (action) is a hyperplane that will separate
+ two classes.
  Equation of the hyperplane can be written as 
 \begin_inset Formula $f(\mathbf{x},\mathbf{w},b)=\mathbf{w}^{T}\mathbf{x}+b$
 \end_inset
 
- where 
+, where 
 \begin_inset Formula $\text{\ensuremath{\mathbf{w}}\ensuremath{\in\mathbb{R}^{n}} }$
 \end_inset
 
@@ -2125,7 +2108,7 @@ In this subsection we will continue construction of the decision theory
 \end_inset
 
 .
- From this knowledge we consider the uncertainty 
+ From this knowledge, we consider the uncertainty 
 \begin_inset Formula $\theta$
 \end_inset
 
@@ -2144,7 +2127,7 @@ noprefix "false"
 \end_inset
 
 .
- Considering loss function (
+ Consider loss function (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:loss_func"
@@ -2164,7 +2147,7 @@ L=L(\mathbf{x},\mathbf{y},\mathbf{w},b).\label{eq:SVM_thoer_loss}
 
 Following task is to understand how good is our action (hyperplane estimation)
  with respect to the dataset.
- We can choose different types of loss functions such as cross entropy,
+ We can choose different types of loss functions, such as cross entropy,
  hinge loss, etc..
  The most basic approach for SVM method is the hinge loss function 
 \begin_inset CommandInset citation
@@ -2177,7 +2160,7 @@ literal "false"
  which is defined as 
 \begin_inset Formula 
 \begin{equation}
-L(\mathbf{x},\mathbf{y},\mathbf{w},b)=\max(0,1-y\hat{y}(\mathbf{x},\mathbf{w},b))\label{eq:hinge_loss}
+L(\mathbf{x},\mathbf{y},\mathbf{w},b)=\max(0,1-y\hat{y}(\mathbf{x},\mathbf{w},b)),\label{eq:hinge_loss}
 \end{equation}
 
 \end_inset
@@ -2195,8 +2178,8 @@ where
 \end_layout
 
 \begin_layout Standard
-In terms of SVM method we want to find such hyperplane that will label input
- values as a first class if it is 
+In terms of SVM method, we want to find such a hyperplane that will label
+ input values as a first class, if it is 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2204,7 +2187,7 @@ above
 \begin_inset Quotes erd
 \end_inset
 
- the hyperplane and as a second class if it is 
+ the hyperplane and as a second class, if it is 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2213,8 +2196,8 @@ below
 \end_inset
 
  the hyperplane.
- At this point very important assumption will be introduced.
- In order to find an optimal hyperplane we assume that the data 
+ At this point, very important assumption will be introduced.
+ In order to find an optimal hyperplane, we assume, that the data 
 \begin_inset Formula $\tilde{{\bf X}}$
 \end_inset
 
@@ -2261,7 +2244,7 @@ noprefix "false"
 \begin{align*}
 \mathbb{E}_{\pi^{*}}L & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},\mathbf{y},\mathbf{w},b)p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\\
  & =\int_{{\cal X}\times{\cal Y}}\max(0,1-y_{1}\hat{y}(\mathbf{x},\mathbf{w},b))\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\\
- & =\frac{1}{N}\sum_{i=1}^{N}\max(0,1-y_{1,i}\hat{y}(\mathbf{x}_{i},\mathbf{w},b))
+ & =\frac{1}{N}\sum_{i=1}^{N}\max(0,1-y_{1,i}\hat{y}(\mathbf{x}_{i},\mathbf{w},b)),
 \end{align*}
 
 \end_inset
@@ -2282,6 +2265,7 @@ where
 \begin_inset Formula $\mathbf{y}_{i}$
 \end_inset
 
+.
  Expect loss function for SVM can be written as 
 \begin_inset Formula 
 \begin{equation}
@@ -3977,17 +3961,7 @@ DENFI
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Extension of Deep Ensembles [cite Lamakrishnan?] MS.
- Done
-\end_layout
-
-\end_inset
-
- DENFI algorithm is an extension of deep ensembles 
+DENFI algorithm is an extension of deep ensembles 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "lakshminarayanan2017simple"

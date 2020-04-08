@@ -7,14 +7,14 @@ from torch.optim import Optimizer
 from typing import Optional, Tuple, List
 
 
-NUM_SAMPLES = 50
-EPOCHS_PER_SAMPLE = 100
-EPOCHS = 2000
-STEPS_TO_BURN = 2000
+NUM_SAMPLES = 30
+EPOCHS_PER_SAMPLE = 50
+EPOCHS = 1500
+STEPS_TO_BURN = 1500
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MINI_BATCH_RATIO = 0.5
-LEARNING_RATE = 0.01
+LEARNING_RATE = 0.001
 
 
 class NeuralNet(nn.Module):
@@ -91,7 +91,7 @@ class PeonySGLDFeedForwardNN:
                 )
 
                 # Forward pass
-                outputs = self.model[index](instances[indices, :])
+                outputs = self.model[0](instances[indices, :])
                 loss = self.criterion(outputs, labels[indices].long())
                 # Backward and optimize
                 self.optimizer.zero_grad()

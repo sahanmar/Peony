@@ -103,6 +103,10 @@ def active_learning_simulation_round(
             peony_model.bayesian_denfi_nn.fit(
                 training_instances, training_labels, transformation_needed
             )
+        elif model == "bayesian_dropout":
+            peony_model.bayesian_dropout_nn.fit(
+                training_instances, training_labels, transformation_needed
+            )
         else:
             peony_model.random_forest_model.fit(
                 training_instances, training_labels, transformation_needed
@@ -127,6 +131,10 @@ def active_learning_simulation_round(
                 )
             elif model == "bayesian_denfi":
                 predicted = peony_model.bayesian_denfi_nn.predict(
+                    testing_instances, transformation_needed
+                )
+            elif model == "bayesian_dropout":
+                predicted = peony_model.bayesian_dropout_nn.predict(
                     testing_instances, transformation_needed
                 )
             else:
@@ -159,6 +167,10 @@ def active_learning_simulation_round(
                 indices = peony_model.bayesian_denfi_nn.get_learning_samples(
                     testing_instances, transformation_needed
                 )
+            elif model == "bayesian_dropout":
+                indices = peony_model.bayesian_dropout_nn.get_learning_samples(
+                    testing_instances, transformation_needed
+                )
             else:
                 indices = peony_model.random_forest_model.get_learning_samples(
                     testing_instances, transformation_needed
@@ -187,6 +199,10 @@ def active_learning_simulation_round(
                 )
             elif model == "bayesian_denfi":
                 peony_model.bayesian_denfi_nn.add_new_learning_samples(
+                    training_instances, training_labels, transformation_needed
+                )
+            elif model == "bayesian_dropout":
+                peony_model.bayesian_dropout_nn.add_new_learning_samples(
                     training_instances, training_labels, transformation_needed
                 )
             else:
