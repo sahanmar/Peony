@@ -224,7 +224,7 @@ separation "3pt"
 shadowsize "4pt"
 framecolor "black"
 backgroundcolor "none"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -260,7 +260,7 @@ separation "3pt"
 shadowsize "4pt"
 framecolor "black"
 backgroundcolor "none"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -295,7 +295,7 @@ separation "3pt"
 shadowsize "4pt"
 framecolor "black"
 backgroundcolor "none"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -2306,13 +2306,13 @@ Given the instance
 \begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
 
- with further application of Feed Forward Neural Network we are able to
- predict an output value 
+ with further application of Feed Forward Neural Network (NN) we are able
+ to predict an output value 
 \begin_inset Formula $\mathbf{y}\in{\cal Y}.$
 \end_inset
 
- In this part of the work our prior interest is around Feed Forward Neural
- Network algorithm that assigns input value to a specific class.
+ In this part of the work, our prior interest is focused around Feed Forward
+ Neural Network algorithm, that assigns input value to a specific class.
  
 \end_layout
 
@@ -2320,7 +2320,7 @@ Given the instance
 First layer of NN is defined as
 \begin_inset Formula 
 \begin{equation}
-\mathbf{a}_{1}=\mathbf{W}_{1}^{T}\mathbf{x}+\mathbf{b}_{1}\label{eq:Neuron}
+\mathbf{a}_{1}=\mathbf{W}_{1}^{T}\mathbf{x}+\mathbf{b}_{1},\label{eq:Neuron}
 \end{equation}
 
 \end_inset
@@ -2379,7 +2379,7 @@ literal "false"
 Output values are computed with
 \begin_inset Formula 
 \begin{equation}
-\hat{\mathbf{y}}=f_{sm}\left(\mathbf{W}_{K}^{T}f\big(\mathbf{a}_{K-1}\big)+\mathbf{b}_{K}\right).\label{eq:Output_layer}
+\hat{\mathbf{y}}=f_{sm}\left(\mathbf{W}_{K}^{T}f\big(\mathbf{a}_{K-1}\big)+\mathbf{b}_{K}\right),\label{eq:Output_layer}
 \end{equation}
 
 \end_inset
@@ -2388,7 +2388,7 @@ where
 \begin_inset Formula $f_{sm}$
 \end_inset
 
- is the softmax function that is typically used for classification problems.
+ is the softmax function, that is typically used for classification problems.
  The softmax function is defined as 
 \begin_inset Formula 
 \[
@@ -2406,7 +2406,7 @@ where
 \end_inset
 
  is an output vector before activation function is applied.
- Output vector has same size as label 
+ Output vector has the same size as label 
 \begin_inset Formula $\mathbf{y}$
 \end_inset
 
@@ -2419,7 +2419,7 @@ Decision Theory
 \end_layout
 
 \begin_layout Standard
-Decision Theory construction for the algorithm, based on a neural network
+Decision theory construction for the algorithm, based on a neural network
  function, is mostly the same as in 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2431,7 +2431,7 @@ noprefix "false"
 \end_inset
 
 .
- However in this case our decision is to find estimate 
+ However, in this case our decision is to find estimate 
 \begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x},\Omega)$
 \end_inset
 
@@ -2439,7 +2439,7 @@ noprefix "false"
 \begin_inset Formula $p(\mathbf{y}|\mathbf{x})$
 \end_inset
 
- where 
+, where 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
@@ -2494,11 +2494,11 @@ where
 \end_inset
 
 .
- With the usage of the given dataset where 
+ With the usage of the given dataset, where 
 \begin_inset Formula $\forall i\in\{1,..,N\},\ (\mathbf{x}_{i},\mathbf{y}_{i})\in\mathbf{(\tilde{\mathbf{X}}\subset{\cal X},\tilde{\mathbf{Y}}\subset{\cal Y})}$
 \end_inset
 
- are independent identically distributed we can approximate 
+ are independent identically distributed, we can approximate 
 \begin_inset Formula $p(\mathbf{x},\mathbf{y})$
 \end_inset
 
@@ -2551,13 +2551,13 @@ Parameters Estimation
 
 \begin_layout Standard
 In further sections we are going to introduce more methods based on Neural
- Networks which will slightly differ between each other.
+ Networks, which will slightly differ between each other.
  Thus, we would like to cover more theory around parameters estimation.
- The very simple but efficient method is gradient descent.
- This method is using equation
+ The very simple, but efficient method is Gradient Descent.
+ This method is based on equation
 \begin_inset Formula 
 \begin{equation}
-\hat{\Omega}_{n+1}=\hat{\Omega}_{n}-\eta_{n}\nabla L(\tilde{\mathbf{X}},\tilde{\mathbf{Y}},\hat{\Omega}_{n},Z_{n})\label{eq:Gradient-Descent}
+\hat{\Omega}_{n+1}=\hat{\Omega}_{n}-\eta_{n}\nabla L(\tilde{\mathbf{X}},\tilde{\mathbf{Y}},\hat{\Omega}_{n},Z_{n}),\label{eq:Gradient-Descent}
 \end{equation}
 
 \end_inset
@@ -2580,7 +2580,7 @@ th iteration value of gradient descent of NN weights and its biases that
 \begin_inset Formula $\nabla L(\mathbf{X},\mathbf{Y},\hat{\Omega}_{n},Z_{n})$
 \end_inset
 
- is a gradient of the loss function and 
+ is a gradient of a loss function and 
 \begin_inset Formula $\eta_{n}$
 \end_inset
 
@@ -2588,7 +2588,7 @@ th iteration value of gradient descent of NN weights and its biases that
 \begin_inset Formula $n-$
 \end_inset
 
-th iteration of a value that in terms of NN is defined as learning rate
+th iteration of a value, that in terms of NN is defined as learning rate
  with a decay.
  Term 
 \begin_inset Formula $Z_{n}$
@@ -2602,7 +2602,7 @@ th iteration of a value that in terms of NN is defined as learning rate
 \begin_inset Formula $Y$
 \end_inset
 
- that are used in 
+, that are used in 
 \begin_inset Formula $n-$
 \end_inset
 
@@ -2610,7 +2610,7 @@ th iteration of loss function.
  Learning rate decay is not obligatory feature.
  It can be constant as well.
  However, the best performance is obtained when the learning rate is estimated
- from the data, which is the main idea of adaptive methods such as RMSProp
+ from the data, which is the main idea of adaptive methods, such as RMSProp
  or ADAM 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2637,8 +2637,8 @@ The usual gradient descent is an efficient method for complex
 
 , the loss function of its approximation will be non convex with large amount
  of local minima and maxima.
- Multiple solution to this problem has been proposed in the form of gradient
- descent with momentum, or stochastic gradient descent (SGD) 
+ Multiple solutions to this problem have been proposed in the form of Gradient
+ Descent with momentum, or Stochastic Gradient Descent (SGD) 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bishop2006machine"
@@ -2647,9 +2647,9 @@ literal "false"
 \end_inset
 
 .
- In comparison to standard gradient descent the key difference is that SGD
- allows us to use only one piece of data (minibatch) from the training dataset
- in order to calculate the step 
+ In comparison to standard Gradient Descent, the key difference is that
+ SGD allows us to use only one piece of data (minibatch) from the training
+ dataset in order to calculate the step 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bishop2006machine"
@@ -2663,7 +2663,7 @@ literal "false"
 \end_inset
 
  that says which training indices to use.
- The data samples (minibatch) is picked randomly at each step.
+ The data samples (minibatch) are picked randomly at each step.
  
 \end_layout
 
@@ -2676,7 +2676,7 @@ literal "false"
 
 \end_inset
 
- which is a stochastic gradient optimization including adaptation of the
+, which is a stochastic gradient optimization, including adaptation of the
  learning rate as well as coefficient of the momentum.
  
 \end_layout
@@ -2693,17 +2693,17 @@ name "subsec:decision_theory_nb"
 \end_layout
 
 \begin_layout Standard
-Naive Bayes algorithm is a bit different to the algorithm based on Neural
- Networks and SVM.
+Naive Bayes algorithm is a bit different to the algorithm based on neural
+ networks and SVM.
  In the case of Naive Bayes, we want to estimate 
 \begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
 \end_inset
 
- where 
+, where 
 \begin_inset Formula $\mathbf{W}=(\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n})\subset{\cal W}$
 \end_inset
 
- is a collection of parameters of individual classifiers and will be used
+ is a collection of parameters of individual classifiers, and will be used
  as an action (
 \begin_inset Formula $a=\mathbf{W},\ a\in\mathcal{A}$
 \end_inset
@@ -2714,22 +2714,23 @@ Naive Bayes algorithm is a bit different to the algorithm based on Neural
 \end_inset
 
  but not 
-\begin_inset Formula $p(\mathbf{y}|\mathbf{x},\mathbf{w})$
-\end_inset
-
- is due to the fact that in case of estimating 
 \begin_inset Formula $p(\mathbf{y}|\mathbf{x},\mathbf{W})$
 \end_inset
 
- we would have to work with normalization constant which would be dependent
- on the set of parameters 
+ is due to 
+\begin_inset Formula $p(\mathbf{y}|\mathbf{x},\mathbf{W})$
+\end_inset
+
+ normalization constant.
+ The normalization constant would be dependent on the set of parameters
+ 
 \begin_inset Formula $\mathbf{W}$
 \end_inset
 
 .
  That fact would make our computations very complicated.
- Before continuing with a loss function construction we would like to go
- trough Naive Bayes (NB) method.
+ In order to proceed with the loss function construction, we would like
+ to go through Naive Bayes (NB) method.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2749,7 +2750,7 @@ Consider a binary classification problem.
  as follows 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{W}|\mathbf{x},\mathbf{y})=\frac{p(\mathbf{y})p(\mathbf{x}|\mathbf{y},\mathbf{W})p(\mathbf{W})}{\int_{\mathbf{{\cal W}}}p(\mathbf{x},\mathbf{y}|\mathbf{W})p(\mathbf{W})d\mathbf{W}}\label{eq:bayes_rule}
+p(\mathbf{W}|\mathbf{x},\mathbf{y})=\frac{p(\mathbf{y})p(\mathbf{x}|\mathbf{y},\mathbf{W})p(\mathbf{W})}{\int_{\mathbf{{\cal W}}}p(\mathbf{x},\mathbf{y}|\mathbf{W})p(\mathbf{W})d\mathbf{W}},\label{eq:bayes_rule}
 \end{equation}
 
 \end_inset
@@ -2783,11 +2784,11 @@ noprefix "false"
 \end_inset
 
  are conditionally independent.
- As a result estimation of 
+ As a result, estimation of 
 \begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
 \end_inset
 
- can be estimated as
+ can be written as
 \begin_inset Formula 
 \begin{equation}
 \tilde{p}(\mathbf{W}|\mathbf{x},\mathbf{y})=\frac{1}{Z}p(\mathbf{y})p(\mathbf{W})\prod_{i=1}^{n}\big(p(x_{i}|y_{1},\mathbf{w}_{i})^{y_{1}}p(x_{i}|y_{2},\mathbf{w}_{i})^{y_{2}}\big),\label{eq:naive_bayes_eq}
@@ -2807,7 +2808,7 @@ where
 \begin_inset Formula $\mathbf{W}=\{\mathbf{w}_{1},\mathbf{w}_{2},...,\mathbf{w}_{n}\}$
 \end_inset
 
-, 
+, and 
 \begin_inset Formula $Z$
 \end_inset
 
@@ -2835,7 +2836,7 @@ noprefix "false"
 
 \end_inset
 
-), loss function 
+) loss function 
 \begin_inset Formula $L$
 \end_inset
 
@@ -2868,7 +2869,7 @@ noprefix "false"
 
 \end_inset
 
- we will assume that we can approximate 
+, we will assume that we can approximate 
 \begin_inset Formula $p(\mathbf{x},\mathbf{y})$
 \end_inset
 
@@ -2883,7 +2884,7 @@ noprefix "false"
 \end_inset
 
 .
- From this moment everything is ready for deriving expected loss function.
+ From this moment, everything is ready for expected loss function derivation.
  Expected loss function for Naive Bayes method is derived as 
 \series bold
 
@@ -2891,7 +2892,7 @@ noprefix "false"
 \begin{align}
 \mathbb{E}_{\pi^{*}}L & =\int_{\mathbf{{\cal X}}\times\mathbf{{\cal Y}}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\nonumber \\
  & \int_{\mathbf{{\cal X}}\times\mathbf{{\cal Y}}}\Big(\xi(\mathbf{W},\mathbf{y})-\sum_{i=1}^{n}\log\big(p(x_{i}|y_{1},\mathbf{w}_{i})^{y_{1}}p(x_{i}|y_{2},\mathbf{w}_{i})^{y_{2}}\big)\frac{1}{N}\sum_{j=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{j},\mathbf{y}-\mathbf{y}_{j})d(\mathbf{x},\mathbf{y}),\nonumber \\
- & \frac{1}{N}\sum_{j=1}^{N}\Big(\xi_{j}(\mathbf{W},\mathbf{y}_{j})-\sum_{i=1}^{n}\log\big(p(x_{i,j}|y_{1,j},\mathbf{w}_{i})^{y_{1,j}}p(x_{i,j}|y_{2,j},\mathbf{w}_{i})^{y_{2,j}}\big)\Big)\label{eq:expected_loss_mle_or_map}
+ & \frac{1}{N}\sum_{j=1}^{N}\Big(\xi_{j}(\mathbf{W},\mathbf{y}_{j})-\sum_{i=1}^{n}\log\big(p(x_{i,j}|y_{1,j},\mathbf{w}_{i})^{y_{1,j}}p(x_{i,j}|y_{2,j},\mathbf{w}_{i})^{y_{2,j}}\big)\Big),\label{eq:expected_loss_mle_or_map}
 \end{align}
 
 \end_inset
@@ -2923,7 +2924,7 @@ name "subsec:random_forest_supervised_learning"
 
 \begin_layout Standard
 In order to work with random forests, we must precisely define decision
- trees and only then construct theory for random forests.
+ trees and only then construct a random forest theory.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2931,11 +2932,11 @@ Decision Tree
 \end_layout
 
 \begin_layout Standard
-In this section, we expect our decision three to give us an estimate 
+In this section, we expect our decision tree to give us an estimate 
 \begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\mathbf{w})\in\{[0,1]^{T},[1,0]^{T}\}$
 \end_inset
 
- where 
+, where 
 \begin_inset Formula $\mathbf{w}$
 \end_inset
 
@@ -2962,7 +2963,7 @@ In this section, we expect our decision three to give us an estimate
 \end_inset
 
  is redefined as a space of tree parameters.
- As a result we will make all 
+ As a result, we will make all 
 \begin_inset Formula $\mathbf{w}$
 \end_inset
 
@@ -2972,12 +2973,12 @@ In this section, we expect our decision three to give us an estimate
 \end_inset
 
  has spare elements, they will be filled with zeros.
- Parameter space will be 
-\begin_inset Formula $\mathbf{w}\in{\cal W}$
+ Decision tree parameters space is 
+\begin_inset Formula ${\cal W}$
 \end_inset
 
 .
- The action 
+ The loss function action 
 \begin_inset Formula $a\in{\cal A}$
 \end_inset
 
@@ -2986,7 +2987,7 @@ In this section, we expect our decision three to give us an estimate
 \end_inset
 
 .
- The loss function of the decision tree is the zero-one loss function, defined
+ The loss function of a decision tree is a zero-one loss function, defined
  as 
 \begin_inset Formula 
 \begin{equation}
@@ -3023,7 +3024,7 @@ noprefix "false"
 \begin{align*}
 \mathbb{E}_{\pi^{*}}L & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})p(\mathbf{x},\mathbf{y})d(\mathbf{x},\mathbf{y}),\\
  & =\int_{{\cal X}\times{\cal Y}}L(\mathbf{x},\mathbf{y},\mathbf{w})\frac{1}{N}\sum_{i=1}^{N}\delta(\mathbf{x}-\mathbf{x}_{i},\mathbf{y}-\mathbf{y}_{i})d(\mathbf{x},\mathbf{y}),\\
- & =\frac{1}{N}\sum_{i=1}^{N}L(\mathbf{x}_{i},\mathbf{y}_{i},\mathbf{w})
+ & =\frac{1}{N}\sum_{i=1}^{N}L(\mathbf{x}_{i},\mathbf{y}_{i},\mathbf{w}),
 \end{align*}
 
 \end_inset
@@ -3047,9 +3048,10 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-The conventional optimization procedure for decision trees is a heuristic
+The conventional optimization procedure for decision trees is a heuristic,
  that works as follows.
- In the process of constructing a decision tree we choose such feature 
+ In the process of constructing a decision tree, we choose such feature
+ 
 \begin_inset Formula $x_{i}\in[x_{1},...,x_{n}]^{T}=\mathbf{x}$
 \end_inset
 
@@ -3059,13 +3061,13 @@ The conventional optimization procedure for decision trees is a heuristic
  Then we add another feature with the highest information gain and construct
  the second layer.
  Using this method, we construct nodes and add more and more layers (branches).
- However, such a procedure can be sub-optimal and improvement was achieved
+ However, such a procedure can be sub-optimal, and improvement was achieved
  using a set of decision trees.
- For this purposes we will define our decision tree 
+ For this purposes, we will define our decision tree 
 \begin_inset Formula $T(\mathbf{x},\mathbf{w}_{l})$
 \end_inset
 
- which has a one-hot encoded classification, i.e.
+, which has a one-hot encoded classification, i.e.
  two dimensional vector 
 \begin_inset Formula $\hat{\mathbf{y}}$
 \end_inset
@@ -3118,7 +3120,7 @@ We will use the training set (
 \begin_inset Formula $\tilde{{\bf Y}}$
 \end_inset
 
-) as a set from which we sample we sample 
+), as a set from which we sample 
 \begin_inset Formula $V\in\mathbb{N}$
 \end_inset
 
@@ -3152,8 +3154,8 @@ We will use the training set (
 \end_inset
 
  without repetition.
- We also want each subset to contain strictly 
-\begin_inset Formula $80\%$
+ We, also, want each subset to contain strictly 
+\begin_inset Formula $70\%$
 \end_inset
 
  of the data from 
@@ -3165,7 +3167,7 @@ We will use the training set (
 \end_inset
 
 .
- As a result, the parameter space for random forests will form tuples of
+ As a result, the parameters space for random forests will form tuples of
  sets 
 \begin_inset Formula $(\tilde{{\bf X}}_{v},\tilde{{\bf Y}}_{v})$
 \end_inset
@@ -3183,7 +3185,7 @@ We will use the training set (
  As a result, the expected loss is 
 \begin_inset Formula 
 \begin{equation}
-\mathbb{E}_{\pi^{*}}L=\frac{1}{V}\sum_{v=1}^{V}\frac{1}{N_{v}}\sum_{i=1}^{N_{v}}L(\mathbf{x}_{i,v},\mathbf{y}_{i,v},\mathbf{w}_{v})\delta(\mathbf{x}-\mathbf{x}_{i,v},\mathbf{y}-\mathbf{y}_{i,v})\label{eq:decision_tree_for_random_forest}
+\mathbb{E}_{\pi^{*}}L=\frac{1}{V}\sum_{v=1}^{V}\frac{1}{N_{v}}\sum_{i=1}^{N_{v}}L(\mathbf{x}_{i,v},\mathbf{y}_{i,v},\mathbf{w}_{v})\delta(\mathbf{x}-\mathbf{x}_{i,v},\mathbf{y}-\mathbf{y}_{i,v}),\label{eq:decision_tree_for_random_forest}
 \end{equation}
 
 \end_inset
@@ -3209,7 +3211,7 @@ where
 \begin_inset Formula $\mathbf{w}_{v}$
 \end_inset
 
- to be a random variable then 
+ to be a random variable, then 
 \begin_inset Formula $V$
 \end_inset
 
@@ -3221,7 +3223,7 @@ where
  In other words 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{y}|\mathbf{x},\mathbf{w}_{v})=\hat{y}_{v,1}^{y_{1}}\hat{y}_{v,2}^{y_{2}}\label{eq:decision_tree_as_random_variable}
+p(\mathbf{y}|\mathbf{x},\mathbf{w}_{v})=\hat{y}_{v,1}^{y_{1}}\hat{y}_{v,2}^{y_{2}},\label{eq:decision_tree_as_random_variable}
 \end{equation}
 
 \end_inset
@@ -3243,7 +3245,7 @@ where label
  can be written as 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{y}|\mathbf{x})=\int_{\mathbf{w}\in\mathbf{{\cal A}}}p(\mathbf{y}|\mathbf{x},\mathbf{w})p(\mathbf{w})d\mathbf{w}.\label{eq:classification_prob_for_random_forest}
+p(\mathbf{y}|\mathbf{x})=\int_{\mathbf{w}\in\mathbf{{\cal A}}}p(\mathbf{y}|\mathbf{x},\mathbf{w})p(\mathbf{w})d\mathbf{w},\label{eq:classification_prob_for_random_forest}
 \end{equation}
 
 \end_inset
@@ -3264,7 +3266,7 @@ where
  as 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{y}|\mathbf{x})=\frac{1}{V}\sum_{l=1}^{V}\hat{y}_{v,1}^{y_{1}}\hat{y}_{v,2}^{y_{2}}\label{eq:approx_class_prob_for_random_forest}
+p(\mathbf{y}|\mathbf{x})=\frac{1}{V}\sum_{l=1}^{V}\hat{y}_{v,1}^{y_{1}}\hat{y}_{v,2}^{y_{2}},\label{eq:approx_class_prob_for_random_forest}
 \end{equation}
 
 \end_inset
@@ -3288,8 +3290,8 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-Before continuing with further sections we define output of the Random Forest
- as 
+In order to proceed with further sections we define the output of Random
+ Forest as 
 \begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x},\mathbf{W})$
 \end_inset
 
@@ -3297,7 +3299,7 @@ Before continuing with further sections we define output of the Random Forest
 \begin_inset Formula $\mathbf{W}=\{\mathbf{w}_{1},...,\mathbf{w}_{V}\}\in\mathcal{W}$
 \end_inset
 
- is set of parameters of specific Random Forest algorithm.
+ is a set of parameters of specific Random Forest algorithm.
  We define vector 
 \begin_inset Formula $\hat{\mathbf{y}}$
 \end_inset
@@ -3305,7 +3307,7 @@ Before continuing with further sections we define output of the Random Forest
  as 
 \begin_inset Formula 
 \begin{equation}
-\hat{\mathbf{y}}=\frac{1}{V}\sum_{l=1}^{V}\hat{\mathbf{y}}_{v}\label{eq:Random_forest_output}
+\hat{\mathbf{y}}=\frac{1}{V}\sum_{l=1}^{V}\hat{\mathbf{y}}_{v}.\label{eq:Random_forest_output}
 \end{equation}
 
 \end_inset
@@ -3318,7 +3320,7 @@ Decision Theory for Active Learning
 \end_layout
 
 \begin_layout Standard
-As mentioned in previous sections the training set 
+As mentioned in previous sections, the training set 
 \begin_inset Formula $\tilde{\mathbf{X}}\times\mathbf{\tilde{Y}}$
 \end_inset
 
@@ -3328,11 +3330,11 @@ As mentioned in previous sections the training set
 \end_inset
 
  in the training set has a label 
-\begin_inset Formula $y$
+\begin_inset Formula $\mathbf{y}$
 \end_inset
 
 .
- In many situations, the labels are expensive to obtain and the number 
+ In many situations labels are expensive to obtain, and the number 
 \begin_inset Formula $N$
 \end_inset
 
@@ -3349,18 +3351,18 @@ As mentioned in previous sections the training set
 \end_layout
 
 \begin_layout Standard
-We consider a setup in which we can ask for a label for and arbitrary 
+We consider a setup in which we can ask for a label for an arbitrary 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
-, that can be provided for example by a human an annotator.
+, that can be provided for example by a human (annotator).
  We assume that getting labels needs some time and is very expensive.
  The task is to choose which sample we will ask to label.
  
 \end_layout
 
 \begin_layout Standard
-The active learning problem is defined as a sequence of Supervised learning
+The active learning problem is defined as a sequence of supervised learning
  problems.
  Specifically, we assume that the initial sets for supervised learning are
  
@@ -3380,7 +3382,7 @@ The active learning problem is defined as a sequence of Supervised learning
 \begin_inset Formula $u=\{1,\ldots,U\}$
 \end_inset
 
-, in each question, we select an index 
+, in each question we select an index 
 \begin_inset Formula $j_{u}$
 \end_inset
 
@@ -3411,7 +3413,7 @@ The task of active learning is to optimize the selection of indices
 
  to reach as good classification metrics with as low number of questions
  as possible.
- As a result we have to define the expected loss for each question 
+ As a result, we have to define the expected loss for each question 
 \begin_inset Formula $u$
 \end_inset
 
@@ -3426,7 +3428,7 @@ The task of active learning is to optimize the selection of indices
 \end_inset
 
 .
- The uncertainty of the decision task if the parameter space 
+ The uncertainty of the decision task, if the parameter space 
 \begin_inset Formula $\varTheta$
 \end_inset
 
@@ -3448,14 +3450,14 @@ The task of active learning is to optimize the selection of indices
 \end_inset
 
  for RF and NB.
- It is very important to understand that point estimate of the parameters
- that was designed in supervised learning is not sufficient for this task.
+ It is very vital to understand, that point estimate of the parameters that
+ was designed in supervised learning is not sufficient for this task.
  We need full distribution on the parameters because we will integrate over
  the parameters space.
  As an example, if we talk about the SVM method, then parameters space for
  active learning problem will be defined as a set of weights that form a
  hyperplane.
- If we talk about the algorithm that is based on a Neural Network function,
+ If we talk about the algorithm that is based on a neural network function,
  then parameters space of the active learning problem will form weights
  from neurons.
  We wanted to highlight that parameters space will be different for each
@@ -3466,7 +3468,7 @@ The task of active learning is to optimize the selection of indices
 The decision task for this particular problem can be written as 
 \begin_inset Formula 
 \begin{equation}
-j_{u}^{*}=\argmin_{j_{u}\in J\backslash J_{u}}(\mathbb{E}_{\pi_{u}^{*}}L^{*})\label{eq:index_selection_active_learning}
+j_{u}^{*}=\argmin_{j_{u}\in J\backslash J_{u}}(\mathbb{E}_{\pi_{u}^{*}}L^{*}),\label{eq:index_selection_active_learning}
 \end{equation}
 
 \end_inset
@@ -3487,7 +3489,7 @@ where
  The expected loss for the active learning problem is defined as 
 \begin_inset Formula 
 \begin{equation}
-\mathbb{E}_{\pi_{u}^{*}}L^{*}=\int_{\varTheta}L^{*}(j_{u},\theta)\pi_{u}^{*}d\theta\label{eq:Expected_loss_active_learning}
+\mathbb{E}_{\pi_{u}^{*}}L^{*}=\int_{\varTheta}L^{*}(j_{u},\theta)\pi_{u}^{*}d\theta,\label{eq:Expected_loss_active_learning}
 \end{equation}
 
 \end_inset
@@ -3540,7 +3542,7 @@ Using this approach, we will be able sequentially select indices from
 \begin_inset Formula $\mathbf{Y}$
 \end_inset
 
- that will help us to get higher scores faster than in the case of random
+, that will help us to get higher scores faster than in the case of random
  choice of indices.
  
 \end_layout
@@ -3550,7 +3552,7 @@ Bayesian Approach of Classifiers' Parameters Sampling
 \end_layout
 
 \begin_layout Standard
-Considering that 
+Consider that 
 \begin_inset Formula $\mathbf{y}\in{\cal Y}$
 \end_inset
 
@@ -3590,12 +3592,12 @@ Considering that
 \end_inset
 
 .
- It is very interesting that before we can solve the optimization problem
- with choosing the index 
+ It is interesting that before we can solve the optimization problem with
+ choosing the index 
 \begin_inset Formula $j_{u}$
 \end_inset
 
- we have to solve the optimization problem of finding 
+, we have to solve the optimization problem of finding 
 \begin_inset Formula $\hat{\mathbf{y}}$
 \end_inset
 
@@ -3620,7 +3622,7 @@ noprefix "false"
 \end_inset
 
 ).
- Mentioned distribution is a distribution of the models' parameters given
+ Mentioned distribution is a distribution of the models' parameters, given
  the training data that can be written as 
 \begin_inset Formula 
 \begin{equation}
@@ -3672,7 +3674,7 @@ Parameters Sampling Based on Training Data Subsets
 
 \begin_layout Standard
 This method is quite general and can be applied to all types of classifiers
- in this work (Random Forest, SVM, Neural Network).
+ in this work (Random Forest, SVM, neural network).
  The idea is very simple.
  We consider that some data samples in training dataset 
 \begin_inset Formula $\tilde{\mathbf{X}}\times\tilde{\mathbf{Y}}$
@@ -3694,12 +3696,12 @@ This method is quite general and can be applied to all types of classifiers
 \end_inset
 
 .
- Lets rewrite it in more mathematical form.
+ Let us rewrite it in more mathematical form.
  
 \end_layout
 
 \begin_layout Standard
-Assuming 
+Assume 
 \begin_inset Formula $N_{u}$
 \end_inset
 
@@ -3800,9 +3802,9 @@ SGLD
 \begin_layout Standard
 Unlike previous section method, SGLD sampling is designed only for neural
  network based classifiers.
- SGLD modifies Neural Network learning algorithm by adding noise in Stochastic
- Gradient descent.
- In comparison to Normal Feed Forward Neural Network in 
+ SGLD modifies neural network learning algorithm by adding noise in Stochastic
+ Gradient Descent.
+ In comparison to normal Feed Forward Neural Network in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "welling2011bayesian"
@@ -3811,7 +3813,7 @@ literal "false"
 \end_inset
 
  is introduced Stochastic Gradient Langevin Dynamics Neural Network (SGLD).
- This is type of Bayesian Neural Network algorithm.
+ This is a type of Bayesian Neural Network algorithm.
  In comparison to normal Feed Forward NN, 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -3820,11 +3822,10 @@ literal "false"
 
 \end_inset
 
- proposes to add Gaussian noise to the system while doing gradient descent.
- In fact, when the algorithm is almost trained, additional noise lets us
+ proposes to add Gaussian noise to the system while doing Gradient Descent.
+ In fact, when the algorithm is almost trained, additional noise let us
  to sample i.i.d parameters values in a neighborhood of a minimum.
- With the usage of Bayes rule.
- we can rewrit (
+ With the usage of Bayes rule we can rewrite (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_for_expected_entropy_loss"
@@ -3877,7 +3878,7 @@ noprefix "false"
 \end_inset
 
  must meet some constraints.
- If we want to sample parameters from its distribution 
+ If we want to sample parameters from its distribution, 
 \begin_inset Formula $\theta$
 \end_inset
 
@@ -3894,7 +3895,7 @@ literal "false"
 \begin_inset Formula 
 \begin{align}
 \hat{\Omega}_{n+1} & =\hat{\Omega}_{n}-\frac{N}{N_{minibatch}}\frac{\eta_{n}}{2}\Big(\nabla L(\tilde{\mathbf{X}},\tilde{\mathbf{Y}},\hat{\Omega}_{n},Z_{n})\Big)+\epsilon_{n},\label{eq:SGLD_gradient_descent}\\
-\epsilon_{n} & \sim{\cal N}(0,\eta_{n}I)
+\epsilon_{n} & \sim{\cal N}(0,\eta_{n}I),
 \end{align}
 
 \end_inset
@@ -3903,11 +3904,11 @@ where
 \begin_inset Formula $N$
 \end_inset
 
- is amount of training data, 
+ is an amount of training data, 
 \begin_inset Formula $N_{minibatch}$
 \end_inset
 
- is amount of the data in minibatch and 
+ is an amount of the data in minibatch and 
 \begin_inset Formula $\eta_{n}$
 \end_inset
 
@@ -3940,7 +3941,7 @@ literal "false"
 \begin_inset Formula $\pi_{u}^{*}=p(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u})$
 \end_inset
 
- is again the Dirac function 
+ is the Dirac function as well 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_for_exp_loss_estimate"
@@ -3950,8 +3951,9 @@ noprefix "false"
 
 \end_inset
 
-,where When the algorithm is almost trained we are able to start sampling
- the i.i.d.
+.
+ When the algorithm is almost trained, we are able to start sampling the
+ i.i.d.
  parameter masks.
  The process of generating samples 
 \begin_inset Formula $\theta^{(q)}$
@@ -4030,9 +4032,9 @@ noprefix "false"
 \begin_inset Formula $Q_{u}$
 \end_inset
 
- Feed Forward Neural Networks with the usage of stochastic gradient descent.
+ Feed Forward Neural Networks with the usage of Stochastic Gradient Descent.
  In theory, each neural network will find different local minimum due to
- different initial weights of neurons and stochastic gradient descent.
+ different initial weights of neurons and Stochastic Gradient Descent.
  The beauty of this algorithm is in further training iterations that will
  be described and shown in further sections.
  For now, we are only interested in parameters sampling from 
@@ -4055,7 +4057,7 @@ name "subsec:Active-Learning-Loss"
 
 \begin_layout Standard
 The acquisition function is a function that helps us to decide which data
- sample is the best for model learning given models uncertainty.
+ sample is the best for model learning given model's uncertainty.
  Wide overview of different acquisition functions is shown in 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -4066,7 +4068,7 @@ literal "false"
 
  e.g.
  entropy, information or mean standard deviation maximization.
- However in our work we decided to use only the entropy loss.
+ However, in our work we decided to use only the entropy loss.
 \end_layout
 
 \begin_layout Subsubsection
@@ -4075,7 +4077,7 @@ Entropy Based Active Learning Loss
 
 \begin_layout Standard
 First approach of defining Active Learning loss function is negative entropy.
- Basing of the formal definition of the entropy 
+ Basing on the formal entropy definition 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "shannon1948mathematical"
@@ -4083,7 +4085,7 @@ literal "false"
 
 \end_inset
 
- we can write it as 
+, we can write it as 
 \begin_inset Formula 
 \begin{equation}
 -H(\hat{\mathbf{y}}|\mathbf{x}_{j_{u}},\theta_{u})=\sum_{r=1}^{R}\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u})\log\big(\hat{y}_{r}(\mathbf{x}_{j_{u}},\theta_{u})\big),\label{eq:entropy}
@@ -4103,7 +4105,7 @@ th element of the output estimate
 \begin_inset Formula $\mathbf{\hat{y}}$
 \end_inset
 
- and 
+, and 
 \begin_inset Formula $\theta$
 \end_inset
 
@@ -4128,7 +4130,7 @@ With the usage of previous knowledge we can derive expected entropy loss
 
 As a result, minimization of given expected loss will lead us to a sample
  with the highest entropy.
- Thus, we are seeking for a an index of maximal entropy data sample.
+ Thus, we are seeking for a maximal entropy data sample index.
  In other words 
 \begin_inset Formula $j_{u}^{*}=\argmin_{j\in J\backslash J_{u}}(\mathbb{E}_{\pi_{u}^{*}}L^{*})$
 \end_inset
@@ -4142,7 +4144,7 @@ Active Learning
 \end_layout
 
 \begin_layout Standard
-We would like to generalize active learning part for all described algorithms
+We would like to generalize active learning part for all described algorithms,
  in order to estimates 
 \begin_inset Formula $p({\bf y}|\mathbf{x},\mathbf{X}_{u},\mathbf{Y}_{u})$
 \end_inset
@@ -4177,7 +4179,7 @@ noprefix "false"
 \begin_inset Formula $\pi_{u}^{*}$
 \end_inset
 
- and then approximate probability distribution as (
+, and then approximate probability distribution as (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_for_expected_entropy_loss"
@@ -4196,7 +4198,7 @@ In order to estimate
 \begin_inset Formula $p({\bf y}|\mathbf{x},\mathbf{X}_{u},\mathbf{Y}_{u})$
 \end_inset
 
- we define Generalized Ensemble Algorithm.
+, we define Generalized Ensembles Algorithm.
  SGLD and DENFI can be also represented as generalized ensembles models
  because parameters sampling (neuron weights sampling) represents different
  configurations of neural networks.
@@ -4231,12 +4233,12 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-In this section we have covered decision theory for both passive and active
- learning with respect to different algorithms and ensemble approach.
- Passive Learning section showed how it is possible to view SVM, Random
- Forest and Neural Networks in terms of decision theory problem setup, whereas
- Active Learning section showed how to represent uncertainty of the model
- and parameters sampling for ensembles representation.
+In this section, we have covered the decision theory for both passive and
+ active learning with respect to different algorithms and ensemble approaches.
+ Passive Learning section showed how it is possible to represent SVM, Random
+ Forest, and neural networks in terms of decision theory problem setup.
+ In addition to this, Active Learning section showed how to represent the
+ uncertainty of the model and parameters sampling for ensembles representation.
 \end_layout
 
 \begin_layout Chapter
