@@ -777,22 +777,31 @@ Author:
 \emph on
 Abstract:
 \emph default
- The process of data labels collection for purposes of model training can
- be complex and costly.
- The main task is how to select the data for labeling, that will bring the
- highest discriminability of the dataset.
- Described problem has been solving in many different fields that use supervised
- learning models.
- In this project we show our approach for unlabeled data selection on a
- text classification problem.
- We introduce an active learning algorithm that iteratively selects the
- unlabeled data and asks an annotator for a label.
- The unlabeled data selection is done with respect to a classifiers uncertainty.
- Deep learning models showed state-of-the-art performance in different natural
+ Machine learning approach to classification is based on learning parameters
+ of black box model describing relation between the recorded data samples
+ and their know class labels.
+ The process of data labels collection for the purposes of model training
+ can be complex and costly.
+ Therefore, the number of data record is often much higher that the number
+ of labels, but the labels can be obtained by querying an annotator.
+ Active learning is a process of selection of unlabeled data records for
+ which knowledge of the label would bring the highest discriminability of
+ the dataset.
+ Various methods for active learning have been proposed in many different
+ fields that use supervised learning models.
+ In this project, we study suitability of various approaches for active
+ learning of a text classification problem.
+ We compare existing black box classifiers, and representations of their
+ uncertainty.
+ We formalize active learning using decision theory where the decision is
+ which unlabeled data to select for annotation.
+ The expected loss function of the decision making is chosen as entropy
+ of the classifier predictions.
+ Neural networks have showed state-of-the-art performance in different natural
  language processing tasks, including text classification.
- The combination of active learning data selection and uncertainty representatio
-n, based on deep learning ensembles algorithm achieves significantly better
- results than random data selection strategy.
+ The proposed combination of active learning data selection and uncertainty
+ representation, based on deep learning ensembles algorithm achieves significant
+ly better results than random data selection strategy.
  
 \end_layout
 
@@ -809,7 +818,7 @@ n, based on deep learning ensembles algorithm achieves significantly better
 \emph on
 Key words:
 \emph default
- Active learning, decision theory , deep learning ensembles, text classification.
+ Active learning, decision theory, deep learning ensembles, text classification.
 \end_layout
 
 \begin_layout Standard
@@ -1445,7 +1454,7 @@ literal "false"
 
 \end_inset
 
-, etc..
+, etc.
  
 \end_layout
 
