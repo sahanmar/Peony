@@ -113,7 +113,7 @@ class PeonyDropoutFeedForwardNN:
         predicted_list = []
         for index in range(self.num_samples):
             with torch.no_grad():
-                outputs = self.model[index].eval()(instances)
+                outputs = self.model[index](instances)
                 _, predicted = torch.max(outputs.data, 1)
                 predicted_list.append(predicted.detach().numpy())
         return predicted_list
