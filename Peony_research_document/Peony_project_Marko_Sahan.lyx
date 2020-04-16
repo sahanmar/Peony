@@ -662,12 +662,10 @@ Vedoucí práce:
 \emph default
  
 \series bold
-\lang american
 doc.
  Ing.
  Václav Šmídl, Ph.D.
 \series default
-\lang czech
 , Ústav teorie informace a automatizace
 \end_layout
 
@@ -687,30 +685,32 @@ doc.
 \lang czech
 Abstrakt:
 \emph default
- Modely strojového účení pro klasifikaci jsou založené na účení parametrů
- black box modelu, které popisují vztáh mezi vzorky dat a jejích třídou.
- Proces sběru dat a jejích labelů pro účely trenování modelu muže být kompliková
+ Modely strojového učení pro klasifikaci jsou založené na učení parametrů
+ black box modelu, které popisují vztah mezi vzorky dat a jejích třídou.
+ Proces sběru dat a jejích labelů pro účely trénování modelu může být komplikova
 ný a drahý.
- Množina dat je v mnoha případéch větši než množina dostupných labelů, ale
- našim pěedpokládem je to, že nové labely můžou byt obdržené prostřednictvím
- dotazu annotatorovi.
- Aktivní účení je proces výberu takových dat pro annotování, které přinesou
- největší diskriminabilitu o datasetu.
- Mnoho různých metodů aktivního účení v mnoha různých odvětvích bylo navřéno
- pro modely účení s učitélem.
- V tomto projektu jsou popsáné a ukázáné různé metody aktivního účení pro
- klassifikace textů.
- Navíc, jsou porovnavnáné už existující black box modely a jejích reprezentace
+ Množina dat je v mnoha případech větší než množina dostupných labelů, ale
+ našim předpokladem je to, že nové labely můžou být obdržené prostřednictvím
+ dotazu anotátorovi.
+ Aktivní učení je proces výběru takových dat pro anotování, které povedou
+ ke zvýšení diskriminability datasetu.
+ Mnoho různých metod aktivního učení v mnoha různých odvětvích bylo navrženo
+ pro úlohy v nichž se používá učení s učitelem.
+ V tomto projektu jsou popsané a ukázané různé metody aktivního učení pro
+ klasifikaci textů.
+ Navíc jsou porovnávané už existující black box modely a jejích reprezentace
  neurčitosti.
- Modely aktivního účení jsou formalizováne pomoci teorie rozhodování, kde
- rozhodnutím je výběr dat bez labelů pro ziskávání annotace.
- Enropie predikce klassifikatoru je výbáaná jako očekaváná hodnota loss
- funkce rozhodování.
- Modely hlubokého účení ukázali state-of-the-art výsledky v ruzných odvětvích
- zpracování přirozeného jazyka a také i klassifikací textu.
- Kombinace aktivního účení pro výber dat a reprezentace neurcitosti, stavená
- na ensemblu hlubokých neuronových sití davá signifikantně lepší výsledky
- nez strategie náhodného výberu.
+ Modely aktivního učení jsou formalizované pomocí teorie rozhodování, kde
+ rozhodnutím je výběr dat bez labelů pro získávání anotace a neurčitost
+ je v parametrech klasifikátorů.
+ Entropie predikce klasifikátoru je vybrána jako očekávaná ztrátová funkce
+ pro rozhodovací úlohu.
+ Modely hlubokého učení dosáhli state-of-the-art výsledků v různých odvětvích
+ zpracování přirozeného jazyka a také v klasifikaci textu.
+ Kombinace aktivního učení pro výběr dat a navržené reprezentace neurčitosti
+ založené na ensemblech hlubokých neuronových sítí dosáhla výrazně lepších
+ výsledků než strategie náhodného výběru nebo aktivní učení s alternativní
+ reprezentací neurčitosti.
  
 \begin_inset VSpace bigskip
 \end_inset
@@ -725,8 +725,8 @@ ný a drahý.
 \lang czech
 Klíčová slova:
 \emph default
- Aktivní účení, ensemble modely hlubokého účení, ensemble modely neuronoých
- sítí, klasifikace textu, teorie rozhodování, zpracování přirozeného jazyku.
+ Aktivní učení, ensemble modely hlubokého učení, ensemble modely neuronových
+ sítí, klasifikace textu, teorie rozhodování, zpracování přirozeného jazyka.
 \end_layout
 
 \begin_layout Standard
@@ -801,15 +801,17 @@ Abstract:
  learning of a text classification problem.
  We compare existing black box classifiers, and representations of their
  uncertainty.
- We formalize active learning using decision theory where the decision is
- which unlabeled data to select for annotation.
+ We formalize active learning using decision theory under uncertainty where
+ the decision is which unlabeled data to select for annotation and the uncertain
+ty is in the parameters of the classifier.
  The expected loss function of the decision making is chosen as entropy
  of the classifier predictions.
  Neural networks have showed state-of-the-art performance in different natural
  language processing tasks, including text classification.
  The proposed combination of active learning data selection and uncertainty
  representation, based on deep learning ensembles algorithm achieves significant
-ly better results than random data selection strategy.
+ly better results than random data selection strategy or active learning
+ with other types of uncertainty represenattion.
  
 \end_layout
 
