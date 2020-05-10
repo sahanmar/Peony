@@ -7,9 +7,9 @@ from torch.optim import Optimizer
 from typing import Optional, Tuple, List
 
 
-NUM_SAMPLES = 50
+NUM_SAMPLES = 10
 EPOCHS_PER_SAMPLE = 50
-EPOCHS = 2000
+EPOCHS = 3000
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MINI_BATCH_RATIO = 0.5

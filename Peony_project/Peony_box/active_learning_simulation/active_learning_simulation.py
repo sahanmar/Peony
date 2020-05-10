@@ -61,11 +61,11 @@ def main():
     # )
 
     # Define model specifications
-    model_1 = "bayesian_dropout_nn_fast_text_embeddings"
-    model_2 = "bayesian_dropout_nn_fast_text_embeddings"
+    model_1 = "bayesian_denfi_nn_fast_text_embeddings"
+    model_2 = "bayesian_denfi_nn_fast_text_embeddings"
     # model_1 = "bayesian_sgld_nn_fast_text_embeddings"
     # model_2 = "bayesian_sgld_nn_fast_text_embeddings"
-    algorithm = "bayesian_dropout"
+    algorithm = "bayesian_denfi"
     # algorithm = "bayesian_sgld"
     acquisition_function_1 = "random"
     acquisition_function_2 = "entropy"

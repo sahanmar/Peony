@@ -8,7 +8,7 @@ from typing import Optional, Tuple, List
 NUM_ENSEMBLES = 10
 EPOCHS = 2000
 HOT_START_EPOCHS = 500
-WEIGHTS_VARIANCE = 0.1
+WEIGHTS_VARIANCE = 0.2
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
@@ -89,6 +89,7 @@ class PeonyDENFIFeedForwardNN:
         labels = torch.from_numpy(labels)
         initial_loss_per_ensemble: List[str] = []
         fitted_loss_per_ensemble: List[str] = []
+
         for index in range(self.num_ensembles):
 
             loss_sequence_per_ensemble: List[float] = []
@@ -96,6 +97,12 @@ class PeonyDENFIFeedForwardNN:
             indices = np.random.choice(
                 instances.shape[0], self.num_of_samples, replace=False
             )
+
+            if self.cold_start is False:
+                with torch.no_grad():
+                    for param in self.model[index].parameters():
+                        param.add_(torch.randn(param.size()) * self.variance)
+
             for epoch in range(self.num_epochs):
                 # Forward pass
                 outputs = self.model[index](instances[indices, :])
@@ -112,10 +119,10 @@ class PeonyDENFIFeedForwardNN:
             self.loss_sequence.append(loss_sequence_per_ensemble)
             fitted_loss_per_ensemble.append(str(loss.detach().numpy()))
 
-            if self.cold_start is False:
-                with torch.no_grad():
-                    for param in self.model[index].parameters():
-                        param.add_(torch.randn(param.size()) * self.variance)
+            # if self.cold_start is False:
+            #     with torch.no_grad():
+            #         for param in self.model[index].parameters():
+            #             param.add_(torch.randn(param.size()) * self.variance)
 
         loss_list.append(f"starting losses are {'| '.join(initial_loss_per_ensemble)}")
         loss_list.append(f"fitted losses are {'| '.join(fitted_loss_per_ensemble)}")
