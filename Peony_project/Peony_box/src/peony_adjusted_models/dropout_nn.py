@@ -10,6 +10,7 @@ from typing import Optional, Tuple, List
 NUM_SAMPLES = 10
 EPOCHS_PER_SAMPLE = 50
 EPOCHS = 3000
+HOT_START_EPOCHS = 100
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MINI_BATCH_RATIO = 0.5
@@ -35,11 +36,14 @@ class NeuralNet(nn.Module):
 
 
 class PeonyDropoutFeedForwardNN:
-    def __init__(self, hidden_size: int, num_classes: int):
+    def __init__(
+        self, hidden_size: int, num_classes: int, cold_start=False,
+    ):
 
         self.num_samples = NUM_SAMPLES
         self.epochs_per_sample = EPOCHS_PER_SAMPLE
         self.starting_epoch = 0
+        self.hot_start_epochs = HOT_START_EPOCHS
 
         self.model: Optional[List[NeuralNet]] = None
         self.criterion: Optional[nn.CrossEntropyLoss] = None
@@ -50,6 +54,7 @@ class PeonyDropoutFeedForwardNN:
         self.num_epochs = EPOCHS
         self.initialized = False
         self.mini_batch = MINI_BATCH_RATIO
+        self.cold_start = cold_start
 
     def fit(self, instances: np.ndarray, labels: np.ndarray) -> Optional[List[str]]:
 
@@ -102,6 +107,13 @@ class PeonyDropoutFeedForwardNN:
         loss_list.append(
             f"fitted loss (samples mean) is {np.mean(fitted_loss_per_sample)}"
         )
+
+        if self.initialized and self.cold_start is False:
+            self.starting_epoch = 0
+            self.num_epochs = self.hot_start_epochs
+        else:
+            self.starting_epoch = 0
+            self.num_epochs = EPOCHS
 
         return loss_list
 
