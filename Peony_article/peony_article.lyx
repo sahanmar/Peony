@@ -7,7 +7,7 @@
 \textclass article
 \use_default_options true
 \maintain_unincluded_children false
-\language english
+\language american
 \language_package default
 \inputencoding auto
 \fontencoding global
@@ -29,6 +29,7 @@
 \bibtex_command default
 \index_command default
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -77,14 +78,10 @@
 \begin_body
 
 \begin_layout Standard
-
-\lang american
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
-
-\lang american
 Articles
 \end_layout
 
@@ -93,8 +90,6 @@ Articles
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 Ensembles
 \end_layout
 
@@ -103,8 +98,6 @@ Ensembles
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 1.
  Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles
  (Balaji Lakshminarayanan Alexander Pritzel Charles Blundell) - Nice approach
@@ -114,8 +107,6 @@ Ensembles
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 2.
  Can You Trust Your Model’s Uncertainty? Evaluating Predictive Uncertainty
  Under Dataset Shift (Yaniv Ovadia Balaji Lakshminarayanan Sebastian Nowozin)
@@ -132,8 +123,6 @@ Ensembles
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 Active Learning
 \end_layout
 
@@ -142,8 +131,6 @@ Active Learning
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 1.
  Active Anomaly Detection via Ensembles (Shubhomoy Das, Md Rakibul Islam,
  Nitthilan Kannappan Jayakodi, Janardhan Rao Doppa) - Anomaly detection
@@ -154,8 +141,6 @@ Active Learning
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 2.
  Deep Bayesian Active Learning with Image Data (Yarin Gal, Riashat Islam,
  Zoubin Ghahramani ) - Active learning classification on images with respect
@@ -164,8 +149,6 @@ Active Learning
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 3.
  ACTIVE LEARNING FOR CONVOLUTIONAL NEURAL NETWORKS: A CORE-SET APPROACH
  (Ozan Sener, Silvio Savarese) - Core set approach.
@@ -176,8 +159,6 @@ Active Learning
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 4.
  Learning Loss for Active Learning (Donggeun Yoo, In So Kweon) - Another
  approach with learning and predicting loss function.
@@ -188,8 +169,6 @@ Active Learning
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 5.
  Bayesian learning via stochastic gradient Langevin dynamics (Welling, Max
  and Teh, Yee W) - Another uncertainty representation for neural networks.
@@ -202,7 +181,6 @@ Active Learning
 \begin_layout Plain Layout
 
 \series bold
-\lang american
 Active Learning with texts
 \end_layout
 
@@ -211,8 +189,6 @@ Active Learning with texts
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 1.
  Semi-Supervised Bayesian Active Learning for Text Classification (Sophie
  Burkhardt, Julia Siekiera, Stefan Kramer) - They are doing exactly the
@@ -223,8 +199,6 @@ Active Learning with texts
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 2.
  Practical Obstacles to Deploying Active Learning (David Lowell, Zachary
  C.
@@ -236,8 +210,6 @@ Active Learning with texts
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 3.
  Deep active learning for named entity recognition (Yanyao Shen, Hyokun
  Yun, Zachary C.
@@ -249,8 +221,6 @@ Active Learning with texts
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 4.
  Support Vector Machine Active Learning with Applications to Text Classification
  (Simon Tong, Daphne Koller) - The approach of active learning method for
@@ -262,8 +232,6 @@ Active Learning with texts
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 5.
  Deep Active Learning for Text Classification (Bang An, Wenjun Wu, Huimin
  Han) - SVM and RNN (LSTM) multiclass text classification.
@@ -275,8 +243,6 @@ Active Learning with texts
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 5.
  DEEP ACTIVE LEARNING FOR NAMED ENTITY RECOGNITION (Kashyap Chitta, Jose
  M.
@@ -289,8 +255,6 @@ Active Learning with texts
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 6.
  (NON-RELEVANT) Active Deep Networks for Semi-Supervised Sentiment Classificatio
 n (Shusen Zhou, Qingcai Chen and Xiaolong Wang) - Very poor approach without
@@ -305,20 +269,14 @@ n (Shusen Zhou, Qingcai Chen and Xiaolong Wang) - Very poor approach without
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 Techniques 
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 **********************
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 1.
  Shannon, Claude Elwood.
  A mathematical theory of com- munication.
@@ -327,8 +285,6 @@ Techniques
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 2.
  Advances in Pre-Training Distributed Word Representations (Tomas Mikolov,
  Edouard Grave, Piotr Bojanowski, Christian Puhrsch, Armand Joulin) - FastText
@@ -336,8 +292,6 @@ Techniques
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang american
 3.
  Efficient Estimation of Word Representations in Vector Space (Tomas Mikolov,
  Kai Chen, Greg Corrado, Jeffrey Dean) - CBOW (ancestor of FastText)
@@ -346,6 +300,75 @@ Techniques
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Active learning for texts - why ()
+\end_layout
+
+\begin_layout Standard
+Classical approaches - SVM, etc.
+ ()
+\end_layout
+
+\begin_layout Standard
+Deep networks & embeddings ()
+\end_layout
+
+\begin_layout Standard
+Uncertainty in deep networks (SGLD, Dropout, DEnFi)
+\end_layout
+
+\begin_layout Section
+Methods
+\end_layout
+
+\begin_layout Subsection
+Embedding
+\end_layout
+
+\begin_layout Subsection
+Bayesian neural networks
+\end_layout
+
+\begin_layout Subsection
+Active Learning
+\end_layout
+
+\begin_layout Standard
+Acquisition function...
+\end_layout
+
+\begin_layout Section
+Experiments
+\end_layout
+
+\begin_layout Subsection
+Advantage of Neural networks
+\end_layout
+
+\begin_layout Standard
+NN much better than SVM (bag-of-words)
+\end_layout
+
+\begin_layout Subsection
+Impact of uncertainty represantation
+\end_layout
+
+\begin_layout Description
+Dropout (hot, cold start)
+\end_layout
+
+\begin_layout Description
+Denfi (variance sensitivity)
+\end_layout
+
+\begin_layout Section
+Conclusion
 \end_layout
 
 \end_body
