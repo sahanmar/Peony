@@ -15,6 +15,7 @@ HOT_START_EPOCHS = 100
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MINI_BATCH_RATIO = 0.5
 LEARNING_RATE = 0.001
+WEIGHTS_VARIANCE = 0.1
 
 
 class NeuralNet(nn.Module):
@@ -55,6 +56,7 @@ class PeonyDropoutFeedForwardNN:
         self.initialized = False
         self.mini_batch = MINI_BATCH_RATIO
         self.cold_start = cold_start
+        self.variance = WEIGHTS_VARIANCE
 
     def fit(self, instances: np.ndarray, labels: np.ndarray) -> Optional[List[str]]:
 
@@ -81,6 +83,12 @@ class PeonyDropoutFeedForwardNN:
         labels = torch.from_numpy(labels)
         fitted_loss_per_sample: List[float] = []
         for index in range(self.num_samples):
+
+            if self.cold_start is False:
+                with torch.no_grad():
+                    for param in self.model[index].parameters():
+                        param.add_(torch.randn(param.size()) * self.variance)
+
             if index != 0:
                 self.model[index].load_state_dict(self.model[0].state_dict())
                 self.starting_epoch = self.num_epochs
