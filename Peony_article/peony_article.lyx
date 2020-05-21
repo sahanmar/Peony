@@ -5,6 +5,9 @@
 \save_transient_properties true
 \origin unavailable
 \textclass article
+\begin_preamble
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language american
@@ -79,7 +82,7 @@
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Articles
@@ -193,7 +196,7 @@ Active Learning with texts
  Semi-Supervised Bayesian Active Learning for Text Classification (Sophie
  Burkhardt, Julia Siekiera, Stefan Kramer) - They are doing exactly the
  same thing that I do but with the usage of drop out based approach and
- ayes-by-Backprop (BBB) algorithm.
+ Bayes-by-Backprop (BBB) algorithm.
  The results are not cool at all.
  Mine are better
 \end_layout
@@ -302,37 +305,397 @@ Techniques
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+{\text{argmax}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+{\text{argmin}}
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Introduction
 \end_layout
 
 \begin_layout Standard
-Active learning for texts - why ()
+Active learning strategy lets the machine learning models iteratively and
+ strategically query the labels of some instances for reducing human labeling
+ efforts.
+ Our goal is to show the active learning performance on text data.
+ People has already been solving active learning problem for anomaly detection
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "das2018active"
+literal "false"
+
+\end_inset
+
+, image processing 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gal2017deep"
+literal "false"
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sener2017active"
+literal "false"
+
+\end_inset
+
+, named entity recognition 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "shen2017deep"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lowell2019practical"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "burkhardt2018semisupervised"
+literal "false"
+
+\end_inset
+
+, etc..
 \end_layout
 
 \begin_layout Standard
+Modern approach of automating the labeling process of huge amount of unlabeled
+ data, is not optimal.
+ People are randomly choosing unlabeled text data.
+ These data are annotated by the subject matter experts, and used for training
+ and testing the models.
+ If the model performance is weak after the training, more text documents
+ are selected and annotated.
+ This approach is costly because nobody knows how much text documents must
+ be selected in order to have good model scores.
+ Our active learning strategy proposes selection of unlabeled text data
+ that the model is not certain about.
+ Unlabeled text data are given to a subject matter expert to provide the
+ labels.
+ Discussed problem was introduced almost two decades ago.
+ Some SVM based active learning approaches for text classification date
+ back to 2001 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tong2001support"
+literal "false"
+
+\end_inset
+
+, where are shown different querying strategies and results of the active
+ learning superiority over random sampling strategies.
+ Even though SVM show good results, deep recurrent and convolutional neural
+ networks gained higher popularity due to their efficiency in text classificatio
+n 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lowell2019practical"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "an2018deep"
+literal "false"
+
+\end_inset
+
+.
+ Active learning let's us to start with lower amount of training data, and
+ iteratively extend the dataset.
+ In our work we are aimed on choosing the data, which our model is not certain
+ about.
+ One of the most popular methods for deep learning uncertainty representation
+ is a dropout 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gal2017deep"
+literal "false"
+
+\end_inset
+
+.
+ Langevin dynamics 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "welling2011bayesian"
+literal "false"
+
+\end_inset
+
+ and DEnFi 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+[CITATION]
+\end_layout
+
+\end_inset
+
+ also show good representation of the model's uncertainty.
+ In this work we are extending our dataset with only one sample per active
+ learning iteration.
+ However, it was also shown that the strategies, which sample batches with
+ more than one sample, also perform good results 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "an2018deep"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The project shows comparison of different active learning methods and their
+ modification for text classification.
+ The main point of this project is to provide comprehensive comparison between
+ deep ensembles and dropout representation algorithms.
+ Basing on 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "snoek2019can"
+literal "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lakshminarayanan2017simple"
+literal "false"
+
+\end_inset
+
+, it was shown that ensemble deep learning algorithms give the best performance
+ both for text and image processing data.
+ Wide variety of acquisition functions for unlabeled data sampling was shown
+ and compared in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gal2017deep"
+literal "false"
+
+\end_inset
+
+, In this project we illustrate the results with respect to entropy based
+ acquisition function.
+ We believe that a comparison of dropout and ensembles based models for
+ active learning text classification will give better understanding of the
+ problem and will bring more clarity to their strong and weak parts.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Active learning for texts - why ()
+\end_layout
+
+\begin_layout Plain Layout
 Classical approaches - SVM, etc.
  ()
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Deep networks & embeddings ()
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Uncertainty in deep networks (SGLD, Dropout, DEnFi)
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
 Methods
 \end_layout
 
+\begin_layout Standard
+Supervised learning is defined as learning from the data with known target
+ value.
+ Specifically, for the classification problem, the target value is the class,
+ where each data point belongs.
+ 
+\end_layout
+
+\begin_layout Standard
+We would like to commence our formal definition with the data.
+ Let 
+\begin_inset Formula $\mathbf{x}\in{\cal X}\subset\mathbb{R}^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y\in}{\cal Y}=\{[0,1]^{T},[1,0]^{T}\}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ is feature vector of size 
+\begin_inset Formula $n$
+\end_inset
+
+, and 
+\begin_inset Formula ${\bf y}$
+\end_inset
+
+ is its label assigned to the data instance 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ from space 
+\begin_inset Formula ${\cal X}$
+\end_inset
+
+.
+ Each value from space 
+\begin_inset Formula ${\cal Y}$
+\end_inset
+
+ can be represented as a one hot representation, which is a vector consisting
+ from ones and zeros.
+ In the case of binary classification 
+\begin_inset Formula $\mathbf{y}\in\{[0,1]^{T},[1,0]^{T}\}$
+\end_inset
+
+, where the first class is represented as 
+\begin_inset Formula $\mathbf{y}=[1,0]^{T}$
+\end_inset
+
+ and the second class is represented as 
+\begin_inset Formula $\mathbf{y}=[0,1]^{T}$
+\end_inset
+
+.
+ As a good example of previous definition, 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ can be a text document (represented in a mathematical form in order to
+ meet a definition above) and 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ can be its category, such as sports or comedy.
+ As seen from this example, the label and the text are forming a tuple.
+ In this work we are considering our data as tuples of variables 
+\begin_inset Formula $(\mathbf{x},\mathbf{y})\in{\cal X\times Y}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The training set is usually a subset of all available data on which the
+ optimization is performed, the rest of the data is used for validation
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "vapnik2013nature"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
 \begin_layout Subsection
 Embedding
 \end_layout
 
-\begin_layout Subsection
-Bayesian neural networks
+\begin_layout Standard
+Transformer models such as BERT 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "devlin2018bert"
+literal "false"
+
+\end_inset
+
+ or other different modifications showed their strength in context understanding.
+ However, we assume that Fast Text 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mikolov2018advances"
+literal "false"
+
+\end_inset
+
+ text encoding is efficient enough for our text classification purposes.
+  Instance 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ is calculated as a mean value from all words embeddings in the text
+\begin_inset Formula 
+\[
+\mathbf{x}_{i}=\frac{1}{|\mathcal{D}_{i}|}\sum_{j\in\mathcal{D}_{i}}f_{\mathrm{Fast\ text}}(\mathbf{c}^{(j)}),
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathcal{D}_{i}$
+\end_inset
+
+ is the set of indices of all words in 
+\begin_inset Formula $i$
+\end_inset
+
+-th document in the common vocabulary, 
+\begin_inset Formula $\mathbf{c}^{(j)}$
+\end_inset
+
+ is 
+\begin_inset Formula $j$
+\end_inset
+
+-th one hot encoded word vector and 
+\begin_inset Formula $f_{\mathrm{Fast\ text}}$
+\end_inset
+
+ is a function that creates Fast Text embeddings with respect to given one-hot
+ encoded word.
 \end_layout
 
 \begin_layout Subsection
@@ -340,11 +703,246 @@ Active Learning
 \end_layout
 
 \begin_layout Standard
-Acquisition function...
+As mentioned in previous sections, the training set 
+\begin_inset Formula $\tilde{\mathbf{X}}\times\mathbf{\tilde{Y}}$
+\end_inset
+
+ is only a subset of all available data.
+ It is important that each point 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ in the training set has a label 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+.
+ In many situations labels are expensive to obtain, and the number 
+\begin_inset Formula $N$
+\end_inset
+
+ of all available samples 
+\begin_inset Formula $\mathbf{x}\in\mathbf{X}$
+\end_inset
+
+ is large, while labels are available only for the initial subset 
+\begin_inset Formula $J_{0}=\{1,\ldots,N_{0}\},N_{0}\ll N$
+\end_inset
+
+.
+ This problem is known as semi-supervised learning.
+\end_layout
+
+\begin_layout Standard
+We consider a setup in which we can ask for a label for an arbitrary 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+, that can be provided for example by a human (annotator).
+ We assume that getting labels needs some time and is very expensive.
+ The task is to choose which sample we will ask to label.
+ 
+\end_layout
+
+\begin_layout Standard
+The active learning problem is defined as a sequence of supervised learning
+ problems.
+ Specifically, we assume that the initial sets for supervised learning are
+ 
+\begin_inset Formula $\mathbf{X}_{0}=\{\mathbf{x}_{i}\}_{i\in J_{0}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{Y}_{0}=\{\mathbf{y}_{i}\}_{i\in J_{0}}$
+\end_inset
+
+.
+ We consider a sequence of 
+\begin_inset Formula $U$
+\end_inset
+
+ questions 
+\begin_inset Formula $u=\{1,\ldots,U\}$
+\end_inset
+
+, in each question we select an index 
+\begin_inset Formula $j_{u}$
+\end_inset
+
+ and ask to obtain the label 
+\begin_inset Formula $\mathbf{y}_{j_{u}}$
+\end_inset
+
+ for data record 
+\begin_inset Formula $\mathbf{x}_{j_{u}}$
+\end_inset
+
+.
+ The index set and the data sets are extended as follows
+\begin_inset Formula 
+\begin{align*}
+J_{u} & =\{J_{u-1},j_{u}\}, & \mathbf{X}_{u} & =\{\mathbf{X}_{u-1},\mathbf{x}_{j_{u}}\}, & \mathbf{Y}_{u} & =\{\mathbf{Y}_{u-1},\mathbf{y}_{j_{u}}\}.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The task of active learning is to optimize the selection of indices 
+\begin_inset Formula $j_{u}$
+\end_inset
+
+ to reach as good classification metrics with as low number of questions
+ as possible.
+ 
+\end_layout
+
+\begin_layout Standard
+The decision task for this particular problem can be written as 
+\begin_inset Formula 
+\begin{equation}
+j_{u}^{*}=\argmin_{j_{u}\in J\backslash J_{u}}(\mathbb{E}_{\pi_{u}^{*}}L^{*}),\label{eq:index_selection_active_learning}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbb{E}_{\pi_{u}^{*}}L^{*}$
+\end_inset
+
+ is the expected loss that is dependent on an action given question 
+\begin_inset Formula $u$
+\end_inset
+
+, and 
+\begin_inset Formula $J$
+\end_inset
+
+ is the space of all indices.
+ Character 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $*$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ is used only for distinguishing active learning loss from the loss function
+ which is used for different models.
+ Using this approach, we will be able sequentially select indices from 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ and ask for a label from 
+\begin_inset Formula $\mathbf{Y}$
+\end_inset
+
+, that will help us to get higher scores faster than in the case of random
+ choice of indices.
+ 
+\end_layout
+
+\begin_layout Subsection
+Bayesian neural networks
 \end_layout
 
 \begin_layout Section
 Experiments
+\end_layout
+
+\begin_layout Standard
+The active learning simulation is done for comparing two strategies: i)
+ random, and ii) entropy based selection of text documents.
+ We randomly choose initial training set that has 
+\begin_inset Formula $10$
+\end_inset
+
+ samples.
+ Described 
+\begin_inset Formula $10$
+\end_inset
+
+ random samples are chosen from 
+\begin_inset Formula $1000$
+\end_inset
+
+ text documents (
+\begin_inset Formula $500$
+\end_inset
+
+ text documents per category).
+ We reduce the size of all above mentioned datasets to 
+\begin_inset Formula $1000$
+\end_inset
+
+ documents.
+ Each dataset is split on testing and training data.
+ 
+\end_layout
+
+\begin_layout Standard
+Next we initialize two runs.
+ First run is based on random selection of the text documents and second
+ run is based on acquisition function selection of the documents.
+ Both runs start with the same training dataset, and then they chose additional
+ training documents based on their strategies.
+ We consider continuous new data selection from 1000 documents dataset and
+ imitating annotators labeling process.
+ All in all, we imitate text samples selection 200 times (
+\begin_inset Formula $U=200$
+\end_inset
+
+).
+ We select 
+\begin_inset Formula $10$
+\end_inset
+
+ random samples in the beginning, train our model, and make a prediction
+ on the complement to the training dataset (
+\begin_inset Formula $990$
+\end_inset
+
+ text documents from validation set).
+ As a further step, we select 
+\begin_inset Formula $1$
+\end_inset
+
+ new sample from the set on which the prediction was done.
+ New text sample for labeling is chosen with respect to acquisition function
+ or random choice.
+ Before we extend our training dataset with a new labeled sample, we calculate
+ the AUC metrics on the complement to the dataset (
+\begin_inset Formula $990$
+\end_inset
+
+ text documents).
+ This process is repeated 
+\begin_inset Formula $200$
+\end_inset
+
+ times.
+ Thus, by the end of the simulation, our training set will have 
+\begin_inset Formula $210$
+\end_inset
+
+ text documents and testing set (complement to a training set) will have
+ 
+\begin_inset Formula $790$
+\end_inset
+
+ data samples.
+ In order to make our results statistically valid, we repeat the described
+ simulation loop 
+\begin_inset Formula $10$
+\end_inset
+
+ times.
 \end_layout
 
 \begin_layout Subsection
@@ -369,6 +967,18 @@ Denfi (variance sensitivity)
 
 \begin_layout Section
 Conclusion
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "bib"
+options "plain"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
