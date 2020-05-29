@@ -6,7 +6,8 @@
 \origin unavailable
 \textclass article
 \begin_preamble
-\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{coling2020}
+%\usepackage[a4paper,left=2.5cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
 \end_preamble
 \use_default_options true
 \maintain_unincluded_children false
@@ -321,6 +322,14 @@ Techniques
 \end_inset
 
 
+\end_layout
+
+\begin_layout Title
+Ensembles Active Learning for Text Classification 
+\end_layout
+
+\begin_layout Abstract
+Abstract Here
 \end_layout
 
 \begin_layout Section
@@ -857,8 +866,49 @@ Experiments
 \end_layout
 
 \begin_layout Standard
-The active learning simulation is done for comparing two strategies: i)
- random, and ii) entropy based selection of text documents.
+The active learning simulation is done for comparing different algorithms
+ with respect to two strategies: i) random, and ii) entropy based selection
+ of text documents.
+ In this paper we decided to use positive negative tweets from Tweets Dataset
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tweets_dataset"
+literal "false"
+
+\end_inset
+
+ and 5 pairs of categories form News Category Dataset 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dataset"
+literal "false"
+
+\end_inset
+
+.
+ Names of the categories are shown in table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:algorithms-comparison-table"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AUC-evolution-plots"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The categories were chosen with respect to different classification complexity.
  We randomly choose initial training set that has 
 \begin_inset Formula $10$
 \end_inset
@@ -946,7 +996,77 @@ Next we initialize two runs.
 \end_layout
 
 \begin_layout Subsection
-Advantage of Neural networks
+Neural Network Approaches Comparison
+\end_layout
+
+\begin_layout Standard
+In table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:algorithms-comparison-table"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown comparison of different neural networks based active learning
+ algorithms with respect to area under ROC curve (AUC) mean.
+ The results in table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:algorithms-comparison-table"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ are shown for 200 active learning iterations and entropy acquisition function.
+ We belief that DEnFi V2 and Dropout cold start algorithms show the best
+ performance with respect to shown results.
+ 
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AUC-evolution-plots"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is illustrated whole evolution of AUC mean over 10 runs with uncertainty
+ bounds for six pairs of categories.
+ It is seen that in four out of six plots DEnFi V2 shows better active learning
+ results.
+ It is also seen that DenFi mimic behavior of Dropout curve for College
+ vs Education categories.
+ In comparison to the categories where DEnFi showed its superiority over
+ Dropout we can see that AUC values were higher than 
+\begin_inset Formula $95\%$
+\end_inset
+
+, whereas maximal AUC value for College vs Education is around 
+\begin_inset Formula $90\%$
+\end_inset
+
+.
+ It can be said that DEnFi V2 did not have enough active learning iterations
+ in order to explore the dataset better.
+ It is seen that in the end DEnFi V2 curve is converging to Dropout curve.
+ The behavior that was seen for College vs Education categories can be also
+ observed for Tweets Dataset.
+ The AUC scores are very low and it is seen that both DEnFi V2 and Dropout
+ are copying random selection strategy evolution.
+ However, it is seen that in the right part of the plot, DEnFi V2 active
+ learning strategy starts to show better scores than random selection strategy.
+ In this case we can also conclude that DEnFi did not have enough training
+ samples for overcoming Dropout.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -958,7 +1078,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename plots/dropout_hot_start_vs_denfi_v2.png
-	scale 28
+	scale 31
 
 \end_inset
 
@@ -969,7 +1089,18 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-bla bla
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:AUC-evolution-plots"
+
+\end_inset
+
+AUC mean evolution with respect to learning iterations for DEnFi V2, Dropout
+ cold start algorithms and six pairs of categories.
+ The uncertainty bounds are illustrated as one standard deviation from the
+ mean value.
+ Both DEnFi V2 and Dropout were initially trained on 10 labeled text documents
+ before sequential learning strategies were initialized 
 \end_layout
 
 \end_inset
@@ -989,12 +1120,9 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
+\align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="7" columns="7">
+<lyxtabular version="3" rows="9" columns="7">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
@@ -1004,87 +1132,167 @@ status collapsed
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \series bold
 \size scriptsize
-Entropy
+Entropy based
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-Crime vs Good News
+Crime vs 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-Sports vs Comedy
+Sports vs 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-Politics vs Business
+Politics vs 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-Tech vs Science
+Tech vs 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-Education vs College
+Education vs 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-Positive vs Negative Tweets
+Positive vs 
 \end_layout
 
 \end_inset
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size scriptsize
+acquisition function
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+Good News
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+Comedy
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+Business
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+Science
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+College
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+Negative Tweets
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1095,13 +1303,13 @@ SGLD
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.989\pm0.012$
+\begin_inset Formula $\mathbf{0.989}\ $
 \end_inset
 
 
@@ -1109,13 +1317,13 @@ SGLD
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.968\pm0.016$
+\begin_inset Formula $0.968\ $
 \end_inset
 
 
@@ -1123,13 +1331,13 @@ SGLD
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.944\pm0.015$
+\begin_inset Formula $0.944\ $
 \end_inset
 
 
@@ -1137,13 +1345,13 @@ SGLD
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.984\pm0.015$
+\begin_inset Formula $0.984\ $
 \end_inset
 
 
@@ -1151,13 +1359,13 @@ SGLD
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.881\pm0.012$
+\begin_inset Formula $0.881\ $
 \end_inset
 
 
@@ -1165,13 +1373,13 @@ SGLD
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.621\pm0.026$
+\begin_inset Formula $0.621\ $
 \end_inset
 
 
@@ -1181,38 +1389,24 @@ SGLD
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-DENFI V1
+DEnFi V1
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $\mathbf{0.99\pm0.002}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\size scriptsize
-\begin_inset Formula $0.973\pm0.006$
+\begin_inset Formula $\mathbf{0.990}^{*}$
 \end_inset
 
 
@@ -1220,13 +1414,13 @@ DENFI V1
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.952\pm0.005$
+\begin_inset Formula $0.973\ $
 \end_inset
 
 
@@ -1234,13 +1428,13 @@ DENFI V1
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.985\pm0.002$
+\begin_inset Formula $0.952\ $
 \end_inset
 
 
@@ -1248,14 +1442,28 @@ DENFI V1
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+\begin_inset Formula $0.985\ $
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \series bold
 \size scriptsize
-\begin_inset Formula $0.896\pm0.006$
+\begin_inset Formula $\mathbf{0.896}\ $
 \end_inset
 
 
@@ -1263,13 +1471,13 @@ DENFI V1
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.652\pm0.013$
+\begin_inset Formula $\mathbf{0.652}\ $
 \end_inset
 
 
@@ -1279,38 +1487,24 @@ DENFI V1
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-DENFI V2
+DEnFi V2
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.987\pm0.003$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\size scriptsize
-\begin_inset Formula $\mathbf{0.992\pm0.001}$
+\begin_inset Formula $0.987\ $
 \end_inset
 
 
@@ -1318,13 +1512,13 @@ DENFI V2
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $\mathbf{0.971\pm0.003}$
+\begin_inset Formula $\mathbf{0.992}^{*}\ $
 \end_inset
 
 
@@ -1332,13 +1526,13 @@ DENFI V2
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $\mathbf{0.986\pm0.003}$
+\begin_inset Formula $\mathbf{0.971}^{*}$
 \end_inset
 
 
@@ -1346,13 +1540,13 @@ DENFI V2
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.893\pm0.007$
+\begin_inset Formula $\mathbf{0.986}\ $
 \end_inset
 
 
@@ -1360,13 +1554,27 @@ DENFI V2
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.603\pm0.018$
+\begin_inset Formula $\mathbf{0.893}\ $
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+\begin_inset Formula $0.603\ $
 \end_inset
 
 
@@ -1376,7 +1584,7 @@ DENFI V2
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1387,13 +1595,13 @@ Dropout cold start
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.975\pm0.003$
+\begin_inset Formula $0.975\ $
 \end_inset
 
 
@@ -1401,13 +1609,13 @@ Dropout cold start
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.978\pm0.003$
+\begin_inset Formula $0.978z\ $
 \end_inset
 
 
@@ -1415,13 +1623,13 @@ Dropout cold start
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.957\pm0.004$
+\begin_inset Formula $0.957\ $
 \end_inset
 
 
@@ -1429,13 +1637,13 @@ Dropout cold start
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.972\pm0.003$
+\begin_inset Formula $0.972\ $
 \end_inset
 
 
@@ -1443,13 +1651,13 @@ Dropout cold start
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $\mathbf{0.898\pm0.006}$
+\begin_inset Formula $\mathbf{\mathbf{0.898}^{*}}$
 \end_inset
 
 
@@ -1457,13 +1665,13 @@ Dropout cold start
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.648\pm0.015$
+\begin_inset Formula $\mathbf{0.648}\ $
 \end_inset
 
 
@@ -1473,7 +1681,7 @@ Dropout cold start
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1484,13 +1692,13 @@ Dropout hot start
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.978\pm0.003$
+\begin_inset Formula $0.978\ $
 \end_inset
 
 
@@ -1498,13 +1706,13 @@ Dropout hot start
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.979\pm0.003$
+\begin_inset Formula $0.979\ $
 \end_inset
 
 
@@ -1512,13 +1720,13 @@ Dropout hot start
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.954\pm0.003$
+\begin_inset Formula $0.954\ $
 \end_inset
 
 
@@ -1526,13 +1734,13 @@ Dropout hot start
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.973\pm0.003$
+\begin_inset Formula $0.973\ $
 \end_inset
 
 
@@ -1540,14 +1748,14 @@ Dropout hot start
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \series bold
 \size scriptsize
-\begin_inset Formula $0.877\pm0.015$
+\begin_inset Formula $0.877\ $
 \end_inset
 
 
@@ -1555,13 +1763,13 @@ Dropout hot start
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $\mathbf{0.657\pm0.012}$
+\begin_inset Formula $\mathbf{0.657}^{*}$
 \end_inset
 
 
@@ -1571,7 +1779,7 @@ Dropout hot start
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1582,13 +1790,13 @@ Dropout hot start w noise
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.978\pm0.005$
+\begin_inset Formula $0.978\ $
 \end_inset
 
 
@@ -1596,13 +1804,13 @@ Dropout hot start w noise
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.951\pm0.012$
+\begin_inset Formula $0.951\ $
 \end_inset
 
 
@@ -1610,13 +1818,13 @@ Dropout hot start w noise
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.944\pm0.007$
+\begin_inset Formula $0.944\ $
 \end_inset
 
 
@@ -1624,13 +1832,13 @@ Dropout hot start w noise
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.989\pm0.003$
+\begin_inset Formula $\mathbf{0.989}^{*}$
 \end_inset
 
 
@@ -1638,13 +1846,13 @@ Dropout hot start w noise
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.824\pm0.017$
+\begin_inset Formula $0.824\ $
 \end_inset
 
 
@@ -1652,15 +1860,85 @@ Dropout hot start w noise
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.561\pm0.016$
+\begin_inset Formula $0.561\ $
 \end_inset
 
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multicolumn="1" alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+\begin_inset Formula $(*)$
+\end_inset
+
+ maximal value per column 
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -1675,7 +1953,23 @@ Dropout hot start w noise
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-bla bla
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:algorithms-comparison-table"
+
+\end_inset
+
+Binary classification mean AUC results over 10 runs for 6 different algorithms
+ with respect to 200 active learning iterations and six different pairs
+ of categories.
+ Bold values represent intersection of a mean value with respect to one
+ standard deviation interval from a maximal value 
+\series bold
+
+\begin_inset Formula $(*)$
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1683,45 +1977,137 @@ bla bla
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Hot Start Noise Calibration
+\end_layout
+
+\begin_layout Standard
+Both DEnFi V2 and Dropout with hot start are quite sensitive with respect
+ to added noise.
+ DEnFi V2 and Dropout hot start mean AUC results with respect to different
+ gaussian noise variance configuration for Tech vs Science categories are
+ shown in table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:noise-calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ It is clearly seen that for little amount of training data strategy with
+ less noise works better.
+ However, when the amount of training data is increasing, the strategy with
+ higher amount of noise is more efficient.
+ Described trend is observed both for DEnFi V2 and Dropout algorithms.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float table
 wide false
 sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float table
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="7" columns="6">
+<lyxtabular version="3" rows="9" columns="6">
 <features tabularvalignment="middle">
-<column alignment="center" valignment="top">
+<column alignment="center" valignment="top" width="1cm">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \series bold
 \size scriptsize
-Noise Variance
+Noise
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size scriptsize
+Active learning iterations
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size scriptsize
+variance
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1732,7 +2118,7 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1743,7 +2129,7 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1754,7 +2140,7 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1765,7 +2151,7 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1778,7 +2164,7 @@ Noise Variance
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1792,13 +2178,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.867\pm0.011$
+\begin_inset Formula $0.867\ $
 \end_inset
 
 
@@ -1806,13 +2192,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $\mathbf{0.945\pm0.01}$
+\begin_inset Formula $\mathbf{0.945}^{*}$
 \end_inset
 
 
@@ -1820,13 +2206,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $\mathbf{0.968\pm0.002}$
+\begin_inset Formula $\mathbf{0.968}^{*}$
 \end_inset
 
 
@@ -1834,13 +2220,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.974\pm0.004$
+\begin_inset Formula $0.974\ $
 \end_inset
 
 
@@ -1848,13 +2234,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.976\pm0.004$
+\begin_inset Formula $0.976\ $
 \end_inset
 
 
@@ -1864,7 +2250,7 @@ Noise Variance
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1878,13 +2264,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.893\pm0.002$
+\begin_inset Formula $\mathbf{0.893}^{*}$
 \end_inset
 
 
@@ -1892,13 +2278,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.932\pm0.007$
+\begin_inset Formula $0.932\ $
 \end_inset
 
 
@@ -1906,13 +2292,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.964\pm0.003$
+\begin_inset Formula $0.964\ $
 \end_inset
 
 
@@ -1920,13 +2306,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.976\pm0.004$
+\begin_inset Formula $0.976\ $
 \end_inset
 
 
@@ -1934,13 +2320,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.978\pm0.002$
+\begin_inset Formula $0.978\ $
 \end_inset
 
 
@@ -1950,7 +2336,7 @@ Noise Variance
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1964,13 +2350,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $\mathbf{0.89\pm0.003}$
+\begin_inset Formula $0.890\ $
 \end_inset
 
 
@@ -1978,13 +2364,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.93\pm0.017$
+\begin_inset Formula $0.930\ $
 \end_inset
 
 
@@ -1992,13 +2378,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.961\pm0.007$
+\begin_inset Formula $0.961\ $
 \end_inset
 
 
@@ -2006,13 +2392,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $\mathbf{0.982\pm0.002}$
+\begin_inset Formula $\mathbf{0.982}^{*}$
 \end_inset
 
 
@@ -2020,13 +2406,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.986\pm0.003$
+\begin_inset Formula $0.986\ $
 \end_inset
 
 
@@ -2036,7 +2422,7 @@ Noise Variance
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2050,13 +2436,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.886\pm0.003$
+\begin_inset Formula $0.886\ $
 \end_inset
 
 
@@ -2064,13 +2450,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.909\pm0.031$
+\begin_inset Formula $0.909\ $
 \end_inset
 
 
@@ -2078,13 +2464,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.948\pm0.007$
+\begin_inset Formula $0.948\ $
 \end_inset
 
 
@@ -2092,13 +2478,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.976\pm0.004$
+\begin_inset Formula $0.976\ $
 \end_inset
 
 
@@ -2106,13 +2492,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $\mathbf{0.99\pm0.001}$
+\begin_inset Formula $\mathbf{0.990}^{*}$
 \end_inset
 
 
@@ -2122,7 +2508,7 @@ Noise Variance
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2136,13 +2522,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.846\pm0.116$
+\begin_inset Formula $0.846\ $
 \end_inset
 
 
@@ -2150,13 +2536,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.874\pm0.02$
+\begin_inset Formula $0.874\ $
 \end_inset
 
 
@@ -2164,13 +2550,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.921\pm0.01$
+\begin_inset Formula $0.921\ $
 \end_inset
 
 
@@ -2178,13 +2564,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.952\pm0.009$
+\begin_inset Formula $0.952\ $
 \end_inset
 
 
@@ -2192,13 +2578,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.979\pm0.006$
+\begin_inset Formula $0.979\ $
 \end_inset
 
 
@@ -2208,7 +2594,7 @@ Noise Variance
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2222,13 +2608,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.777\pm0.139$
+\begin_inset Formula $0.777\ $
 \end_inset
 
 
@@ -2236,13 +2622,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.805\pm0.027$
+\begin_inset Formula $0.805\ $
 \end_inset
 
 
@@ -2250,13 +2636,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.871\pm0.014$
+\begin_inset Formula $0.871\ $
 \end_inset
 
 
@@ -2264,13 +2650,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.906\pm0.014$
+\begin_inset Formula $0.906\ $
 \end_inset
 
 
@@ -2278,15 +2664,76 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.941\pm0.009$
+\begin_inset Formula $0.941\ $
 \end_inset
 
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multicolumn="1" alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+\begin_inset Formula $(*)$
+\end_inset
+
+ maximal value per column 
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -2301,7 +2748,7 @@ Noise Variance
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-DENFI V2
+DEnFi V2
 \end_layout
 
 \end_inset
@@ -2312,17 +2759,38 @@ DENFI V2
 \end_inset
 
 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ 
+\backslash
+ 
+\backslash
+ 
+\backslash
+ 
+\backslash
+ 
+\backslash
+ 
 \end_layout
 
-\begin_layout Standard
+\end_inset
+
+
 \begin_inset Float table
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="7" columns="6">
+<lyxtabular version="3" rows="9" columns="6">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
@@ -2331,19 +2799,81 @@ status open
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \series bold
 \size scriptsize
-Noise Variance
+Noise
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size scriptsize
+Active learning iterations
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size scriptsize
+variance
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2354,7 +2884,7 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2365,7 +2895,7 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2376,7 +2906,7 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2387,7 +2917,7 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2400,7 +2930,7 @@ Noise Variance
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2414,13 +2944,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.902\pm0.001$
+\begin_inset Formula $\mathbf{0.902}^{*}$
 \end_inset
 
 
@@ -2428,13 +2958,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.936\pm0.012$
+\begin_inset Formula $\mathbf{0.936}\ $
 \end_inset
 
 
@@ -2442,13 +2972,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.966\pm0.002$
+\begin_inset Formula $\mathbf{0.966}^{*}$
 \end_inset
 
 
@@ -2456,13 +2986,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.972\pm0.002$
+\begin_inset Formula $0.972\ $
 \end_inset
 
 
@@ -2470,13 +3000,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \size scriptsize
-\begin_inset Formula $0.976\pm0.002$
+\begin_inset Formula $0.976\ $
 \end_inset
 
 
@@ -2486,7 +3016,7 @@ Noise Variance
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2500,11 +3030,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.901\pm0.002$
+
+\size scriptsize
+\begin_inset Formula $\mathbf{0.901}\ $
 \end_inset
 
 
@@ -2512,11 +3044,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.938\pm0.011$
+
+\size scriptsize
+\begin_inset Formula $\mathbf{0.938}^{*}$
 \end_inset
 
 
@@ -2524,11 +3058,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.966\pm0.004$
+
+\size scriptsize
+\begin_inset Formula $\mathbf{0.966}^{*}$
 \end_inset
 
 
@@ -2536,11 +3072,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.981\pm0.003$
+
+\size scriptsize
+\begin_inset Formula $\mathbf{0.981}^{*}$
 \end_inset
 
 
@@ -2548,11 +3086,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.983\pm0.003$
+
+\size scriptsize
+\begin_inset Formula $0.983\ $
 \end_inset
 
 
@@ -2562,7 +3102,7 @@ Noise Variance
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2576,11 +3116,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.899\pm0.003$
+
+\size scriptsize
+\begin_inset Formula $0.899\ $
 \end_inset
 
 
@@ -2588,11 +3130,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.92\pm0.015$
+
+\size scriptsize
+\begin_inset Formula $0.920\ $
 \end_inset
 
 
@@ -2600,11 +3144,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.956\pm0.007$
+
+\size scriptsize
+\begin_inset Formula $0.956\ $
 \end_inset
 
 
@@ -2612,11 +3158,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.98\pm0.002$
+
+\size scriptsize
+\begin_inset Formula $\mathbf{0.980\ }$
 \end_inset
 
 
@@ -2624,11 +3172,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.989\pm0.003$
+
+\size scriptsize
+\begin_inset Formula $\mathbf{0.989}^{*}$
 \end_inset
 
 
@@ -2638,7 +3188,7 @@ Noise Variance
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2652,11 +3202,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.9\pm0.003$
+
+\size scriptsize
+\begin_inset Formula $0.900\ $
 \end_inset
 
 
@@ -2664,11 +3216,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.917\pm0.018$
+
+\size scriptsize
+\begin_inset Formula $0.917\ $
 \end_inset
 
 
@@ -2676,11 +3230,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.955\pm0.005$
+
+\size scriptsize
+\begin_inset Formula $0.955\ $
 \end_inset
 
 
@@ -2688,11 +3244,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.976\pm0.004$
+
+\size scriptsize
+\begin_inset Formula $0.976\ $
 \end_inset
 
 
@@ -2700,11 +3258,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.988\pm0.004$
+
+\size scriptsize
+\begin_inset Formula $\mathbf{0.988\ }$
 \end_inset
 
 
@@ -2714,7 +3274,7 @@ Noise Variance
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2728,11 +3288,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.898\pm0.008$
+
+\size scriptsize
+\begin_inset Formula $0.898\ $
 \end_inset
 
 
@@ -2740,11 +3302,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.894\pm0.015$
+
+\size scriptsize
+\begin_inset Formula $0.894\ $
 \end_inset
 
 
@@ -2752,11 +3316,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.948\pm0.006$
+
+\size scriptsize
+\begin_inset Formula $0.948\ $
 \end_inset
 
 
@@ -2764,11 +3330,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.972\pm0.004$
+
+\size scriptsize
+\begin_inset Formula $0.972\ $
 \end_inset
 
 
@@ -2776,11 +3344,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.986\pm0.002$
+
+\size scriptsize
+\begin_inset Formula $\mathbf{0.986\ }$
 \end_inset
 
 
@@ -2790,7 +3360,7 @@ Noise Variance
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2804,11 +3374,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.866\pm0.015$
+
+\size scriptsize
+\begin_inset Formula $0.866\ $
 \end_inset
 
 
@@ -2816,11 +3388,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.859\pm0.021$
+
+\size scriptsize
+\begin_inset Formula $0.859\ $
 \end_inset
 
 
@@ -2828,11 +3402,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.914\pm0.016$
+
+\size scriptsize
+\begin_inset Formula $0.914\ $
 \end_inset
 
 
@@ -2840,11 +3416,13 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.941\pm0.012$
+
+\size scriptsize
+\begin_inset Formula $0.941\ $
 \end_inset
 
 
@@ -2852,13 +3430,76 @@ Noise Variance
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.97\pm0.008$
+
+\size scriptsize
+\begin_inset Formula $0.970$
 \end_inset
 
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multicolumn="1" alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+\begin_inset Formula $(*)$
+\end_inset
+
+ maximal value per column 
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -2886,24 +3527,60 @@ Dropout hot start with noise
 
 \end_layout
 
-\begin_layout Standard
-NN much better than SVM (bag-of-words)
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:noise-calibration"
+
+\end_inset
+
+DENFI V2 and Dropout hot start with noise binary classification mean AUC
+ results over 10 runs for Tech vs Science categories with respect to different
+ noise variance configuration and number of active learning iterations.
+ Bold values represent intersection of a mean value with respect to one
+ standard deviation interval from a maximal value 
+\series bold
+
+\begin_inset Formula $(*)$
+\end_inset
+
+
 \end_layout
 
-\begin_layout Subsection
-Impact of uncertainty represantation
+\end_inset
+
+
 \end_layout
 
-\begin_layout Description
-Dropout (hot, cold start)
-\end_layout
+\end_inset
 
-\begin_layout Description
-Denfi (variance sensitivity)
+
 \end_layout
 
 \begin_layout Section
 Conclusion
+\end_layout
+
+\begin_layout Standard
+In this work it was illustrated and verified that ensembles exploration
+ power can overcome dropout based active learning algorithm if querying
+ process lasts long enough.
+ Described behavior was perfectly seen both on the plots for News Category
+ Dataset where the classification scores were high and for Twitter Dataset
+ where the classification scores were low.
+ Another important aspect of the work are hot start methods and noise calibratio
+n.
+ DEnFi V2 method showed great results by using the knowledge from previous
+ iterations.
+ The trend of increasing noise and better classification for higher amount
+ of training documents may let us to reach higher scores with adaptive noise
+ addition.
+ Combination of the facts mentioned above can be strong basis for the future
+ research.
+ 
 \end_layout
 
 \begin_layout Standard
