@@ -329,7 +329,23 @@ Ensembles Active Learning for Text Classification
 \end_layout
 
 \begin_layout Abstract
-Abstract Here
+Machine learning approach to classification is based on learning parameters
+ of black box model describing relation between the recorded data samples
+ and their class labels.
+ The process of data labels collection for the purposes of model training
+ can be complex and costly.
+ Therefore, the number of data record is often much higher than the number
+ of labels, but the labels can be obtained by querying an annotator.
+ Active learning is a process of selection of unlabeled data records for
+ which knowledge of the label would bring the highest discriminability of
+ the dataset.
+ Various methods for active learning have been proposed in many different
+ fields that use supervised learning models.
+ In this project, we study suitability and propose new active learning approach
+ of a text classification problem.
+ We compare existing state-of-the-art active learning classifiers to deep
+ ensembles model with deeper study of uncertainty calibration for both existing
+ and new approaches.
 \end_layout
 
 \begin_layout Section
@@ -866,9 +882,8 @@ Experiments
 \end_layout
 
 \begin_layout Standard
-The active learning simulation is done for comparing different algorithms
- with respect to two strategies: i) random, and ii) entropy based selection
- of text documents.
+The active learning simulation compares different algorithms with respect
+ to two strategies: i) random, and ii) entropy based selection of text documents.
  In this paper we decided to use positive negative tweets from Tweets Dataset
  
 \begin_inset CommandInset citation
@@ -938,13 +953,13 @@ noprefix "false"
 
 \begin_layout Standard
 Next we initialize two runs.
- First run is based on random selection of the text documents and second
- run is based on acquisition function selection of the documents.
+ First run is random selection of the text documents and second run is entropy
+ based selection of the documents.
  Both runs start with the same training dataset, and then they chose additional
  training documents based on their strategies.
  We consider continuous new data selection from 1000 documents dataset and
  imitating annotators labeling process.
- All in all, we imitate text samples selection 200 times (
+ All in all, we repeat text samples selection 200 times (
 \begin_inset Formula $U=200$
 \end_inset
 
@@ -958,7 +973,7 @@ Next we initialize two runs.
 \begin_inset Formula $990$
 \end_inset
 
- text documents from validation set).
+ text documents).
  As a further step, we select 
 \begin_inset Formula $1$
 \end_inset
@@ -967,7 +982,8 @@ Next we initialize two runs.
  New text sample for labeling is chosen with respect to acquisition function
  or random choice.
  Before we extend our training dataset with a new labeled sample, we calculate
- the AUC metrics on the complement to the dataset (
+ the area under ROC curve (AUC) metrics on the complement to the dataset
+ (
 \begin_inset Formula $990$
 \end_inset
 
@@ -1011,7 +1027,7 @@ noprefix "false"
 \end_inset
 
  is shown comparison of different neural networks based active learning
- algorithms with respect to area under ROC curve (AUC) mean.
+ algorithms with respect to AUC mean.
  The results in table 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1057,12 +1073,13 @@ noprefix "false"
 .
  It can be said that DEnFi V2 did not have enough active learning iterations
  in order to explore the dataset better.
- It is seen that in the end DEnFi V2 curve is converging to Dropout curve.
+ It is seen that in the final steps of a simulation, DEnFi V2 curve is convergin
+g to Dropout curve.
  The behavior that was seen for College vs Education categories can be also
  observed for Tweets Dataset.
  The AUC scores are very low and it is seen that both DEnFi V2 and Dropout
  are copying random selection strategy evolution.
- However, it is seen that in the right part of the plot, DEnFi V2 active
+ However, we can observe that in the right part of the plot, DEnFi V2 active
  learning strategy starts to show better scores than random selection strategy.
  In this case we can also conclude that DEnFi did not have enough training
  samples for overcoming Dropout.
@@ -3578,8 +3595,8 @@ n.
  The trend of increasing noise and better classification for higher amount
  of training documents may let us to reach higher scores with adaptive noise
  addition.
- Combination of the facts mentioned above can be strong basis for the future
- research.
+ Combination of the facts mentioned above can be a strong basis for the
+ future research.
  
 \end_layout
 
@@ -3588,7 +3605,7 @@ n.
 LatexCommand bibtex
 btprint "btPrintCited"
 bibfiles "bib"
-options "plain"
+options "authordate1"
 
 \end_inset
 
