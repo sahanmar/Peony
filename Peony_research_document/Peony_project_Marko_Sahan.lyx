@@ -1449,7 +1449,8 @@ Active learning strategy lets the machine learning models iteratively and
  efforts.
  This project shows how it is possible to connect active learning and text
  data.
- People has already been solving same problem for anomaly detection 
+ People have already been solving the same problem for anomaly detection
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "das2018active"
@@ -1470,8 +1471,8 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-If we take a look on modern approach of automating the labeling process
- of huge amount of unlabeled data, it is not optimal.
+If we take a look at the modern approach of automating the labeling process
+ of a huge amount of unlabeled data, it is not optimal.
  People are randomly choosing unlabeled text data.
  These data are annotated by the subject matter experts, and used for training
  and testing the models.
@@ -1479,7 +1480,7 @@ If we take a look on modern approach of automating the labeling process
  are selected and annotated.
  This approach is costly because nobody knows how much text documents must
  be selected to have good model scores.
- Our active learning strategy proposes selection of unlabeled text data
+ Our active learning strategy proposes a selection of unlabeled text data
  that the model is not certain about.
  Unlabeled text data are given to a subject matter expert to provide the
  labels.
@@ -1500,7 +1501,7 @@ literal "false"
  and iteratively extend the dataset.
  The dataset is extended using the data, which the model is not certain
  about.
- In this work we are extending our dataset with only one sample per active
+ In this work, we are extending our dataset with only one sample per active
  learning iteration.
  However, it was also shown that the strategies, which sample batches with
  more than one sample, also perform good results 
@@ -1512,13 +1513,13 @@ literal "false"
 \end_inset
 
 .
- Thus, basing on the active learning approach, the model will get much more
+ Thus, based on the active learning approach, the model will get much more
  information from non-randomly chosen text samples.
 \end_layout
 
 \begin_layout Standard
 The project describes different algorithms formulation with respect to decision
- theory, and then connection of all the methods to active learning theory.
+ theory, and then the connection of all the methods to active learning theory.
  All methods used in this work are represented as ensemble models.
  Basing on 
 \begin_inset CommandInset citation
@@ -1581,10 +1582,11 @@ literal "false"
 
 \begin_layout Standard
 This project also provides the link to Python implementation of active learning
- algorithms and comparison of different results gathered with respect to
- different data.
- We believe, that active learning approach is able to significantly reduce
- amount of time and expenses needed for automating text labeling process.
+ algorithms and a comparison of different results gathered with respect
+ to different data.
+ We believe, that the active learning approach is able to significantly
+ reduce the amount of time and expenses needed for automating the text labeling
+ process.
  
 \end_layout
 
@@ -1764,7 +1766,7 @@ pagestyle{headings}
 The process of decision making is defined as a selection of the optimal
  action from a set of possibilities that can be applied at some operating
  conditions.
- The criteria of optimality is formalized by a loss function.
+ The criteria of optimality are formalized by a loss function.
  The process of selection of the optimal action is, thus, formalized as
  the optimization problem.
  However, the operating conditions are often not known exactly, since we
@@ -1914,11 +1916,11 @@ a^{*}=\argmin_{a\in{\cal A}}\mathbb{E}_{\pi^{*}}[L(\theta,a)].\label{eq:optimal_
 \end_layout
 
 \begin_layout Standard
-The key task of application of decision theory is the choice of the action
- space, parameter space, loss function, and method of evaluating the probability
- measure.
- In the following sections, we discuss examples of application of the theory
- to the problem of supervised learning and active learning, respectively.
+The key task of the application of decision theory is the choice of the
+ action space, parameter space, loss function, and method of evaluating
+ the probability measure.
+ In the following sections, we discuss examples of the application of the
+ theory to the problem of supervised learning and active learning, respectively.
 \end_layout
 
 \begin_layout Section
@@ -1926,7 +1928,7 @@ Decision Theory for Supervised Learning
 \end_layout
 
 \begin_layout Standard
-Supervised learning is defined as learning from the data with known target
+Supervised learning is defined as learning from the data with a known target
  value.
  Specifically, for the classification problem, the target value is the class,
  where each data point belongs.
@@ -1947,7 +1949,7 @@ We would like to commence our formal definition with the data.
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
- is feature vector of size 
+ is the feature vector of size 
 \begin_inset Formula $n$
 \end_inset
 
@@ -1969,7 +1971,7 @@ We would like to commence our formal definition with the data.
 \end_inset
 
  can be represented as a one hot representation, which is a vector consisting
- from ones and zeros.
+ of ones and zeros.
  In the case of binary classification 
 \begin_inset Formula $\mathbf{y}\in\{[0,1]^{T},[1,0]^{T}\}$
 \end_inset
@@ -1983,7 +1985,7 @@ We would like to commence our formal definition with the data.
 \end_inset
 
 .
- As a good example of previous definition, 
+ As a good example of the previous definition, 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
@@ -2003,7 +2005,8 @@ We would like to commence our formal definition with the data.
 \end_layout
 
 \begin_layout Standard
-Basing on the data definitions from previous part, we can assume that 
+Basing on the data definitions from the previous part, we can assume that
+ 
 \begin_inset Formula $\mathcal{X\times Y}$
 \end_inset
 
@@ -2034,9 +2037,9 @@ p(\mathbf{x},\mathbf{y})=p(\mathbf{y}|\mathbf{x})p(\mathbf{x}).\label{eq: data_b
 
 \end_inset
 
-However, since we do not know analytical form of the joint probability distribut
-ion, we aim at selecting the best possible approximation within a chosen
- class.
+However, since we do not know the analytical form of the joint probability
+ distribution, we aim at selecting the best possible approximation within
+ a chosen class.
  Specifically, we choose a parametric form 
 \begin_inset Formula $p(\mathbf{y}|\mathbf{x},a)$
 \end_inset
@@ -2099,7 +2102,7 @@ name "subsec:decision_theory_svm"
 \end_layout
 
 \begin_layout Standard
-In this subsection, we will continue construction of the decision theory
+In this subsection, we will continue the construction of the decision theory
  on the example of Support Vector Machine (SVM) method.
  For simplicity, let us consider a linearly separable dataset.
  From the theoretical perspective, SVM constructs hyperplane in high dimensional
@@ -2165,8 +2168,8 @@ L=L(\mathbf{x},\mathbf{y},\mathbf{w},b).\label{eq:SVM_thoer_loss}
 
 \end_inset
 
-Following task is to understand how good is our action (hyperplane estimation)
- with respect to the dataset.
+The following task is to understand how good is our action (hyperplane estimatio
+n) with respect to the dataset.
  We can choose different types of loss functions, such as cross entropy,
  hinge loss, etc..
  The most basic approach for SVM method is the hinge loss function 
@@ -2216,7 +2219,7 @@ below
 \end_inset
 
  the hyperplane.
- At this point, very important assumption will be introduced.
+ At this point, a very important assumption will be introduced.
  In order to find an optimal hyperplane, we assume, that the data 
 \begin_inset Formula $\tilde{{\bf X}}$
 \end_inset
@@ -2328,7 +2331,7 @@ Given the instance
 \end_layout
 
 \begin_layout Standard
-First layer of NN is defined as
+The first layer of NN is defined as
 \begin_inset Formula 
 \begin{equation}
 \mathbf{a}_{1}=\mathbf{W}_{1}^{T}\mathbf{x}+\mathbf{b}_{1},\label{eq:Neuron}
@@ -2345,7 +2348,7 @@ where
 \end_inset
 
  is a vector of bias values.
- First layer is called the input layer.
+ The first layer is called the input layer.
  
 \end_layout
 
@@ -2365,14 +2368,14 @@ reference "eq:second_layer_neron"
 
 \end_inset
 
-), neurons from each layer (except of input layer) take linear combination
+), neurons from each layer (except input layer) take linear combination
  of the neurons from the previous layer.
  Function 
 \begin_inset Formula $f$
 \end_inset
 
  is an activation function.
- Activation function is defined as a non-decreasing, continuous function.
+ The activation function is defined as a non-decreasing, continuous function.
  The most commonly used activation functions are sigmoid, relu, elu, and
  hyperbolic tangence functions 
 \begin_inset CommandInset citation
@@ -2416,8 +2419,8 @@ where
 
 \end_inset
 
- is an output vector before activation function is applied.
- Output vector has the same size as label 
+ is an output vector before the activation function is applied.
+ The output vector has the same size as label 
 \begin_inset Formula $\mathbf{y}$
 \end_inset
 
@@ -2442,7 +2445,7 @@ noprefix "false"
 \end_inset
 
 .
- However, in this case our decision is to find estimate 
+ However, in this case, our decision is to find estimate 
 \begin_inset Formula $\hat{\mathbf{y}}=\hat{\mathbf{y}}(\mathbf{x},\Omega)$
 \end_inset
 
@@ -2463,7 +2466,7 @@ noprefix "false"
 \begin_inset Formula $\mathcal{A}$
 \end_inset
 
- will be parameters' and biases' space of 
+ will be the parameters' and biases' space of 
 \begin_inset Formula $\hat{\mathbf{y}}$
 \end_inset
 
@@ -2487,8 +2490,8 @@ noprefix "false"
 \end_inset
 
  is a parameters' space.
- Another example of loss functions that we will use is cross entropy loss
- function, which is defined as 
+ Another example of loss functions that we will use is the cross entropy
+ loss function, which is defined as 
 \begin_inset Formula 
 \begin{equation}
 L(\mathbf{x},\mathbf{y},\Omega)=-y_{1}\ln\big(\hat{y}_{1}(\mathbf{x},\Omega)\big)-y_{2}\ln\big((\hat{y}_{2}(\mathbf{x},\Omega)\big),\label{eq:cross_entropy_loss}
@@ -2561,7 +2564,7 @@ Parameters Estimation
 \end_layout
 
 \begin_layout Standard
-In further sections we are going to introduce more methods based on Neural
+In further sections, we are going to introduce more methods based on Neural
  Networks, which will slightly differ between each other.
  Thus, we would like to cover more theory around parameters estimation.
  The very simple, but efficient method is Gradient Descent.
@@ -2595,12 +2598,12 @@ th iteration value of gradient descent of NN weights and its biases that
 \begin_inset Formula $\eta_{n}$
 \end_inset
 
- is 
+ is the 
 \begin_inset Formula $n-$
 \end_inset
 
-th iteration of a value, that in terms of NN is defined as learning rate
- with a decay.
+th iteration of value, that in terms of NN is defined as learning rate with
+ a decay.
  Term 
 \begin_inset Formula $Z_{n}$
 \end_inset
@@ -2613,12 +2616,12 @@ th iteration of a value, that in terms of NN is defined as learning rate
 \begin_inset Formula $Y$
 \end_inset
 
-, that are used in 
+, that are used in the 
 \begin_inset Formula $n-$
 \end_inset
 
-th iteration of loss function.
- Learning rate decay is not obligatory feature.
+th iteration of a loss function.
+ Learning rate decay is not an obligatory feature.
  It can be constant as well.
  However, the best performance is obtained when the learning rate is estimated
  from the data, which is the main idea of adaptive methods, such as RMSProp
@@ -2646,8 +2649,8 @@ The usual gradient descent is an efficient method for complex
 \begin_inset Formula $\hat{\mathbf{y}}(\mathbf{x},\Omega)$
 \end_inset
 
-, the loss function of its approximation will be non convex with large amount
- of local minima and maxima.
+, the loss function of its approximation will be non-convex with a large
+ amount of local minima and maxima.
  Multiple solutions to this problem have been proposed in the form of Gradient
  Descent with momentum, or Stochastic Gradient Descent (SGD) 
 \begin_inset CommandInset citation
@@ -2687,8 +2690,8 @@ literal "false"
 
 \end_inset
 
-, which is a stochastic gradient optimization, including adaptation of the
- learning rate as well as coefficient of the momentum.
+, which is a stochastic gradient optimization, including an adaptation of
+ the learning rate as well as the coefficient of the momentum.
  
 \end_layout
 
@@ -2704,7 +2707,7 @@ name "subsec:decision_theory_nb"
 \end_layout
 
 \begin_layout Standard
-Naive Bayes algorithm is a bit different to the algorithm based on neural
+Naive Bayes algorithm is a bit different from the algorithm based on neural
  networks and SVM.
  In the case of Naive Bayes, we want to estimate 
 \begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
@@ -2750,7 +2753,7 @@ Naive Bayes
 
 \begin_layout Standard
 Consider a binary classification problem.
- With the usage of the Bayes rule we can rewrite
+ With the usage of the Bayes rule, we can rewrite
 \series bold
  
 \series default
@@ -2779,7 +2782,7 @@ where
 \end_layout
 
 \begin_layout Standard
-Naive Bayes method introduces very strong assumption in equation (
+Naive Bayes method introduces a very strong assumption in equation (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:bayes_rule"
@@ -2795,7 +2798,7 @@ noprefix "false"
 \end_inset
 
  are conditionally independent.
- As a result, estimation of 
+ As a result, the estimation of 
 \begin_inset Formula $p(\mathbf{W}|\mathbf{x},\mathbf{y})$
 \end_inset
 
@@ -2896,7 +2899,7 @@ noprefix "false"
 
 .
  From this moment, everything is ready for expected loss function derivation.
- Expected loss function for Naive Bayes method is derived as 
+ The expected loss function for Naive Bayes method is derived as 
 \series bold
 
 \begin_inset Formula 
@@ -2965,7 +2968,7 @@ In this section, we expect our decision tree to give us an estimate
 \end_inset
 
  can have different dimensionality.
- Thus, for consistency we will assume that for all 
+ Thus, for consistency, we will assume that for all 
 \begin_inset Formula $\mathbf{w}\in{\cal W}$
 \end_inset
 
@@ -3068,18 +3071,19 @@ The conventional optimization procedure for decision trees is a heuristic,
 
  that will bring the highest information about the system (e.g.
  highest entropy of the features).
- This feature will form first layer on which a classification rule is designed.
+ This feature will form the first layer on which a classification rule is
+ designed.
  Then we add another feature with the highest information gain and construct
  the second layer.
  Using this method, we construct nodes and add more and more layers (branches).
  However, such a procedure can be sub-optimal, and improvement was achieved
  using a set of decision trees.
- For this purposes, we will define our decision tree 
+ For this purpose, we will define our decision tree 
 \begin_inset Formula $T(\mathbf{x},\mathbf{w}_{l})$
 \end_inset
 
 , which has a one-hot encoded classification, i.e.
- two dimensional vector 
+ two-dimensional vector 
 \begin_inset Formula $\hat{\mathbf{y}}$
 \end_inset
 
@@ -3156,7 +3160,7 @@ We will use the training set (
 \begin_inset Formula $\tilde{{\bf Y}}_{v}$
 \end_inset
 
- are created with random uniform sampling of indeces of instances in 
+ are created with random uniform sampling of indices of instances in 
 \begin_inset Formula $\tilde{{\bf X}}$
 \end_inset
 
@@ -3429,7 +3433,7 @@ The task of active learning is to optimize the selection of indices
 \end_inset
 
  that will be dependent on the action and parameter spaces.
- In this case we can define our action space as a space of the data indices
+ In this case, we can define our action space as a space of the data indices
  of the unlabeled data 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
@@ -3536,15 +3540,6 @@ where
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-VS: move to evaluation
-\end_layout
-
-\end_inset
-
 Using this approach, we will be able sequentially select indices from 
 \begin_inset Formula $\mathbf{X}$
 \end_inset
@@ -3553,7 +3548,7 @@ Using this approach, we will be able sequentially select indices from
 \begin_inset Formula $\mathbf{Y}$
 \end_inset
 
-, that will help us to get higher scores faster than in the case of random
+, that will help us to get higher scores faster than in the case of a random
  choice of indices.
  
 \end_layout
@@ -3618,7 +3613,7 @@ Consider that
 \end_layout
 
 \begin_layout Standard
-In this section we would like to construct theory around 
+In this section, we would like to construct a theory around 
 \begin_inset Formula $\pi_{u}^{*}$
 \end_inset
 
@@ -3707,7 +3702,7 @@ This method is quite general and can be applied to all types of classifiers
 \end_inset
 
 .
- Let us rewrite it in more mathematical form.
+ Let us rewrite it in a more mathematical form.
  
 \end_layout
 
@@ -3716,7 +3711,7 @@ Assume
 \begin_inset Formula $N_{u}$
 \end_inset
 
- is amount of samples in 
+ is the number of samples in 
 \begin_inset Formula $\mathbf{X}_{u}$
 \end_inset
 
@@ -3747,7 +3742,7 @@ Assume
 \end_inset
 
 .
- The conditioning in the pdf is defined as restriction of sets 
+ The conditioning in the pdf is defined as a restriction of sets 
 \begin_inset Formula $\mathbf{X}_{u},\ \mathbf{Y}_{u}$
 \end_inset
 
@@ -3756,7 +3751,7 @@ Assume
 \end_inset
 
 .
- As a result we can approximate (
+ As a result, we can approximate (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_for_expected_entropy_loss"
@@ -3799,7 +3794,7 @@ Sampling from
 \begin_inset Formula $Z_{u}$
 \end_inset
 
- ,vector of model parameters will represent a single sample from 
+, the vector of model parameters will represent a single sample from 
 \begin_inset Formula $\pi_{u}^{*}$
 \end_inset
 
@@ -3811,7 +3806,7 @@ SGLD
 \end_layout
 
 \begin_layout Standard
-Unlike previous section method, SGLD sampling is designed only for neural
+Unlike the previous section method, SGLD sampling is designed only for neural
  network based classifiers.
  SGLD modifies neural network learning algorithm by adding noise in Stochastic
  Gradient Descent.
@@ -3834,7 +3829,7 @@ literal "false"
 \end_inset
 
  proposes to add Gaussian noise to the system while doing Gradient Descent.
- In fact, when the algorithm is almost trained, additional noise let us
+ In fact, when the algorithm is almost trained, additional noise lets us
  to sample i.i.d parameters values in a neighborhood of a minimum.
  With the usage of Bayes rule we can rewrite (
 \begin_inset CommandInset ref
@@ -3884,7 +3879,7 @@ noprefix "false"
 \end_inset
 
 ).
- However, for this case 
+ However, for this case, 
 \begin_inset Formula $\theta$
 \end_inset
 
@@ -3966,11 +3961,11 @@ noprefix "false"
  When the algorithm is almost trained, we are able to start sampling the
  i.i.d.
  parameter masks.
- The process of generating samples 
+ Samples 
 \begin_inset Formula $\theta^{(q)}$
 \end_inset
 
- are generated after each step of the SGD, where different mask of neural
+ are generated after each step of the SGD, where the different mask of neural
  weight and biases is sampled for each 
 \begin_inset Formula $q$
 \end_inset
@@ -4031,19 +4026,19 @@ noprefix "false"
 \end_inset
 
 ).
- The equations are the same but sampling from 
+ The equations are the same but a sampling from 
 \begin_inset Formula $p(\theta_{u})$
 \end_inset
 
  is different.
- In this work we propose a modification of the initial DENFI algorithm.
+ In this work, we propose a modification of the initial DENFI algorithm.
  The idea of this algorithm is to train an ensemble of 
 \begin_inset Formula $Q_{u}$
 \end_inset
 
  Feed Forward Neural Networks using Stochastic Gradient Descent.
- In theory, each neural network will find different local minimum due to
- different initial weights of neurons and Stochastic Gradient Descent.
+ In theory, each neural network will find a different local minimum due
+ to different initial weights of neurons and Stochastic Gradient Descent.
  The beauty of this algorithm is in further training iterations that will
  be described and shown in further sections.
  For now, we are only interested in parameters sampling from 
@@ -4066,8 +4061,8 @@ name "subsec:Active-Learning-Loss"
 
 \begin_layout Standard
 The acquisition function is a function that helps us to decide which data
- sample is the best for model learning given model's uncertainty.
- Wide overview of different acquisition functions is shown in 
+ sample is the best for model learning given the model's uncertainty.
+ A wide overview of different acquisition functions is shown in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "gal2017deep"
@@ -4076,8 +4071,8 @@ literal "false"
 \end_inset
 
  e.g.
- entropy, information or mean standard deviation maximization.
- However, in our work we decided to use only the entropy loss.
+ entropy, information, or mean standard deviation maximization.
+ However, in our work, we decided to use only the entropy loss.
 \end_layout
 
 \begin_layout Subsubsection
@@ -4085,7 +4080,8 @@ Entropy Based Active Learning Loss
 \end_layout
 
 \begin_layout Standard
-First approach of defining Active Learning loss function is negative entropy.
+The first approach of defining the Active Learning loss function is negative
+ entropy.
  Basing on the formal entropy definition 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -4125,7 +4121,7 @@ th element of the output estimate
 \end_layout
 
 \begin_layout Standard
-With the usage of previous knowledge we can derive expected entropy loss
+With the usage of previous knowledge, we can derive expected entropy loss
  as 
 \begin_inset Formula 
 \begin{align}
@@ -4137,8 +4133,8 @@ With the usage of previous knowledge we can derive expected entropy loss
 
 \end_inset
 
-As a result, minimization of given expected loss will lead us to a sample
- with the highest entropy.
+As a result, the minimization of the given expected loss will lead us to
+ a sample with the highest entropy.
  Thus, we are seeking for a maximal entropy data sample index.
  In other words 
 \begin_inset Formula $j_{u}^{*}=\argmin_{j\in J\backslash J_{u}}(\mathbb{E}_{\pi_{u}^{*}}L^{*})$
@@ -4153,8 +4149,8 @@ Active Learning
 \end_layout
 
 \begin_layout Standard
-We would like to generalize active learning part for all described algorithms,
- in order to estimates 
+We would like to generalize the active learning part for all described algorithm
+s, in order to estimates 
 \begin_inset Formula $p({\bf y}|\mathbf{x},\mathbf{X}_{u},\mathbf{Y}_{u})$
 \end_inset
 
@@ -4173,7 +4169,7 @@ noprefix "false"
 \end_inset
 
 ).
- In Supervised Learning section we have derived estimate 
+ In the Supervised Learning section we have derived estimate 
 \begin_inset Formula $\hat{\mathbf{y}}$
 \end_inset
 
@@ -4246,8 +4242,9 @@ In this section, we have covered the decision theory for both passive and
  active learning with respect to different algorithms and ensemble approaches.
  Passive Learning section showed how it is possible to represent SVM, Random
  Forest, and neural networks in terms of decision theory problem setup.
- In addition to this, Active Learning section showed how to represent the
- uncertainty of the model and parameters sampling for ensembles representation.
+ In addition to this, the Active Learning section showed how to represent
+ the uncertainty of the model and parameters sampling for ensembles representati
+on.
 \end_layout
 
 \begin_layout Chapter
