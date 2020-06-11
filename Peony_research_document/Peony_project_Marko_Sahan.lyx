@@ -3993,16 +3993,14 @@ literal "false"
 
 .
  In case of DENFI algorithm 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-[CITATION HERE]
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ulrych2020denfi"
+literal "false"
 
 \end_inset
 
- we can approximate (
+, we can approximate (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_for_expected_entropy_loss"
@@ -4033,17 +4031,17 @@ noprefix "false"
 \end_inset
 
 ).
- The equations are same but sampling from 
+ The equations are the same but sampling from 
 \begin_inset Formula $p(\theta_{u})$
 \end_inset
 
  is different.
- In this work we are using modification of the initial DENFI algorithm.
- The idea of this algorithm is to train ensemble of 
+ In this work we propose a modification of the initial DENFI algorithm.
+ The idea of this algorithm is to train an ensemble of 
 \begin_inset Formula $Q_{u}$
 \end_inset
 
- Feed Forward Neural Networks with the usage of Stochastic Gradient Descent.
+ Feed Forward Neural Networks using Stochastic Gradient Descent.
  In theory, each neural network will find different local minimum due to
  different initial weights of neurons and Stochastic Gradient Descent.
  The beauty of this algorithm is in further training iterations that will
