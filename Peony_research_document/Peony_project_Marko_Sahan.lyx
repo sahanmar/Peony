@@ -4493,8 +4493,8 @@ embedding
  Plenty of word embedding methods based on neural networks and co-occurrence
  matrices exist nowadays.
  Word embeddings are used as pretrained models.
- Words' encoding is used in order to encode the text, and then text encoding
- is used for different purposes, such as classification, clustering, etc..
+ Words' encoding is used to encode the text, and then text encoding is used
+ for different purposes, such as classification, clustering, etc..
  
 \end_layout
 
@@ -4761,8 +4761,8 @@ We optimize
 \end_layout
 
 \begin_layout Standard
-Described method can be interpreted as a Feed Forward Neural Network with
- only input and output layers.
+The described method can be interpreted as a Feed Forward Neural Network
+ with only input and output layers.
  The optimization is provided with respect to cross entropy loss function
  
 \begin_inset Formula 
@@ -4787,7 +4787,7 @@ noprefix "false"
 \end_inset
 
 ) function.
- When the weights in neural network are trained, matrix 
+ When the weights in a neural network are trained, matrix 
 \begin_inset Formula $\mathbf{E}$
 \end_inset
 
@@ -4849,15 +4849,15 @@ Fast Text Word Embeddings
 \end_layout
 
 \begin_layout Standard
-As mentioned previously, Fast Text method is a CBOW modification.
- Main modification is that Fast Text is taking into account not only words
- but also suffixes of words.
- The words are splitted into suffixes and as a result they can handle understand
-ing of the context better.
+As mentioned previously, the Fast Text method is a CBOW modification.
+ The main modification is that Fast Text is taking into account not only
+ words but also suffixes of words.
+ The words are split into suffixes and as a result, they can handle understandin
+g of the context better.
 \end_layout
 
 \begin_layout Standard
-In this thesis we used pretrained Fast Text models 
+In this thesis, we used pretrained Fast Text models 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "mikolov2018advances"
@@ -4865,8 +4865,8 @@ literal "false"
 
 \end_inset
 
- consisting of 1 million word vectors trained on Wikipedia 2017, UMBC webbase
- corpus and statmt.org news dataset (16B tokens).
+ consisting of 1 million word vectors trained on Wikipedia 2017, UMBC web
+ base corpus and statmt.org news dataset (16B tokens).
 \end_layout
 
 \begin_layout Chapter
@@ -4881,9 +4881,9 @@ Evaluation Metrics
 When the models are implemented and trained we have to compare them.
  This part is very important because we want to define such metrics that
  will not be biased and which will have high discriminability.
- In this project experiments are separated into two parts.
- First part is a supervised classification with big amount of the training
- data.
+ In this project, experiments are separated into two parts.
+ The first part is a supervised classification with a big amount of the
+ training data.
  This is done for classifiers' maximal upper bound understating.
  The upper bounds are used as maxima to which our active learning algorithms
  should be converging.
@@ -4910,8 +4910,9 @@ noprefix "false"
  exists for binary classification scoring.
  However, we decided to find a metric that is able to unify all metrics
  discussed before and do not underperform each of them.
- For these purposes we chose Receiver Operating Characteristic (ROC) metric.
- ROC visualizes the tradeoff between true positive rate (TPR) 
+ For these purposes, we chose the Receiver Operating Characteristic (ROC)
+ metric.
+ ROC visualizes the tradeoff between the true positive rate (TPR) 
 \begin_inset Formula 
 \[
 \mathrm{TPR}=\frac{\mathrm{true\ positive}}{\mathrm{true\ positive+false\ negative}}
@@ -4919,7 +4920,7 @@ noprefix "false"
 
 \end_inset
 
- and false positive rate (FPR) 
+ and the false positive rate (FPR) 
 \begin_inset Formula 
 \[
 \mathrm{FPR}=\frac{\mathrm{false\ positive}}{\mathrm{false\ positive+true\ negative}},
@@ -4944,7 +4945,7 @@ literal "false"
 
 \begin_layout Standard
 We are working with balanced datasets.
- Thus, there is no problem in using ROC metric.
+ Thus, there is no problem with using ROC metric.
  ROC metric is also quite efficient when we care equally about positive
  and negative classes.
  Another advantage is that if we notice small changes in ROC, it will not
@@ -4978,7 +4979,7 @@ Supervised Learning Results Validation
 \begin_layout Standard
 As mentioned above, supervised learning results are used as a maximal upper
  bound of the specific classifier.
- In order to make results statistically valid we used k-fold cross validation.
+ In order to make results statistically valid, we used k-fold cross validation.
  For each batch from k-fold cross validation we calculated both ROC and
  AUC.
  As an output result of a classifier performance we calculated mean value
@@ -4995,8 +4996,8 @@ Active learning model evolution is based on supervised learning algorithms
  that are sequentially retrained.
  Thus, we are not able to display ROC for active learning algorithms because
  the amount of results is too big.
- We decided to aggregate results and display evolution of AUC metric for
- each step of the active learning sequence.
+ We decided to aggregate results and display the evolution of AUC metric
+ for each step of the active learning sequence.
  AUC sequences can be well compared over different classifiers.
  Another aspect of data validation is making the results statistically significa
 nt.
@@ -5023,12 +5024,12 @@ name "chap:Data"
 \end_layout
 
 \begin_layout Standard
-This chapter is dedicated to dataset description.
+This chapter is dedicated to the dataset description.
  We used two datasets for algorithms training and testing.
  We consider these datasets big and diverse enough for getting unbiased
  results.
- We took into account size of texts (articles and tweets), diversity and
- at the same time, similarity of topics.
+ We took into account the size of texts (articles and tweets), diversity
+ and at the same time, similarity of topics.
  
 \end_layout
 
@@ -5058,9 +5059,9 @@ https://www.kaggle.com/rmisra/news-category-dataset
 \end_inset
 
 .
- Described dataset contains around 200k news headlines from the year 2012
- to 2018 obtained from HuffPost web journal.
- Following dataset includes url address and label to each article.
+ The described dataset contains around 200k news headlines from the year
+ 2012 to 2018 obtained from HuffPost web journal.
+ The following dataset includes a url address and a label for each article.
  HuffPost dataset has 200k articles assigned to 41 categories.
  We used only 10 categories.
  We are interested in binary classification, as a result we have to make
@@ -5320,7 +5321,7 @@ HuffPost Dataset Categories which were chosen for algorithms' training and
 \begin_layout Standard
 Due to the fact that there is no raw article included in the dataset, we
  used url links in order to find the articles.
- For each category we scraped 500 original articles from 
+ For each category, we scraped 500 original articles from 
 \begin_inset Flex URL
 status open
 
@@ -5344,10 +5345,10 @@ noprefix "false"
 
 \end_inset
 
- with respect to ascending classification complexity order.
+ with respect to the ascending classification complexity order.
  By classification complexity we mean two sets intersection in feature space.
- If the classification complexity is high, majority of feature space dimensions
- have intersections between two datasets.
+ If the classification complexity is high, the majority of feature space
+ dimensions have intersections between two datasets.
  Thus, it is harder to find such set of features that can be used for high
  classification performance.
  
@@ -5402,9 +5403,9 @@ Project Implementation and Architecture
 \end_layout
 
 \begin_layout Standard
-Even though this work is quite theoretical with experiments that proof theoretic
-al concepts, we consider implementational part interesting as well.
- In this chapter we show the architecture of the project and explain how
+Even though this work is quite theoretical with experiments that prove theoretic
+al concepts, we consider the implementational part interesting as well.
+ In this chapter, we show the architecture of the project and explain how
  different dependencies cooperate with each other.
  The codebase of this project can be easily found at 
 \begin_inset Flex URL
@@ -5435,8 +5436,8 @@ This project was written in Python 3.7 programming language with the usage
 \end_layout
 
 \begin_layout Standard
-In this thesis we used two main components that represent the database and
- a computational part.
+In this thesis, we used two main components that represent the database
+ and a computational part.
  We tried to unify all methods as much as possible and make the utilization
  process very easy.
 \end_layout
@@ -5449,8 +5450,8 @@ Database
 In order to make everything consistent and let the models work with the
  same input and output format we decided to create a database that will
  store all the data in JSON format.
- This unification let us connect the database to machine learning and visualizat
-ion components.
+ This unification lets us connect the database to machine learning and visualiza
+tion components.
  In this project we decided to work with NoSQL database.
  Our choice was MongoDb.
  The reason why we have chosen MongoDb is because of its simplicity and
@@ -5458,11 +5459,11 @@ ion components.
  Since Docker and MongoDb is a perfect combination, the database can be
  deployed with two lines of code through Docker-Compose as explained in
  documentation on GitHub.
- Of course it is easier to use MongoDb without Docker but our motivation
- was measured on simplicity of creating and working with the database.
+ Of course, it is easier to use MongoDb without Docker but our motivation
+ was measured on the simplicity of creating and working with the database.
  All experiments were run on Google Cloud Platform virtual machine instance.
  Thus, we could start working with the models right away without any complicatio
-ns with installation.
+ns with the installation.
  
 \end_layout
 
@@ -5580,7 +5581,7 @@ name "sec:Machine-Learning-Component"
 Machine Learning (ML) Component is fully implemented in Python with the
  usage of open source libraries.
  In order to understand how to use the models, it is possible to find the
- code and its usage in Jupyter notebook that are stored in showcase folder.
+ code and its usage in Jupyter notebook that is stored in the showcase folder.
  Showcase folder has four Jupyter notebooks that show both how to get the
  data for the models from the database and how to start using the models.
  
@@ -5591,7 +5592,7 @@ Data Transformers
 \end_layout
 
 \begin_layout Standard
-Before models training and testing, user has to fit the data transformer
+Before models training and testing, the user has to fit the data transformer
  that transforms text into tensors form.
  Tensors are used as input values for models.
  As mentioned in chapter 
@@ -5619,8 +5620,8 @@ Basic concept is that TF-IDF transformer represents one article as a vector.
  TF-IDF encoding for a single document is calculated on the basis of all
  extracted words that exist in the vocabulary.
  As a result, if we make TF-IDF encoding of a set of articles, we will get
- a matrix where each row represents specific document and each column represents
- word from a dictionary.
+ a matrix where each row represents a specific document and each column
+ represents a word from a dictionary.
 \end_layout
 
 \begin_layout Subsubsection
@@ -5631,9 +5632,9 @@ Fast Text Transformer
 Fast Text model is a pretrained model that consists of one million words
  mapped to vectors.
  These words are stored in MongoDb.
- When a user starts to use Fast Text model, ML component creates a words'
+ When a user starts to use the Fast Text model, ML component creates a words'
  vocabulary from the texts taken for model training/testing.
- This vocabulary is created in a form of a hash map (word -> vector) where
+ This vocabulary is created in the form of a hash map (word -> vector) where
  word embeddings are downloaded from MongoDb.
  It is important to remember that Fast Text encoding represents each word
  as a vector with predefined number of components.
@@ -5645,9 +5646,9 @@ Fast Text model is a pretrained model that consists of one million words
  We introduce article encoding as a mean value through all words from a
  text that is given for encoding.
  Thus, if we make Fast Text encoding of a set of articles, we will get a
- matrix where each row represents specific document.
- Huge advantage of this method in comparison to TF-IDF is that we are working
- only with 
+ matrix where each row represents a specific document.
+ A huge advantage of this method in comparison to TF-IDF is that we are
+ working only with 
 \begin_inset Formula $300$
 \end_inset
 
@@ -5661,14 +5662,14 @@ Machine Learning
 \end_layout
 
 \begin_layout Standard
-In this work we created a Generalized Model that unifies all models.
+In this work, we created the Generalized Model that unifies all models.
  Generalized Model allows us to work with each Machine Learning algorithm
  in the same way.
- Generalized model is able to take a data transformer as an input argument.
+ Generalized Model is able to take a data transformer as an input argument.
  This feature makes it easier to work with models.
- In first chapter of this thesis we introduced our models the way that we
- want to sample from their parameters' distributions.
- In other words we defined ensembles models.
+ In the first chapter of this thesis, we introduced our models the way that
+ we want to sample from their parameters' distributions.
+ In other words, we defined ensembles models.
  In figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -5679,7 +5680,7 @@ noprefix "false"
 
 \end_inset
 
- is shown a generalized diagram of machine learning structure.
+ is shown a generalized diagram of a machine learning structure.
 \end_layout
 
 \begin_layout Standard
@@ -5734,7 +5735,7 @@ literal "false"
 \end_inset
 
  for basic algorithms such as Random Forests and SVMs.
- However, core of this project is constructed around neural networks.
+ However, the core of this project is constructed around neural networks.
  We used PyTorch 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -5744,16 +5745,16 @@ literal "false"
 \end_inset
 
  as a neural networks framework.
- In this work we have implemented and tested five classification algorithms.
- Three of them, such as SVM, Random Forest and Feed Forward Neural Network
- ensembles are trained on a randomly chosen subsets from the training data.
+ In this work, we have implemented and tested five classification algorithms.
+ Three of them, such as SVM, Random Forest, and Feed Forward Neural Network
+ ensembles are trained on randomly chosen subsets from the training data.
  For each ensemble are randomly chosen 
 \begin_inset Formula $80\%$
 \end_inset
 
  from training data that are used for training.
- Two algorithms such as SGLD and DENFI are using full training dataset for
- their ensembles.
+ Two algorithms such as SGLD and DENFI are using a full training dataset
+ for their ensembles.
  The variability in SGLD and DENFI ensembles is reached through adding Gaussian
  noise while ensembles training.
  We hardcoded amount of ensembles for all models to 
@@ -5786,15 +5787,15 @@ Feed Forward Neural Network
 \end_layout
 
 \begin_layout Standard
-Despite the fact that we used very simple neural networks architecture it
+Despite the fact that we used very simple neural network architecture it
  showed great results.
  We implemented Feed Forward Neural Network with the usage of PyTorch python
- package with only input layer that consists of 
+ package with only an input layer that consists of 
 \begin_inset Formula $100$
 \end_inset
 
- neurons with sigmoid activation function.
- We chose softmax activation function for output layer.
+ neurons with a sigmoid activation function.
+ We chose the softmax activation function for an output layer.
  
 \end_layout
 
@@ -5804,8 +5805,8 @@ SGLD
 
 \begin_layout Standard
 For SGLD we used the same configuration as for Feed Forward Neural Network.
- One significant difference is that we used whole training dataset and were
- adding Gaussian noise to a Gradient Descent 
+ One significant difference is that we used the whole training dataset and
+ were adding Gaussian noise to a Gradient Descent 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "welling2011bayesian"
@@ -5824,7 +5825,7 @@ noprefix "false"
 \end_inset
 
 ).
- Precise configuration of SGLD can be found in github project here 
+ The precise configuration of SGLD can be found in GitHub project here 
 \begin_inset Flex URL
 status open
 
@@ -5844,7 +5845,7 @@ DENFI
 \end_layout
 
 \begin_layout Standard
-In this work we have simplified original DENFI algorithm.
+In this work, we have simplified the original DENFI algorithm.
  The pseudocode of this algorithm is shown in algorithm 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -5857,12 +5858,12 @@ noprefix "false"
 
 .
  The main idea is that the algorithm finds different local minimums due
- to the random weights initialization in first active learning iteration.
+ to the random weights initialization in the first active learning iteration.
  When the training is finished, Gaussian noise is added to the output weights
  in order to increase the variability.
  In further active learning iterations, weights from previous iterations
  with extended training dataset is used.
- After the training we also add Gaussian noise to the weights.
+ After the training, we also add Gaussian noise to the weights.
  When the learning iterations are done, we can use the algorithm for predicting.
  
 \end_layout
