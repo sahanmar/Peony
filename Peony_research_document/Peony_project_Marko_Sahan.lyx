@@ -5981,8 +5981,8 @@ Passive Learning Classification
 \end_layout
 
 \begin_layout Standard
-Before we can start active learning part we have to understand if implemented
- algorithms are capable to solve the classification task.
+Before we can start the active learning part we have to understand if implemente
+d algorithms are capable to solve the classification task.
  Thus, we decided to test the models on Sports and Comedy categories from
  HuffPost Dataset and on tweets from Tweets Dataset.
  The classification was done both for TF-IDF and Fast Text encodings.
@@ -5994,7 +5994,7 @@ Passive Learning HuffPost Dataset
 \end_layout
 
 \begin_layout Standard
-In this section we are illustrating ROC and AUC metrics with respect to
+In this section, we are illustrating ROC and AUC metrics with respect to
  
 \begin_inset Formula $10-$
 \end_inset
@@ -6156,8 +6156,8 @@ Fast Text ROC and AUC for 10 SVM ensembles trained and tested on Sports
 
 \end_inset
 
-It is also seen that ROC and AUC metrics are almost same for TF-IDF and
- Fast Text encodings.
+It is also seen that ROC and AUC metrics are almost the same for TF-IDF
+ and Fast Text encodings.
  However, there is one significant difference.
  The difference is in computational time because Fast Text encoded text
  document consists of 
@@ -6174,7 +6174,7 @@ It is also seen that ROC and AUC metrics are almost same for TF-IDF and
  times faster.
  The higher amount of unique words is, the higher elapsed time per article
  for TF-IDF based encoding algorithm will be.
- Another good aspect is algorithm's simplicity.
+ Another good aspect is the algorithm's simplicity.
  SVM is trained much faster than neural network based models.
  
 \end_layout
@@ -6334,10 +6334,10 @@ Feed Forward Neural Network Ensembles
 \end_layout
 
 \begin_layout Standard
-In this work we have implemented three algorithms based on neural networks,
- such as neural networks ensembles, SGLD and DENFI algorithms.
+In this work, we have implemented three algorithms based on neural networks,
+ such as neural networks ensembles, SGLD, and DENFI algorithms.
  The difference between these methods is in parameters sampling.
- Neural networks ensembles takes a randomly selected subset from training
+ Neural networks ensembles take a randomly selected subset from training
  data for each ensemble.
  Thus, we decided not to show SGLD and DENFI results in this section because
  they use the whole set of training data.
@@ -6368,7 +6368,7 @@ noprefix "false"
 
 .
  Illustrated results are both for TF-IDF and Fast Text encodings.
- As seen in previous section, ROC and AUC values of 
+ As seen in the previous section, ROC and AUC values of 
 \begin_inset Formula $10-$
 \end_inset
 
@@ -6465,9 +6465,9 @@ Fast Text ROC and AUC for 10 neural networks ensembles trained and tested
 \begin_layout Standard
 Comparing the results between TF-IDF and Fast Text encoding based models
  we can observe that Fast Text based model gives slightly better results.
- We have already discussed fastness of algorithm training with respect to
- different embedding models in Random Forest section.
- In case of neural networks, this difference is even more significant.
+ We have already discussed the fastness of algorithm training with respect
+ to different embedding models in Random Forest section.
+ In the case of neural networks, this difference is even more significant.
  The model that is based on Fast Text word embeddings takes approximately
  
 \begin_inset Formula $20$
@@ -6481,14 +6481,14 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-All of the tested models gave really good results in classification of Sports
- and Comedy categories.
+All of the tested models gave really good results in the classification
+ of Sports and Comedy categories.
  It means that we are able to continue working with these algorithms in
- active learning section.
+ the active learning section.
  We would like to highlight that Fast Text encoding based algorithms showed
  a bit better results than TF-IDF.
- Fast Text based algorithms also showed significant improvement in evaluation
- speed of algorithm training.
+ Fast Text based algorithms also showed significant improvement in the evaluatio
+n speed of algorithm training.
 \end_layout
 
 \begin_layout Chapter
@@ -6496,16 +6496,16 @@ Active Learning Classification
 \end_layout
 
 \begin_layout Standard
-In Passive Learning section we showed that all implemented algorithms are
- good for solving passive text classification task.
+In the Passive Learning section, we showed that all implemented algorithms
+ are good for solving passive text classification tasks.
  Active Learning section results are the main part of this thesis.
  Therefore, we tested all five algorithms on the data mentioned in the Data
  section.
  The results are shown and described in further subsections.
  However, before starting with text classification results, we would like
  to show how our models represent uncertainty.
- As written in theoretical introduction to active learning, we use models'
- uncertainty for active learning loop.
+ As written in the theoretical introduction to active learning, we use models'
+ uncertainty for an active learning loop.
  
 \end_layout
 
@@ -6531,8 +6531,8 @@ noprefix "false"
 \end_inset
 
  is shown a dataset that is used for toy problem classification.
- We generated this dataset with adding Gaussian noise in order to make the
- task similar to real world problems.
+ We generated this dataset by adding Gaussian noise in order to make the
+ task similar to real-world problems.
  
 \end_layout
 
@@ -6607,18 +6607,18 @@ We generated
 \end_inset
 
  randomly chosen data samples as a training dataset.
- Next step, was creating a two dimensional grid that will be used for model
- predictions.
+ The next step, was creating a two-dimensional grid that will be used for
+ model predictions.
  We assign data sample to class 
 \begin_inset Formula $1$
 \end_inset
 
- if prediction value is higher than 
+ if the prediction value is higher than 
 \begin_inset Formula $0.5$
 \end_inset
 
 .
- If prediction value is lower than 
+ If the prediction value is lower than 
 \begin_inset Formula $0.5$
 \end_inset
 
@@ -6627,13 +6627,13 @@ We generated
 \end_inset
 
 .
- We consider that the model is uncertain about specific data sample if its
- prediction values is close to 
+ We consider that the model is uncertain about a specific data sample if
+ its prediction values is close to 
 \begin_inset Formula $0.5$
 \end_inset
 
 .
- As a result, sampling values from maximal uncertainty region will bring
+ As a result, sampling values from the maximal uncertainty region will bring
  maximum information about the dataset.
  Models set up for Toy Problem is the same as it is defined in the Machine
  Learning Component section 
@@ -6666,10 +6666,10 @@ noprefix "false"
 
 .
  Uncertainty bounds are linear and quite narrow.
- Linearity of uncertainty bounds is explained with the fact that we are
- using SVMs with linear kernel.
- Narrowness can be explained with richness of the training dataset and linear
- limitations of SVM decision bound.
+ The linearity of uncertainty bounds is explained with the fact that we
+ are using SVMs with a linear kernel.
+ Narrowness can be explained with the richness of the training dataset and
+ linear limitations of SVM decision bound.
  
 \end_layout
 
@@ -6735,8 +6735,8 @@ noprefix "false"
 
  is visualized Random Forest ensembles model uncertainty.
  In the case of Random Forest ensembles we can see that uncertainty bounds
- are not linear and lay near the region where two classes are splitted.
- We see that uncertainty region is becoming wider near the places where
+ are not linear and lay near the region where two classes are split.
+ We see that the uncertainty region is becoming wider near the places where
  datapoint of two different classes lay close to each other.
  This is a behavior that we wanted to observe.
  
@@ -6809,7 +6809,7 @@ noprefix "false"
  uncertainty bounds are quite smooth.
  We can also observe that uncertainty bounds become wider when they go further
  from the data points.
- This behavior can be explained with the fact that in these places algorithm
+ This behavior can be explained by the fact that in these places algorithm
  did not get any training data samples.
  We could also see this behavior in SVM ensembles, but in this case neural
  network models represent the uncertainties much better.
@@ -6875,11 +6875,11 @@ noprefix "false"
 
  is visualized SGLD model uncertainty.
  We see that SGLD algorithm has similar behavior to neural network ensembles.
- The difference is that all uncertainty bound curves has similar curvature.
- This is happening due to the fact that SGLD finds loss function minimum
+ The difference is that all uncertainty bound curves have similar curvature.
+ This is happening due to the fact that SGLD finds a loss function minimum
  and then samples parameters' values in a neighborhood of the minimum.
- As a result we expect decision bound for each parameters sample be quite
- similar to each other.
+ As a result, we expect decision bound for each parameters sample to be
+ quite similar to each other.
  
 \end_layout
 
@@ -6955,7 +6955,7 @@ noprefix "false"
 , algorithm founds different local minimums and then we add some Gaussian
  noise to parameters values.
  In further learning iterations the algorithm continues training using the
- weights from previous step.
+ weights from the previous step.
 \end_layout
 
 \begin_layout Standard
@@ -7068,7 +7068,7 @@ To conclude, we can say that the best variability representation was seen
  in neural network models.
  Obviously, we could test SVM algorithm with the usage of different kernels
  but our prior interest was concentrated on neural networks.
- We have showed that all models are able to represent variability and can
+ We have shown that all models are able to represent variability and can
  be used for further tests.
 \end_layout
 
@@ -7098,7 +7098,7 @@ smart
 \end_inset
 
  selection of text documents.
- We randomly choose initial training set that has 
+ We randomly choose an initial training set that has 
 \begin_inset Formula $10$
 \end_inset
 
@@ -7116,23 +7116,23 @@ smart
 \end_inset
 
  text documents per category).
- We reduce the size of all above mentioned datasets to 
+ We reduce the size of all the above-mentioned datasets to 
 \begin_inset Formula $1000$
 \end_inset
 
  documents.
- Each dataset is split on testing and training data.
+ Each dataset is split into testing and training data.
  
 \end_layout
 
 \begin_layout Standard
-Next we initialize two runs.
- First run is based on random selection of the text documents and second
- run is based on acquisition function selection of the documents.
+Next, we initialize two runs.
+ The first run is based on a random selection of the text documents and
+ the second run is based on acquisition function selection of the documents.
  Both runs start with the same training dataset, and then they chose additional
  training documents based on their strategies.
  We consider continuous new data selection from 1000 documents dataset and
- imitating annotators labeling process.
+ imitating the annotators labeling process.
  All in all, we imitate text samples selection 200 times (
 \begin_inset Formula $U=200$
 \end_inset
@@ -7153,7 +7153,7 @@ Next we initialize two runs.
 \end_inset
 
  new sample from the set on which the prediction was done.
- New text sample for labeling is chosen with respect to acquisition function
+ A new text sample for labeling is chosen with respect to acquisition function
  or random choice.
  Before we extend our training dataset with a new labeled sample, we calculate
  the AUC metrics on the complement to the dataset (
@@ -7170,8 +7170,8 @@ Next we initialize two runs.
 \begin_inset Formula $210$
 \end_inset
 
- text documents and testing set (complement to a training set) will have
- 
+ text documents and the testing set (complement to a training set) will
+ have 
 \begin_inset Formula $790$
 \end_inset
 
@@ -7189,7 +7189,7 @@ Epsilon Greedy Strategy
 \end_layout
 
 \begin_layout Standard
-In this work we decided that we do not want to sample with respect to an
+In this work, we decided that we do not want to sample with respect to an
  acquisition function from the beginning but follow with epsilon greedy
  strategy 
 \begin_inset CommandInset citation
@@ -7208,7 +7208,7 @@ literal "false"
 
  that represents a probability of the data sampling with respect to the
  acquisition function.
- In this work we define 
+ In this work, we define 
 \begin_inset Formula $\epsilon$
 \end_inset
 
@@ -7227,9 +7227,10 @@ where
 \begin_inset Formula $u=\{0,1,...,U\}$
 \end_inset
 
- is set of questions that results in number of text documents which will
- be labeled by an annotator.
- As mentioned in previous section, the number of iterations (questions 
+ is set of questions that results in the number of text documents which
+ will be labeled by an annotator.
+ As mentioned in the previous section, the number of iterations (questions
+ 
 \begin_inset Formula $U$
 \end_inset
 
@@ -7238,7 +7239,7 @@ where
 \end_inset
 
 .
- From equation 
+ From the equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:alpha_greedy_function"
@@ -7275,8 +7276,9 @@ name "sec:Active_Learning_on_TF-IDF_models"
 We decided to show the results for TF-IDF encoding based model because described
  text encoding provides high discriminability and relatively simple at the
  same time.
- However, as mentioned in passive learning section, due to the high amount
- of features models that are using this type of encoding are harder to train.
+ However, as mentioned in the passive learning section, due to the high
+ amount of features models that are using this type of encoding are harder
+ to train.
  We were not able to train neural network ensembles because of the high
  dimensional feature space.
  Thus, we decided to show the results only with respect to SVM, Random Forest
@@ -7301,9 +7303,9 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for SVM ensembles and TF-IDF
+ are shown active learning simulation results for SVM ensembles and TF-IDF
  encoding.
- Active learning strategy is based on entropy acquisition function.
+ The active learning strategy is based on entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -7353,7 +7355,7 @@ Comparison of random and active learning text data selection mean and one
 \end_layout
 
 \begin_layout Standard
-As seen from figure 
+As seen in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:TF-IDF_SVM_ensembles"
@@ -7364,11 +7366,11 @@ noprefix "false"
 \end_inset
 
 , the results for entropy are not better than for random selection.
- This can be explained due to low variability of SVM ensembles.
- For this case we can conclude that there are no significant difference
- between entropy and random data selection strategy.
- The first and the second strategy has almost same uncertainty bounds and
- converge to the same AUC results.
+ This can be explained due to the low variability of SVM ensembles.
+ In this case, we can conclude that there is no significant difference between
+ entropy and random data selection strategy.
+ The first and the second strategy has almost the same uncertainty bounds
+ and converges to the same AUC results.
  
 \end_layout
 
@@ -7387,9 +7389,9 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for Random Forest ensembles
+ are shown active learning simulation results for Random Forest ensembles
  and TF-IDF encoding.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -7439,15 +7441,15 @@ Comparison of random and active learning text data selection mean and one
 \end_layout
 
 \begin_layout Standard
-In comparison to SVM ensembles, active learning strategy for Random Forest
- ensembles show really poor results.
+In comparison to SVM ensembles, the active learning strategy for Random
+ Forest ensembles shows really poor results.
  Random data selection overcomes entropy selection, and it can be said that
- active learning strategy is not working at all for this algorithm.
+ the active learning strategy is not working at all for this algorithm.
  The reason of such behavior can be explained due to the little amount of
  training data in the beginning.
- This fact may make algorithm to start selecting the data which have high
- entropy but are close to each other.
- As a result, it will not lead to high performance results.
+ This fact may make the algorithm to start selecting the data which have
+ high entropy but are close to each other.
+ As a result, it will not lead to high-performance results.
  
 \end_layout
 
@@ -7456,12 +7458,12 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-Even though, we were able to see extremely good results for TF-IDF encoding
- in Passive Learning section, we were not able to train neural networks
- models and test active learning there, due to high dimensionality of the
- feature space.
+Even though we were able to see extremely good results for TF-IDF encoding
+ in the Passive Learning section, we were not able to train neural networks
+ models and test active learning there, due to the high dimensionality of
+ the feature space.
  Moreover, SVM and Random Forest ensembles' results were unsatisfying, and
- in comparison to random sampling, active learning strategy did not show
+ in comparison to random sampling, an active learning strategy did not show
  good results.
 \end_layout
 
@@ -7485,7 +7487,7 @@ noprefix "false"
 \begin_inset Formula $300$
 \end_inset
 
- dimensional feature space.
+-dimensional feature space.
  This is much lower than in the case of TF-IDF encoding.
  Thus, we were able to provide computations with respect to all models.
 \end_layout
@@ -7509,9 +7511,9 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for SVM ensembles and Fast
+ are shown active learning simulation results for SVM ensembles and Fast
  Text encoding.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -7583,8 +7585,8 @@ noprefix "false"
 \end_inset
 
 .
- We can see that active learning strategy is not working for the case of
- Fast Text encoding as well.
+ We can see that the active learning strategy is not working for the case
+ of Fast Text encoding as well.
  
 \end_layout
 
@@ -7593,8 +7595,8 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-We can conclude that even despite good performance in Passive Learning section,
- the active learning algorithm is not working as expected.
+We can conclude that even despite good performance in the Passive Learning
+ section, the active learning algorithm is not working as expected.
  Thus, we will not continue testing this algorithm on further datasets.
  
 \end_layout
@@ -7618,9 +7620,9 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for Random Forest ensembles
+ are shown active learning simulation results for Random Forest ensembles
  and Fast Text encoding.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -7693,8 +7695,8 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-Even though we could observe that active learning strategy shows better
- results than random sampling strategy, we do not continue with further
+Even though we could observe that the active learning strategy shows better
+ results than the random sampling strategy, we do not continue with further
  experiments because the results are not significant enough.
 \end_layout
 
@@ -7717,9 +7719,9 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for neural networks ensembles
+ are shown active learning simulation results for neural networks ensembles
  and Fast Text encoding.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -7801,9 +7803,9 @@ noprefix "false"
 
 \end_inset
 
-, we can see significant difference in the algorithms performance.
- In comparison to previous methods, algorithm based on neural networks shows
- same results by 
+, we can see a significant difference in performance of the algorithms.
+ In comparison to previous methods, an algorithm based on neural networks
+ shows the same results by 
 \begin_inset Formula $50-$
 \end_inset
 
@@ -7834,14 +7836,14 @@ One significant disadvantage of this method is that it is very slow and
 \begin_inset Formula $10$
 \end_inset
 
- neural networks with cold start.
+ neural networks with a cold start.
  That means training neural networks with random weights initialization
  and no prior information from the previous training.
  Despite the fact, that the results are really good, we decided not to continue
  with the algorithm testing because it is very slow and computationally
  costly.
- In next sections we introduce results based on neural networks but with
- different way of uncertainty representation.
+ In the next sections we introduce results based on neural networks but
+ with a different way of uncertainty representation.
 \end_layout
 
 \begin_layout Subsection
@@ -7858,7 +7860,7 @@ literal "false"
 \end_inset
 
  is one of two algorithms that are assumed as the best algorithms (in terms
- of this project) with good ratio of training time consumption and performance.
+ of this project) with a good ratio of training time consumption and performance.
  As mentioned previously, Gaussian noise is added to a Gradient Descent
  while training.
  This approach helps us to sample different parameters vectors around the
@@ -7884,10 +7886,10 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for SGLD, Fast Text encoding
+ are shown active learning simulation results for SGLD, Fast Text encoding
  and Sport vs.
  Comedy categories.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -7950,8 +7952,9 @@ noprefix "false"
 
  both mean and uncertainty bound curves are not smooth enough in comparison
  to neural network ensembles.
- This behavior can be explained with low number of samples from SGLD.
- However, we are able to observe same analogy as with neural network ensembles.
+ This behavior can be explained with a low number of samples from SGLD.
+ However, we are able to observe the same analogy as with neural network
+ ensembles.
  The active learning strategy improves over random sampling and has more
  narrow uncertainty bounds.
  Moreover, SGLD was trained almost three times faster than the neural network
@@ -7981,10 +7984,10 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for SGLD, Fast Text encoding
+ are shown active learning simulation results for SGLD, Fast Text encoding
  and Crime vs.
  Good News categories.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -8035,7 +8038,7 @@ Comparison of random and active learning text data selection mean and one
 \end_layout
 
 \begin_layout Standard
-We expect Crime and Good News categories have small intersection.
+We expect Crime and Good News categories have a small intersection.
  As seen from 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -8056,8 +8059,8 @@ noprefix "false"
 \begin_inset Formula $10$
 \end_inset
 
- training data samples algorithm could reach high performance results.
- The evolution of two strategies is quite the same as in figure 
+ training data samples algorithm could reach high-performance results.
+ The evolution of the two strategies is quite the same as in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Fast_Text_SGLD_NN"
@@ -8076,11 +8079,11 @@ noprefix "false"
 
 .
  However, as mentioned previously, we construct uncertainty bounds as a
- standard deviation from mean value.
- In this case it is possible that upper uncertainty bound will be greater
+ standard deviation from the mean value.
+ In this case, it is possible that upper uncertainty bound will be greater
  than one.
- Thus, while interpreting the results, reader has to keep in mind that AUC
- metric must be truncated to one.
+ Thus, while interpreting the results, a reader has to keep in mind that
+ AUC metric must be truncated to one.
 \end_layout
 
 \begin_layout Subsubsection
@@ -8098,10 +8101,10 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for SGLD, Fast Text encoding
+ are shown active learning simulation results for SGLD, Fast Text encoding
  and Politics vs.
  Business categories.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -8152,13 +8155,13 @@ Comparison of random and active learning text data selection mean and one
 \end_layout
 
 \begin_layout Standard
-These two categories have bigger intersection, what means that it is a harder
- classification task.
- The results show again that active learning strategy easily exceeds the
- random sampling strategy.
+These two categories have a bigger intersection, what means that it is a
+ harder classification task.
+ The results show again that the active learning strategy easily exceeds
+ the random sampling strategy.
  Even though, the topics are harder to distinguish, active learning strategy
- finds the patterns in the data and show much better results with more narrow
- uncertainty bounds.
+ finds the patterns in the data and shows much better results with more
+ narrow uncertainty bounds.
  
 \end_layout
 
@@ -8177,10 +8180,10 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for SGLD, Fast Text encoding
+ are shown active learning simulation results for SGLD, Fast Text encoding
  and Tech vs.
  Science categories.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -8231,8 +8234,8 @@ Comparison of random and active learning text data selection mean and one
 \end_layout
 
 \begin_layout Standard
-We observe again that active learning strategy is better even though the
- categories are quite similar.
+We observe again that the active learning strategy is better even though
+ the categories are quite similar.
  As seen from the plot uncertainty upper bound reaches the values which
  is greater than one.
  This is exactly the case which was already covered in 
@@ -8263,10 +8266,10 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for SGLD, Fast Text encoding
+ are shown active learning simulation results for SGLD, Fast Text encoding
  and College vs.
  Education categories.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -8318,7 +8321,7 @@ Comparison of random and active learning text data selection mean and one
 
 \begin_layout Standard
 The collected results based on College and Education category do not differ
- to the results from previous parts of SGLD algorithm.
+ from the results from previous parts of SGLD algorithm.
  We can still see that active learning strategy outperforms random sampling,
  even despite the fact that these categories are very similar.
  
@@ -8339,10 +8342,10 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for SGLD, Fast Text encoding
+ are shown active learning simulation results for SGLD, Fast Text encoding
  and Positive vs.
  Negative tweets categories.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -8408,7 +8411,7 @@ noprefix "false"
  are illustrated results with respect to the tweets dataset.
  Due to the fact that tweets are really short, it is quite hard to find
  the patterns that can be used for high performance categories separation.
- Thus, we can see that our classification results (AUC) is not that high
+ Thus, we can see that our classification results (AUC) are not that high
  in comparison to previous results.
  Moreover, we observed that for this dataset there is no difference between
  active learning and random sampling strategy.
@@ -8423,12 +8426,12 @@ Conclusion
 To sum up, we can say that SGLD algorithm showed really impressive results
  and proved that the active learning strategy outperforms random sampling.
  However, there are several disadvantages.
- First disadvantage is that the resulted curves were not smooth.
+ The first disadvantage is that the resulted curves were not smooth.
  We think that this problem can be eliminated by sampling more parameters
  vectors while training the model.
- Another problem is that the algorithm do not show better active learning
+ Another problem is that the algorithm does not show better active learning
  results when it is tested on the short and quite general text data.
- We believe that this problem can be solved with different encoding approach.
+ We believe that this problem can be solved with a different encoding approach.
 \end_layout
 
 \begin_layout Subsection
@@ -8439,9 +8442,9 @@ DENFI
 DENFI algorithm is the second algorithm which is not partitioning training
  dataset.
  In addition to this, we use a modification of DENFI algorithm.
- Huge advantage of this algorithm is that it uses prior information from
+ A huge advantage of this algorithm is that it uses prior information from
  previous training round.
- In the first training round, DENFI algorithms follows almost same strategy
+ In the first training round, DENFI algorithm follows almost the same strategy
  as neural network ensembles method.
  It trains 
 \begin_inset Formula $10$
@@ -8452,10 +8455,11 @@ DENFI algorithm is the second algorithm which is not partitioning training
  After the training is finished, we add some Gaussian noise in order to
  increase the variability.
  When we add some training samples, we continue training using the weights
- from the previous iteration with addition of Gaussian noise in the end.
- Moreover, we are using lower number of epochs.
- The hot start approach gives perfect variability that is shown in quality
- of results in further section.
+ from the previous iteration with the addition of Gaussian noise in the
+ end.
+ Moreover, we are using a lower number of epochs.
+ The hot start approach gives perfect variability that is shown in the quality
+ of results in the further section.
  
 \end_layout
 
@@ -8474,10 +8478,10 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for DENFI, Fast Text encoding
+ are shown active learning simulation results for DENFI, Fast Text encoding
  and Sport vs.
  Comedy categories.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -8562,10 +8566,10 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for DENFI, Fast Text encoding
+ are shown active learning simulation results for DENFI, Fast Text encoding
  and Crime vs.
  Good News categories.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -8618,8 +8622,8 @@ Comparison of random and active learning text data selection mean and one
 \begin_layout Standard
 We have already talked in SGLD section that Crime and Good news categories
  can be well separated from each other.
- In this case we see same behavior for active learning strategy as in previous
- section.
+ In this case, we see the same behavior for active learning strategy as
+ in the previous section.
  The uncertainty bounds are narrow and the AUC scores are very high in compariso
 n to the random sampling strategy.
 \end_layout
@@ -8639,10 +8643,10 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for DENFI, Fast Text encoding
+ are shown active learning simulation results for DENFI, Fast Text encoding
  and Politics vs.
  Business categories.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -8703,7 +8707,7 @@ noprefix "false"
 
 \end_inset
 
-, is same as in previous DENFI results.
+, is the same as in previous DENFI results.
  Moreover, we see good active learning performance, even though it is not
  easy to separate these categories.
  If we compare results in figure 
@@ -8746,10 +8750,10 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for DENFI, Fast Text encoding
+ are shown active learning simulation results for DENFI, Fast Text encoding
  and Tech vs.
  Science categories.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -8833,10 +8837,10 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for DENFI, Fast Text encoding
+ are shown active learning simulation results for DENFI, Fast Text encoding
  and College vs.
  Education categories.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -8888,8 +8892,8 @@ Comparison of random and active learning text data selection mean and one
 
 \begin_layout Standard
 Last but not least of Huffpost dataset, results for College and Education
- also proof that DENFI active learning strategy is not too much dependent
- on how big intersection is between the categories.
+ also prove that DENFI active learning strategy is not dependent on how
+ big an intersection is between the categories.
  The uncertainty bounds for active learning are still narrow and the AUC
  score is much higher than for random sampling case.
 \end_layout
@@ -8909,10 +8913,10 @@ noprefix "false"
 
 \end_inset
 
- is shown active learning simulation results for DENFI, Fast Text encoding
+ are shown active learning simulation results for DENFI, Fast Text encoding
  and Positive vs.
  Negative tweets categories.
- Active learning strategy is based on the entropy acquisition function.
+ The active learning strategy is based on the entropy acquisition function.
 \end_layout
 
 \begin_layout Standard
@@ -8963,7 +8967,7 @@ Comparison of random and active learning text data selection mean and one
 \end_layout
 
 \begin_layout Standard
-In comparison to SGLD, DENFI algorithm show better active learning performance
+In comparison to SGLD, DENFI algorithm shows better active learning performance
  for the tweets dataset.
  DENFI active learning strategy is also working on tweets whereas SGLD active
  learning strategy was not able to overcome the random sampling.
@@ -8978,12 +8982,12 @@ Conclusion
 \begin_layout Standard
 To conclude we can say that DENFI showed brilliant results for all problems
  which it was tested on.
- In all cases the active learning strategy outperformed the random sampling.
+ In all cases, the active learning strategy outperformed the random sampling.
  The algorithm was tested both on the data that are easy and hard to separate.
  In addition to this, the AUC scores for all active learning results with
  DENFI were higher than for all other algorithms.
  That makes DENFI algorithm the best one, with the highest performance and
- the lowest uncertainty bounds, which was tested in term of this project.
+ the lowest uncertainty bounds, which was tested in terms of this project.
 \end_layout
 
 \begin_layout Chapter*
