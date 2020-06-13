@@ -83,7 +83,7 @@
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Articles
@@ -325,27 +325,26 @@ Techniques
 \end_layout
 
 \begin_layout Title
-Ensembles Active Learning for Text Classification 
+Recursive Ensembles Active Learning for Text Classification 
 \end_layout
 
 \begin_layout Abstract
-Machine learning approach to classification is based on learning parameters
- of black box model describing relation between the recorded data samples
- and their class labels.
- The process of data labels collection for the purposes of model training
- can be complex and costly.
- Therefore, the number of data record is often much higher than the number
- of labels, but the labels can be obtained by querying an annotator.
+Supervised classification of texts relies on availability of reliable class
+ labels for the training data.
+ However, the process of collecting data labels can be complex and costly.
+ Therefore, more common task is semi-supervised learning where the number
+ of texts is often much higher than the number of labels, but the labels
+ can be obtained by querying an annotator.
  Active learning is a process of selection of unlabeled data records for
  which knowledge of the label would bring the highest discriminability of
  the dataset.
  Various methods for active learning have been proposed in many different
  fields that use supervised learning models.
- In this project, we study suitability and propose new active learning approach
- of a text classification problem.
- We compare existing state-of-the-art active learning classifiers to deep
- ensembles model with deeper study of uncertainty calibration for both existing
- and new approaches.
+ In this project, we study suitability of Bayesian approaches and propose
+ a recursive modification of the deep ensemble active learning approach.
+ We compare existing state-of-the-art active learning classifiers with the
+ proposed approach and study uncertainty calibration for both existing and
+ new approaches.
 \end_layout
 
 \begin_layout Section
@@ -353,12 +352,15 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-Active learning strategy lets the machine learning models iteratively and
- strategically query the labels of some instances for reducing human labeling
- efforts.
- Our goal is to show the active learning performance on text data.
- People has already been solving active learning problem for anomaly detection
- 
+Active learning strategy is a techniuqe of semi-supervised machine learning
+ that actively searches which unlabeled sample should be given to annotater
+ and extend the training set.
+ If the active search is well optimized, the number of queries for corrcet
+ classification can be greatly reduced.
+ Our goal is to compare performace of Bayesian active learning methods on
+ the text classification problem.
+ People have already been solving the active learning problem for anomaly
+ detection 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "das2018active"
@@ -406,26 +408,25 @@ literal "false"
 
 \end_inset
 
-, etc..
+, and others.
+ 
 \end_layout
 
 \begin_layout Standard
-Modern approach of automating the labeling process of huge amount of unlabeled
- data, is not optimal.
+A typical approach to labeling huge amount of unlabeled data, is often not
+ optimal.
  People are randomly choosing unlabeled text data.
  These data are annotated by the subject matter experts, and used for training
- and testing the models.
+ and testing of the models.
  If the model performance is weak after the training, more text documents
  are selected and annotated.
- This approach is costly because nobody knows how much text documents must
+ This approach is costly because nobody knows how many text documents must
  be selected in order to have good model scores.
- Our active learning strategy proposes selection of unlabeled text data
- that the model is not certain about.
- Unlabeled text data are given to a subject matter expert to provide the
- labels.
- Discussed problem was introduced almost two decades ago.
- Some SVM based active learning approaches for text classification date
- back to 2001 
+ Active learning strategy has potential to greatly reduce this effort.
+ While it was introduced almost two decades ago, recent improvements in
+ deep learning motivate our attempt to revisit the topic.
+ For example, SVM-based active learning approaches for text classification
+ date back to 2001 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "tong2001support"
@@ -433,33 +434,23 @@ literal "false"
 
 \end_inset
 
-, where are shown different querying strategies and results of the active
- learning superiority over random sampling strategies.
- Even though SVM show good results, deep recurrent and convolutional neural
- networks gained higher popularity due to their efficiency in text classificatio
-n 
+, where superiority of active learning over random sampling are demonstrated.
+ Since deep recurrent and convolutional neural networks achieve better classific
+ation result, Bayesian active learning methods for deep network gained popularit
+y especially in image classification 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "lowell2019practical"
-literal "false"
-
-\end_inset
-
-, 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "an2018deep"
+key "gal2017deep,lowell2019practical"
 literal "false"
 
 \end_inset
 
 .
- Active learning let's us to start with lower amount of training data, and
- iteratively extend the dataset.
- In our work we are aimed on choosing the data, which our model is not certain
- about.
- One of the most popular methods for deep learning uncertainty representation
- is a dropout 
+ The Bayesian approach is concerned with querying data where the classified
+ is most uncertain.
+ While acquisition functions provide similar results, representation of
+ uncertainty is often more important.
+ The most popular approach using Dropout MC 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "gal2017deep"
@@ -467,8 +458,15 @@ literal "false"
 
 \end_inset
 
-.
- Langevin dynamics 
+ has been tested on text classification 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "an2018deep"
+literal "false"
+
+\end_inset
+
+, however other techniques such as Langevin dynamics 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "welling2011bayesian"
@@ -476,46 +474,7 @@ literal "false"
 
 \end_inset
 
- and DEnFi 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-[CITATION]
-\end_layout
-
-\end_inset
-
- also show good representation of the model's uncertainty.
- In this work we are extending our dataset with only one sample per active
- learning iteration.
- However, it was also shown that the strategies, which sample batches with
- more than one sample, also perform good results 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "an2018deep"
-literal "false"
-
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-The project shows comparison of different active learning methods and their
- modification for text classification.
- The main point of this project is to provide comprehensive comparison between
- deep ensembles and dropout representation algorithms.
- Basing on 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "snoek2019can"
-literal "false"
-
-\end_inset
-
- and 
+ and ensembles 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "lakshminarayanan2017simple"
@@ -523,28 +482,38 @@ literal "false"
 
 \end_inset
 
-, it was shown that ensemble deep learning algorithms give the best performance
- both for text and image processing data.
- Wide variety of acquisition functions for unlabeled data sampling was shown
- and compared in 
+ are available.
+ Deep ensembles often achieve better performance 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "gal2017deep"
+key "snoek2019can"
 literal "false"
 
 \end_inset
 
-, In this project we illustrate the results with respect to entropy based
- acquisition function.
- We believe that a comparison of dropout and ensembles based models for
- active learning text classification will give better understanding of the
- problem and will bring more clarity to their strong and weak parts.
- 
+ but require higher computational cost since they train an ensemble of networks
+ after each extension of the data set.
+\end_layout
+
+\begin_layout Standard
+This problem has been recently addressed in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ulrych2020denfi"
+literal "false"
+
+\end_inset
+
+, where it was proposed that the ensemble should not be trained from scratch
+ but initialized randomly around the position of ensemble network from the
+ previous iteration.
+ In this contribution, we test this approach and compare it with the dropout
+ MC and Langevin dynamics representations.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Active learning for texts - why ()
@@ -573,102 +542,6 @@ Methods
 \end_layout
 
 \begin_layout Standard
-Supervised learning is defined as learning from the data with known target
- value.
- Specifically, for the classification problem, the target value is the class,
- where each data point belongs.
- 
-\end_layout
-
-\begin_layout Standard
-We would like to commence our formal definition with the data.
- Let 
-\begin_inset Formula $\mathbf{x}\in{\cal X}\subset\mathbb{R}^{n}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{y\in}{\cal Y}=\{[0,1]^{T},[1,0]^{T}\}$
-\end_inset
-
-, where 
-\begin_inset Formula $\mathbf{x}$
-\end_inset
-
- is feature vector of size 
-\begin_inset Formula $n$
-\end_inset
-
-, and 
-\begin_inset Formula ${\bf y}$
-\end_inset
-
- is its label assigned to the data instance 
-\begin_inset Formula $\mathbf{x}$
-\end_inset
-
- from space 
-\begin_inset Formula ${\cal X}$
-\end_inset
-
-.
- Each value from space 
-\begin_inset Formula ${\cal Y}$
-\end_inset
-
- can be represented as a one hot representation, which is a vector consisting
- from ones and zeros.
- In the case of binary classification 
-\begin_inset Formula $\mathbf{y}\in\{[0,1]^{T},[1,0]^{T}\}$
-\end_inset
-
-, where the first class is represented as 
-\begin_inset Formula $\mathbf{y}=[1,0]^{T}$
-\end_inset
-
- and the second class is represented as 
-\begin_inset Formula $\mathbf{y}=[0,1]^{T}$
-\end_inset
-
-.
- As a good example of previous definition, 
-\begin_inset Formula $\mathbf{x}$
-\end_inset
-
- can be a text document (represented in a mathematical form in order to
- meet a definition above) and 
-\begin_inset Formula $\mathbf{y}$
-\end_inset
-
- can be its category, such as sports or comedy.
- As seen from this example, the label and the text are forming a tuple.
- In this work we are considering our data as tuples of variables 
-\begin_inset Formula $(\mathbf{x},\mathbf{y})\in{\cal X\times Y}$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-The training set is usually a subset of all available data on which the
- optimization is performed, the rest of the data is used for validation
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "vapnik2013nature"
-literal "false"
-
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Subsection
-Embedding
-\end_layout
-
-\begin_layout Standard
 Transformer models such as BERT 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -687,7 +560,7 @@ literal "false"
 \end_inset
 
  text encoding is efficient enough for our text classification purposes.
-  Instance 
+ Representation of a text document 
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
@@ -703,7 +576,7 @@ where
 \begin_inset Formula $\mathcal{D}_{i}$
 \end_inset
 
- is the set of indices of all words in 
+ is the set of indices of all words in the 
 \begin_inset Formula $i$
 \end_inset
 
@@ -723,158 +596,170 @@ where
  encoded word.
 \end_layout
 
-\begin_layout Subsection
-Active Learning
-\end_layout
-
 \begin_layout Standard
-As mentioned in previous sections, the training set 
-\begin_inset Formula $\tilde{\mathbf{X}}\times\mathbf{\tilde{Y}}$
+For supervised classification, each document 
+\begin_inset Formula $\boldsymbol{x}_{i}$
 \end_inset
 
- is only a subset of all available data.
- It is important that each point 
-\begin_inset Formula $\mathbf{x}$
-\end_inset
-
- in the training set has a label 
-\begin_inset Formula $\mathbf{y}$
+ should have a label 
+\begin_inset Formula $y_{i}$
 \end_inset
 
 .
- In many situations labels are expensive to obtain, and the number 
-\begin_inset Formula $N$
+ We are concerned with binary classification for simplicity, however, extension
+ to multiclass is straightforward.
+ We assume that an initial set of few labels is available, splitting the
+ set of text documents to the labeled, 
+\begin_inset Formula $X^{(l)},$
 \end_inset
 
- of all available samples 
-\begin_inset Formula $\mathbf{x}\in\mathbf{X}$
-\end_inset
-
- is large, while labels are available only for the initial subset 
-\begin_inset Formula $J_{0}=\{1,\ldots,N_{0}\},N_{0}\ll N$
-\end_inset
-
-.
- This problem is known as semi-supervised learning.
-\end_layout
-
-\begin_layout Standard
-We consider a setup in which we can ask for a label for an arbitrary 
-\begin_inset Formula $\mathbf{x}$
-\end_inset
-
-, that can be provided for example by a human (annotator).
- We assume that getting labels needs some time and is very expensive.
- The task is to choose which sample we will ask to label.
- 
-\end_layout
-
-\begin_layout Standard
-The active learning problem is defined as a sequence of supervised learning
- problems.
- Specifically, we assume that the initial sets for supervised learning are
- 
-\begin_inset Formula $\mathbf{X}_{0}=\{\mathbf{x}_{i}\}_{i\in J_{0}}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{Y}_{0}=\{\mathbf{y}_{i}\}_{i\in J_{0}}$
-\end_inset
-
-.
- We consider a sequence of 
-\begin_inset Formula $U$
-\end_inset
-
- questions 
-\begin_inset Formula $u=\{1,\ldots,U\}$
-\end_inset
-
-, in each question we select an index 
-\begin_inset Formula $j_{u}$
-\end_inset
-
- and ask to obtain the label 
-\begin_inset Formula $\mathbf{y}_{j_{u}}$
-\end_inset
-
- for data record 
-\begin_inset Formula $\mathbf{x}_{j_{u}}$
-\end_inset
-
-.
- The index set and the data sets are extended as follows
+ and unlabeled parts.
+ We design a selection procedure for the annotator, by maximizing the entropy
+ of the predictive probability density function
 \begin_inset Formula 
-\begin{align*}
-J_{u} & =\{J_{u-1},j_{u}\}, & \mathbf{X}_{u} & =\{\mathbf{X}_{u-1},\mathbf{x}_{j_{u}}\}, & \mathbf{Y}_{u} & =\{\mathbf{Y}_{u-1},\mathbf{y}_{j_{u}}\}.
-\end{align*}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The task of active learning is to optimize the selection of indices 
-\begin_inset Formula $j_{u}$
-\end_inset
-
- to reach as good classification metrics with as low number of questions
- as possible.
- 
-\end_layout
-
-\begin_layout Standard
-The decision task for this particular problem can be written as 
-\begin_inset Formula 
-\begin{equation}
-j_{u}^{*}=\argmin_{j_{u}\in J\backslash J_{u}}(\mathbb{E}_{\pi_{u}^{*}}L^{*}),\label{eq:index_selection_active_learning}
-\end{equation}
+\[
+i^{(l)}=\arg\max_{j\in\mathcal{J}}\mathsf{E}\left(\log(p(y_{j}|\boldsymbol{x}_{1}\ldots\boldsymbol{x}_{l},\boldsymbol{x}_{j}))\right),
+\]
 
 \end_inset
 
 where 
-\begin_inset Formula $\mathbb{E}_{\pi_{u}^{*}}L^{*}$
+\begin_inset Formula $\mathcal{J}$
 \end_inset
 
- is the expected loss that is dependent on an action given question 
-\begin_inset Formula $u$
+ is the set of indexes of unlabeled texts, 
+\begin_inset Formula $\mathsf{E}$
 \end_inset
 
-, and 
-\begin_inset Formula $J$
+ is the expectation operator over the uncertainty of model parameters.
+ When the selected text is annotated, the text is added with its label to
+ the labeled data set 
+\begin_inset Formula $X^{(l+1)}=[X^{(l)},x_{i^{(l)}}].$
 \end_inset
 
- is the space of all indices.
- Character 
-\begin_inset Quotes eld
-\end_inset
-
-
-\begin_inset Formula $*$
-\end_inset
-
-
-\begin_inset Quotes erd
-\end_inset
-
- is used only for distinguishing active learning loss from the loss function
- which is used for different models.
- Using this approach, we will be able sequentially select indices from 
-\begin_inset Formula $\mathbf{X}$
-\end_inset
-
- and ask for a label from 
-\begin_inset Formula $\mathbf{Y}$
-\end_inset
-
-, that will help us to get higher scores faster than in the case of random
- choice of indices.
+ And the procedure is repeated.
  
 \end_layout
 
-\begin_layout Subsection
-Bayesian neural networks
+\begin_layout Standard
+Key component is the method of representation of uncertainty.
+ We will compare the following:
+\end_layout
+
+\begin_layout Description
+SGLD: Stochastic Gradient with Langevin dynamics 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "welling2011bayesian"
+literal "false"
+
+\end_inset
+
+, which adds additional noise to the gradient in stochastic gradient descent.
+\end_layout
+
+\begin_layout Description
+Dropout
+\begin_inset space ~
+\end_inset
+
+MC: samples binary mask disabling selected paths through the network 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gal2017deep"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+Deep
+\begin_inset space ~
+\end_inset
+
+ensembles: consist of 
+\begin_inset Formula $N$
+\end_inset
+
+ networks trained in parallel from different initial conditions 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lakshminarayanan2017simple"
+literal "false"
+
+\end_inset
+
+.
+ This approach is the current state-of-the-art in active learning 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "beluch2018power"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+While many of these has been tested in active learning, the authors always
+ assumed that after each step of active learning, the network training starts
+ from the initial conditions.
+ This is clearly suboptimal, since the information from previous training
+ is lost.
+ A simple solution was presented in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ulrych2020denfi"
+literal "false"
+
+\end_inset
+
+, where it was argued that estimated results from the previous step can
+ be used as centroids around which the new initial point is sampled.
+ Since this is a form of warm start, we also test warm-start strategies
+ for Dropout.
+ In summary, we test the following algorithms:
+\end_layout
+
+\begin_layout Description
+DEnFI: a deep ensemble method with warm start using weights of ensemble
+ members as initial conditions for new ensemble.
+ The weights are perturbed by Gaussian nose of variance 
+\begin_inset Formula $q$
+\end_inset
+
+ which is a hyperparameter.
+ The ensemble is trained additional 700? epochs after each extension of
+ the learning data set.
+\end_layout
+
+\begin_layout Description
+Dropout
+\begin_inset space ~
+\end_inset
+
+MC: in two versions, pure hot-start and hot-start with weights perturbed
+ by additive noise of variance 
+\begin_inset Formula $q$
+\end_inset
+
+.
+ The network is trained run 2000? epochs, dropout rate is ??, anything else?
+\end_layout
+
+\begin_layout Description
+SGLD: variance of the noise added to the gradient descent is 
+\begin_inset Formula $\sqrt{\epsilon}$
+\end_inset
+
+? where 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ is the learning rate (of adam?)
 \end_layout
 
 \begin_layout Section
@@ -3605,7 +3490,7 @@ n.
 LatexCommand bibtex
 btprint "btPrintCited"
 bibfiles "bib"
-options "authordate1"
+options "coling"
 
 \end_inset
 
