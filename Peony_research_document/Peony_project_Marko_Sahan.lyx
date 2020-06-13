@@ -5868,6 +5868,17 @@ noprefix "false"
 \end_inset
 
 ).
+ We used 
+\begin_inset Formula $2000$
+\end_inset
+
+ epochs in order to train the model.
+ Next, we started a sampling procedure.
+ Each sample was generated with a 
+\begin_inset Formula $50$
+\end_inset
+
+ epochs interval.
  The precise configuration of SGLD can be found in GitHub project here 
 \begin_inset Flex URL
 status collapsed
@@ -5888,7 +5899,7 @@ djusted_models/sgld_nn.py
 status open
 
 \begin_layout Plain Layout
-Details: how many epochs, how many steps between samples?
+Details: how many epochs, how many steps between samples? Done
 \end_layout
 
 \end_inset
@@ -5915,11 +5926,41 @@ noprefix "false"
 .
  The main idea is that the algorithm finds different local minimums due
  to the random weights initialization in the first active learning iteration.
+ We used 
+\begin_inset Formula $2000$
+\end_inset
+
+ epochs in order to train the model.
  When the training is finished, Gaussian noise is added to the output weights
  in order to increase the variability.
  In further active learning iterations, weights from previous iterations
- with extended training dataset is used.
+ with extended training dataset are used.
  After the training, we also add Gaussian noise to the weights.
+ We have empirically discovered that the model shows the best performance
+ with 
+\begin_inset Formula $0.1$
+\end_inset
+
+ variance of an additive noise.
+ We have also tried different noise configurations with 
+\begin_inset Formula $0.2$
+\end_inset
+
+ and 
+\begin_inset Formula $0.3$
+\end_inset
+
+ variance.
+ However, Gaussian noise with 
+\begin_inset Formula $0.1$
+\end_inset
+
+ variance has shown the best scores.
+ The amount of training epochs in hot start loop equals to 
+\begin_inset Formula $500$
+\end_inset
+
+ epochs.
  When the learning iterations are done, we can use the algorithm for predicting.
  
 \end_layout
@@ -5982,7 +6023,7 @@ def active_learning_iteration_training(all_ensembles, training_data):
 
 \begin_layout Plain Layout
 
-	ensemble.weights = ensemble_weights 
+	ensemble.weights = ensemble.weights 
 \end_layout
 
 \begin_layout Plain Layout
@@ -6037,7 +6078,7 @@ DENFI modification algorithm pseudocode
 status open
 
 \begin_layout Plain Layout
-Details: how many epochs, what variance?
+Details: how many epochs, what variance? Done
 \end_layout
 
 \end_inset
