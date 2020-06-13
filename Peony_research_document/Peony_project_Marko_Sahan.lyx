@@ -928,7 +928,8 @@ Definition
 \begin_inset Text
 
 \begin_layout Plain Layout
-vector of instance
+vector features, i.e.
+ the instance
 \end_layout
 
 \end_inset
@@ -1066,7 +1067,7 @@ set of training labels
 \begin_inset Text
 
 \begin_layout Plain Layout
-transposed vector notation
+transposed vector 
 \end_layout
 
 \end_inset
@@ -1089,7 +1090,15 @@ transposed vector notation
 \begin_inset Text
 
 \begin_layout Plain Layout
-tuple notation
+tuple of elements 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $y$
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1112,7 +1121,11 @@ tuple notation
 \begin_inset Text
 
 \begin_layout Plain Layout
-set notation
+set of vectors 
+\begin_inset Formula $\boldsymbol{x}_{1},\ldots\boldsymbol{x}_{R}$
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1231,7 +1244,7 @@ probability density function of variable
 \begin_inset Text
 
 \begin_layout Plain Layout
-probability density function of label 
+conditional probability density function of label 
 \begin_inset Formula $\mathbf{y}$
 \end_inset
 
@@ -1262,12 +1275,12 @@ probability density function of label
 \begin_inset Text
 
 \begin_layout Plain Layout
-estimate of 
+expected value of 
 \begin_inset Formula $\mathbf{y}$
 \end_inset
 
  given 
-\begin_inset Formula $\mathbf{x}$
+\begin_inset Formula $\mathbf{x},\mathbf{X}$
 \end_inset
 
 
@@ -1295,7 +1308,8 @@ estimate of
 \begin_inset Text
 
 \begin_layout Plain Layout
-vector of SVM or decision tree weights 
+vector of parameters of a classifier (e.g.
+ SVM or decision tree)
 \end_layout
 
 \end_inset
@@ -1341,7 +1355,8 @@ SVM bias (scalar)
 \begin_inset Text
 
 \begin_layout Plain Layout
-tuple of Naive Bayes, random forest or neural network (single layer) parameters
+tuple of parameters of a classifier (e.g.
+ Naive Bayes, random forest or neural network (single layer))
 \end_layout
 
 \end_inset
@@ -1478,7 +1493,7 @@ If we take a look at the modern approach of automating the labeling process
  and testing the models.
  If the model performance is weak after the training, more text documents
  are selected and annotated.
- This approach is costly because nobody knows how much text documents must
+ This approach is costly because nobody knows how many text documents must
  be selected to have good model scores.
  Our active learning strategy proposes a selection of unlabeled text data
  that the model is not certain about.
@@ -1494,9 +1509,9 @@ literal "false"
 
 \end_inset
 
-, where are shown different querying strategies, and results of the active
- learning superiority over random sampling strategies.
- There is no clue that active learning strategy brings a lot of advantages.
+, where are shown different querying strategies, and superiority of results
+ of the active learning over random sampling strategies is demonstarted.
+ There is no doubt that active learning strategy brings a lot of advantages.
  First of all, we are able to start with lower amount of training data,
  and iteratively extend the dataset.
  The dataset is extended using the data, which the model is not certain
@@ -1520,8 +1535,9 @@ literal "false"
 \begin_layout Standard
 The project describes different algorithms formulation with respect to decision
  theory, and then the connection of all the methods to active learning theory.
- All methods used in this work are represented as ensemble models.
- Basing on 
+ The main focus of this work is on deep neural networks and ensemble models
+ of their uncertainty.
+ It was shown in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "snoek2019can"
@@ -1529,10 +1545,10 @@ literal "false"
 
 \end_inset
 
- it was shown that ensemble deep learning algorithms give the best performance
- both for text and image processing data.
- Plenty of related active learning works for text classifications follow
- 
+ that ensemble deep learning algorithms give the best performance both for
+ text and image processing data.
+ Plenty of alternative models for active learning for text classifications
+ exits such 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "gal2017deep"
@@ -1567,8 +1583,8 @@ literal "false"
 \end_inset
 
 .
- We are concerned that ensembles outperform dropout uncertainty representation
- for text data, as it was shown in 
+ We will investigate if the ensembles outperform dropout uncertainty representat
+ion for text data, as it was shown in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "lakshminarayanan2017simple"
@@ -1592,7 +1608,7 @@ This project also provides the link to Python implementation of active learning
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Articles
@@ -1806,7 +1822,7 @@ The theory of decision making has three basic elements: i) the set of possible
 \begin_inset Formula $\varTheta$
 \end_inset
 
- is parameters space, iii) the loss function 
+ is the parameter space, iii) the loss function 
 \begin_inset Formula 
 \begin{align}
 L & =L(\theta,a),\label{eq:loss_func}
@@ -1824,7 +1840,7 @@ that defines our preference of the action, in the sense that action
 \begin_inset Formula $\theta$
 \end_inset
 
- the task is turned into simple optimization of (
+, the task is turned into simple optimization of (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:loss_func"
@@ -1871,7 +1887,7 @@ If
 \begin_inset Formula $\pi^{*}(\theta)$
 \end_inset
 
- is believed probability distribution of 
+ is the probability distribution of 
 \begin_inset Formula $\theta$
 \end_inset
 
@@ -1970,7 +1986,7 @@ We would like to commence our formal definition with the data.
 \begin_inset Formula ${\cal Y}$
 \end_inset
 
- can be represented as a one hot representation, which is a vector consisting
+ can be represented using one hot representation, which is a vector consisting
  of ones and zeros.
  In the case of binary classification 
 \begin_inset Formula $\mathbf{y}\in\{[0,1]^{T},[1,0]^{T}\}$
@@ -1989,8 +2005,8 @@ We would like to commence our formal definition with the data.
 \begin_inset Formula $\mathbf{x}$
 \end_inset
 
- can be a text document (represented in a mathematical form in order to
- meet a definition above) and 
+ can be a text document (represented as a vector in order to meet the definition
+ above) and 
 \begin_inset Formula $\mathbf{y}$
 \end_inset
 
@@ -2053,8 +2069,8 @@ However, since we do not know the analytical form of the joint probability
 \end_layout
 
 \begin_layout Standard
-The uncertainty of the decision task is a representation of the joint probabilit
-y distribution.
+It remains to choose the form of representation of the joint probability
+ distribution.
  We will consider the uncertainty 
 \begin_inset Formula $\theta$
 \end_inset
@@ -2105,8 +2121,8 @@ name "subsec:decision_theory_svm"
 In this subsection, we will continue the construction of the decision theory
  on the example of Support Vector Machine (SVM) method.
  For simplicity, let us consider a linearly separable dataset.
- From the theoretical perspective, SVM constructs hyperplane in high dimensional
- space.
+ From the theoretical perspective, SVM constructs a hyperplane in high dimension
+al space.
  In this case, our decision (action) is a hyperplane that will separate
  two classes.
  Equation of the hyperplane can be written as 
@@ -2201,8 +2217,8 @@ where
 \end_layout
 
 \begin_layout Standard
-In terms of SVM method, we want to find such a hyperplane that will label
- input values as a first class, if it is 
+In terms of the SVM method, we want to find such a hyperplane that will
+ label input values as the first class, if it is 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2210,7 +2226,7 @@ above
 \begin_inset Quotes erd
 \end_inset
 
- the hyperplane and as a second class, if it is 
+ the hyperplane and as the second class, if it is 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2316,15 +2332,15 @@ Neural Network
 \end_layout
 
 \begin_layout Standard
-Given the instance 
+Neural Network (NN) is a mapping that has the instance 
 \begin_inset Formula $\mathbf{x}\in{\cal X}$
 \end_inset
 
- with further application of Feed Forward Neural Network (NN) we are able
- to predict an output value 
-\begin_inset Formula $\mathbf{y}\in{\cal Y}.$
+ on its input predicted value of the label 
+\begin_inset Formula $\mathbf{\hat{y}}$
 \end_inset
 
+ on the output.
  In this part of the work, our prior interest is focused around Feed Forward
  Neural Network algorithm, that assigns input value to a specific class.
  
@@ -2662,8 +2678,8 @@ literal "false"
 
 .
  In comparison to standard Gradient Descent, the key difference is that
- SGD allows us to use only one piece of data (minibatch) from the training
- dataset in order to calculate the step 
+ SGD allows us to use only a small subset of all data points (minibatch)
+ from the full training dataset in order to calculate the step 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bishop2006machine"
@@ -3349,7 +3365,7 @@ As mentioned in previous sections, the training set
 \end_inset
 
 .
- In many situations labels are expensive to obtain, and the number 
+ The labels are expensive to obtain in many situations, and the number 
 \begin_inset Formula $N$
 \end_inset
 
@@ -3628,8 +3644,8 @@ noprefix "false"
 \end_inset
 
 ).
- Mentioned distribution is a distribution of the models' parameters, given
- the training data that can be written as 
+ The mentioned distribution is a distribution of the models' parameters,
+ given the training data that can be written as 
 \begin_inset Formula 
 \begin{equation}
 \pi_{u}^{*}=p_{u}(\theta_{u}|\mathbf{X}_{u},\mathbf{Y}_{u}).\label{eq:prior_distribution_for_expected_entropy_loss}
@@ -3810,7 +3826,8 @@ Unlike the previous section method, SGLD sampling is designed only for neural
  network based classifiers.
  SGLD modifies neural network learning algorithm by adding noise in Stochastic
  Gradient Descent.
- In comparison to normal Feed Forward Neural Network in 
+ The conventional stochastic gradient descent of Feed Forward Neural Network
+ was extended in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "welling2011bayesian"
@@ -3818,9 +3835,10 @@ literal "false"
 
 \end_inset
 
- is introduced Stochastic Gradient Langevin Dynamics Neural Network (SGLD).
- This is a type of Bayesian Neural Network algorithm.
- In comparison to normal Feed Forward NN, 
+ by an additive white noise, which is know as the Stochastic Gradient Langevin
+ Dynamics (SGLD) algorithm.
+ This algorithm provides Bayesian estimate of Neural Network parameters
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "welling2011bayesian"
@@ -3828,10 +3846,10 @@ literal "false"
 
 \end_inset
 
- proposes to add Gaussian noise to the system while doing Gradient Descent.
- In fact, when the algorithm is almost trained, additional noise lets us
- to sample i.i.d parameters values in a neighborhood of a minimum.
- With the usage of Bayes rule we can rewrite (
+.
+ In essence, when the algorithm is almost trained, the additional noise
+ samples i.i.d parameter values in a neighborhood of the minimum.
+ Using the Bayes rule we can rewrite (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:prior_distribution_for_expected_entropy_loss"
@@ -3889,7 +3907,7 @@ noprefix "false"
 \end_inset
 
  must be independent identically distributed.
- Basing on 
+ Based on 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "welling2011bayesian"
@@ -3897,7 +3915,7 @@ literal "false"
 
 \end_inset
 
- the updated gradient for SGLD can be written as 
+, the updated gradient for SGLD can be written as 
 \begin_inset Formula 
 \begin{align}
 \hat{\Omega}_{n+1} & =\hat{\Omega}_{n}-\frac{N}{N_{minibatch}}\frac{\eta_{n}}{2}\Big(\nabla L(\tilde{\mathbf{X}},\tilde{\mathbf{Y}},\hat{\Omega}_{n},Z_{n})\Big)+\epsilon_{n},\label{eq:SGLD_gradient_descent}\\
@@ -3910,19 +3928,19 @@ where
 \begin_inset Formula $N$
 \end_inset
 
- is an amount of training data, 
+ is the number of training data, 
 \begin_inset Formula $N_{minibatch}$
 \end_inset
 
- is an amount of the data in minibatch and 
+ is the number of samples in the minibatch and 
 \begin_inset Formula $\eta_{n}$
 \end_inset
 
- is 
+ is the learning rate in 
 \begin_inset Formula $n-$
 \end_inset
 
-th iteration of a learning rate.
+th iteration of the algorithm.
 \end_layout
 
 \begin_layout Subsubsection
@@ -3930,10 +3948,8 @@ Dropout
 \end_layout
 
 \begin_layout Standard
-Dropout is another technique similar to SGLD how to sample from a neural
- network parameters distribution.
- This type of sampling can be also considered as a Bayesian Neural Network
- 
+Dropout is another technique similar to SGLD designed to sample from a neural
+ network parameters distribution 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "gal2017deep"
@@ -3971,6 +3987,32 @@ noprefix "false"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Subsubsection
+Deep ensembles
+\end_layout
+
+\begin_layout Standard
+of deep ensembles 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lakshminarayanan2017simple"
+literal "false"
+
+\end_inset
+
+ is ...
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -4135,7 +4177,8 @@ With the usage of previous knowledge, we can derive expected entropy loss
 
 As a result, the minimization of the given expected loss will lead us to
  a sample with the highest entropy.
- Thus, we are seeking for a maximal entropy data sample index.
+ Thus, we are seeking for the index of the data instance that has maximum
+ predictive entropy.
  In other words 
 \begin_inset Formula $j_{u}^{*}=\argmin_{j\in J\backslash J_{u}}(\mathbb{E}_{\pi_{u}^{*}}L^{*})$
 \end_inset
@@ -4441,8 +4484,8 @@ noprefix "false"
 
 \end_inset
 
-) is correct under condition that we have no duplicate documents in the
- text corpus.
+) is correct under the condition that we have no duplicate documents in
+ the text corpus.
  Next step is to derive an equation of mutual information of documents and
  words as follows 
 \begin_inset Formula 
@@ -5084,7 +5127,7 @@ noprefix "false"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -5827,7 +5870,7 @@ noprefix "false"
 ).
  The precise configuration of SGLD can be found in GitHub project here 
 \begin_inset Flex URL
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -5838,6 +5881,19 @@ djusted_models/sgld_nn.py
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Details: how many epochs, how many steps between samples?
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -5872,7 +5928,7 @@ noprefix "false"
 \begin_inset Float algorithm
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset listings
@@ -5969,6 +6025,19 @@ DENFI modification algorithm pseudocode
 
 \begin_layout Plain Layout
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Details: how many epochs, what variance?
 \end_layout
 
 \end_inset
