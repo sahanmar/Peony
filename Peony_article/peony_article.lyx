@@ -643,11 +643,8 @@ where
 
 \begin_layout Standard
 Key component is the method of representation of uncertainty.
- We will compare the following:
-\end_layout
-
-\begin_layout Description
-SGLD: Stochastic Gradient with Langevin dynamics 
+ We will compare the following methods: i) SGLD: Stochastic Gradient with
+ Langevin dynamics 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "welling2011bayesian"
@@ -655,11 +652,8 @@ literal "false"
 
 \end_inset
 
-, which adds additional noise to the gradient in stochastic gradient descent.
-\end_layout
-
-\begin_layout Description
-Dropout
+, which adds additional noise to the gradient in stochastic gradient descent,
+ ii) Dropout
 \begin_inset space ~
 \end_inset
 
@@ -672,10 +666,7 @@ literal "false"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Description
-Deep
+ and iii) Deep
 \begin_inset space ~
 \end_inset
 
