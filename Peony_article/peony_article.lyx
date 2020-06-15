@@ -353,7 +353,7 @@ Introduction
 
 \begin_layout Standard
 Active learning strategy is a techniuqe of semi-supervised machine learning
- that actively searches which unlabeled sample should be given to annotater
+ that actively searches which unlabeled sample should be given to annotator
  and extend the training set.
  If the active search is well optimized, the number of queries for corrcet
  classification can be greatly reduced.
@@ -723,8 +723,8 @@ DEnFI: a deep ensemble method with warm start using weights of ensemble
 \end_inset
 
  which is a hyperparameter.
- The ensemble is trained additional 700? epochs after each extension of
- the learning data set.
+ The ensemble is trained run 2000 epochs with additional 700 epochs after
+ each extension of the learning data set.
 \end_layout
 
 \begin_layout Description
@@ -738,7 +738,9 @@ MC: in two versions, pure hot-start and hot-start with weights perturbed
 \end_inset
 
 .
- The network is trained run 2000? epochs, dropout rate is ??, anything else?
+ The network is trained run 3000 epochs, dropout rate is 0.5, and number
+ of epochs per sample is 50.
+ 
 \end_layout
 
 \begin_layout Description
@@ -746,11 +748,29 @@ SGLD: variance of the noise added to the gradient descent is
 \begin_inset Formula $\sqrt{\epsilon}$
 \end_inset
 
-? where 
+ where 
 \begin_inset Formula $\epsilon$
 \end_inset
 
- is the learning rate (of adam?)
+ is the learning rate with initial value of 
+\begin_inset Formula $0.01$
+\end_inset
+
+ and which is calculated in 
+\begin_inset Formula $n+1$
+\end_inset
+
+ iteration as 
+\begin_inset Formula $\epsilon_{n+1}=\frac{\epsilon_{n}}{n-3000}+0.05$
+\end_inset
+
+.
+ The noise is added to a gradient only after 
+\begin_inset Formula $3000$
+\end_inset
+
+ of initial training epochs.
+ 
 \end_layout
 
 \begin_layout Section
@@ -915,8 +935,8 @@ noprefix "false"
 \end_inset
 
  are shown for 200 active learning iterations and entropy acquisition function.
- We belief that DEnFi V2 and Dropout cold start algorithms show the best
- performance with respect to shown results.
+ We belief that DEnFi and Dropout cold start algorithms show the best performanc
+e with respect to shown results.
  
 \end_layout
 
@@ -933,7 +953,7 @@ noprefix "false"
 
  is illustrated whole evolution of AUC mean over 10 runs with uncertainty
  bounds for six pairs of categories.
- It is seen that in four out of six plots DEnFi V2 shows better active learning
+ It is seen that in four out of six plots DEnFi shows better active learning
  results.
  It is also seen that DenFi mimic behavior of Dropout curve for College
  vs Education categories.
@@ -947,15 +967,15 @@ noprefix "false"
 \end_inset
 
 .
- It can be said that DEnFi V2 did not have enough active learning iterations
+ It can be said that DEnFi did not have enough active learning iterations
  in order to explore the dataset better.
- It is seen that in the final steps of a simulation, DEnFi V2 curve is convergin
-g to Dropout curve.
+ It is seen that in the final steps of a simulation, DEnFi curve is converging
+ to Dropout curve.
  The behavior that was seen for College vs Education categories can be also
  observed for Tweets Dataset.
- The AUC scores are very low and it is seen that both DEnFi V2 and Dropout
+ The AUC scores are very low and it is seen that both DEnFi and Dropout
  are copying random selection strategy evolution.
- However, we can observe that in the right part of the plot, DEnFi V2 active
+ However, we can observe that in the right part of the plot, DEnFi active
  learning strategy starts to show better scores than random selection strategy.
  In this case we can also conclude that DEnFi did not have enough training
  samples for overcoming Dropout.
@@ -988,11 +1008,11 @@ name "fig:AUC-evolution-plots"
 
 \end_inset
 
-AUC mean evolution with respect to learning iterations for DEnFi V2, Dropout
+AUC mean evolution with respect to learning iterations for DEnFi, Dropout
  cold start algorithms and six pairs of categories.
  The uncertainty bounds are illustrated as one standard deviation from the
  mean value.
- Both DEnFi V2 and Dropout were initially trained on 10 labeled text documents
+ Both DEnFi and Dropout were initially trained on 10 labeled text documents
  before sequential learning strategies were initialized 
 \end_layout
 
@@ -1010,12 +1030,12 @@ AUC mean evolution with respect to learning iterations for DEnFi V2, Dropout
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="9" columns="7">
+<lyxtabular version="3" rows="8" columns="7">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
@@ -1288,105 +1308,7 @@ SGLD
 \begin_layout Plain Layout
 
 \size scriptsize
-DEnFi V1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\size scriptsize
-\begin_inset Formula $\mathbf{0.990}^{*}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\size scriptsize
-\begin_inset Formula $0.973\ $
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\size scriptsize
-\begin_inset Formula $0.952\ $
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\size scriptsize
-\begin_inset Formula $0.985\ $
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-\size scriptsize
-\begin_inset Formula $\mathbf{0.896}\ $
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\size scriptsize
-\begin_inset Formula $\mathbf{0.652}\ $
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\size scriptsize
-DEnFi V2
+DEnFi
 \end_layout
 
 \end_inset
@@ -1880,9 +1802,9 @@ Hot Start Noise Calibration
 \end_layout
 
 \begin_layout Standard
-Both DEnFi V2 and Dropout with hot start are quite sensitive with respect
- to added noise.
- DEnFi V2 and Dropout hot start mean AUC results with respect to different
+Both DEnFi and Dropout with hot start are quite sensitive with respect to
+ added noise.
+ DEnFi and Dropout hot start mean AUC results with respect to different
  gaussian noise variance configuration for Tech vs Science categories are
  shown in table 
 \begin_inset CommandInset ref
@@ -1899,7 +1821,21 @@ noprefix "false"
  less noise works better.
  However, when the amount of training data is increasing, the strategy with
  higher amount of noise is more efficient.
- Described trend is observed both for DEnFi V2 and Dropout algorithms.
+ Described trend is observed both for DEnFi and Dropout algorithms and can
+ be seen as a linear curve formed from bold values in table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:noise-calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ As a result, it can be assumed that adaptive noise modification can lead
+ to the significantly better results.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -2641,7 +2577,7 @@ variance
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-DEnFi V2
+DEnFi
 \end_layout
 
 \end_inset
@@ -3430,9 +3366,9 @@ name "tab:noise-calibration"
 
 \end_inset
 
-DENFI V2 and Dropout hot start with noise binary classification mean AUC
- results over 10 runs for Tech vs Science categories with respect to different
- noise variance configuration and number of active learning iterations.
+DEnFi and Dropout hot start with noise binary classification mean AUC results
+ over 10 runs for Tech vs Science categories with respect to different noise
+ variance configuration and number of active learning iterations.
  Bold values represent intersection of a mean value with respect to one
  standard deviation interval from a maximal value 
 \series bold
@@ -3458,19 +3394,22 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-In this work it was illustrated and verified that ensembles exploration
- power can overcome dropout based active learning algorithm if querying
+In this work it was illustrated and verified that an ensembles exploration
+ power can overcome a dropout based active learning algorithm if a querying
  process lasts long enough.
- Described behavior was perfectly seen both on the plots for News Category
- Dataset where the classification scores were high and for Twitter Dataset
+ Described behavior was perfectly seen both in the plots for the News Category
+ Dataset where the classification scores were high and for the Twitter Dataset
  where the classification scores were low.
- Another important aspect of the work are hot start methods and noise calibratio
-n.
- DEnFi V2 method showed great results by using the knowledge from previous
+ Another important aspect of the work are hot start methods and a noise
+ calibration.
+ The DEnFi method showed great results by using the knowledge from previous
  iterations.
- The trend of increasing noise and better classification for higher amount
- of training documents may let us to reach higher scores with adaptive noise
- addition.
+ The dropout hot start method has also showed good results.
+ However, the hot start results were not good enough in comparison to the
+ cold start method.
+ We are concerned, that the trend of increasing noise and better classification
+ for higher amount of training documents may let us to reach higher scores
+ with adaptive noise addition.
  Combination of the facts mentioned above can be a strong basis for the
  future research.
  
