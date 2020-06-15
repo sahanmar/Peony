@@ -12,7 +12,7 @@
     },
     "record": {
       "type": "object",
-      "description": "All information about an instance",
+      "description": "All the information about an instance",
       "properties": {
         "id": {
           "type": "string",
@@ -38,11 +38,11 @@
         },
         "label": {
           "type": "string",
-          "description": "Label for an instance. Can be empty if this is not validation data"
+          "description": "Label for an instance. Can be empty if this is not a validation data"
         },
         "metadata": {
           "type": "object",
-          "description": "Any additional metadata. Can be empty field"
+          "description": "Any additional metadata. Can be empty"
         },
       },
     },

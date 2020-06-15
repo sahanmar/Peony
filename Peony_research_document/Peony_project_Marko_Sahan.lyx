@@ -462,6 +462,14 @@ Final dummy paragraph.
 \begin_inset Newpage newpage
 \end_inset
 
+zadani
+\begin_inset Newpage newpage
+\end_inset
+
+zadani
+\begin_inset Newpage newpage
+\end_inset
+
 
 \end_layout
 
@@ -482,8 +490,7 @@ doc.
  Václav Šmídl, Ph.D.
 
 \series default
- for his expert guidance and express my gratitude to Mgr.
- Yana Bilous for her language assistance.
+ for his expert guidance and express my gratitude for his language assistance.
 \end_layout
 
 \begin_layout Standard
@@ -525,20 +532,7 @@ I declare that this Masters's Degree Project is entirely my own work and
 
 \begin_layout Standard
 \noindent
-Prague, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-documentdate
-\end_layout
-
-\end_inset
-
-
+Prague, June 17, 2020
 \begin_inset space \hfill{}
 \end_inset
 
@@ -554,7 +548,7 @@ Marko Sahan
 
 \begin_layout Standard
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -887,7 +881,7 @@ Notation
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="22" columns="2">
+<lyxtabular version="3" rows="23" columns="2">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="left" valignment="top">
@@ -1339,7 +1333,7 @@ SVM bias (scalar)
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell multirow="3" alignment="center" valignment="middle" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1356,7 +1350,27 @@ SVM bias (scalar)
 
 \begin_layout Plain Layout
 tuple of parameters of a classifier (e.g.
- Naive Bayes, random forest or neural network (single layer))
+ Naive Bayes, random forest
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+or neural network (single layer))
 \end_layout
 
 \end_inset
@@ -3186,7 +3200,7 @@ We will use the training set (
 
  without repetition.
  We, also, want each subset to contain strictly 
-\begin_inset Formula $70\%$
+\begin_inset Formula $80\%$
 \end_inset
 
  of the data from 
@@ -3990,37 +4004,12 @@ noprefix "false"
 \end_layout
 
 \begin_layout Subsubsection
-Deep ensembles
+Deep Ensemble Filter
 \end_layout
 
 \begin_layout Standard
-of deep ensembles 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "lakshminarayanan2017simple"
-literal "false"
-
-\end_inset
-
- is ...
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-DENFI
-\end_layout
-
-\begin_layout Standard
-DENFI algorithm is an extension of deep ensembles 
+Deep Ensemble Filter (DENFI) algorithm is an extension of deep ensembles
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "lakshminarayanan2017simple"
@@ -6137,15 +6126,17 @@ In this section, we are illustrating ROC and AUC metrics with respect to
 status open
 
 \begin_layout Plain Layout
-proc?
+proc? Done
 \end_layout
 
 \end_inset
 
 .
+ We decided to test the ensemble models on a passive learning problem in
+ order to see the limit that an active learning strategy will converge to.
  Moreover, the ratio of randomly chosen training data for ensembles (SMV,
  Random Forest, Feed Forward NN ensembles) is set to 
-\begin_inset Formula $70\%$
+\begin_inset Formula $80\%$
 \end_inset
 
 .
@@ -6221,7 +6212,7 @@ name "fig:TF-IDF_SVM_passive_learning"
 
 TF-IDF ROC and AUC for 10 SVM ensembles trained and tested on Sports and
  Comedy data where each ensemble is trained on 
-\begin_inset Formula $70\%$
+\begin_inset Formula $80\%$
 \end_inset
 
  of randomly chosen training data 
@@ -6263,7 +6254,7 @@ name "fig:Fast_Text_SVM_passive_learning"
 
 Fast Text ROC and AUC for 10 SVM ensembles trained and tested on Sports
  and Comedy data where each ensemble is trained on 
-\begin_inset Formula $70\%$
+\begin_inset Formula $80\%$
 \end_inset
 
  of randomly chosen training data 
@@ -6370,7 +6361,7 @@ name "fig:TF-IDF_RF_passive_learning"
 
 TF-IDF ROC and AUC for 10 Random Forest ensembles trained and tested on
  Sports and Comedy data where each ensemble is trained on 
-\begin_inset Formula $70\%$
+\begin_inset Formula $80\%$
 \end_inset
 
  of randomly chosen training data 
@@ -6409,7 +6400,7 @@ name "fig:Fast_Text_RF_passive_learning"
 
 Fast Text ROC and AUC for 10 Random Forest ensembles trained and tested
  on Sports and Comedy data where each ensemble is trained on 
-\begin_inset Formula $70\%$
+\begin_inset Formula $80\%$
 \end_inset
 
  of randomly chosen training data 
@@ -6524,7 +6515,7 @@ name "fig:TF-IDF_NN_passive_learning"
 
 TF-IDF ROC and AUC for 10 neural networks ensembles trained and tested on
  Sports and Comedy data where each ensemble is trained on 
-\begin_inset Formula $70\%$
+\begin_inset Formula $80\%$
 \end_inset
 
  of randomly chosen training data 
@@ -6566,7 +6557,7 @@ name "fig:Fast_Text_NN_passive_learning"
 
 Fast Text ROC and AUC for 10 neural networks ensembles trained and tested
  on Sports and Comedy data where each ensemble is trained on 
-\begin_inset Formula $70\%$
+\begin_inset Formula $80\%$
 \end_inset
 
  of randomly chosen training data 
@@ -7420,7 +7411,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -7440,16 +7431,22 @@ name "fig:TF-IDF_SVM_ensembles"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for SVM ensembles with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the SVM ensembles algorithm with TF-IDF encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Sports vs.
+ Comedy categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations and TF-IDF encoding
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -7506,7 +7503,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -7526,16 +7523,22 @@ name "fig:TF-IDF_Random_Forest_ensembles"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for Random Forest ensembles with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the Random Forest ensembles algorithm with TF-IDF encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Sports vs.
+ Comedy categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations and TF-IDF encoding
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -7618,7 +7621,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -7638,17 +7641,22 @@ name "fig:Fast_Text_SVM_ensembles"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for SVM ensembles with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the SVM ensembles algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Sports vs.
+ Comedy categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and Sports vs.
- Comedy categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -7727,7 +7735,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -7747,17 +7755,22 @@ name "fig:Fast_Text_Random_Forest_ensembles"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for Random Forest ensembles with respect to 
+.Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the Random Forest ensembles algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Sports vs.
+ Comedy categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and Sports vs.
- Comedy categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -7827,7 +7840,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -7847,18 +7860,23 @@ name "fig:Fast_Text_Feed_Forward_NN_ensembles"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for Feed Forward Neural Network ensembles with respect
- to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the Feed Forward Neural Network ensembles algorithm with Fast Text
+ encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Sports vs.
+ Comedy categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and Sports vs.
- Comedy categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -7995,7 +8013,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -8015,17 +8033,22 @@ name "fig:Fast_Text_SGLD_NN"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for SGLD algorithm with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the SGLD algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Sports vs.
+ Comedy categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and Sports vs.
- Comedy categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -8094,7 +8117,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -8114,17 +8137,22 @@ name "fig:Fast_Text_SGLD_NN_Crime_Good_news"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for SGLD algorithm with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the SGLD algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Crime vs.
+ Good News categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and Crime vs.
- Good News categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -8211,7 +8239,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -8231,17 +8259,22 @@ name "fig:Fast_Text_SGLD_NN_Politics_Business"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for SGLD algorithm with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the SGLD algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Politics vs.
+ Business categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and Politics vs.
- Business categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -8290,7 +8323,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -8310,17 +8343,22 @@ name "fig:Fast_Text_SGLD_NN_Tech_Science"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for SGLD algorithm with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the SGLD algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Tech vs.
+ Science categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and Tech vs.
- Science categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -8376,7 +8414,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -8396,17 +8434,22 @@ name "fig:Fast_Text_SGLD_NN_College_Education"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for SGLD algorithm with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the SGLD algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the College vs.
+ Education categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and College vs.
- Education categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -8452,7 +8495,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -8472,17 +8515,22 @@ name "fig:Fast_Text_SGLD_NN_Tweets"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for SGLD algorithm with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the SGLD algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Positive vs.
+ Negative tweet categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and Positive vs.
- Negative tweets categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -8589,7 +8637,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -8609,17 +8657,22 @@ name "fig:Fast_Text_DENFI_NN_SPORTS_COMEDY"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for DENFI algorithm with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the DENFI algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Sports vs.
+ Comedy categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and Sports vs.
- Comedy categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -8677,7 +8730,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -8697,17 +8750,22 @@ name "fig:Fast_Text_DENFI_NN_Crime_Good_news"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for DENFI algorithm with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the DENFI algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Crime vs.
+ Good News categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and Crime vs.
- Good News categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -8754,7 +8812,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -8774,17 +8832,22 @@ name "fig:Fast_Text_DENFI_NN_Politics_Business"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for DENFI algorithm with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the DENFI algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Politics vs.
+ Business categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and Politics vs.
- Business categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -8861,7 +8924,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -8881,17 +8944,22 @@ name "fig:Fast_Text_DENFI_NN_Tech_Science"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for DENFI algorithm with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the DENFI algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Tech vs.
+ Science categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and Tech vs.
- Science categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -8948,7 +9016,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -8968,17 +9036,22 @@ name "fig:Fast_Text_DENFI_NN_College_Education"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for DENFI algorithm with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the DENFI algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the College vs.
+ Education categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and College vs.
- Education categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
@@ -9024,7 +9097,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -9044,17 +9117,22 @@ name "fig:Fast_Text_DENFI_NN_Tweets"
 
 \end_inset
 
-Comparison of random and active learning text data selection mean and one
- standard deviation for DENFI algorithm with respect to 
+Comparison of the random and active learning strategies for semi-supervised
+ learning in terms of the mean and one standard deviation of 
 \begin_inset Formula $10$
 \end_inset
 
- samples as initial training configuration, 
+ runs of the DENFI algorithm with Fast Text encoding.
+ The initial training set contains 
+\begin_inset Formula $10$
+\end_inset
+
+ samples from the Positive vs.
+ Negative tweets categories 
 \begin_inset Formula $200$
 \end_inset
 
- data selection iterations, Fast Text encoding and Positive vs.
- Negative tweets categories
+ queries for data annotation were performed
 \end_layout
 
 \end_inset
