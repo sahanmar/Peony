@@ -780,7 +780,7 @@ Experiments
 \begin_layout Standard
 The active learning simulation compares different algorithms with respect
  to two strategies: i) random, and ii) entropy based selection of text documents.
- In this paper we decided to use positive negative tweets from Tweets Dataset
+ In this paper, we decided to use positive negative tweets from Tweets Dataset
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -798,7 +798,7 @@ literal "false"
 \end_inset
 
 .
- Names of the categories are shown in table 
+ The names of the categories are shown in table 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:algorithms-comparison-table"
@@ -819,8 +819,9 @@ noprefix "false"
 \end_inset
 
 .
- The categories were chosen with respect to different classification complexity.
- We randomly choose initial training set that has 
+ The categories were chosen with respect to the different classification
+ complexity.
+ We have randomly chosen the initial training set that has 
 \begin_inset Formula $10$
 \end_inset
 
@@ -844,22 +845,22 @@ noprefix "false"
 
  documents.
  Each dataset is split on testing and training data.
+ The News Category dataset provides links to the articles and labels to
+ each link.
+ We have used the links in order to get the text articles for classification
+ purposes.
  
 \end_layout
 
 \begin_layout Standard
-Next we initialize two runs.
- First run is random selection of the text documents and second run is entropy
- based selection of the documents.
- Both runs start with the same training dataset, and then they chose additional
- training documents based on their strategies.
- We consider continuous new data selection from 1000 documents dataset and
- imitating annotators labeling process.
- All in all, we repeat text samples selection 200 times (
-\begin_inset Formula $U=200$
-\end_inset
-
-).
+Next, we initialize two runs.
+ The first run is a random selection of the text documents and the second
+ run is an entropy based selection of the documents.
+ Both the first and the second run start with the same training dataset.
+ Furthermore, they chose additional training documents based on their strategies.
+ We consider a continuous new data selection from 1000 documents dataset
+ and imitating an annotator's labeling process.
+ All in all, we repeat the text sample's selection 200 times.
  We select 
 \begin_inset Formula $10$
 \end_inset
@@ -875,31 +876,31 @@ Next we initialize two runs.
 \end_inset
 
  new sample from the set on which the prediction was done.
- New text sample for labeling is chosen with respect to acquisition function
- or random choice.
- Before we extend our training dataset with a new labeled sample, we calculate
- the area under ROC curve (AUC) metrics on the complement to the dataset
+ The new text sample for the labeling is chosen with respect to an acquisition
+ function or a random choice.
+ Before we extend our training dataset with the new labeled sample, we calculate
+ the area under the ROC curve (AUC) metrics on the complement to the dataset
  (
 \begin_inset Formula $990$
 \end_inset
 
  text documents).
- This process is repeated 
+ The described process is repeated 
 \begin_inset Formula $200$
 \end_inset
 
  times.
- Thus, by the end of the simulation, our training set will have 
+ Thus, by the end of the simulation, the training set will have 
 \begin_inset Formula $210$
 \end_inset
 
- text documents and testing set (complement to a training set) will have
- 
+ text documents and the testing set (a complement to a training set) will
+ have 
 \begin_inset Formula $790$
 \end_inset
 
  data samples.
- In order to make our results statistically valid, we repeat the described
+ In order to make the results statistically valid, we repeat the described
  simulation loop 
 \begin_inset Formula $10$
 \end_inset
@@ -922,8 +923,8 @@ noprefix "false"
 
 \end_inset
 
- is shown comparison of different neural networks based active learning
- algorithms with respect to AUC mean.
+ is shown the comparison of different neural networks based active learning
+ algorithms with respect to the AUC mean.
  The results in table 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -935,8 +936,8 @@ noprefix "false"
 \end_inset
 
  are shown for 200 active learning iterations and entropy acquisition function.
- We belief that DEnFi and Dropout cold start algorithms show the best performanc
-e with respect to shown results.
+ We believe that DEnFi and Dropout cold start algorithms show the best performan
+ce with respect to the shown results.
  
 \end_layout
 
@@ -951,11 +952,11 @@ noprefix "false"
 
 \end_inset
 
- is illustrated whole evolution of AUC mean over 10 runs with uncertainty
- bounds for six pairs of categories.
+ is illustrated the whole evolution of the AUC mean over 10 runs with the
+ uncertainty bounds for six pairs of the categories.
  It is seen that in four out of six plots DEnFi shows better active learning
  results.
- It is also seen that DenFi mimic behavior of Dropout curve for College
+ It is also seen that DenFi mimics the behavior of Dropout curve for College
  vs Education categories.
  In comparison to the categories where DEnFi showed its superiority over
  Dropout we can see that AUC values were higher than 
@@ -969,15 +970,16 @@ noprefix "false"
 .
  It can be said that DEnFi did not have enough active learning iterations
  in order to explore the dataset better.
- It is seen that in the final steps of a simulation, DEnFi curve is converging
+ It is seen that in the final steps of simulation, DEnFi curve is converging
  to Dropout curve.
  The behavior that was seen for College vs Education categories can be also
  observed for Tweets Dataset.
  The AUC scores are very low and it is seen that both DEnFi and Dropout
  are copying random selection strategy evolution.
  However, we can observe that in the right part of the plot, DEnFi active
- learning strategy starts to show better scores than random selection strategy.
- In this case we can also conclude that DEnFi did not have enough training
+ learning strategy starts to show better scores than the random selection
+ strategy.
+ In this case, we can also conclude that DEnFi did not have enough training
  samples for overcoming Dropout.
  
 \end_layout
@@ -1030,7 +1032,7 @@ AUC mean evolution with respect to learning iterations for DEnFi, Dropout
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -1805,7 +1807,7 @@ Hot Start Noise Calibration
 Both DEnFi and Dropout with hot start are quite sensitive with respect to
  added noise.
  DEnFi and Dropout hot start mean AUC results with respect to different
- gaussian noise variance configuration for Tech vs Science categories are
+ Gaussian noise variance configuration for Tech vs Science categories are
  shown in table 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1817,12 +1819,12 @@ noprefix "false"
 \end_inset
 
 .
- It is clearly seen that for little amount of training data strategy with
- less noise works better.
+ It is clearly seen that for the little amount of training data strategy
+ with less noise works better.
  However, when the amount of training data is increasing, the strategy with
- higher amount of noise is more efficient.
- Described trend is observed both for DEnFi and Dropout algorithms and can
- be seen as a linear curve formed from bold values in table 
+ a higher amount of noise is more efficient.
+ The described trend is observed both for DEnFi and Dropout algorithms and
+ can be seen as a linear curve formed from bold values in table 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:noise-calibration"
@@ -1834,7 +1836,7 @@ noprefix "false"
 
 .
  As a result, it can be assumed that adaptive noise modification can lead
- to the significantly better results.
+ to significantly better results.
  
 \end_layout
 
@@ -3394,24 +3396,23 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-In this work it was illustrated and verified that an ensembles exploration
+In this work, it was illustrated and verified that an ensembles exploration
  power can overcome a dropout based active learning algorithm if a querying
  process lasts long enough.
  Described behavior was perfectly seen both in the plots for the News Category
  Dataset where the classification scores were high and for the Twitter Dataset
  where the classification scores were low.
- Another important aspect of the work are hot start methods and a noise
- calibration.
- The DEnFi method showed great results by using the knowledge from previous
+ Another important aspect of the work is hot start methods and noise calibration.
+ DEnFi method showed great results by using the knowledge from previous
  iterations.
- The dropout hot start method has also showed good results.
+ The dropout hot start method has also shown good results.
  However, the hot start results were not good enough in comparison to the
  cold start method.
  We are concerned, that the trend of increasing noise and better classification
- for higher amount of training documents may let us to reach higher scores
+ for a higher amount of training documents may let us reach higher scores
  with adaptive noise addition.
- Combination of the facts mentioned above can be a strong basis for the
- future research.
+ A combination of the facts mentioned above can be a strong basis for future
+ research.
  
 \end_layout
 
