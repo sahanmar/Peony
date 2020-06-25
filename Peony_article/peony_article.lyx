@@ -6,7 +6,7 @@
 \origin unavailable
 \textclass article
 \begin_preamble
-\usepackage{coling2020}
+\usepackage{coling2020,url}
 %\usepackage[a4paper,left=2.5cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
 \end_preamble
 \use_default_options true
@@ -15,7 +15,7 @@
 \language_package default
 \inputencoding auto
 \fontencoding global
-\font_roman "default" "default"
+\font_roman "lmodern" "default"
 \font_sans "default" "default"
 \font_typewriter "default" "default"
 \font_math "auto" "auto"
@@ -786,7 +786,7 @@ The methods were compared on the positive/negative tweets from the Tweets
  Dataset 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "tweets_dataset"
+key "go2009twitter"
 literal "false"
 
 \end_inset
@@ -851,20 +851,25 @@ The active learning strategy is initialized from a dataset of 10 samples.
 \begin_inset Formula $L=200$
 \end_inset
 
- requests is simulated 
-\begin_inset Note Note
-status open
+ requests is simulated.
+ The element selected by active learning is accepted with probability 
+\begin_inset Formula $\epsilon=\frac{\exp(l-40)}{\exp(l-40)+1},$
+\end_inset
 
-\begin_layout Plain Layout
+ i.e.
+ the 
 \begin_inset Formula $\epsilon$
 \end_inset
 
-greedy!
-\end_layout
+-greedy approach 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "watkins1989learning"
+literal "false"
 
 \end_inset
 
-.
+, otherwise a random document is selected for labeling.
  After each request, the classification accuracy is evaluated on the remaining
  part of the selected dataset (i.e.
  on the 
@@ -872,7 +877,15 @@ greedy!
 \end_inset
 
  text documents in the first evaluation) using the area under the ROC curve
- (AUC) metrics.
+ (AUC) metrics 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "fawcett2006introduction"
+literal "false"
+
+\end_inset
+
+.
  In order to make the results statistically valid, we repeat the described
  simulation loop 
 \begin_inset Formula $10$
@@ -887,7 +900,7 @@ Hyperparameter tuning
 
 \begin_layout Standard
 Classification network was designed as feed-forward NN with two dense layers
- of ?? neurons, sigmoid activation functions, and softmax output layer.
+ of 100 neurons, sigmoid activation functions, and softmax output layer.
  The hyperparameter tuning was performed by a grid search.
  Since the main focus of the paper is on the effect of the warm-start strategy,
  the results of the effect of the noise variance 
@@ -909,7 +922,7 @@ noprefix "false"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset space \hfill{}
@@ -1985,7 +1998,7 @@ Influence of uncertainty representation
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -2635,12 +2648,12 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename plots/dropout_hot_start_vs_denfi_v2.png
-	scale 31
+	width 100line%
 
 \end_inset
 
