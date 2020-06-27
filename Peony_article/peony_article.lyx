@@ -329,8 +329,8 @@ Active Learning for Text Classification using Deep Ensemble Filtering
 \end_layout
 
 \begin_layout Abstract
-Supervised classification of texts relies on availability of reliable class
- labels for the training data.
+Supervised classification of texts relies on the availability of reliable
+ class labels for the training data.
  However, the process of collecting data labels can be complex and costly.
  A common procedure is to add labels sequentially by querying an annotator
  until reaching satisfactory performance.
@@ -338,14 +338,15 @@ Supervised classification of texts relies on availability of reliable class
  which the knowledge of the label would bring the highest discriminability
  of the dataset.
  Bayesian methods are frequently used due to their ability to represent
- uncertainty of the classification procedure.
+ the uncertainty of the classification procedure.
  In this project, we apply deep ensemble filter, i.e.
  warm-start modification of the deep ensemble representation, for the task
  of active text classification.
  We show that while the conventional dropout Monte Carlo approach provides
- good results for low number of requests, the warm-start ensembles improve
- with growing number of requests, outperforming the dropout in the long
+ good results for a low number of requests, the warm-start ensembles improve
+ with a growing number of requests, outperforming the dropout in the long
  run.
+ 
 \end_layout
 
 \begin_layout Section
@@ -353,18 +354,18 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-Development of a text classifier of an new problem requires availability
+Development of a text classifier on a new problem requires the availability
  of the training data and their labels.
  Labeling involves human annotators and a common practice is to label as
  many text documents as possible, train a classifier and search for new
  data and labels if the performance is unsatisfactory.
- Random choice of the documents for extension of the data set can be costly
+ Random choice of the documents for the data set extension can be costly
  because the new documents may not bring new information for the classification.
- Active learning strategy aims to select among available documents those
- that the classifier is most uncertain about and query an annotator for
- their labels.
+ Active learning strategy aims to select among available unlabeled documents
+ those that the classifier is most uncertain about and query an annotator
+ for their labels.
  Therefore, it has the potential to greatly reduce the effort needed for
- development of a new system.
+ the development of a new system.
  While it was introduced almost two decades ago, recent improvements in
  deep learning motivate our attempt to revisit the topic.
  For example, SVM-based active learning approaches for text classification
@@ -376,10 +377,10 @@ literal "false"
 
 \end_inset
 
-, where superiority of active learning over random sampling are demonstrated.
+, where the superiority of active learning over random sampling is demonstrated.
  Since deep recurrent and convolutional neural networks achieve better classific
-ation result, Bayesian active learning methods for deep network gained popularit
-y especially in image classification 
+ation results, Bayesian active learning methods for deep network gained
+ popularity especially in image classification 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "gal2017deep,lowell2019practical"
@@ -394,10 +395,10 @@ literal "false"
 \begin_layout Standard
 The Bayesian approach is concerned with querying label for such data for
  which the classifier predicts the greatest uncertainty.
- The uncertainty is quantified using so called acquisition function, such
+ The uncertainty is quantified using so-called acquisition function, such
  as predictive variance or predictive entropy.
  While different acquisition functions often provide similar results, different
- representations of predictive distribution yields much more diverse results.
+ representations of predictive distribution yield much more diverse results.
  The most popular approach using Dropout MC 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -457,6 +458,16 @@ literal "false"
 
 \end_inset
 
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Anonymize citation?
+\end_layout
+
+\end_inset
+
 , where the ensemble is not trained from a fresh random initialization after
  each query but initialized randomly around the position of the ensembles
  from the previous iteration.
@@ -496,7 +507,24 @@ Methods
 \end_layout
 
 \begin_layout Standard
-Throughout the paper, we will use transformer models such as BERT 
+Throughout the paper, we will not 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Quotes eld
+\end_inset
+
+not
+\begin_inset Quotes erd
+\end_inset
+
+ added :) 
+\end_layout
+
+\end_inset
+
+use transformer models such as BERT 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "devlin2018bert"
@@ -520,7 +548,7 @@ literal "false"
 \begin_inset Formula $i$
 \end_inset
 
-th text document 
+-th text document 
 \begin_inset Formula $\mathbf{x}_{i}$
 \end_inset
 
@@ -541,6 +569,28 @@ where
 \end_inset
 
 -th document in the common vocabulary, 
+\begin_inset Formula $|{\cal D}_{i}|$
+\end_inset
+
+ is a cardinality of 
+\begin_inset Formula ${\cal D}_{i}$
+\end_inset
+
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Definition of 
+\begin_inset Formula $|{\cal D}_{i}|$
+\end_inset
+
+ is added
+\end_layout
+
+\end_inset
+
+, 
 \begin_inset Formula $\mathbf{c}^{(j)}$
 \end_inset
 
@@ -588,6 +638,28 @@ For supervised classification, each document
 \begin_inset Formula $X-X^{(0)}$
 \end_inset
 
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Subtraction of two sets 
+\begin_inset Formula $X\backslash X^{(0)}$
+\end_inset
+
+ (maybe mote 
+\begin_inset Quotes eld
+\end_inset
+
+mathematically
+\begin_inset Quotes erd
+\end_inset
+
+ correct)?
+\end_layout
+
+\end_inset
+
 .
  The active learning is defined as a sequential extension of the training
  data set.
@@ -597,7 +669,7 @@ For supervised classification, each document
 
 , the algorithms computes entropy of predictive probability distribution
  for each document in the unlabeled dataset and selects the index of the
- document with highest entropy (entropy acquisition function), formally:
+ document with the highest entropy (entropy acquisition function), formally:
 \begin_inset Formula 
 \begin{equation}
 k_{l}=\arg\max_{k\in\mathcal{K}}\mathsf{E}_{p(\theta|X^{(l-1)})}\left(-\log(p(y_{k}|\theta,\boldsymbol{x}_{1}\ldots\boldsymbol{x}_{l_{0}+l},\boldsymbol{x}_{k}))\right)\label{eq:entropy}
@@ -899,8 +971,19 @@ Hyperparameter tuning
 \end_layout
 
 \begin_layout Standard
-Classification network was designed as feed-forward NN with two dense layers
- of 100 neurons, sigmoid activation functions, and softmax output layer.
+Classification network was designed as feed-forward NN with one dense layers
+ of 100 neurons 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+I changed to 1 dense layer of 100 neurons because the NN has input layer
+ (100 neurons) -> Output layer (1 neuron) 
+\end_layout
+
+\end_inset
+
+, sigmoid activation functions, and softmax output layer.
  The hyperparameter tuning was performed by a grid search.
  Since the main focus of the paper is on the effect of the warm-start strategy,
  the results of the effect of the noise variance 
@@ -2608,7 +2691,7 @@ noprefix "false"
 .
  While all methods achieved best results on some datasets, the most consistent
  results were provided by the DEnFi and Dropout methods.
- Detailed analysis of the DEnFi and Dropout stategies is provided in figure
+ Detailed analysis of the DEnFi and Dropout strategies is provided in figure
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2625,7 +2708,7 @@ noprefix "false"
  Note that for passive learning strategy, dropout outperforms consistently
  DEnFi on all tasks.
  We conjecture that this is due to the robustness of the dropout regularization.
- However, the power of DEnFi becomes apparent with increasing the number
+ However, the power of DEnFi becomes apparent with the increasing number
  of requests.
  It is improving slower than dropout at the beginning, but improves faster,
  thus outperforming dropout in the long run.
