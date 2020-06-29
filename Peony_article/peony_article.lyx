@@ -356,7 +356,7 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-Development of a text classifier on a new problem requires the availability
+The development of a text classifier on a new problem requires the availability
  of the training data and their labels.
  Labeling involves human annotators and a common practice is to label as
  many text documents as possible, train a classifier and search for new
@@ -397,8 +397,8 @@ literal "false"
 \begin_layout Standard
 The Bayesian approach is concerned with querying label for such data for
  which the classifier predicts the greatest uncertainty.
- The uncertainty is quantified using so-called acquisition function, such
- as predictive variance or predictive entropy.
+ The uncertainty is quantified using the so-called acquisition function,
+ such as predictive variance or predictive entropy.
  While different acquisition functions often provide similar results, different
  representations of predictive distribution yield much more diverse results.
  The most popular approach using Dropout MC 
@@ -475,7 +475,7 @@ Anonymize citation?
  from the previous iteration.
  In this contribution, we test this approach and compare it with the dropout
  MC and Langevin dynamics representations.
- We also provide sensitivity study for choice of the hyperparameters.
+ We also provide sensitivity study for the choice of the hyperparameters.
 \end_layout
 
 \begin_layout Standard
@@ -509,24 +509,7 @@ Methods
 \end_layout
 
 \begin_layout Standard
-Throughout the paper, we will not 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-\begin_inset Quotes eld
-\end_inset
-
-not
-\begin_inset Quotes erd
-\end_inset
-
- added :) 
-\end_layout
-
-\end_inset
-
-use transformer models such as BERT 
+Throughout the paper, we will not use transformer models such as BERT 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "devlin2018bert"
@@ -534,7 +517,7 @@ literal "false"
 
 \end_inset
 
- for representation of the text documents.
+ for the representation of the text documents.
  These models and their modifications provide state of the art results in
  context understanding.
  For our experiments we choose the Fast Text 
@@ -578,21 +561,7 @@ where
 \begin_inset Formula ${\cal D}_{i}$
 \end_inset
 
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Definition of 
-\begin_inset Formula $|{\cal D}_{i}|$
-\end_inset
-
- is added
-\end_layout
-
-\end_inset
-
-, 
+ , 
 \begin_inset Formula $\mathbf{c}^{(j)}$
 \end_inset
 
@@ -618,8 +587,8 @@ For supervised classification, each document
 \end_inset
 
 .
- We are concerned with binary classification for simplicity, however, extension
- to multiclass is straightforward.
+ We are concerned with binary classification for simplicity, however, an
+ extension to multiclass is straightforward.
  We assume that for the full corpus of documents text documents 
 \begin_inset Formula $X=[\boldsymbol{x}_{1},\ldots\boldsymbol{x}_{n}]$
 \end_inset
@@ -663,13 +632,13 @@ mathematically
 \end_inset
 
 .
- The active learning is defined as a sequential extension of the training
- data set.
+ Active learning is defined as a sequential extension of the training data
+ set.
  In each iteration, 
 \begin_inset Formula $l=1,\ldots L$
 \end_inset
 
-, the algorithms computes entropy of predictive probability distribution
+, the algorithm computes entropy of predictive probability distribution
  for each document in the unlabeled dataset and selects the index of the
  document with the highest entropy (entropy acquisition function), formally:
 \begin_inset Formula 
@@ -702,7 +671,7 @@ where
 \begin_inset Formula $X^{(l)}=[X^{(l-1)},\boldsymbol{x}_{k_{l}}],Y^{(l)}=[Y^{(l-1)},y_{k_{l}}].$
 \end_inset
 
- And the procedure is repeated 
+ The procedure is repeated 
 \begin_inset Formula $L$
 \end_inset
 
@@ -711,14 +680,14 @@ where
 \end_layout
 
 \begin_layout Standard
-Key component of the method is representation of the posterior distribution
- of the parameter 
+The key component of the method is a representation of the posterior distributio
+n of the parameter 
 \begin_inset Formula $\theta$
 \end_inset
 
 .
- Due to complexity of the neural networks it is always represented by samples,
- with different method of their generation.
+ Due to the complexity of the neural networks it is always represented by
+ samples, with a different method of their generation.
  We will compare the following methods: i) SGLD: Stochastic Gradient with
  Langevin dynamics 
 \begin_inset CommandInset citation
@@ -771,7 +740,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-While many of these has been tested in active learning, the authors always
+While many of these have been tested in active learning, the authors always
  assumed that after each step of active learning, the network training starts
  from the initial conditions.
  This is clearly suboptimal, since the information from previous training
@@ -786,21 +755,21 @@ literal "false"
 
 , where it was argued that estimated results from the previous step can
  be used as centroids around which the new initial point is sampled.
- Since this is a form of a warm start, we also test warm-start strategies
+ Since this is a form of a warm-start, we also test warm-start strategies
  for Dropout.
  The methods for representation of parametric uncertainty are:
 \end_layout
 
 \begin_layout Description
 DEnFI: a deep ensemble method with 10 neural networks in the ensembles and
- warm start using weights of the ensemble members as initial conditions
+ warm-start using weights of the ensemble members as initial conditions
  for the new ensemble.
  The weights are perturbed by a Gaussian noise of variance 
 \begin_inset Formula $q$
 \end_inset
 
  which is a hyperparameter.
- The ensemble is trained run 2000 epochs on the initial data with additional
+ The ensemble is trained to run 2000 epochs on the initial data with additional
  700 epochs after each extension of the learning data set.
  
 \end_layout
@@ -810,9 +779,9 @@ Dropout
 \begin_inset space ~
 \end_inset
 
-MC: in three versions: i) cold start with 3000 epochs after each request,
- ii) hot-start, with 50 epochs, and iii) warm-start with weights from previous
- iteration perturbed by an additive noise of variance 
+MC: in three versions: i) cold-start with 3000 epochs after each request,
+ ii) hot-start, with 50 epochs, and iii) warm-start with weights from the
+ previous iteration perturbed by an additive noise of variance 
 \begin_inset Formula $q$
 \end_inset
 
@@ -925,7 +894,7 @@ The active learning strategy is initialized from a dataset of 10 samples.
 \begin_inset Formula $L=200$
 \end_inset
 
- requests is simulated.
+ requests are simulated.
  The element selected by active learning is accepted with probability 
 \begin_inset Formula $\epsilon=\frac{\exp(l-40)}{\exp(l-40)+1},$
 \end_inset
@@ -973,8 +942,8 @@ Hyperparameter tuning
 \end_layout
 
 \begin_layout Standard
-Classification network was designed as feed-forward NN with one dense layers
- of 100 neurons
+The classification network was designed as feed-forward NN with one dense
+ layer of 100 neurons
 \begin_inset Note Note
 status collapsed
 
@@ -2011,7 +1980,7 @@ variance
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Dropout warm start 
+Dropout warm-start 
 \end_layout
 
 \end_inset
@@ -2039,7 +2008,7 @@ name "tab:noise-calibration"
 \end_inset
 
 AUC of text classification after selected number of requests of the active
- learning using DEnFi and Dropout warm start for various selection of the
+ learning using DEnFi and Dropout warm-start for various selection of the
  perturbation noise 
 \begin_inset Formula $q$
 \end_inset
@@ -2059,8 +2028,8 @@ AUC of text classification after selected number of requests of the active
 
  Note that the variance of the perturbation noise of the best result is
  increasing with the number of requests.
- We conjecture that the variance has the role of selection of the the exploratio
-n/exploitation tradeoff.
+ We conjecture that the variance has the role of a selection of the exploration/
+exploitation tradeoff.
  Low variance favors exploitation and improves quickly, higher variance
  implies less accurate guesses in the initial iterations but better performance
  in the long run.
@@ -2083,7 +2052,7 @@ Influence of uncertainty representation
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -2402,7 +2371,7 @@ DEnFi,
 \begin_inset Text
 
 \begin_layout Plain Layout
-Dropout cold start
+Dropout cold-start
 \end_layout
 
 \end_inset
@@ -2485,7 +2454,7 @@ Dropout cold start
 \begin_inset Text
 
 \begin_layout Plain Layout
-Dropout hot start
+Dropout hot-start
 \end_layout
 
 \end_inset
@@ -2570,7 +2539,7 @@ Dropout hot start
 \begin_inset Text
 
 \begin_layout Plain Layout
-Dropout warm start, 
+Dropout warm-start, 
 \begin_inset Formula $q=0.3\!\!$
 \end_inset
 
@@ -2679,8 +2648,8 @@ Average AUC over 10 runs for five different algorithms after 200 iterations
 
 \end_inset
 
-Comparison of AUC of the active learning strategy after 200 requests for
- all tested algorithms is reported in table 
+ A comparison of AUC of the active learning strategy after 200 requests
+ for all tested algorithms is reported in table 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:algorithms-comparison-table"
@@ -2705,7 +2674,7 @@ noprefix "false"
 \end_inset
 
  for all tested datasets.
- For better insight, we also display performance of the passive learning
+ For better insight, we also display the performance of the passive learning
  strategy where training data are extended using randomly sampled documents.
  Note that for passive learning strategy, dropout outperforms consistently
  DEnFi on all tasks.
@@ -2724,9 +2693,9 @@ noprefix "false"
  The active learning is on par with the passive strategy up to 125 requests
  and even after 200 requests, the AUC is below 0.7 indicating poor performance.
  Note that the active learning strategy of DEnFi starts improving over the
- passive one sooner than dropout with sharper slope which indicate high
- probability of obtaining the same profile as the other datasets in the
- long run.
+ passive one sooner than dropout with a sharper slope which indicates a
+ high probability of obtaining the same profile as the other datasets in
+ the long run.
 \end_layout
 
 \begin_layout Standard
@@ -2756,7 +2725,7 @@ name "fig:AUC-evolution-plots"
 \end_inset
 
 AUC mean evolution with respect to learning iterations for DEnFi, Dropout
- cold start algorithms and six pairs of categories.
+ cold-start algorithms and six pairs of categories.
  The uncertainty bounds are illustrated as one standard deviation from the
  mean value.
  Both DEnFi and Dropout were initially trained on 10 labeled text documents
@@ -2778,21 +2747,21 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-We have studied suitability of various uncertainty representation for the
- task of active text classification.
+We have studied the suitability of various uncertainty representations for
+ the task of active text classification.
  The established dropout methodology was compared against deep ensembles.
- To reduce computational cost, we studied warm start strategies for both
- ensembles (called DEnFi) and dropout.
- The resulting methods exhibit different tradeoff between exploration and
- exploitation.
+ To reduce the computational cost, we studied warm-start strategies for
+ both ensembles (called DEnFi) and dropout.
+ The resulting methods exhibit a different tradeoff between exploration
+ and exploitation.
  While dropout has been found to be more reliable in passive learning and
  improving faster at the beginning of the training, the DEnFi was found
  to prefer exploration sacrificing performance at the beginning but outperformin
 g dropout in the long run.
  The same has been observed for tuning of the variance of the noise used
- in warm start where higher variance implied shift towards exploration in
- the learning process.
- Both methods achieved significantly faster learning than passive approach
+ in the warm-start where higher variance implied shift towards exploration
+ in the learning process.
+ Both methods achieved significantly faster learning than the passive approach
  on all tested datasets of various complexity.
  
 \end_layout
