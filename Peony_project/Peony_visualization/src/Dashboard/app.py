@@ -11,6 +11,7 @@ import datetime
 import re
 
 from dash.dependencies import Input, Output, State
+from plotly.colors import n_colors
 from PeonyPackage.PeonyDb import MongoDb
 from Peony_database.src.database_results.results_summary import PeonyDbResults
 
@@ -49,13 +50,13 @@ def find_similar_algorithms_in_db(alg):
     return sorted(similar_algs)
 
 
-def create_evolution_row(res, mean_func, dev_func):
+def create_evolution_table_stats(res, mean_func, dev_func):
     return [
-        f"{round(mean_func(res, axis=0)[0][0],3)}±{round(dev_func(res, axis=0)[0][0],3)}",
-        f"{round(mean_func(res, axis=0)[49][0],3)}±{round(dev_func(res, axis=0)[49][0],3)}",
-        f"{round(mean_func(res, axis=0)[99][0],3)}±{round(dev_func(res, axis=0)[99][0],3)}",
-        f"{round(mean_func(res, axis=0)[149][0],3)}±{round(dev_func(res, axis=0)[149][0],3)}",
-        f"{round(mean_func(res, axis=0)[199][0],3)}±{round(dev_func(res, axis=0)[199][0],3)}",
+        round(mean_func(res, axis=0)[0][0], 3),
+        round(mean_func(res, axis=0)[49][0], 3),
+        round(mean_func(res, axis=0)[99][0], 3),
+        round(mean_func(res, axis=0)[149][0], 3),
+        round(mean_func(res, axis=0)[199][0], 3),
     ]
 
 
@@ -89,43 +90,50 @@ def create_evloution_table(category, algs):
         )
 
     list_w_results = []
+
     for alg in algs:
         res = get_res_from_db(alg, "entropy", category_1, category_2)
         if res is None:
             return html.H4(
                 f"No additional noise visualization data in Db found for {title_category} and {alg_legend}"
             )
-        list_w_results.append(create_evolution_row(res, mean_func, dev_func))
+        list_w_results.append(create_evolution_table_stats(res, mean_func, dev_func))
 
-    df = pd.DataFrame(list_w_results)
-    df.columns = [
-        "0",
-        "50",
-        "100",
-        "150",
-        "200",
-    ]
-
-    df["Noise Variance"] = ["0.1", "0.2", "0.3", "0.4", "0.6"]
-    df.set_index("Noise Variance")
+    list_w_results = list(map(list, zip(*list_w_results)))
+    noise_var = [0.1, 0.2, 0.3, 0.4, 0.6]
+    colors = n_colors("rgb(172, 193, 198)", "rgb(2, 52, 81)", 5, colortype="rgb")
+    table_to_vis = [noise_var] + [val for val in list_w_results]
 
     fig = go.Figure(
         data=[
             go.Table(
                 header=dict(
-                    values=[df.columns[-1]] + list(df.columns[:-1]),
+                    values=[
+                        "<b>Noise Variance</b>",
+                        "<b>0</b>",
+                        "<b>50</b>",
+                        "<b>100</b>",
+                        "<b>150</b>",
+                        "<b>200</b>",
+                    ],
                     font_size=13,
+                    align="center",
                     height=40,
                 ),
                 cells=dict(
-                    values=[df[df.columns[-1]]]
-                    + [df[column] for column in df.columns[:-1]],
+                    values=table_to_vis,
+                    fill_color=[
+                        np.array(colors)[np.argsort(np.argsort(val))]
+                        for val in table_to_vis
+                    ],
+                    align="center",
                     font_size=13,
                     height=40,
                 ),
             )
         ]
     )
+
     fig.update_layout(
         height=500,
         width=1000,
