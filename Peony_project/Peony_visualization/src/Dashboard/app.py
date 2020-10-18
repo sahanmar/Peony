@@ -19,6 +19,121 @@ api = MongoDb()
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 database_results = PeonyDbResults()
 
+tabs_styles = {"height": "44px"}
+
+tab_style = {
+    "borderBottom": "1px solid #d6d6d6",
+    "padding": "6px",
+}
+
+tab_selected_style = {
+    "borderTop": "1px solid #d6d6d6",
+    "borderBottom": "1px solid #d6d6d6",
+    "backgroundColor": "#1f2e2e",
+    "color": "white",
+    "padding": "6px",
+}
+
+
+def hamming_distance(chaine1, chaine2):
+    return sum(c1 != c2 for c1, c2 in zip(chaine1, chaine2))
+
+
+def find_similar_algorithms_in_db(alg):
+    db_algs = database_results.structurize_data()
+    similar_algs = []
+    for db_alg in db_algs:
+        str_non_similarity = hamming_distance(alg, db_alg)
+        if str_non_similarity <= 2:
+            similar_algs.append(db_alg)
+    return sorted(similar_algs)
+
+
+def create_evolution_row(res, mean_func, dev_func):
+    return [
+        f"{round(mean_func(res, axis=0)[0][0],3)}±{round(dev_func(res, axis=0)[0][0],3)}",
+        f"{round(mean_func(res, axis=0)[49][0],3)}±{round(dev_func(res, axis=0)[49][0],3)}",
+        f"{round(mean_func(res, axis=0)[99][0],3)}±{round(dev_func(res, axis=0)[99][0],3)}",
+        f"{round(mean_func(res, axis=0)[149][0],3)}±{round(dev_func(res, axis=0)[149][0],3)}",
+        f"{round(mean_func(res, axis=0)[199][0],3)}±{round(dev_func(res, axis=0)[199][0],3)}",
+    ]
+
+
+def get_res_from_db(alg, acsq_func, category_1, category_2):
+    res = api.get_model_results(
+        {
+            "model": alg,
+            "acquisition_function": acsq_func,
+            "category_1": category_1,
+            "category_2": category_2,
+        }
+    )
+    return res[0]["results"] if res else None
+
+
+def create_evloution_table(category, algs):
+
+    dev_func = np.std
+    mean_func = np.mean
+
+    alg_legend = " ".join([token.capitalize() for token in algs[0].split("_")[:2]])
+    category_1, category_2 = [
+        val.strip().upper() for val in re.sub("_", " ", category).split("vs")
+    ]
+
+    title_category = " ".join([category_1.capitalize(), "Vs.", category_2.capitalize()])
+
+    if len(algs) == 1:
+        return html.H4(
+            f"No additional noise visualization data in Db found for {title_category} and {alg_legend}"
+        )
+
+    list_w_results = []
+    for alg in algs:
+        res = get_res_from_db(alg, "entropy", category_1, category_2)
+        if res is None:
+            return html.H4(
+                f"No additional noise visualization data in Db found for {title_category} and {alg_legend}"
+            )
+        list_w_results.append(create_evolution_row(res, mean_func, dev_func))
+
+    df = pd.DataFrame(list_w_results)
+    df.columns = [
+        "0",
+        "50",
+        "100",
+        "150",
+        "200",
+    ]
+
+    df["Noise Variance"] = ["0.1", "0.2", "0.3", "0.4", "0.6"]
+    df.set_index("Noise Variance")
+
+    fig = go.Figure(
+        data=[
+            go.Table(
+                header=dict(
+                    values=[df.columns[-1]] + list(df.columns[:-1]),
+                    font_size=13,
+                    height=40,
+                ),
+                cells=dict(
+                    values=[df[df.columns[-1]]]
+                    + [df[column] for column in df.columns[:-1]],
+                    font_size=13,
+                    height=40,
+                ),
+            )
+        ]
+    )
+    fig.update_layout(
+        height=500,
+        width=1000,
+        title_text=f"{alg_legend} Algorithm with Respect to Different Additive Noise",
+    )
+    fig.layout.template = "plotly_dark"
+    return dcc.Graph(figure=fig)
+
 
 def visualize_auc_evolutions(
     auc_seq_passive_1,
@@ -163,8 +278,8 @@ def visualize_auc_evolutions(
 
     fig.update_layout(
         title_text=f"{title} categories",
-        xaxis_title="AUC",
-        yaxis_title="Learning Iterations",
+        yaxis_title="AUC",
+        xaxis_title="Learning Iterations",
     )
 
     fig.update_layout(
@@ -195,54 +310,43 @@ def create_plot(categories_list, alg_1, alg_2):
         )
 
         # Random acquisition function
-        random_sampling_results_1 = api.get_model_results(
-            {
-                "model": alg_1,
-                "acquisition_function": "random",
-                "category_1": category_1,
-                "category_2": category_2,
-            }
-        )[0]
-        random_sampling_results_2 = api.get_model_results(
-            {
-                "model": alg_2,
-                "acquisition_function": "random",
-                "category_1": category_1,
-                "category_2": category_2,
-            }
-        )[0]
+        random_sampling_results_1 = get_res_from_db(
+            alg_1, "random", category_1, category_2
+        )
+        random_sampling_results_2 = get_res_from_db(
+            alg_2, "random", category_1, category_2
+        )
 
         # Entropy acquisition function
-        entropy_sampling_results_1 = api.get_model_results(
-            {
-                "model": alg_1,
-                "acquisition_function": "entropy",
-                "category_1": category_1,
-                "category_2": category_2,
-            }
-        )[0]
-        entropy_sampling_results_2 = api.get_model_results(
-            {
-                "model": alg_2,
-                "acquisition_function": "entropy",
-                "category_1": category_1,
-                "category_2": category_2,
-            }
-        )[0]
+        entropy_sampling_results_1 = get_res_from_db(
+            alg_1, "entropy", category_1, category_2
+        )
+        entropy_sampling_results_2 = get_res_from_db(
+            alg_2, "entropy", category_1, category_2
+        )
 
         list_of_plots.append(
             dcc.Graph(
                 id=f"graph_{index}",
                 figure=visualize_auc_evolutions(
-                    random_sampling_results_1["results"],
-                    random_sampling_results_2["results"],
-                    entropy_sampling_results_1["results"],
-                    entropy_sampling_results_2["results"],
+                    random_sampling_results_1,
+                    random_sampling_results_2,
+                    entropy_sampling_results_1,
+                    entropy_sampling_results_2,
                     alg_legend_1,
                     alg_legend_2,
                     title_category,
                 ),
             )
+            if all(
+                [
+                    random_sampling_results_1,
+                    random_sampling_results_2,
+                    entropy_sampling_results_1,
+                    entropy_sampling_results_2,
+                ]
+            )
+            else html.H5(f"No data in Db found for {title_category} AUC visualization")
         )
 
     return list_of_plots
@@ -401,11 +505,37 @@ app.layout = html.Div(
                 "display": "inline-block",
                 "horizontal-align": "right",
                 "margin-left": "1%",
+                "width": "100%",
             },
             children=[
-                html.Div(
-                    id="div-w-plots",
-                )
+                dcc.Tabs(
+                    id="tabs",
+                    value="tab-1",
+                    children=[
+                        dcc.Tab(
+                            label="AUC Evolutions",
+                            value="tab-1",
+                            style=tab_style,
+                            selected_style=tab_selected_style,
+                            children=[
+                                html.Div(
+                                    id="div-w-plots",
+                                ),
+                            ],
+                        ),
+                        dcc.Tab(
+                            label="Additive Noise Results Fluctuation",
+                            value="tab-2",
+                            style=tab_style,
+                            selected_style=tab_selected_style,
+                        ),
+                    ],
+                    style={"display": "flex", "width": "100%"},
+                    colors={
+                        "background": "black",
+                    },
+                ),
+                html.Div(id="tabs-content-classes"),
             ],
         ),
     ],
@@ -426,22 +556,50 @@ def create_temp_variable(categories):
 
 
 @app.callback(
-    [Output("div-w-plots", "children"), Output("visualized-categories", "data")],
+    [
+        Output("tabs-content-classes", "children"),
+        Output("visualized-categories", "data"),
+    ],
     [
         Input("categories-dropdown", "value"),
         Input("first-alg-dropdown", "value"),
         Input("second-alg-dropdown", "value"),
+        Input("tabs", "value"),
         Input("tmp", "data"),
     ],
 )
-def update_figure(categories_string, first_alg, second_alg, categories):
-    if categories_string is None or categories_string == "reset":
-        return [], []
-    if first_alg is None or second_alg is None:
-        return [], []
-    if categories_string not in categories:
-        categories.append(categories_string)
-    return create_plot(categories, first_alg, second_alg), categories
+def update_figure(categories_string, first_alg, second_alg, tab, categories):
+    if tab == "tab-1":
+        if categories_string is None or categories_string == "reset":
+            return [], []
+        if first_alg is None or second_alg is None:
+            return [], []
+        if categories_string not in categories:
+            categories.append(categories_string)
+        return create_plot(categories, first_alg, second_alg), categories
+    else:
+        if categories is None or first_alg is None or second_alg is None:
+            return [], categories
+        else:
+            if categories_string is None or categories_string == "reset":
+                return [], []
+            if categories_string not in categories:
+                categories.append(categories_string)
+            alg_1_similar = find_similar_algorithms_in_db(first_alg)
+            alg_2_similar = find_similar_algorithms_in_db(second_alg)
+            return (
+                [
+                    html.Div(
+                        id=f"table_{index}",
+                        children=[
+                            create_evloution_table(category, alg_1_similar),
+                            create_evloution_table(category, alg_2_similar),
+                        ],
+                    )
+                    for index, category in enumerate(categories)
+                ],
+                categories,
+            )
 
 
 if __name__ == "__main__":
