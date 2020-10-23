@@ -41,14 +41,14 @@ def main():
         collection_name=HuffPost_collection_name,
         collection_id=HuffPost_collection_id,
         label="SPORTS",
-        limit=50,
+        limit=100,
     )
 
     comedy_records = api.get_record(
         collection_name=HuffPost_collection_name,
         collection_id=HuffPost_collection_id,
         label="COMEDY",
-        limit=50,
+        limit=100,
     )
     instances = sport_records + comedy_records
     labels = [sample["record"]["label"] for sample in sport_records + comedy_records]
@@ -72,11 +72,14 @@ def main():
 
     Transformator = transformator()
     Transformator.fit(instances, labels)
+    # Transformator.fit(labels)
 
     peony_model = PeonyBoxModel(
-        Transformator, active_learning_step=5, acquisition_function=entropy_sampling,
+        Transformator,
+        active_learning_step=5,
+        acquisition_function=entropy_sampling,
     )
-    peony_model.bayesian_dropout_nn.fit(instances[50:], labels[50:])
+    # peony_model.bayesian_dropout_nn.fit(instances[50:], labels[50:])
     # peony_model.bayesian_denfi_nn.reset()
     # peony_model.bayesian_denfi_nn.epsilon_greedy_coef = 1
     # indexes = peony_model.bayesian_denfi_nn.get_learning_samples(instances[:50])
@@ -86,7 +89,7 @@ def main():
 
     # peony_model.feed_forward_nn.add_new_learning_samples(add_training, add_labels)
     # peony_model.feed_forward_nn.fit(instances, labels)
-    predicted = peony_model.bayesian_dropout_nn.predict(instances[50:])
+    # predicted = peony_model.bayesian_dropout_nn.predict(instances[50:])
 
     start_time = time.time()
     k_fold = k_fold_corss_validation(
