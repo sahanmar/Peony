@@ -30,6 +30,12 @@ from Emotions_dataset import (
     load_data as Emotions_loader,
 )
 
+from fake_news import (
+    COLLECTION_NAME as fake_news_collection_name,
+    transorm_data as fake_news_transformer,
+    load_data as fake_news_loader,
+)
+
 # args for different datasets
 def input_args() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
@@ -38,6 +44,7 @@ def input_args() -> argparse.ArgumentParser:
     parser.add_argument("--tweets", help="Path to 1600k tweets (emotional semantics)")
     parser.add_argument("--comments", help="Path to comments dataset")
     parser.add_argument("--emotions", help="Path to emotional texts dataset")
+    parser.add_argument("--fake_news", help="Path to fake news dataset")
     return parser
 
 
@@ -77,6 +84,13 @@ def main():
         Path(args.emotions),
         Emotions_loader,
         Emotions_transformer,
+    )
+
+    api.load_data_to_database(
+        fake_news_collection_name,
+        Path(args.fake_news),
+        fake_news_loader,
+        fake_news_transformer,
     )
 
 
