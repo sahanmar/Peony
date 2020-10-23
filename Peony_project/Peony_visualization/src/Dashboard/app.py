@@ -50,13 +50,11 @@ def find_similar_algorithms_in_db(alg):
     return sorted(similar_algs)
 
 
-def create_evolution_table_stats(res, mean_func, dev_func):
-    return [
-        round(mean_func(res, axis=0)[0][0], 3),
-        round(mean_func(res, axis=0)[49][0], 3),
-        round(mean_func(res, axis=0)[99][0], 3),
-        round(mean_func(res, axis=0)[149][0], 3),
-        round(mean_func(res, axis=0)[199][0], 3),
+def create_evolution_table_stats(res, mean_func, dev_func, slider_val):
+    slider_val = slider_val - 1
+    return [round(mean_func(res, axis=0)[0][0], 3)] + [
+        round(mean_func(res, axis=0)[int((i * 200 / (slider_val) - 1))][0], 3)
+        for i in range(1, slider_val + 1)
     ]
 
 
@@ -72,7 +70,7 @@ def get_res_from_db(alg, acsq_func, category_1, category_2):
     return res[0]["results"] if res else None
 
 
-def create_evloution_table(category, algs):
+def create_evloution_table(category, algs, slider_val):
 
     dev_func = np.std
     mean_func = np.mean
@@ -97,24 +95,23 @@ def create_evloution_table(category, algs):
             return html.H4(
                 f"No additional noise visualization data in Db found for {title_category} and {alg_legend}"
             )
-        list_w_results.append(create_evolution_table_stats(res, mean_func, dev_func))
+        list_w_results.append(
+            create_evolution_table_stats(res, mean_func, dev_func, slider_val)
+        )
 
     list_w_results = list(map(list, zip(*list_w_results)))
     noise_var = [0.1, 0.2, 0.3, 0.4, 0.6]
     colors = n_colors("rgb(172, 193, 198)", "rgb(2, 52, 81)", 5, colortype="rgb")
     table_to_vis = [noise_var] + [val for val in list_w_results]
-
+    slider_val -= 1
     fig = go.Figure(
         data=[
             go.Table(
                 header=dict(
-                    values=[
-                        "<b>Noise Variance</b>",
-                        "<b>0</b>",
-                        "<b>50</b>",
-                        "<b>100</b>",
-                        "<b>150</b>",
-                        "<b>200</b>",
+                    values=["<b>Noise Variance</b>", "<b>0</b>"]
+                    + [
+                        f"<b>{int(i * 200 / (slider_val))}</b>"
+                        for i in range(1, slider_val + 1)
                     ],
                     font_size=13,
                     align="center",
@@ -536,6 +533,32 @@ app.layout = html.Div(
                             value="tab-2",
                             style=tab_style,
                             selected_style=tab_selected_style,
+                            children=[
+                                html.Div(
+                                    children=[
+                                        html.H5(
+                                            children=[
+                                                "Slide bar to visualize number of table columns"
+                                            ],
+                                            style={
+                                                "text-align": "center",
+                                                "margin-bottom": "10pt",
+                                                "margin-top": "10pt",
+                                            },
+                                        ),
+                                        dcc.Slider(
+                                            id="slider",
+                                            min=2,
+                                            max=10,
+                                            value=5,
+                                            marks={
+                                                str(i): str(i) for i in range(2, 11)
+                                            },
+                                            step=None,
+                                        ),
+                                    ],
+                                ),
+                            ],
                         ),
                     ],
                     style={"display": "flex", "width": "100%"},
@@ -549,6 +572,77 @@ app.layout = html.Div(
     ],
     style={"display": "flex"},
 )
+
+
+def intro_page():
+    return [
+        html.Div(
+            children=[
+                html.H6(
+                    children=[
+                        """
+                        Peony Visualization Component serves as an endpoint that queries MongoDb and visualizes maching learning results.
+                        The visualizatopn component is implemented in Dash by PlotLy.
+                        """
+                    ],
+                    style={
+                        # "text-align": "center",
+                        "margin-bottom": "20pt",
+                        "margin-top": "40pt",
+                        "margin-right": "10%",
+                        "margin-left": "10%",
+                    },
+                ),
+                html.Div(
+                    children=[
+                        html.Img(
+                            className="dash-mongo-logo",
+                            src=app.get_asset_url("dash-mongo.png"),
+                            style={
+                                "height": "100%",
+                                "width": "100%",
+                                # "display": "inline-block",
+                            },
+                        ),
+                    ],
+                ),
+                html.H6(
+                    children=[
+                        """
+                        The tool allows a user to visualize AUC (Area Under ROC curve) evolutions and Additive Noise Fluctuations with respect to different categories.
+                        
+                        Categories and results for different algorithms can be found in dropdown menus. 
+
+                        Both plots and tables are interactive. Thus, a user is able to extract more information. Moreover, a user can also download a plot or a table.
+                        """
+                    ],
+                    style={
+                        # "text-align": "center",
+                        "margin-bottom": "20pt",
+                        "margin-top": "20pt",
+                        "margin-right": "10%",
+                        "margin-left": "10%",
+                    },
+                ),
+                html.H6(
+                    children=["""Author: Marko Sahan"""],
+                    style={
+                        "margin-top": "40pt",
+                        "margin-right": "10%",
+                        "margin-left": "10%",
+                    },
+                ),
+                html.A(
+                    "Peony Project GitHub",
+                    href="https://github.com/sahanmar/Peony/",
+                    style={
+                        "margin-right": "10%",
+                        "margin-left": "10%",
+                    },
+                ),
+            ]
+        )
+    ]
 
 
 @app.callback(
@@ -573,24 +667,27 @@ def create_temp_variable(categories):
         Input("first-alg-dropdown", "value"),
         Input("second-alg-dropdown", "value"),
         Input("tabs", "value"),
+        Input("slider", "value"),
         Input("tmp", "data"),
     ],
 )
-def update_figure(categories_string, first_alg, second_alg, tab, categories):
+def update_figure(
+    categories_string, first_alg, second_alg, tab, slider_val, categories
+):
     if tab == "tab-1":
         if categories_string is None or categories_string == "reset":
-            return [], []
+            return intro_page(), []
         if first_alg is None or second_alg is None:
-            return [], []
+            return intro_page(), []
         if categories_string not in categories:
             categories.append(categories_string)
         return create_plot(categories, first_alg, second_alg), categories
     else:
         if categories is None or first_alg is None or second_alg is None:
-            return [], categories
+            return intro_page(), categories
         else:
             if categories_string is None or categories_string == "reset":
-                return [], []
+                return intro_page(), []
             if categories_string not in categories:
                 categories.append(categories_string)
             alg_1_similar = find_similar_algorithms_in_db(first_alg)
@@ -600,8 +697,8 @@ def update_figure(categories_string, first_alg, second_alg, tab, categories):
                     html.Div(
                         id=f"table_{index}",
                         children=[
-                            create_evloution_table(category, alg_1_similar),
-                            create_evloution_table(category, alg_2_similar),
+                            create_evloution_table(category, alg_1_similar, slider_val),
+                            create_evloution_table(category, alg_2_similar, slider_val),
                         ],
                     )
                     for index, category in enumerate(categories)
@@ -611,4 +708,8 @@ def update_figure(categories_string, first_alg, second_alg, tab, categories):
 
 
 if __name__ == "__main__":
-    app.run_server(host=os.getenv("localhost", "127.0.0.1"), debug=True)
+    app.run_server(
+        host=os.getenv("localhost", "127.0.0.1"),
+        debug=True,
+        dev_tools_ui=False,
+    )
