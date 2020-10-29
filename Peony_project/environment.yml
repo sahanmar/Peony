@@ -14,6 +14,7 @@ dependencies:
   - nltk
   - jupyter
   - pytorch
+  - tensorflow
   - multiprocess
   - mkl-service
   - theano
@@ -25,5 +26,7 @@ dependencies:
       - black
       - matplotlib
       - numpyro
+      - bert-serving-server
+      - bert-serving-client
       - git+https://github.com/MFreidank/pysgmcmc@pytorch
       - -e .

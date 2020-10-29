@@ -13,8 +13,12 @@ from Peony_box.src.transformators.common import (
 from tqdm import tqdm
 from functools import lru_cache
 
+from nltk.tokenize import sent_tokenize
+
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
+
+from bert_serving.client import BertClient
 
 COLEECTION_NAME = "Fasttext_pretrained_embeddings"
 
@@ -155,6 +159,8 @@ class HuffPostTransformLaserWordEmbeddings(Transformator):
     Before you start use this transformer visit this page
     https://github.com/facebookresearch/LASER/tree/master/docker
     and run laser in docker. Use port 59012
+
+    docker run -p 59012:80 -it laser python app.py
     """
 
     def __init__(self):
@@ -170,6 +176,75 @@ class HuffPostTransformLaserWordEmbeddings(Transformator):
     def fit(self, labels: List[str]) -> None:
         if self.fitted is False:
             print("laser encoder is encoding on-prem...")
+            print("creating labels encoding hash map...")
+            self.encoding_mapper = {
+                value: index for index, value in enumerate(set(labels))
+            }
+            self.reverse_mapper = {
+                index: value for index, value in enumerate(set(labels))
+            }
+            self.fitted = True
+
+    def transform_instances(self, data: List[Dict[str, Any]]) -> np.ndarray:
+        transformed_data = [_transform_text(sample) for sample in data]
+        return np.asmatrix(
+            [
+                _normalize(
+                    np.sum(
+                        self.transformer(text),
+                        axis=0,
+                    ),
+                    self.dim,
+                ).tolist()
+                for text in tqdm(transformed_data)
+            ]
+        )
+
+    def transform_labels(self, data: List[str]) -> np.ndarray:
+        transformed_data = [self.transform_label(sample) for sample in tqdm(data)]
+        return np.asarray(transformed_data).ravel()
+
+    def reset(self) -> None:
+        self.fitted = False
+
+    def transform_label(self, sample: str) -> int:
+        return self.encoding_mapper[sample]
+
+    def transform_to_label(self, value: int) -> str:
+        return self.reverse_mapper[value]
+
+
+"""
+pip install bert-serving-server  # server
+pip install bert-serving-client  # client, independent of `bert-serving-server`
+wget https://storage.googleapis.com/bert_models/2018_10_18/uncased_L-12_H-768_A-12.zip && unzip uncased_L-12_H-768_A-12.zip
+Once we have all the files extracted in a folder, it’s time to start the BERT service:
+bert-serving-start -model_dir uncased_L-12_H-768_A-12/ -num_worker=2 -max_seq_len 50
+"""
+
+
+class HuffPostTransformBertWordEmbeddings(Transformator):
+
+    """
+    Before you start use this transformer visit this page
+    https://github.com/facebookresearch/LASER/tree/master/docker
+    and run laser in docker. Use port 59012
+
+    docker run -p 59012:80 -it laser python app.py
+    """
+
+    def __init__(self):
+
+        self.bc_client = BertClient(ip="localhost")
+        self.transformer = lambda text: self.bc_client.encode(sent_tokenize(text))
+        self.fitted: bool = False
+        self.dim = 768
+        self.encoding_mapper: Dict[str, int] = {}
+        self.reverse_mapper: Dict[int, str] = {}
+
+    def fit(self, labels: List[str]) -> None:
+        if self.fitted is False:
+            print("BERT encoder is encoding on-prem...")
             print("creating labels encoding hash map...")
             self.encoding_mapper = {
                 value: index for index, value in enumerate(set(labels))

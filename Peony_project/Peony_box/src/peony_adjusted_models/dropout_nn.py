@@ -25,7 +25,7 @@ class NeuralNet(nn.Module):
         self.output = nn.Linear(hidden_size, num_classes)
         self.sigmoid = nn.Sigmoid()
         self.softmax = nn.Softmax(dim=1)
-        self.dropout = nn.Dropout(p=0.6, inplace=False)
+        self.dropout = nn.Dropout(p=0.5, inplace=False)
 
     def forward(self, x):
         x = self.hidden(x)
@@ -38,7 +38,10 @@ class NeuralNet(nn.Module):
 
 class PeonyDropoutFeedForwardNN:
     def __init__(
-        self, hidden_size: int, num_classes: int, cold_start=False,
+        self,
+        hidden_size: int,
+        num_classes: int,
+        cold_start=False,
     ):
 
         self.num_samples = NUM_SAMPLES

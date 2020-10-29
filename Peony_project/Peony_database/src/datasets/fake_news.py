@@ -7,13 +7,13 @@ from tqdm import tqdm
 
 
 COLLECTION_NAME = "fake_news_dataset"
-COLLECTION_ID = 10
+COLLECTION_ID = 8
 
 
 def transorm_data(record: Dict[str, Any]) -> Dict[str, Any]:
     transormed_record: dict = {}
     transormed_record["datasetName"] = COLLECTION_NAME
-    transormed_record["datasetId"] = 5
+    transormed_record["datasetId"] = COLLECTION_ID
     transormed_record["record"] = {}
     transormed_record["record"]["id"] = create_hash([record["title"]])
     transormed_record["record"]["text"] = {
@@ -36,7 +36,7 @@ def load_data(path: Path) -> List[dict]:
                         "title": row["title"],
                         "body": row["text"],
                         "subject": row["subject"],
-                        "label": path.stem,
+                        "label": csv.stem,
                     }
                 )
     return data
