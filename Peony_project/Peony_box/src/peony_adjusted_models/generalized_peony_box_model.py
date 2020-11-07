@@ -1,5 +1,6 @@
 import pymongo
 import numpy as np
+import torch
 
 from scipy.sparse import csc_matrix
 from scipy.sparse import vstack
@@ -44,8 +45,8 @@ class GeneralizedPeonyBoxModel:
 
     def fit(
         self,
-        training_instances: Union[List[Dict[str, Any]], np.ndarray],
-        training_labels: Union[List[Any], np.ndarray],
+        training_instances: Union[List[Dict[str, Any]], List[torch.Tensor]],
+        training_labels: Union[List[Any], List[int]],
         transformation_needed: bool = True,
     ) -> Optional[List[Any]]:
 
@@ -59,16 +60,19 @@ class GeneralizedPeonyBoxModel:
             print("transforming labels for model training...")
             training_labels = self.transformator.transform_labels(training_labels)
 
+        instances = easy_colate(training_instances)  # type: ignore
+        labels = torch.tensor(training_labels, dtype=torch.int64)
         if self.training_dataset == {}:
-            self.training_dataset["training_instances"] = training_instances
-            self.training_dataset["training_labels"] = training_labels
+            self.training_dataset["training_instances"] = instances
+            self.training_dataset["training_labels"] = labels
         else:
             self.training_dataset["training_instances"] = self._concatenate(
-                self.training_dataset["training_instances"], training_instances
+                self.training_dataset["training_instances"], instances
             )
-            self.training_dataset["training_labels"] = np.concatenate(
-                (self.training_dataset["training_labels"], training_labels), axis=0
+            self.training_dataset["training_labels"] = self._concatenate(
+                self.training_dataset["training_labels"], labels
             )
+
         fit_output.append(
             self.model.fit(
                 self.training_dataset["training_instances"],
@@ -83,13 +87,14 @@ class GeneralizedPeonyBoxModel:
 
     def predict(
         self,
-        instances: Union[List[Dict[str, Any]], np.ndarray],
+        instances: Union[List[Dict[str, Any]], List[torch.Tensor]],
         transformation_needed: bool = True,
     ) -> List[Any]:
         if transformation_needed:
             print("transforming instances for model prediction...")
             instances = self.transformator.transform_instances(instances)
 
+        instances = easy_colate(instances)  # type: ignore
         predicted = self.model.predict(instances)
         return np.mean(predicted, axis=0)
 
@@ -150,10 +155,10 @@ class GeneralizedPeonyBoxModel:
 
     @staticmethod
     def _concatenate(
-        first: Union[np.ndarray, csc_matrix], second: Union[np.ndarray, csc_matrix]
-    ) -> Union[np.ndarray, csc_matrix]:
+        first: Union[torch.Tensor, csc_matrix], second: Union[torch.Tensor, csc_matrix]
+    ) -> Union[torch.Tensor, csc_matrix]:
         try:
-            concatenated = np.concatenate((first, second), axis=0)
+            concatenated = torch.cat((first, second), dim=0)
         except:
             concatenated = vstack([first, second])
         return concatenated
@@ -163,3 +168,7 @@ class GeneralizedPeonyBoxModel:
         ...
         # onehot_encoder = OneHotEncoder(sparse=False)
         # return [onehot_encoder.fit_transform(integer_encoded) for ]
+
+
+def easy_colate(embeddings: List[torch.Tensor]) -> torch.Tensor:
+    return torch.stack(embeddings, dim=0)

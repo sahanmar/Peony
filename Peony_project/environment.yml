@@ -23,6 +23,9 @@ dependencies:
   - seaborn
   - pip:
       - pymongo
+      - spacy
+      - fairseq
+      - omegaconf
       - black
       - matplotlib
       - numpyro

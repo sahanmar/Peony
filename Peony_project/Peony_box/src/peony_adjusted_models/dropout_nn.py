@@ -61,7 +61,7 @@ class PeonyDropoutFeedForwardNN:
         self.cold_start = cold_start
         self.variance = WEIGHTS_VARIANCE
 
-    def fit(self, instances: np.ndarray, labels: np.ndarray) -> Optional[List[str]]:
+    def fit(self, instances: torch.Tensor, labels: torch.Tensor) -> Optional[List[str]]:
 
         loss_list: List[str] = []
         self.num_of_minibatch_samples = int(instances.shape[0] * self.mini_batch)
@@ -79,11 +79,6 @@ class PeonyDropoutFeedForwardNN:
             )
             self.initialized = True
 
-        try:
-            instances = torch.from_numpy(instances.toarray()).float()
-        except AttributeError:
-            instances = torch.from_numpy(instances).float()
-        labels = torch.from_numpy(labels)
         fitted_loss_per_sample: List[float] = []
         for index in range(self.num_samples):
 
@@ -102,12 +97,11 @@ class PeonyDropoutFeedForwardNN:
                 indices = np.random.choice(
                     instances.shape[0], self.num_of_minibatch_samples, replace=False
                 )
-
                 # Forward pass
-                outputs = self.model[0].train()(instances[indices, :])
-                loss = self.criterion(outputs, labels[indices].long())
-                # Backward and optimize
                 self.optimizer.zero_grad()
+                outputs = self.model[0].train()(instances[indices, :])
+                loss = self.criterion(outputs, labels[indices])
+                # Backward and optimize
                 loss.backward()
                 self.optimizer.step()
 
@@ -128,11 +122,7 @@ class PeonyDropoutFeedForwardNN:
 
         return loss_list
 
-    def predict(self, instances: np.ndarray) -> np.ndarray:
-        try:
-            instances = torch.from_numpy(instances.toarray()).float()
-        except AttributeError:
-            instances = torch.from_numpy(instances).float()
+    def predict(self, instances: torch.Tensor) -> np.ndarray:
         predicted_list = []
         for index in range(self.num_samples):
             with torch.no_grad():

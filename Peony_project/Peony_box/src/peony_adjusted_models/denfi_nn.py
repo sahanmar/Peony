@@ -44,7 +44,7 @@ class PeonyDENFIFeedForwardNN:
 
         self.model: Optional[List[NeuralNet]] = None
         self.criterion: Optional[List[nn.CrossEntropyLoss]] = None
-        self.optimizer: Optional[List[torch.optim.SGD]] = None
+        self.optimizer: Optional[List[torch.optim.Adam]] = None
 
         self.hidden_size = hidden_size
         self.num_classes = num_classes
@@ -56,15 +56,17 @@ class PeonyDENFIFeedForwardNN:
         self.cold_start = cold_start
         self.hot_start_epochs = HOT_START_EPOCHS
 
-    def fit(self, instances: np.ndarray, labels: np.ndarray) -> Optional[List[str]]:
+    def fit(self, instances: torch.Tensor, labels: torch.Tensor) -> Optional[List[str]]:
 
         loss_list: List[str] = []
-        self.loss_sequence: List[List[float]] = []
-        self.num_of_samples = int(instances.shape[0] * self.rand_sample_ratio)
+        intances_size = instances.size()
+
+        self.loss_sequence = []
+        self.num_of_samples = int(intances_size[0] * self.rand_sample_ratio)
 
         if self.initialized is False:
             self.model = [
-                NeuralNet(instances.shape[1], self.hidden_size, self.num_classes).to(
+                NeuralNet(intances_size[1], self.hidden_size, self.num_classes).to(
                     DEVICE
                 )
                 for i in range(self.num_ensembles)
@@ -82,11 +84,6 @@ class PeonyDENFIFeedForwardNN:
 
             self.initialized = True
 
-        try:
-            instances = torch.from_numpy(instances.toarray()).float()
-        except AttributeError:
-            instances = torch.from_numpy(instances).float()
-        labels = torch.from_numpy(labels)
         initial_loss_per_ensemble: List[str] = []
         fitted_loss_per_ensemble: List[str] = []
 
@@ -110,7 +107,7 @@ class PeonyDENFIFeedForwardNN:
                 loss_sequence_per_ensemble.append(float(loss.detach().numpy()))
                 # Backward and optimize
                 self.optimizer[index].zero_grad()
-                loss.backward()
+                loss.backward(retain_graph=True)
                 self.optimizer[index].step()
 
                 if epoch == 0:
@@ -118,11 +115,6 @@ class PeonyDENFIFeedForwardNN:
 
             self.loss_sequence.append(loss_sequence_per_ensemble)
             fitted_loss_per_ensemble.append(str(loss.detach().numpy()))
-
-            # if self.cold_start is False:
-            #     with torch.no_grad():
-            #         for param in self.model[index].parameters():
-            #             param.add_(torch.randn(param.size()) * self.variance)
 
         loss_list.append(f"starting losses are {'| '.join(initial_loss_per_ensemble)}")
         loss_list.append(f"fitted losses are {'| '.join(fitted_loss_per_ensemble)}")
@@ -132,11 +124,7 @@ class PeonyDENFIFeedForwardNN:
 
         return loss_list
 
-    def predict(self, instances: np.ndarray) -> np.ndarray:
-        try:
-            instances = torch.from_numpy(instances.toarray()).float()
-        except AttributeError:
-            instances = torch.from_numpy(instances).float()
+    def predict(self, instances: torch.Tensor) -> np.ndarray:
         predicted_list = []
         for index in range(self.num_ensembles):
             with torch.no_grad():
