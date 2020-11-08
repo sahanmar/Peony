@@ -298,9 +298,6 @@ def create_plot(categories_list, alg_1, alg_2):
 
     list_of_plots = []
 
-    # alg_1 = "bayesian_dropout_nn_fast_text_embeddings"
-    # alg_2 = "bayesian_denfi_v_2_0.3_fast_text_embeddings"
-
     alg_legend_1 = " ".join([token.capitalize() for token in alg_1.split("_")[:2]])
     alg_legend_2 = " ".join([token.capitalize() for token in alg_2.split("_")[:2]])
 
@@ -427,7 +424,6 @@ app.layout = html.Div(
                                     "value": "reset",
                                 },
                             ],
-                            # value="crime_vs_good_news",
                             clearable=False,
                             style={
                                 "width": "200pt",
@@ -477,7 +473,6 @@ app.layout = html.Div(
                                 "display": "inline-block",
                                 "font-size": "100%",
                                 "align-items": "center",
-                                # "height": "50pt",
                             },
                         ),
                     ],
@@ -487,20 +482,12 @@ app.layout = html.Div(
                         "margin-top": "20pt",
                     },
                 ),
-                # CLOCK
-                # html.P(
-                #     id="live_clock",
-                #     children=str(datetime.datetime.now().strftime("%H:%M:%S")),
-                #     style={
-                #         "margin-top": "100pt",
-                #     },
-                # ),
             ],
             style={
                 "width": "200pt",
                 "display": "inline-block",
                 "height": "2000pt",
-            },  # "position": "fixed"},
+            },
         ),
         # RIGHT PANEL WITH CHARTS
         html.Div(
@@ -581,8 +568,8 @@ def intro_page():
                 html.H6(
                     children=[
                         """
-                        Peony Visualization Component serves as an endpoint that queries MongoDb and visualizes maching learning results.
-                        The visualizatopn component is implemented in Dash by PlotLy.
+                        Peony Visualization Component serves as an endpoint that queries MongoDb and visualizes machine learning results.
+                        The visualization component is implemented in Dash by PlotLy.
                         """
                     ],
                     style={
@@ -609,11 +596,14 @@ def intro_page():
                 html.H6(
                     children=[
                         """
-                        The tool allows a user to visualize AUC (Area Under ROC curve) evolutions and Additive Noise Fluctuations with respect to different categories.
-                        
+                        The tool allows a user to visualize AUC (Area Under ROC curve) evolutions and Additive Noise Fluctuations concerning different categories.
+ 
                         Categories and results for different algorithms can be found in dropdown menus. 
 
-                        Both plots and tables are interactive. Thus, a user is able to extract more information. Moreover, a user can also download a plot or a table.
+                        Both plots and tables are interactive. Thus, a user can extract more information. Moreover, a user can also download a plot or a table. Peony Visualization Component serves as an endpoint that queries MongoDb and visualizes machine learning results.
+                        The visualization component is implemented in Dash by PlotLy.
+
+
                         """
                     ],
                     style={
@@ -675,6 +665,7 @@ def update_figure(
     categories_string, first_alg, second_alg, tab, slider_val, categories
 ):
     if tab == "tab-1":
+        # Load tab one
         if categories_string is None or categories_string == "reset":
             return intro_page(), []
         if first_alg is None or second_alg is None:
@@ -683,6 +674,7 @@ def update_figure(
             categories.append(categories_string)
         return create_plot(categories, first_alg, second_alg), categories
     else:
+        # Load tab two
         if categories is None or first_alg is None or second_alg is None:
             return intro_page(), categories
         else:
