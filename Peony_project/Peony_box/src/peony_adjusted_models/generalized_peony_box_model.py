@@ -103,12 +103,14 @@ class GeneralizedPeonyBoxModel:
 
     def get_learning_samples(
         self,
-        instances: Union[List[Dict[str, Any]], np.ndarray],
+        instances: Union[List[Dict[str, Any]], List[torch.Tensor]],
         transformation_needed: bool = True,
     ) -> np.ndarray:
         if transformation_needed:
             print("transforming instances for model getting learning sample...")
             instances = self.transformator.transform_instances(instances)
+
+        instances = easy_colate(instances)  # type: ignore
         predicted = self.model.predict(instances)
         if self.acquisition_function is not None:
             if np.random.uniform(0, 1) > self.epsilon_greedy_coef:
@@ -154,20 +156,8 @@ class GeneralizedPeonyBoxModel:
             self.fit(instances, labels, transformation_needed=False)
 
     @staticmethod
-    def _concatenate(
-        first: Union[torch.Tensor, csc_matrix], second: Union[torch.Tensor, csc_matrix]
-    ) -> Union[torch.Tensor, csc_matrix]:
-        try:
-            concatenated = torch.cat((first, second), dim=0)
-        except:
-            concatenated = vstack([first, second])
-        return concatenated
-
-    @staticmethod
-    def _one_hot_encoding(instances: np.ndarray) -> np.ndarray:
-        ...
-        # onehot_encoder = OneHotEncoder(sparse=False)
-        # return [onehot_encoder.fit_transform(integer_encoded) for ]
+    def _concatenate(first: torch.Tensor, second: torch.Tensor) -> torch.Tensor:
+        return torch.cat((first, second), dim=0)
 
 
 def easy_colate(embeddings: List[torch.Tensor]) -> torch.Tensor:

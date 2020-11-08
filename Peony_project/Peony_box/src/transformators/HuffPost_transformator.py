@@ -222,7 +222,7 @@ class RoBERTaWordEmbeddings(Transformator):
             _sentence_embed(
                 self.roberta.extract_features(self.roberta.encode(sentence)).squeeze(0),
             )
-            for sentence in sent_tokenize(text)
+            for sentence in self.split_sentences(text)
         ]
 
     def fit(self, labels: List[str]) -> None:
@@ -256,17 +256,38 @@ class RoBERTaWordEmbeddings(Transformator):
     def reset(self) -> None:
         self.fitted = False
 
+    @staticmethod
+    def split_sentences(text: str) -> List[str]:
+        splitted_sentences: List[str] = []
+        for sentence in sent_tokenize(text):
+            if len(sentence) > 512:
+                n_splits = len(sentence) // 512
+                # not the best solution but should work...
+                splitted_sentences += [
+                    sentence[i * 512 : (i + 1) * 512] for i in range(n_splits)
+                ]
+                splitted_sentences.append(sentence[512 * n_splits :])
+            else:
+                splitted_sentences.append(sentence)
+        return splitted_sentences
+
 
 #################################
 ### Additional public methods ###
 #################################
 
 
+def _mean_agg(embeddings: Union[torch.Tensor, List[torch.Tensor]]) -> torch.Tensor:
+    if isinstance(embeddings, list):
+        return torch.mean(torch.stack(embeddings, dim=0), dim=0)
+    return torch.mean(embeddings, dim=0)
+
+
 def _sentence_embed(
-    embeddings: List[torch.Tensor],
-    aggregator: Callable[[List[torch.Tensor]], torch.Tensor] = lambda x: torch.mean(
-        torch.stack(x, dim=0), dim=0
-    ),
+    embeddings: Union[torch.Tensor, List[torch.Tensor]],
+    aggregator: Callable[
+        [Union[torch.Tensor, List[torch.Tensor]]], torch.Tensor
+    ] = _mean_agg,
 ) -> torch.Tensor:
     return aggregator(embeddings)
 
