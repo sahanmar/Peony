@@ -1,8 +1,9 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 from typing import List, Dict, Tuple
 from scipy import interp
-import matplotlib.pyplot as plt
+
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import (
     confusion_matrix,
@@ -194,7 +195,7 @@ def visualize_two_auc_evolutions(
         linestyle="-",
         color="r",
         lw=1,
-        label="Passive Learning AUC evolution mean",
+        label="Random Selection AUC evolution mean",
     )
     plt.plot(first_mean + first_std, linestyle="-", color="r", alpha=0.2)
     plt.plot(first_mean - first_std, linestyle="-", color="r", alpha=0.2)
