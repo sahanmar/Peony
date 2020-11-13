@@ -4,6 +4,8 @@ import torch.nn as nn
 
 from sklearn.preprocessing import OneHotEncoder
 from typing import Optional, Tuple, List
+from torch.utils.data import DataLoader
+
 
 NUM_ENSEMBLES = 10
 EPOCHS = 2000
@@ -32,7 +34,6 @@ class PeonyFeedForwardNN:
     def __init__(self, hidden_size: int, num_classes: int, rand_sample_ratio: int):
 
         self.num_ensembles = NUM_ENSEMBLES
-        self.num_of_samples = 0
 
         self.model: Optional[List[NeuralNet]] = None
         self.criterion: Optional[List[nn.CrossEntropyLoss]] = None
@@ -44,16 +45,13 @@ class PeonyFeedForwardNN:
         self.initialized = False
         self.rand_sample_ratio = rand_sample_ratio
 
-    def fit(self, instances: np.ndarray, labels: np.ndarray) -> Optional[List[str]]:
+    def fit(self, data: DataLoader, features_size: int) -> Optional[List[str]]:
 
         loss_list: List[str] = []
-        self.num_of_samples = int(instances.shape[0] * self.rand_sample_ratio)
 
         if self.initialized is False:
             self.model = [
-                NeuralNet(instances.shape[1], self.hidden_size, self.num_classes).to(
-                    DEVICE
-                )
+                NeuralNet(features_size, self.hidden_size, self.num_classes).to(DEVICE)
                 for i in range(self.num_ensembles)
             ]
             self.criterion = [nn.CrossEntropyLoss() for i in range(self.num_ensembles)]
@@ -66,28 +64,23 @@ class PeonyFeedForwardNN:
             ]
             self.initialized = True
 
-        try:
-            instances = torch.from_numpy(instances.toarray()).float()
-        except AttributeError:
-            instances = torch.from_numpy(instances).float()
-        labels = torch.from_numpy(labels)
         initial_loss_per_ensemble: List[float] = []
         fitted_loss_per_ensemble: List[float] = []
         for index in range(self.num_ensembles):
-            indices = np.random.choice(
-                instances.shape[0], self.num_of_samples, replace=False
-            )
             for epoch in range(self.num_epochs):
-                # Forward pass
-                outputs = self.model[index](instances[indices, :])
-                loss = self.criterion[index](outputs, labels[indices].long())
-                # Backward and optimize
-                self.optimizer[index].zero_grad()
-                loss.backward()
-                self.optimizer[index].step()
 
-                if epoch == 0:
-                    initial_loss_per_ensemble.append(loss.detach().numpy())
+                for instances, labels in data:
+
+                    # Forward pass
+                    self.optimizer[index].zero_grad()
+                    outputs = self.model[index].train()(instances)
+                    loss = self.criterion[index](outputs, labels)
+                    # Backward and optimize
+                    loss.backward()
+                    self.optimizer[index].step()
+
+                    if epoch == 0:
+                        initial_loss_per_ensemble.append(loss.detach().numpy())
             fitted_loss_per_ensemble.append(loss.detach().numpy())
         loss_list.append(
             f"starting loss (ensembles mean) is {np.mean(initial_loss_per_ensemble)}"
@@ -101,17 +94,19 @@ class PeonyFeedForwardNN:
 
         return loss_list
 
-    def predict(self, instances: np.ndarray) -> np.ndarray:
-        try:
-            instances = torch.from_numpy(instances.toarray()).float()
-        except AttributeError:
-            instances = torch.from_numpy(instances).float()
+    def predict(self, data: DataLoader) -> np.ndarray:
         predicted_list = []
         for index in range(self.num_ensembles):
             with torch.no_grad():
-                outputs = self.model[index](instances)
-                _, predicted = torch.max(outputs.data, 1)
-                predicted_list.append(predicted.detach().numpy())
+                predicted_list.append(
+                    [
+                        res
+                        for instances, _ in data
+                        for res in torch.max(self.model[index](instances).data, 1)[1]
+                        .detach()
+                        .numpy()
+                    ]
+                )
         return predicted_list
 
     def reset(self) -> None:

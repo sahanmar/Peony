@@ -5,7 +5,7 @@ from Peony_box.active_learning_simulation.utils import active_learning_simulatio
 #    HuffPostTransform as transformator,
 # )
 from Peony_box.src.transformators.HuffPost_transformator import (
-    RoBERTaWordEmbeddings as transformator,
+    FastTextWordEmbeddings as transformator,
 )
 from Peony_database.src.datasets.HuffPost_news_dataset import (
     COLLECTION_NAME as HuffPost_collection_name,
@@ -62,7 +62,7 @@ def main():
     # Define model specifications
     model_1 = "bayesian_dropout_nn_fast_text_embeddings"
     model_2 = "bayesian_dropout_nn_fast_text_embeddings"
-    algorithm = "bayesian_dropout"
+    algorithm = "bayesian_denfi"
     acquisition_function_1 = "random"
     acquisition_function_2 = "entropy"
     active_learning_loops = 1
@@ -91,7 +91,7 @@ def main():
         transformator()
     )  # I'm using here not HuffPost transformator but I'm too lazy to change all variable names
 
-    HuffPostTransform.fit(labels_from_db)
+    HuffPostTransform.fit(instances_from_db, labels_from_db)
 
     if transformation_needed:
         instances = instances_from_db

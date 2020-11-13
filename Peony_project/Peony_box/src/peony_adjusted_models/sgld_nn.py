@@ -4,6 +4,7 @@ import torch.nn as nn
 
 from sklearn.preprocessing import OneHotEncoder
 from torch.optim import Optimizer
+from torch.utils.data import DataLoader
 from typing import Optional, Tuple, List
 
 
@@ -51,16 +52,13 @@ class PeonySGLDFeedForwardNN:
         self.mini_batch = MINI_BATCH_RATIO
         self.steps_to_burn = STEPS_TO_BURN
 
-    def fit(self, instances: np.ndarray, labels: np.ndarray) -> Optional[List[str]]:
+    def fit(self, data: DataLoader, features_size: int) -> Optional[List[str]]:
 
         loss_list: List[str] = []
-        self.num_of_minibatch_samples = int(instances.shape[0] * self.mini_batch)
 
         if self.initialized is False:
             self.model = [
-                NeuralNet(instances.shape[1], self.hidden_size, self.num_classes).to(
-                    DEVICE
-                )
+                NeuralNet(features_size, self.hidden_size, self.num_classes).to(DEVICE)
                 for i in range(self.num_samples)
             ]
             self.criterion = nn.CrossEntropyLoss()
@@ -72,11 +70,6 @@ class PeonySGLDFeedForwardNN:
             )
             self.initialized = True
 
-        try:
-            instances = torch.from_numpy(instances.toarray()).float()
-        except AttributeError:
-            instances = torch.from_numpy(instances).float()
-        labels = torch.from_numpy(labels)
         fitted_loss_per_sample: List[float] = []
         for index in range(self.num_samples):
             if index != 0:
@@ -86,20 +79,18 @@ class PeonySGLDFeedForwardNN:
 
             for epoch in range(self.starting_epoch, self.num_epochs):
 
-                indices = np.random.choice(
-                    instances.shape[0], self.num_of_minibatch_samples, replace=False
-                )
+                for instances, labels in data:
 
-                # Forward pass
-                outputs = self.model[index](instances[indices, :])
-                loss = self.criterion(outputs, labels[indices].long())
-                # Backward and optimize
-                self.optimizer.zero_grad()
-                loss.backward()
-                self.optimizer.step()
+                    # Forward pass
+                    outputs = self.model[index](instances)
+                    loss = self.criterion(outputs, labels)
+                    # Backward and optimize
+                    self.optimizer.zero_grad()
+                    loss.backward()
+                    self.optimizer.step()
 
-                if epoch == 0:
-                    initial_loss_per_sample = loss.detach().numpy()
+                    if epoch == 0:
+                        initial_loss_per_sample = loss.detach().numpy()
             fitted_loss_per_sample.append(loss.detach().numpy())
         loss_list.append(f"starting loss is {initial_loss_per_sample}")
         loss_list.append(
@@ -108,17 +99,19 @@ class PeonySGLDFeedForwardNN:
 
         return loss_list
 
-    def predict(self, instances: np.ndarray) -> np.ndarray:
-        try:
-            instances = torch.from_numpy(instances.toarray()).float()
-        except AttributeError:
-            instances = torch.from_numpy(instances).float()
+    def predict(self, data: DataLoader) -> np.ndarray:
         predicted_list = []
         for index in range(self.num_samples):
             with torch.no_grad():
-                outputs = self.model[index](instances)
-                _, predicted = torch.max(outputs.data, 1)
-                predicted_list.append(predicted.detach().numpy())
+                predicted_list.append(
+                    [
+                        res
+                        for instances, _ in data
+                        for res in torch.max(self.model[index](instances).data, 1)[1]
+                        .detach()
+                        .numpy()
+                    ]
+                )
         return predicted_list
 
     def reset(self) -> None:
@@ -137,10 +130,10 @@ class PeonySGLDFeedForwardNN:
 
 
 class SGLD(Optimizer):
-    """ Stochastic Gradient Langevin Dynamics Sampler with preconditioning.
-        Optimization variable is viewed as a posterior sample under Stochastic
-        Gradient Langevin Dynamics with noise rescaled in eaach dimension
-        according to RMSProp.
+    """Stochastic Gradient Langevin Dynamics Sampler with preconditioning.
+    Optimization variable is viewed as a posterior sample under Stochastic
+    Gradient Langevin Dynamics with noise rescaled in eaach dimension
+    according to RMSProp.
     """
 
     def __init__(
@@ -152,7 +145,7 @@ class SGLD(Optimizer):
         num_burn_in_steps=3000,
         diagonal_bias=1e-8,
     ) -> None:
-        """ Set up a SGLD Optimizer.
+        """Set up a SGLD Optimizer.
 
         Parameters
         ----------

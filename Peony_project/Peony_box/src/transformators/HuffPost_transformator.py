@@ -26,8 +26,8 @@ COLEECTION_NAME = "Fasttext_pretrained_embeddings"
 
 
 class FastTextWordEmbeddings(Transformator):
-    def __init__(self, text_collate=lambda x: torch.mean(torch.stack(x, dim=0), dim=0)):
-        super().__init__(embedding_dim=300, text_collate=text_collate)
+    def __init__(self):
+        super().__init__(embedding_dim=300)
         self.transformer = {}
         self.fitted: bool = False
         self.dict_length: int = 0
@@ -69,24 +69,24 @@ class FastTextWordEmbeddings(Transformator):
         else:
             return torch.tensor(embedding["record"]["value"])
 
-    def transform_instances(self, data: List[Dict[str, Any]]) -> List[torch.Tensor]:
+    def transform_instances(
+        self, data: List[Dict[str, Any]]
+    ) -> List[List[torch.Tensor]]:
         transformed_data = [_transform_text(sample) for sample in tqdm(data)]
 
         with torch.no_grad():
             transformed_instances = [
-                self.text_collate(
-                    [
-                        _sentence_embed(
-                            [
-                                self.transformer[token]
-                                for token in stop_words_filter(tokenizer(sentence))
-                                if token in self.transformer
-                            ]
-                            + [torch.zeros((300))]
-                        )
-                        for sentence in sent_tokenize(text)
-                    ]
-                )
+                [
+                    _sentence_embed(
+                        [
+                            self.transformer[token]
+                            for token in stop_words_filter(tokenizer(sentence))
+                            if token in self.transformer
+                        ]
+                        + [torch.zeros((300))]
+                    )
+                    for sentence in sent_tokenize(text)
+                ]
                 for text in transformed_data
             ]
         return transformed_instances
@@ -110,8 +110,8 @@ class LaserWordEmbeddings(Transformator):
     docker run -p 59012:80 -it laser python app.py
     """
 
-    def __init__(self, text_collate=lambda x: torch.mean(torch.stack(x, dim=0), dim=0)):
-        super().__init__(embedding_dim=1024, text_collate=text_collate)
+    def __init__(self):
+        super().__init__(embedding_dim=1024)
 
         self.url = "http://127.0.0.1:59012/vectorize"
         self.fitted: bool = False
@@ -133,14 +133,14 @@ class LaserWordEmbeddings(Transformator):
             }
             self.fitted = True
 
-    def transform_instances(self, data: List[Dict[str, Any]]) -> List[torch.Tensor]:
+    def transform_instances(
+        self, data: List[Dict[str, Any]]
+    ) -> List[List[torch.Tensor]]:
         transformed_data = [_transform_text(sample) for sample in data]
 
         with torch.no_grad():
             transformed_instances = [
-                self.text_collate(
-                    [torch.tensor(tensor) for tensor in self.transform(text)]
-                )
+                [torch.tensor(tensor) for tensor in self.transform(text)]
                 for text in tqdm(transformed_data)
             ]
         return transformed_instances
@@ -162,8 +162,8 @@ bert-serving-start -model_dir uncased_L-12_H-768_A-12/ -num_worker=2 -max_seq_le
 
 
 class BertWordEmbeddings(Transformator):
-    def __init__(self, text_collate=lambda x: torch.mean(torch.stack(x, dim=0), dim=0)):
-        super().__init__(embedding_dim=768, text_collate=text_collate)
+    def __init__(self):
+        super().__init__(embedding_dim=768)
 
         self.bc_client = BertClient(ip="localhost")
         self.fitted: bool = False
@@ -183,13 +183,13 @@ class BertWordEmbeddings(Transformator):
             }
             self.fitted = True
 
-    def transform_instances(self, data: List[Dict[str, Any]]) -> List[torch.Tensor]:
+    def transform_instances(
+        self, data: List[Dict[str, Any]]
+    ) -> List[List[torch.Tensor]]:
         transformed_data = [_transform_text(sample) for sample in data]
         with torch.no_grad():
             transformed_instances = [
-                self.text_collate(
-                    [torch.from_numpy(tensor) for tensor in self.transform(text)]
-                )
+                [torch.from_numpy(tensor) for tensor in self.transform(text)]
                 for text in tqdm(transformed_data)
             ]
         return transformed_instances
@@ -208,8 +208,8 @@ tar -xzvf roberta.base.tar.gz
 
 
 class RoBERTaWordEmbeddings(Transformator):
-    def __init__(self, text_collate=lambda x: torch.mean(torch.stack(x, dim=0), dim=0)):
-        super().__init__(embedding_dim=768, text_collate=text_collate)
+    def __init__(self):
+        super().__init__(embedding_dim=768)
 
         self.roberta = RobertaModel.from_pretrained(
             "/Users/mark/Documents/Datasets/Pretrained_models/RoBERTa/roberta.base",
@@ -239,14 +239,13 @@ class RoBERTaWordEmbeddings(Transformator):
 
     def transform_instances(
         self, text_documents: List[Dict[str, Any]]
-    ) -> List[torch.Tensor]:
+    ) -> List[List[torch.Tensor]]:
         transformed_data = [
             _transform_text(text_document) for text_document in text_documents
         ]
         with torch.no_grad():
             transformed_instances = [
-                self.text_collate(self.transform(text))
-                for text in tqdm(transformed_data)
+                self.transform(text) for text in tqdm(transformed_data)
             ]
         return transformed_instances
 

@@ -4,6 +4,7 @@ import torch.nn as nn
 
 from sklearn.preprocessing import OneHotEncoder
 from torch.optim import Optimizer
+from torch.utils.data import DataLoader
 from typing import Optional, Tuple, List
 
 
@@ -61,16 +62,13 @@ class PeonyDropoutFeedForwardNN:
         self.cold_start = cold_start
         self.variance = WEIGHTS_VARIANCE
 
-    def fit(self, instances: torch.Tensor, labels: torch.Tensor) -> Optional[List[str]]:
+    def fit(self, data: DataLoader, features_size: int) -> Optional[List[str]]:
 
         loss_list: List[str] = []
-        self.num_of_minibatch_samples = int(instances.shape[0] * self.mini_batch)
 
         if self.initialized is False:
             self.model = [
-                NeuralNet(instances.shape[1], self.hidden_size, self.num_classes).to(
-                    DEVICE
-                )
+                NeuralNet(features_size, self.hidden_size, self.num_classes).to(DEVICE)
                 for i in range(self.num_samples)
             ]
             self.criterion = nn.CrossEntropyLoss()
@@ -94,19 +92,19 @@ class PeonyDropoutFeedForwardNN:
 
             for epoch in range(self.starting_epoch, self.num_epochs):
 
-                indices = np.random.choice(
-                    instances.shape[0], self.num_of_minibatch_samples, replace=False
-                )
-                # Forward pass
-                self.optimizer.zero_grad()
-                outputs = self.model[0].train()(instances[indices, :])
-                loss = self.criterion(outputs, labels[indices])
-                # Backward and optimize
-                loss.backward()
-                self.optimizer.step()
+                for instances, labels in data:
 
-                if epoch == 0:
-                    initial_loss_per_sample = loss.detach().numpy()
+                    # Forward pass
+                    self.optimizer.zero_grad()
+                    outputs = self.model[0].train()(instances)
+                    loss = self.criterion(outputs, labels)
+                    # Backward and optimize
+                    loss.backward()
+                    self.optimizer.step()
+
+                    if epoch == 0:
+                        initial_loss_per_sample = loss.detach().numpy()
+
             fitted_loss_per_sample.append(loss.detach().numpy())
         loss_list.append(f"starting loss is {initial_loss_per_sample}")
         loss_list.append(
@@ -122,13 +120,23 @@ class PeonyDropoutFeedForwardNN:
 
         return loss_list
 
-    def predict(self, instances: torch.Tensor) -> np.ndarray:
+    def predict(self, data: DataLoader) -> np.ndarray:
         predicted_list = []
         for index in range(self.num_samples):
             with torch.no_grad():
-                outputs = self.model[index](instances)
-                _, predicted = torch.max(outputs.data, 1)
-                predicted_list.append(predicted.detach().numpy())
+                # outputs = self.model[index](instances)
+                # _, predicted = torch.max(outputs.data, 1)
+                # predicted_list.append(predicted.detach().numpy())
+                predicted_list.append(
+                    [
+                        res
+                        for instances, _ in data
+                        for res in torch.max(self.model[index](instances).data, 1)[1]
+                        .detach()
+                        .numpy()
+                    ]
+                )
+
         return predicted_list
 
     def reset(self) -> None:

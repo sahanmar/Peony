@@ -7,10 +7,8 @@ class Transformator:
     def __init__(
         self,
         embedding_dim: int,
-        text_collate: Callable[[List[torch.Tensor]], torch.Tensor],
     ):
         self.embedding_dim = embedding_dim
-        self.text_collate = text_collate
 
         self.encoding_mapper: Dict[str, int] = {}
         self.reverse_mapper: Dict[int, str] = {}

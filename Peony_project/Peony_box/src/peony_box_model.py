@@ -27,36 +27,12 @@ class PeonyBoxModel:
         active_learning_step: int = 1,
         number_of_classes_for_nn: int = 2,
     ):
-        self.random_forest_model = GeneralizedPeonyBoxModel(
-            model=PeonyRandomForest(rand_sample_ratio=RAND_SAMPLES_RATIO),
-            transformator=transformator,
-            active_learning_step=active_learning_step,
-            acquisition_function=acquisition_function,
-            greedy_coef_decay=greedy_coef_decay,
-            ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
-        )
-        self.svm_model = GeneralizedPeonyBoxModel(
-            model=PeonySVM(rand_sample_ratio=RAND_SAMPLES_RATIO),
-            transformator=transformator,
-            active_learning_step=active_learning_step,
-            acquisition_function=acquisition_function,
-            greedy_coef_decay=greedy_coef_decay,
-            ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
-        )
         self.feed_forward_nn = GeneralizedPeonyBoxModel(
             model=PeonyFeedForwardNN(
                 hidden_size=100,
                 num_classes=number_of_classes_for_nn,
                 rand_sample_ratio=RAND_SAMPLES_RATIO,
             ),
-            transformator=transformator,
-            active_learning_step=active_learning_step,
-            acquisition_function=acquisition_function,
-            greedy_coef_decay=greedy_coef_decay,
-            ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
-        )
-        self.bayesian_nn = GeneralizedPeonyBoxModel(
-            model=PeonyPymc3NN(hidden_size=10, num_classes=number_of_classes_for_nn),
             transformator=transformator,
             active_learning_step=active_learning_step,
             acquisition_function=acquisition_function,
