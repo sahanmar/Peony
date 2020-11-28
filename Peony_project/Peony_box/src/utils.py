@@ -98,6 +98,11 @@ def k_fold_corss_validation(
             model_output.extend(output)
 
         y_predicted = model.predict(X_test, transformation_needed=False)
+
+        # import IPython
+
+        # IPython.embed()
+
         true_vs_predicted.append({"true": y_test, "predicted": np.round(y_predicted)})
         model.reset()
 

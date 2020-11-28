@@ -7,27 +7,19 @@ from typing import Optional, Tuple, List
 from torch.utils.data import DataLoader
 
 
+from Peony_box.src.peony_adjusted_models.neural_nets_architecture import (
+    NeuralNet,
+    NeuralNetLSTM,
+)
+
+
 NUM_ENSEMBLES = 10
 EPOCHS = 2000
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
 
-
-class NeuralNet(nn.Module):
-    def __init__(self, input_size: int, hidden_size: int, num_classes: int):
-        super(NeuralNet, self).__init__()
-        self.hidden = nn.Linear(input_size, hidden_size)
-        self.output = nn.Linear(hidden_size, num_classes)
-        self.sigmoid = nn.Sigmoid()
-        self.softmax = nn.Softmax(dim=1)
-
-    def forward(self, x):
-        x = self.hidden(x)
-        x = self.sigmoid(x)
-        x = self.output(x)
-        x = self.softmax(x)
-        return x
+neural_network = NeuralNet
 
 
 class PeonyFeedForwardNN:
@@ -51,7 +43,7 @@ class PeonyFeedForwardNN:
 
         if self.initialized is False:
             self.model = [
-                NeuralNet(features_size, self.hidden_size, self.num_classes).to(DEVICE)
+                neural_network(features_size, self.hidden_size, self.num_classes).to(DEVICE)
                 for i in range(self.num_ensembles)
             ]
             self.criterion = [nn.CrossEntropyLoss() for i in range(self.num_ensembles)]
@@ -82,12 +74,8 @@ class PeonyFeedForwardNN:
                     if epoch == 0:
                         initial_loss_per_ensemble.append(loss.detach().numpy())
             fitted_loss_per_ensemble.append(loss.detach().numpy())
-        loss_list.append(
-            f"starting loss (ensembles mean) is {np.mean(initial_loss_per_ensemble)}"
-        )
-        loss_list.append(
-            f"fitted loss (ensembles mean) is {np.mean(fitted_loss_per_ensemble)}"
-        )
+        loss_list.append(f"starting loss (ensembles mean) is {np.mean(initial_loss_per_ensemble)}")
+        loss_list.append(f"fitted loss (ensembles mean) is {np.mean(fitted_loss_per_ensemble)}")
 
         if self.initialized:
             self.num_epochs = 20
@@ -102,9 +90,7 @@ class PeonyFeedForwardNN:
                     [
                         res
                         for instances, _ in data
-                        for res in torch.max(self.model[index](instances).data, 1)[1]
-                        .detach()
-                        .numpy()
+                        for res in torch.max(self.model[index](instances).data, 1)[1].detach().numpy()
                     ]
                 )
         return predicted_list

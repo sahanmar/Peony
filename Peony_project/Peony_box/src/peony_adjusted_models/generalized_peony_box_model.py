@@ -7,6 +7,7 @@ from scipy.sparse import vstack
 from sklearn.preprocessing import OneHotEncoder
 
 from torch.utils.data import DataLoader, Dataset
+from torch.nn.utils.rnn import pad_sequence
 
 from typing import Callable, Any, List, Dict, Optional, Union, Tuple
 
@@ -18,18 +19,36 @@ from Peony_box.src.greedy_coef_decay_functions.functions import sigmoid_decay
 
 def easy_colate(inputs) -> Tuple[torch.Tensor, torch.Tensor]:
 
-    embeddings = []
-    labels = []
-    for article, label in inputs:
-        embeddings.append(article)
-        labels.append(label)
+    embeddings, labels = zip(*inputs)
 
     return (
-        torch.stack(
-            [torch.mean(torch.stack(row, dim=0), dim=0) for row in embeddings], dim=0
-        ),
+        torch.stack([torch.mean(torch.stack(row, dim=0), dim=0) for row in embeddings], dim=0),
         torch.tensor(labels, dtype=torch.int64),
     )
+
+
+def lstm_colate(inputs) -> List[Any]:
+
+    embeddings, target = zip(*inputs)
+    zipped = zip(
+        [torch.stack(sentence, dim=0) for sentence in embeddings],
+        target,
+        list(range(len(embeddings))),
+        [len(sentence) for sentence in embeddings],
+    )
+
+    embeddings, labels, indices, seq_lengths = zip(*sorted(zipped, key=lambda x: x[-1], reverse=True))
+
+    indices = sorted(range(len(indices)), key=lambda k: indices[k])
+
+    return [
+        (
+            pad_sequence(embeddings, batch_first=True),
+            torch.tensor(seq_lengths, dtype=torch.long),
+            torch.tensor(indices, dtype=torch.long),
+        ),
+        torch.tensor(labels, dtype=torch.int64),
+    ]
 
 
 class PeonyDataset(Dataset):
@@ -55,9 +74,7 @@ class GeneralizedPeonyBoxModel:
         model: Any,
         transformator: Transformator,
         active_learning_step: int,
-        acquisition_function: Optional[
-            Callable[[np.ndarray, int, np.ndarray], np.ndarray]
-        ],
+        acquisition_function: Optional[Callable[[np.ndarray, int, np.ndarray], np.ndarray]],
         greedy_coef_decay: Optional[Callable[[int], float]],
         reset_after_adding_new_samples: bool = True,
         ascquisition_func_ratio: float = 1,
@@ -71,9 +88,7 @@ class GeneralizedPeonyBoxModel:
         self.epsilon_greedy_coef = 0.0
         self.active_learning_iteration = 0
         self.reset_after_adding_new_samples = reset_after_adding_new_samples
-        self.ascquisition_func_ratio = (
-            1 if active_learning_step == 1 else ascquisition_func_ratio
-        )
+        self.ascquisition_func_ratio = 1 if active_learning_step == 1 else ascquisition_func_ratio
         self.collate = collate
         if greedy_coef_decay:
             self.greedy_coef_decay = greedy_coef_decay
@@ -104,9 +119,7 @@ class GeneralizedPeonyBoxModel:
             self.training_dataset["training_instances"] = (
                 self.training_dataset["training_instances"] + instances
             )
-            self.training_dataset["training_labels"] = (
-                self.training_dataset["training_labels"] + labels
-            )
+            self.training_dataset["training_labels"] = self.training_dataset["training_labels"] + labels
 
         training_dataloader = PeonyDataset(
             self.training_dataset["training_instances"],
@@ -152,6 +165,7 @@ class GeneralizedPeonyBoxModel:
                 collate_fn=self.collate,
             )
         )
+
         return np.mean(predicted, axis=0)
 
     def reset(self) -> None:
@@ -180,24 +194,16 @@ class GeneralizedPeonyBoxModel:
         )
         if self.acquisition_function is not None:
             if np.random.uniform(0, 1) > self.epsilon_greedy_coef:
-                self.epsilon_greedy_coef = self.greedy_coef_decay(
-                    self.active_learning_iteration
-                )
+                self.epsilon_greedy_coef = self.greedy_coef_decay(self.active_learning_iteration)
                 self.active_learning_iteration += self.active_learning_step
                 return random_sampling(predicted, self.active_learning_step)
             else:
-                self.epsilon_greedy_coef = self.greedy_coef_decay(
-                    self.active_learning_iteration
-                )
+                self.epsilon_greedy_coef = self.greedy_coef_decay(self.active_learning_iteration)
                 self.active_learning_iteration += self.active_learning_step
-                active_learning_samples = int(
-                    round(self.active_learning_step * self.ascquisition_func_ratio)
-                )
+                active_learning_samples = int(round(self.active_learning_step * self.ascquisition_func_ratio))
                 return np.concatenate(
                     (
-                        self.acquisition_function(
-                            np.asarray(predicted), active_learning_samples, instances
-                        ),
+                        self.acquisition_function(np.asarray(predicted), active_learning_samples, instances),
                         random_sampling(
                             predicted,
                             self.active_learning_step - active_learning_samples,

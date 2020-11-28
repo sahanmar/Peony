@@ -7,6 +7,10 @@ from torch.optim import Optimizer
 from torch.utils.data import DataLoader
 from typing import Optional, Tuple, List
 
+from Peony_box.src.peony_adjusted_models.neural_nets_architecture import (
+    NeuralNet,
+    NeuralNetLSTM,
+)
 
 NUM_SAMPLES = 50
 EPOCHS_PER_SAMPLE = 100
@@ -17,21 +21,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MINI_BATCH_RATIO = 0.5
 LEARNING_RATE = 0.01
 
-
-class NeuralNet(nn.Module):
-    def __init__(self, input_size: int, hidden_size: int, num_classes: int):
-        super(NeuralNet, self).__init__()
-        self.hidden = nn.Linear(input_size, hidden_size)
-        self.output = nn.Linear(hidden_size, num_classes)
-        self.sigmoid = nn.Sigmoid()
-        self.softmax = nn.Softmax(dim=1)
-
-    def forward(self, x):
-        x = self.hidden(x)
-        x = self.sigmoid(x)
-        x = self.output(x)
-        x = self.softmax(x)
-        return x
+neural_network = NeuralNet
 
 
 class PeonySGLDFeedForwardNN:
@@ -41,7 +31,7 @@ class PeonySGLDFeedForwardNN:
         self.epochs_per_sample = EPOCHS_PER_SAMPLE
         self.starting_epoch = 0
 
-        self.model: Optional[List[NeuralNet]] = None
+        self.model: Optional[List[nn.Module]] = None
         self.criterion: Optional[nn.CrossEntropyLoss] = None
         self.optimizer: Optional[List[pysgmcmc.optimizers.sgld.SGLD]] = None
 
@@ -58,7 +48,9 @@ class PeonySGLDFeedForwardNN:
 
         if self.initialized is False:
             self.model = [
-                NeuralNet(features_size, self.hidden_size, self.num_classes).to(DEVICE)
+                neural_network(features_size, self.hidden_size, self.num_classes).to(
+                    DEVICE
+                )
                 for i in range(self.num_samples)
             ]
             self.criterion = nn.CrossEntropyLoss()

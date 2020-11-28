@@ -2,11 +2,14 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-from sklearn.preprocessing import OneHotEncoder
+from Peony_box.src.peony_adjusted_models.neural_nets_architecture import (
+    NeuralNet,
+    NeuralNetLSTM,
+)
+
 from torch.optim import Optimizer
 from torch.utils.data import DataLoader
 from typing import Optional, Tuple, List
-
 
 NUM_SAMPLES = 10
 EPOCHS_PER_SAMPLE = 50
@@ -14,27 +17,10 @@ EPOCHS = 3000
 HOT_START_EPOCHS = 100
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-MINI_BATCH_RATIO = 0.5
 LEARNING_RATE = 0.001
 WEIGHTS_VARIANCE = 0.1
 
-
-class NeuralNet(nn.Module):
-    def __init__(self, input_size: int, hidden_size: int, num_classes: int):
-        super(NeuralNet, self).__init__()
-        self.hidden = nn.Linear(input_size, hidden_size)
-        self.output = nn.Linear(hidden_size, num_classes)
-        self.sigmoid = nn.Sigmoid()
-        self.softmax = nn.Softmax(dim=1)
-        self.dropout = nn.Dropout(p=0.5, inplace=False)
-
-    def forward(self, x):
-        x = self.hidden(x)
-        x = self.dropout(x)
-        x = self.sigmoid(x)
-        x = self.output(x)
-        x = self.softmax(x)
-        return x
+neural_network = NeuralNet
 
 
 class PeonyDropoutFeedForwardNN:
@@ -50,7 +36,7 @@ class PeonyDropoutFeedForwardNN:
         self.starting_epoch = 0
         self.hot_start_epochs = HOT_START_EPOCHS
 
-        self.model: Optional[List[NeuralNet]] = None
+        self.model: Optional[List[nn.Module]] = None
         self.criterion: Optional[nn.CrossEntropyLoss] = None
         self.optimizer: Optional[torch.optim.Adam] = None
 
@@ -58,7 +44,6 @@ class PeonyDropoutFeedForwardNN:
         self.num_classes = num_classes
         self.num_epochs = EPOCHS
         self.initialized = False
-        self.mini_batch = MINI_BATCH_RATIO
         self.cold_start = cold_start
         self.variance = WEIGHTS_VARIANCE
 
@@ -68,13 +53,11 @@ class PeonyDropoutFeedForwardNN:
 
         if self.initialized is False:
             self.model = [
-                NeuralNet(features_size, self.hidden_size, self.num_classes).to(DEVICE)
+                neural_network(features_size, self.hidden_size, self.num_classes, dropout=0.5).to(DEVICE)
                 for i in range(self.num_samples)
             ]
             self.criterion = nn.CrossEntropyLoss()
-            self.optimizer = torch.optim.Adam(
-                self.model[0].parameters(), lr=LEARNING_RATE
-            )
+            self.optimizer = torch.optim.Adam(self.model[0].parameters(), lr=LEARNING_RATE)
             self.initialized = True
 
         fitted_loss_per_sample: List[float] = []
@@ -96,7 +79,9 @@ class PeonyDropoutFeedForwardNN:
 
                     # Forward pass
                     self.optimizer.zero_grad()
+
                     outputs = self.model[0].train()(instances)
+
                     loss = self.criterion(outputs, labels)
                     # Backward and optimize
                     loss.backward()
@@ -107,9 +92,7 @@ class PeonyDropoutFeedForwardNN:
 
             fitted_loss_per_sample.append(loss.detach().numpy())
         loss_list.append(f"starting loss is {initial_loss_per_sample}")
-        loss_list.append(
-            f"fitted loss (samples mean) is {np.mean(fitted_loss_per_sample)}"
-        )
+        loss_list.append(f"fitted loss (samples mean) is {np.mean(fitted_loss_per_sample)}")
 
         if self.initialized and self.cold_start is False:
             self.starting_epoch = 0
@@ -131,9 +114,7 @@ class PeonyDropoutFeedForwardNN:
                     [
                         res
                         for instances, _ in data
-                        for res in torch.max(self.model[index](instances).data, 1)[1]
-                        .detach()
-                        .numpy()
+                        for res in torch.max(self.model[index].predict(instances).data, 1)[1].detach().numpy()
                     ]
                 )
 
@@ -144,5 +125,8 @@ class PeonyDropoutFeedForwardNN:
         self.num_epochs = EPOCHS
         self.starting_epoch = 0
         for index in range(self.num_samples):
-            self.model[index].hidden.reset_parameters()
-            self.model[index].output.reset_parameters()
+            for name, module in self.model[index].named_children():
+                if name not in ["sigmoid", "softmax", "relu", "dropout"]:
+                    module.reset_parameters()
+            # self.model[index].hidden.reset_parameters()
+            # self.model[index].output.reset_parameters()

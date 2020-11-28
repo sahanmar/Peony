@@ -7,10 +7,7 @@ from Peony_box.active_learning_simulation.utils import active_learning_simulatio
 from Peony_box.src.transformators.HuffPost_transformator import (
     FastTextWordEmbeddings as transformator,
 )
-from Peony_database.src.datasets.HuffPost_news_dataset import (
-    COLLECTION_NAME as HuffPost_collection_name,
-    COLLECTION_ID as HuffPost_collection_id,
-)
+from Peony_database.src.datasets.fake_news import COLLECTION_NAME, COLLECTION_ID
 
 # from Peony_database.src.datasets.Tweets_emotions_dataset import (
 #     COLLECTION_NAME as TweetsEmotions_collection_name,
@@ -32,17 +29,17 @@ def main():
 
     api = MongoDb()
 
-    sport_records = api.get_record(
-        collection_name=HuffPost_collection_name,
-        collection_id=HuffPost_collection_id,
-        label="COLLEGE",
+    records_1 = api.get_record(
+        collection_name=COLLECTION_NAME,
+        collection_id=COLLECTION_ID,
+        label="Fake",
         limit=200,
     )
 
-    comedy_records = api.get_record(
-        collection_name=HuffPost_collection_name,
-        collection_id=HuffPost_collection_id,
-        label="EDUCATION",
+    records_2 = api.get_record(
+        collection_name=COLLECTION_NAME,
+        collection_id=COLLECTION_ID,
+        label="True",
         limit=200,
     )
 
@@ -62,7 +59,7 @@ def main():
     # Define model specifications
     model_1 = "bayesian_dropout_nn_fast_text_embeddings"
     model_2 = "bayesian_dropout_nn_fast_text_embeddings"
-    algorithm = "bayesian_denfi"
+    algorithm = "nn"
     acquisition_function_1 = "random"
     acquisition_function_2 = "entropy"
     active_learning_loops = 1
@@ -74,8 +71,8 @@ def main():
     category_2 = "COMEDY"
     transformation_needed = False
 
-    instances = sport_records + comedy_records
-    labels = [sample["record"]["label"] for sample in sport_records + comedy_records]
+    instances = records_1 + records_2
+    labels = [sample["record"]["label"] for sample in records_1 + records_2]
 
     # instances = tweet_positive_records + tweet_negative_records
     # labels = [
