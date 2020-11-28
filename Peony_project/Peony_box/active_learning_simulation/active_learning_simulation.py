@@ -5,12 +5,9 @@ from Peony_box.active_learning_simulation.utils import active_learning_simulatio
 #    HuffPostTransform as transformator,
 # )
 from Peony_box.src.transformators.HuffPost_transformator import (
-    HuffPostTransformWordEmbeddings as transformator,
+    FastTextWordEmbeddings as transformator,
 )
-from Peony_database.src.datasets.HuffPost_news_dataset import (
-    COLLECTION_NAME as HuffPost_collection_name,
-    COLLECTION_ID as HuffPost_collection_id,
-)
+from Peony_database.src.datasets.fake_news import COLLECTION_NAME, COLLECTION_ID
 
 # from Peony_database.src.datasets.Tweets_emotions_dataset import (
 #     COLLECTION_NAME as TweetsEmotions_collection_name,
@@ -21,7 +18,6 @@ from Peony_database.src.datasets.HuffPost_news_dataset import (
 # )
 from Peony_box.src.acquisition_functions.functions import (
     entropy_sampling,
-    false_positive_sampling,
 )
 from Peony_visualization.src.peony_visualization import visualize_two_auc_evolutions
 
@@ -33,18 +29,18 @@ def main():
 
     api = MongoDb()
 
-    sport_records = api.get_record(
-        collection_name=HuffPost_collection_name,
-        collection_id=HuffPost_collection_id,
-        label="COLLEGE",
-        limit=500,
+    records_1 = api.get_record(
+        collection_name=COLLECTION_NAME,
+        collection_id=COLLECTION_ID,
+        label="Fake",
+        limit=200,
     )
 
-    comedy_records = api.get_record(
-        collection_name=HuffPost_collection_name,
-        collection_id=HuffPost_collection_id,
-        label="EDUCATION",
-        limit=500,
+    records_2 = api.get_record(
+        collection_name=COLLECTION_NAME,
+        collection_id=COLLECTION_ID,
+        label="True",
+        limit=200,
     )
 
     # tweet_positive_records = api.get_record(
@@ -61,25 +57,22 @@ def main():
     # )
 
     # Define model specifications
-    model_1 = "bayesian_denfi_nn_fast_text_embeddings"
-    model_2 = "bayesian_denfi_nn_fast_text_embeddings"
-    # model_1 = "bayesian_sgld_nn_fast_text_embeddings"
-    # model_2 = "bayesian_sgld_nn_fast_text_embeddings"
-    algorithm = "bayesian_denfi"
-    # algorithm = "bayesian_sgld"
+    model_1 = "bayesian_dropout_nn_fast_text_embeddings"
+    model_2 = "bayesian_dropout_nn_fast_text_embeddings"
+    algorithm = "nn"
     acquisition_function_1 = "random"
     acquisition_function_2 = "entropy"
     active_learning_loops = 1
-    active_learning_step = 4
-    max_active_learning_iters = 50
+    active_learning_step = 10
+    max_active_learning_iters = 10
     initial_training_data_size = 10
-    validation_data_size = 1000
+    validation_data_size = 400
     category_1 = "SPORTS"
     category_2 = "COMEDY"
     transformation_needed = False
 
-    instances = sport_records + comedy_records
-    labels = [sample["record"]["label"] for sample in sport_records + comedy_records]
+    instances = records_1 + records_2
+    labels = [sample["record"]["label"] for sample in records_1 + records_2]
 
     # instances = tweet_positive_records + tweet_negative_records
     # labels = [
@@ -93,7 +86,7 @@ def main():
 
     HuffPostTransform = (
         transformator()
-    )  # I'm using here not HuffPost transformator but I'm                                         #too lazy to change all variable names
+    )  # I'm using here not HuffPost transformator but I'm too lazy to change all variable names
 
     HuffPostTransform.fit(instances_from_db, labels_from_db)
 
@@ -101,15 +94,8 @@ def main():
         instances = instances_from_db
         labels = labels_from_db
     else:
-        try:
-            instances = np.asarray(
-                HuffPostTransform.transform_instances(instances_from_db).todense()
-            )
-        except:
-            instances = np.asarray(
-                HuffPostTransform.transform_instances(instances_from_db)
-            )
-        labels = np.asarray(HuffPostTransform.transform_labels(labels_from_db))
+        instances = HuffPostTransform.transform_instances(instances_from_db)
+        labels = HuffPostTransform.transform_labels(labels_from_db)
 
     # Get AUC results from an active learning simulation
     auc_active_learning_random_10_runs_nn = active_learning_simulation(

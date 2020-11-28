@@ -84,12 +84,12 @@ def k_fold_corss_validation(
     splitted = list(kf.split(validation_instances))
     for train_index, test_index in tqdm(splitted):
         X_train, X_test = (
-            validation_instances[train_index],
-            validation_instances[test_index],
+            [validation_instances[i] for i in train_index],
+            [validation_instances[i] for i in test_index],
         )
         y_train, y_test = (
-            validation_labels[train_index],
-            validation_labels[test_index],
+            [validation_labels[i] for i in train_index],
+            [validation_labels[i] for i in test_index],
         )
         model.training_dataset = {}
 
@@ -98,6 +98,11 @@ def k_fold_corss_validation(
             model_output.extend(output)
 
         y_predicted = model.predict(X_test, transformation_needed=False)
+
+        # import IPython
+
+        # IPython.embed()
+
         true_vs_predicted.append({"true": y_test, "predicted": np.round(y_predicted)})
         model.reset()
 

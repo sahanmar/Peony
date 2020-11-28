@@ -7,19 +7,17 @@ from Peony_box.src.peony_box_model import PeonyBoxModel
 from Peony_box.src.peony_adjusted_models.random_trees_model import PeonyRandomForest
 
 from Peony_box.src.transformators.HuffPost_transformator import (
-    HuffPostTransformWordEmbeddings as transformator,
-)
-from Peony_database.src.datasets.HuffPost_news_dataset import (
-    COLLECTION_NAME as HuffPost_collection_name,
-    COLLECTION_ID as HuffPost_collection_id,
+    FastTextWordEmbeddings as transformator,
 )
 
-# from Peony_box.src.transformators.TweetsEmotion_transformator import (
-#     TweetsEmotionsTransformWordEmbeddings as transformator,
-# )
+from Peony_database.src.datasets.fake_news import (
+    COLLECTION_NAME,
+    COLLECTION_ID,
+)
+
 # from Peony_database.src.datasets.Tweets_emotions_dataset import (
-#     COLLECTION_NAME as TweetsEmotions_collection_name,
-#     COLLECTION_ID as TweetsEmotions_collection_id,
+#     COLLECTION_NAME,
+#     COLLECTION_ID,
 # )
 
 from Peony_box.src.acquisition_functions.functions import (
@@ -37,36 +35,35 @@ from sklearn.metrics import accuracy_score
 
 def main():
     api = MongoDb()
-    sport_records = api.get_record(
-        collection_name=HuffPost_collection_name,
-        collection_id=HuffPost_collection_id,
-        label="SPORTS",
+    laebl_1 = api.get_record(
+        collection_name=COLLECTION_NAME,
+        collection_id=COLLECTION_ID,
+        label="Fake",
         limit=100,
     )
 
-    comedy_records = api.get_record(
-        collection_name=HuffPost_collection_name,
-        collection_id=HuffPost_collection_id,
-        label="COMEDY",
+    laebl_2 = api.get_record(
+        collection_name=COLLECTION_NAME,
+        collection_id=COLLECTION_ID,
+        label="True",
         limit=100,
     )
-    instances = sport_records + comedy_records
-    labels = [sample["record"]["label"] for sample in sport_records + comedy_records]
 
-    # tweet_positive_records = api.get_record(
-    #     collection_name=TweetsEmotions_collection_name,
-    #     collection_id=TweetsEmotions_collection_id,
+    # laebl_1 = api.get_record(
+    #     collection_name=COLLECTION_NAME,
+    #     collection_id=COLLECTION_ID,
     #     label=0,
-    #     limit=200,
+    #     limit=10,
     # )
-    # weet_negative_records = api.get_record(
-    #     collection_name=TweetsEmotions_collection_name,
-    #     collection_id=TweetsEmotions_collection_id,
+    # laebl_2 = api.get_record(
+    #     collection_name=COLLECTION_NAME,
+    #     collection_id=COLLECTION_ID,
     #     label=4,
-    #     limit=200,
+    #     limit=10,
     # )
-    instances = comedy_records + sport_records
-    labels = [sample["record"]["label"] for sample in comedy_records + sport_records]
+
+    instances = laebl_1 + laebl_2
+    labels = [sample["record"]["label"] for sample in laebl_1 + laebl_2]
 
     instances, labels = shuffle(instances, labels, random_state=0)
 
@@ -93,7 +90,7 @@ def main():
 
     start_time = time.time()
     k_fold = k_fold_corss_validation(
-        peony_model.bayesian_dropout_nn, Transformator, instances, labels, 2
+        peony_model.bayesian_denfi_nn, Transformator, instances, labels, 2
     )
     print(f"elapsed time is {time.time() - start_time}")
 

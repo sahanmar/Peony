@@ -14,6 +14,7 @@ dependencies:
   - nltk
   - jupyter
   - pytorch
+  - tensorflow
   - multiprocess
   - mkl-service
   - theano
@@ -25,8 +26,13 @@ dependencies:
   - chart-studio
   - pip:
       - pymongo
+      - spacy
+      - fairseq
+      - omegaconf
       - black
       - matplotlib==3.2
       - numpyro
+      - bert-serving-server
+      - bert-serving-client
       - git+https://github.com/MFreidank/pysgmcmc@pytorch
       - -e .
