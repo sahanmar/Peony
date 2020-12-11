@@ -7,10 +7,10 @@ from Peony_box.src.peony_box_model import PeonyBoxModel
 from Peony_box.src.peony_adjusted_models.random_trees_model import PeonyRandomForest
 
 from Peony_box.src.transformators.HuffPost_transformator import (
-    FastTextWordEmbeddings as transformator,
+    RoBERTaWordEmbeddings as transformator,
 )
 
-from Peony_database.src.datasets.fake_news import (
+from Peony_database.src.datasets.Tweets_emotions_dataset import (
     COLLECTION_NAME,
     COLLECTION_ID,
 )
@@ -22,7 +22,6 @@ from Peony_database.src.datasets.fake_news import (
 
 from Peony_box.src.acquisition_functions.functions import (
     entropy_sampling,
-    false_positive_sampling,
 )
 from scipy.sparse import vstack
 from sklearn.utils import shuffle
@@ -38,15 +37,15 @@ def main():
     laebl_1 = api.get_record(
         collection_name=COLLECTION_NAME,
         collection_id=COLLECTION_ID,
-        label="Fake",
-        limit=100,
+        label=0,
+        limit=300,
     )
 
     laebl_2 = api.get_record(
         collection_name=COLLECTION_NAME,
         collection_id=COLLECTION_ID,
-        label="True",
-        limit=100,
+        label=4,
+        limit=300,
     )
 
     # laebl_1 = api.get_record(
@@ -68,8 +67,8 @@ def main():
     instances, labels = shuffle(instances, labels, random_state=0)
 
     Transformator = transformator()
-    Transformator.fit(instances, labels)
-    # Transformator.fit(labels)
+    # Transformator.fit(instances, labels)
+    Transformator.fit(labels)
 
     peony_model = PeonyBoxModel(
         Transformator,
@@ -89,17 +88,12 @@ def main():
     # predicted = peony_model.bayesian_dropout_nn.predict(instances[50:])
 
     start_time = time.time()
-    k_fold = k_fold_corss_validation(
-        peony_model.bayesian_denfi_nn, Transformator, instances, labels, 2
-    )
+    k_fold = k_fold_corss_validation(peony_model.bayesian_dropout_nn, Transformator, instances, labels, 2)
     print(f"elapsed time is {time.time() - start_time}")
 
     print(auc_metrics(k_fold))
 
-    scores = [
-        accuracy_score(eval["true"], eval["predicted"], normalize=True)
-        for eval in k_fold
-    ]
+    scores = [accuracy_score(eval["true"], eval["predicted"], normalize=True) for eval in k_fold]
 
     print(scores)
     print("test")

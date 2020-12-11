@@ -17,6 +17,9 @@ from Peony_box.src.acquisition_functions.functions import random_sampling
 from Peony_box.src.greedy_coef_decay_functions.functions import sigmoid_decay
 
 
+BATCH_SIZE = 32
+
+
 def easy_colate(inputs) -> Tuple[torch.Tensor, torch.Tensor]:
 
     embeddings, labels = zip(*inputs)
@@ -130,7 +133,7 @@ class GeneralizedPeonyBoxModel:
             self.model.fit(
                 DataLoader(
                     training_dataloader,
-                    batch_size=32,
+                    batch_size=BATCH_SIZE,
                     shuffle=True,
                     collate_fn=self.collate,
                 ),
@@ -160,7 +163,7 @@ class GeneralizedPeonyBoxModel:
         predicted = self.model.predict(
             DataLoader(
                 pred_dataset,
-                batch_size=32,
+                batch_size=BATCH_SIZE,
                 shuffle=False,
                 collate_fn=self.collate,
             )
@@ -187,7 +190,7 @@ class GeneralizedPeonyBoxModel:
         predicted = self.model.predict(
             DataLoader(
                 pred_dataset,
-                batch_size=32,
+                batch_size=BATCH_SIZE,
                 shuffle=False,
                 collate_fn=self.collate,
             )

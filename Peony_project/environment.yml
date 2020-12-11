@@ -1,6 +1,5 @@
 name: peony_project
 channels: 
-  - conda-forge
   - anaconda
   - pytorch
 dependencies:
@@ -16,10 +15,7 @@ dependencies:
   - pytorch
   - tensorflow
   - multiprocess
-  - mkl-service
   - theano
-  - pymc3
-  - jax
   - seaborn
   - dash
   - plotly
@@ -27,11 +23,13 @@ dependencies:
   - pip:
       - pymongo
       - spacy
-      - fairseq
-      - omegaconf
       - black
+<<<<<<< Updated upstream
       - matplotlib==3.2
       - numpyro
+=======
+      - matplotlib
+>>>>>>> Stashed changes
       - bert-serving-server
       - bert-serving-client
       - git+https://github.com/MFreidank/pysgmcmc@pytorch
