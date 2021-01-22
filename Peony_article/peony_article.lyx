@@ -504,6 +504,37 @@ Uncertainty in deep networks (SGLD, Dropout, DEnFi)
 
 \end_layout
 
+\begin_layout Standard
+Active learning for fake news detection has been considered in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bhattacharjee2017active"
+literal "false"
+
+\end_inset
+
+ using uncertainty based on probability of classification.
+ It was later extended to context aware approach 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bhattacharjee2019identifying"
+literal "false"
+
+\end_inset
+
+.
+ An entropy based approach has been presented in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hasan2020truth"
+literal "false"
+
+\end_inset
+
+ using an ensemble of three different kinds of network.
+ 
+\end_layout
+
 \begin_layout Section
 Methods
 \end_layout
