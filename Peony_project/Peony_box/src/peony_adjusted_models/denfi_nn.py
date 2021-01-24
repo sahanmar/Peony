@@ -6,29 +6,28 @@ from sklearn.preprocessing import OneHotEncoder
 from torch.utils.data import DataLoader
 from typing import Optional, Tuple, List
 
+from Peony_box.src.peony_adjusted_models.neural_nets_architecture import (
+    NeuralNet,
+    NeuralNetLSTM,
+)
+
 NUM_ENSEMBLES = 10
-EPOCHS = 2000
-HOT_START_EPOCHS = 500
-WEIGHTS_VARIANCE = 0.2
+EPOCHS = 2500
+HOT_START_EPOCHS = 700
+WEIGHTS_VARIANCE = 0.3
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
 
+# NUM_ENSEMBLES = 1
+# EPOCHS = 150
+# HOT_START_EPOCHS = 40
+# WEIGHTS_VARIANCE = 0.1
+# # Device configuration
+# DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# LEARNING_RATE = 0.001
 
-class NeuralNet(nn.Module):
-    def __init__(self, input_size: int, hidden_size: int, num_classes: int):
-        super(NeuralNet, self).__init__()
-        self.hidden = nn.Linear(input_size, hidden_size)
-        self.output = nn.Linear(hidden_size, num_classes)
-        self.sigmoid = nn.Sigmoid()
-        self.softmax = nn.Softmax(dim=1)
-
-    def forward(self, x):
-        x = self.hidden(x)
-        x = self.sigmoid(x)
-        x = self.output(x)
-        x = self.softmax(x)
-        return x
+neural_network = NeuralNet
 
 
 class PeonyDENFIFeedForwardNN:
@@ -64,7 +63,7 @@ class PeonyDENFIFeedForwardNN:
 
         if self.initialized is False:
             self.model = [
-                NeuralNet(features_size, self.hidden_size, self.num_classes).to(DEVICE)
+                neural_network(features_size, self.hidden_size, self.num_classes).to(DEVICE)
                 for i in range(self.num_ensembles)
             ]
             self.criterion = [nn.CrossEntropyLoss() for i in range(self.num_ensembles)]
@@ -126,12 +125,20 @@ class PeonyDENFIFeedForwardNN:
                     [
                         res
                         for instances, _ in data
-                        for res in torch.max(self.model[index](instances).data, 1)[1]
-                        .detach()
-                        .numpy()
+                        for res in torch.max(self.model[index](instances).data, 1)[1].detach().numpy()
                     ]
                 )
         return predicted_list
+
+    # def reset(self) -> None:
+    #     self.initialized = False
+    #     self.num_epochs = EPOCHS
+    #     self.starting_epoch = 0
+    #     for index in range(self.num_samples):
+    #         for name, module in self.model[index].named_children():
+    #             if name not in ["sigmoid", "softmax", "relu", "dropout"]:
+    #                 torch.nn.init.normal(module, mean=0, std=np.sqrt(self.variance))
+    #                 module.reset_parameters()
 
     def reset(self) -> None:
         self.num_epochs = EPOCHS
@@ -139,15 +146,10 @@ class PeonyDENFIFeedForwardNN:
             self._init_normal_weights(index)
 
     def _init_normal_weights(self, index: int) -> None:
-        torch.nn.init.normal(
-            self.model[index].hidden.weight, mean=0, std=np.sqrt(self.variance)
-        )
-        torch.nn.init.normal(
-            self.model[index].hidden.bias, mean=0, std=np.sqrt(self.variance)
-        )
-        torch.nn.init.normal(
-            self.model[index].output.weight, mean=0, std=np.sqrt(self.variance)
-        )
-        torch.nn.init.normal(
-            self.model[index].output.bias, mean=0, std=np.sqrt(self.variance)
-        )
+        for name, module in self.model[index].named_children():
+            if name not in ["sigmoid", "softmax", "relu", "dropout"]:
+                module.reset_parameters()
+        # torch.nn.init.normal(self.model[index].hidden.weight, mean=0, std=np.sqrt(self.variance))
+        # torch.nn.init.normal(self.model[index].hidden.bias, mean=0, std=np.sqrt(self.variance))
+        # torch.nn.init.normal(self.model[index].output.weight, mean=0, std=np.sqrt(self.variance))
+        # torch.nn.init.normal(self.model[index].output.bias, mean=0, std=np.sqrt(self.variance))

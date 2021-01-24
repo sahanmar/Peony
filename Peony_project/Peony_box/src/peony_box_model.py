@@ -62,7 +62,9 @@ class PeonyBoxModel:
             ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
         )
         self.bayesian_dropout_nn = GeneralizedPeonyBoxModel(
-            model=PeonyDropoutFeedForwardNN(hidden_size=100, num_classes=number_of_classes_for_nn),
+            model=PeonyDropoutFeedForwardNN(
+                hidden_size=100, num_classes=number_of_classes_for_nn
+            ),  # 120 for LSTM
             transformator=transformator,
             active_learning_step=active_learning_step,
             acquisition_function=acquisition_function,

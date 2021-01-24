@@ -42,6 +42,18 @@ from Peony_database.src.datasets.fake_news_detection import (
     load_data as fake_news_detection_loader,
 )
 
+from Peony_database.src.datasets.liar_paragraph import (
+    COLLECTION_NAME as liar_paragraph_collection_name,
+    transorm_data as liar_paragraph_transformer,
+    load_data as liar_paragraph_loader,
+)
+
+from Peony_database.src.datasets.liar_full_text import (
+    COLLECTION_NAME as liar_full_text_collection_name,
+    transorm_data as liar_full_text_transformer,
+    load_data as liar_full_text_loader,
+)
+
 # args for different datasets
 def input_args() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
@@ -52,6 +64,8 @@ def input_args() -> argparse.ArgumentParser:
     parser.add_argument("--emotions", help="Path to emotional texts dataset")
     parser.add_argument("--fake_news", help="Path to fake news dataset")
     parser.add_argument("--fake_news_detection", help="Path to fake news detection dataset")
+    parser.add_argument("--liar_paragraph", help="Path to liar (fake news) paragraph based dataset")
+    parser.add_argument("--liar_full_text", help="Path to liar (fake news) paragraph based dataset")
     return parser
 
 
@@ -112,6 +126,22 @@ def main():
             Path(args.fake_news_detection),
             fake_news_detection_loader,
             fake_news_detection_transformer,
+        )
+
+    if args.liar_paragraph:
+        api.load_data_to_database(
+            liar_paragraph_collection_name,
+            Path(args.liar_paragraph),
+            liar_paragraph_loader,
+            liar_paragraph_transformer,
+        )
+
+    if args.liar_full_text:
+        api.load_data_to_database(
+            liar_full_text_collection_name,
+            Path(args.liar_full_text),
+            liar_full_text_loader,
+            liar_full_text_transformer,
         )
 
 

@@ -22,14 +22,12 @@ class NeuralNetLSTM(nn.Module):
             batch_first=True,
             bidirectional=True,
             num_layers=num_of_lstm_layers,
-            dropout=dropout,
+            dropout=0,
         )
         self.linear1 = nn.Linear(hidden_dim * 2, output_dim)
         self.relu = nn.PReLU()
-        self.dropout = nn.Dropout(dropout)
+        self.dropout = nn.Dropout(0.1)
         self.softmax = nn.Softmax(dim=1)
-
-        # self.eval()
 
     def forward(self, inputs):
 

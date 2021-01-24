@@ -18,9 +18,18 @@ HOT_START_EPOCHS = 100
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
-WEIGHTS_VARIANCE = 0.1
-
+WEIGHTS_VARIANCE = 0.3
 neural_network = NeuralNet
+
+# NUM_SAMPLES = 10
+# EPOCHS_PER_SAMPLE = 1
+# EPOCHS = 180
+# HOT_START_EPOCHS = 50
+# # Device configuration
+# DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# LEARNING_RATE = 0.001
+# WEIGHTS_VARIANCE = 0.10
+# neural_network = NeuralNetLSTM
 
 
 class PeonyDropoutFeedForwardNN:

@@ -37,5 +37,5 @@ def lemmatizer(tokens: List[str]):
 
 def tokenizer(text: str) -> List[str]:
     tokenizer = TweetTokenizer()
-    tokens = tokenizer.tokenize(text)
+    tokens = tokenizer.tokenize(text if isinstance(text, str) else " ")
     return [token.lower() for token in tokens if token.isalpha() == True]
