@@ -14,8 +14,16 @@ def reset_validation_data(testing_instances, testing_labels, new_training_indice
     new_training_indices = new_training_indices.tolist()
     training_instances = [testing_instances[index] for index in new_training_indices]
     training_labels = [testing_labels[index] for index in new_training_indices]
-    testing_instances = np.delete(testing_instances, new_training_indices, axis=0)
-    testing_labels = np.delete(testing_labels, new_training_indices, axis=None)
+    testing_instances = [
+        testing_instances[index]
+        for index in range(len(testing_instances))
+        if index not in new_training_indices
+    ]
+    testing_labels = [
+        testing_labels[index]
+        for index in range(len(testing_labels))
+        if index not in new_training_indices
+    ]
 
     return training_instances, training_labels, testing_instances, testing_labels
 

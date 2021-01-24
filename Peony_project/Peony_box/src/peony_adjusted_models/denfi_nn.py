@@ -3,31 +3,31 @@ import torch
 import torch.nn as nn
 
 from sklearn.preprocessing import OneHotEncoder
+from torch.utils.data import DataLoader
 from typing import Optional, Tuple, List
 
+from Peony_box.src.peony_adjusted_models.neural_nets_architecture import (
+    NeuralNet,
+    NeuralNetLSTM,
+)
+
 NUM_ENSEMBLES = 10
-EPOCHS = 2000
-HOT_START_EPOCHS = 500
-WEIGHTS_VARIANCE = 0.2
+EPOCHS = 2500
+HOT_START_EPOCHS = 700
+WEIGHTS_VARIANCE = 0.3
 # Device configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
 
+# NUM_ENSEMBLES = 1
+# EPOCHS = 150
+# HOT_START_EPOCHS = 40
+# WEIGHTS_VARIANCE = 0.1
+# # Device configuration
+# DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# LEARNING_RATE = 0.001
 
-class NeuralNet(nn.Module):
-    def __init__(self, input_size: int, hidden_size: int, num_classes: int):
-        super(NeuralNet, self).__init__()
-        self.hidden = nn.Linear(input_size, hidden_size)
-        self.output = nn.Linear(hidden_size, num_classes)
-        self.sigmoid = nn.Sigmoid()
-        self.softmax = nn.Softmax(dim=1)
-
-    def forward(self, x):
-        x = self.hidden(x)
-        x = self.sigmoid(x)
-        x = self.output(x)
-        x = self.softmax(x)
-        return x
+neural_network = NeuralNet
 
 
 class PeonyDENFIFeedForwardNN:
@@ -40,11 +40,10 @@ class PeonyDENFIFeedForwardNN:
     ):
 
         self.num_ensembles = NUM_ENSEMBLES
-        self.num_of_samples = 0
 
         self.model: Optional[List[NeuralNet]] = None
         self.criterion: Optional[List[nn.CrossEntropyLoss]] = None
-        self.optimizer: Optional[List[torch.optim.SGD]] = None
+        self.optimizer: Optional[List[torch.optim.Adam]] = None
 
         self.hidden_size = hidden_size
         self.num_classes = num_classes
@@ -56,17 +55,15 @@ class PeonyDENFIFeedForwardNN:
         self.cold_start = cold_start
         self.hot_start_epochs = HOT_START_EPOCHS
 
-    def fit(self, instances: np.ndarray, labels: np.ndarray) -> Optional[List[str]]:
+    def fit(self, data: DataLoader, features_size: int) -> Optional[List[str]]:
 
         loss_list: List[str] = []
-        self.loss_sequence: List[List[float]] = []
-        self.num_of_samples = int(instances.shape[0] * self.rand_sample_ratio)
+
+        self.loss_sequence = []
 
         if self.initialized is False:
             self.model = [
-                NeuralNet(instances.shape[1], self.hidden_size, self.num_classes).to(
-                    DEVICE
-                )
+                neural_network(features_size, self.hidden_size, self.num_classes).to(DEVICE)
                 for i in range(self.num_ensembles)
             ]
             self.criterion = [nn.CrossEntropyLoss() for i in range(self.num_ensembles)]
@@ -82,11 +79,6 @@ class PeonyDENFIFeedForwardNN:
 
             self.initialized = True
 
-        try:
-            instances = torch.from_numpy(instances.toarray()).float()
-        except AttributeError:
-            instances = torch.from_numpy(instances).float()
-        labels = torch.from_numpy(labels)
         initial_loss_per_ensemble: List[str] = []
         fitted_loss_per_ensemble: List[str] = []
 
@@ -94,35 +86,28 @@ class PeonyDENFIFeedForwardNN:
 
             loss_sequence_per_ensemble: List[float] = []
 
-            indices = np.random.choice(
-                instances.shape[0], self.num_of_samples, replace=False
-            )
-
             if self.cold_start is False:
                 with torch.no_grad():
                     for param in self.model[index].parameters():
                         param.add_(torch.randn(param.size()) * self.variance)
 
             for epoch in range(self.num_epochs):
-                # Forward pass
-                outputs = self.model[index](instances[indices, :])
-                loss = self.criterion[index](outputs, labels[indices].long())
-                loss_sequence_per_ensemble.append(float(loss.detach().numpy()))
-                # Backward and optimize
-                self.optimizer[index].zero_grad()
-                loss.backward()
-                self.optimizer[index].step()
 
-                if epoch == 0:
-                    initial_loss_per_ensemble.append(str(loss.detach().numpy()))
+                for instances, labels in data:
+                    # Forward pass
+                    outputs = self.model[index](instances)
+                    loss = self.criterion[index](outputs, labels)
+                    loss_sequence_per_ensemble.append(float(loss.detach().numpy()))
+                    # Backward and optimize
+                    self.optimizer[index].zero_grad()
+                    loss.backward(retain_graph=True)
+                    self.optimizer[index].step()
+
+                    if epoch == 0:
+                        initial_loss_per_ensemble.append(str(loss.detach().numpy()))
 
             self.loss_sequence.append(loss_sequence_per_ensemble)
             fitted_loss_per_ensemble.append(str(loss.detach().numpy()))
-
-            # if self.cold_start is False:
-            #     with torch.no_grad():
-            #         for param in self.model[index].parameters():
-            #             param.add_(torch.randn(param.size()) * self.variance)
 
         loss_list.append(f"starting losses are {'| '.join(initial_loss_per_ensemble)}")
         loss_list.append(f"fitted losses are {'| '.join(fitted_loss_per_ensemble)}")
@@ -132,18 +117,28 @@ class PeonyDENFIFeedForwardNN:
 
         return loss_list
 
-    def predict(self, instances: np.ndarray) -> np.ndarray:
-        try:
-            instances = torch.from_numpy(instances.toarray()).float()
-        except AttributeError:
-            instances = torch.from_numpy(instances).float()
+    def predict(self, data: DataLoader) -> np.ndarray:
         predicted_list = []
         for index in range(self.num_ensembles):
             with torch.no_grad():
-                outputs = self.model[index](instances)
-                _, predicted = torch.max(outputs.data, 1)
-                predicted_list.append(predicted.detach().numpy())
+                predicted_list.append(
+                    [
+                        res
+                        for instances, _ in data
+                        for res in torch.max(self.model[index](instances).data, 1)[1].detach().numpy()
+                    ]
+                )
         return predicted_list
+
+    # def reset(self) -> None:
+    #     self.initialized = False
+    #     self.num_epochs = EPOCHS
+    #     self.starting_epoch = 0
+    #     for index in range(self.num_samples):
+    #         for name, module in self.model[index].named_children():
+    #             if name not in ["sigmoid", "softmax", "relu", "dropout"]:
+    #                 torch.nn.init.normal(module, mean=0, std=np.sqrt(self.variance))
+    #                 module.reset_parameters()
 
     def reset(self) -> None:
         self.num_epochs = EPOCHS
@@ -151,15 +146,10 @@ class PeonyDENFIFeedForwardNN:
             self._init_normal_weights(index)
 
     def _init_normal_weights(self, index: int) -> None:
-        torch.nn.init.normal(
-            self.model[index].hidden.weight, mean=0, std=np.sqrt(self.variance)
-        )
-        torch.nn.init.normal(
-            self.model[index].hidden.bias, mean=0, std=np.sqrt(self.variance)
-        )
-        torch.nn.init.normal(
-            self.model[index].output.weight, mean=0, std=np.sqrt(self.variance)
-        )
-        torch.nn.init.normal(
-            self.model[index].output.bias, mean=0, std=np.sqrt(self.variance)
-        )
+        for name, module in self.model[index].named_children():
+            if name not in ["sigmoid", "softmax", "relu", "dropout"]:
+                module.reset_parameters()
+        # torch.nn.init.normal(self.model[index].hidden.weight, mean=0, std=np.sqrt(self.variance))
+        # torch.nn.init.normal(self.model[index].hidden.bias, mean=0, std=np.sqrt(self.variance))
+        # torch.nn.init.normal(self.model[index].output.weight, mean=0, std=np.sqrt(self.variance))
+        # torch.nn.init.normal(self.model[index].output.bias, mean=0, std=np.sqrt(self.variance))
