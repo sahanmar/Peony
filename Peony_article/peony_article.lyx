@@ -3179,7 +3179,7 @@ exploitation tradeoff.
 \end_layout
 
 \begin_layout Subsection
-Fast Text based influence of uncertainty representation
+Influence of uncertainty representation
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:Influence-of-uncertainty"
@@ -3884,22 +3884,35 @@ AUC mean evolution with respect to learning iterations for DEnFi, Dropout
 \end_layout
 
 \begin_layout Subsection
-Transformers based Hyperparameter tuning
+Fake News classification and uncertainty representation
 \end_layout
 
 \begin_layout Standard
-Transformers based encoding hyperparameter tuning is run under the same
- conditions as explained in Section 
+Following experiment is made with respect to the same initial conditions
+ as in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "subsec:Fast-Text-Hyperparameter"
+reference "subsec:Influence-of-uncertainty"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- but with RoBERTa text encoding technique and on Fake 
+ but with a wider choice of encoding techniques.
+ Based on positive results from Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Influence-of-uncertainty"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we show a comparison of DEnFi and Dropout warm-start with respect to four
+ different types of encodings and two fake news datasets.
+ 
 \end_layout
 
 \begin_layout Section
