@@ -2471,7 +2471,7 @@ variance
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\ $
+\begin_inset Formula $0.799\ $
 \end_inset
 
 
@@ -2483,7 +2483,7 @@ variance
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\ $
+\begin_inset Formula $0.853\ $
 \end_inset
 
 
@@ -2495,7 +2495,7 @@ variance
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\ $
+\begin_inset Formula $0.885\ $
 \end_inset
 
 
@@ -2507,7 +2507,7 @@ variance
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\ $
+\begin_inset Formula $0.945\ $
 \end_inset
 
 
@@ -3767,7 +3767,7 @@ Dropout warm-start,
 \begin_inset Text
 
 \begin_layout Plain Layout
-DEnFi 1 nn, 
+DEnFi 1 Ensemble, 
 \begin_inset Formula $q=0.0$
 \end_inset
 
@@ -3780,34 +3780,7 @@ DEnFi 1 nn,
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $0.938$
+\begin_inset Formula $0.9532\ $
 \end_inset
 
 
@@ -3819,6 +3792,9 @@ DEnFi 1 nn,
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $0.939\ $
+\end_inset
+
 
 \end_layout
 
@@ -3828,6 +3804,45 @@ DEnFi 1 nn,
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $0.901\ $
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.938\ $
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.800\ $
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.609\ $
+\end_inset
+
 
 \end_layout
 
