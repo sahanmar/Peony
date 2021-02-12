@@ -38,9 +38,7 @@ class FastTextWordEmbeddings(Transformator):
             print("transforming data...")
             transformed_data = [_transform_text(sample) for sample in tqdm(instances)]
             tokenized_text = [
-                token
-                for text in transformed_data
-                for token in stop_words_filter(tokenizer(text))
+                token for text in transformed_data for token in stop_words_filter(tokenizer(text))
             ]
             distinct_tokens = set(tokenized_text)
             print("creating (words -> embeddings) hash map...")
@@ -49,12 +47,8 @@ class FastTextWordEmbeddings(Transformator):
                 if embedding is not None:
                     self.transformer[token] = embedding
             print("creating labels encoding hash map...")
-            self.encoding_mapper = {
-                value: index for index, value in enumerate(set(labels))
-            }
-            self.reverse_mapper = {
-                index: value for index, value in enumerate(set(labels))
-            }
+            self.encoding_mapper = {value: index for index, value in enumerate(set(labels))}
+            self.reverse_mapper = {index: value for index, value in enumerate(set(labels))}
             self.fitted = True
             self.dict_length = len(self.transformer.keys())
 
@@ -69,9 +63,7 @@ class FastTextWordEmbeddings(Transformator):
         else:
             return torch.tensor(embedding["record"]["value"])
 
-    def transform_instances(
-        self, data: List[Dict[str, Any]]
-    ) -> List[List[torch.Tensor]]:
+    def transform_instances(self, data: List[Dict[str, Any]]) -> List[List[torch.Tensor]]:
         transformed_data = [_transform_text(sample) for sample in tqdm(data)]
 
         with torch.no_grad():
@@ -89,7 +81,7 @@ class FastTextWordEmbeddings(Transformator):
                 ]
                 for text in transformed_data
             ]
-        return transformed_instances
+        return [embed if embed else [torch.zeros((300))] for embed in transformed_instances]
 
     def transform_labels(self, data: List[str]) -> List[int]:
         return [self.transform_label(sample) for sample in tqdm(data)]
@@ -117,31 +109,22 @@ class LaserWordEmbeddings(Transformator):
         self.fitted: bool = False
 
     def transform(self, text: str) -> List[torch.Tensor]:
-        return requests.get(url=self.url, params={"q": text, "lang": "en"}).json()[
-            "embedding"
-        ]
+        return requests.get(url=self.url, params={"q": text, "lang": "en"}).json()["embedding"]
 
     def fit(self, labels: List[str]) -> None:
         if self.fitted is False:
             print("laser encoder is encoding on-prem...")
             print("creating labels encoding hash map...")
-            self.encoding_mapper = {
-                value: index for index, value in enumerate(set(labels))
-            }
-            self.reverse_mapper = {
-                index: value for index, value in enumerate(set(labels))
-            }
+            self.encoding_mapper = {value: index for index, value in enumerate(set(labels))}
+            self.reverse_mapper = {index: value for index, value in enumerate(set(labels))}
             self.fitted = True
 
-    def transform_instances(
-        self, data: List[Dict[str, Any]]
-    ) -> List[List[torch.Tensor]]:
+    def transform_instances(self, data: List[Dict[str, Any]]) -> List[List[torch.Tensor]]:
         transformed_data = [_transform_text(sample) for sample in data]
 
         with torch.no_grad():
             transformed_instances = [
-                [torch.tensor(tensor) for tensor in self.transform(text)]
-                for text in tqdm(transformed_data)
+                [torch.tensor(tensor) for tensor in self.transform(text)] for text in tqdm(transformed_data)
             ]
         return transformed_instances
 
@@ -175,17 +158,11 @@ class BertWordEmbeddings(Transformator):
         if self.fitted is False:
             print("BERT encoder is encoding on-prem...")
             print("creating labels encoding hash map...")
-            self.encoding_mapper = {
-                value: index for index, value in enumerate(set(labels))
-            }
-            self.reverse_mapper = {
-                index: value for index, value in enumerate(set(labels))
-            }
+            self.encoding_mapper = {value: index for index, value in enumerate(set(labels))}
+            self.reverse_mapper = {index: value for index, value in enumerate(set(labels))}
             self.fitted = True
 
-    def transform_instances(
-        self, data: List[Dict[str, Any]]
-    ) -> List[List[torch.Tensor]]:
+    def transform_instances(self, data: List[Dict[str, Any]]) -> List[List[torch.Tensor]]:
         transformed_data = [_transform_text(sample) for sample in data]
         with torch.no_grad():
             transformed_instances = [
@@ -229,24 +206,14 @@ class RoBERTaWordEmbeddings(Transformator):
         if self.fitted is False:
             print("RoBERTa encoder is encoding on-prem...")
             print("creating labels encoding hash map...")
-            self.encoding_mapper = {
-                value: index for index, value in enumerate(set(labels))
-            }
-            self.reverse_mapper = {
-                index: value for index, value in enumerate(set(labels))
-            }
+            self.encoding_mapper = {value: index for index, value in enumerate(set(labels))}
+            self.reverse_mapper = {index: value for index, value in enumerate(set(labels))}
             self.fitted = True
 
-    def transform_instances(
-        self, text_documents: List[Dict[str, Any]]
-    ) -> List[List[torch.Tensor]]:
-        transformed_data = [
-            _transform_text(text_document) for text_document in text_documents
-        ]
+    def transform_instances(self, text_documents: List[Dict[str, Any]]) -> List[List[torch.Tensor]]:
+        transformed_data = [_transform_text(text_document) for text_document in text_documents]
         with torch.no_grad():
-            transformed_instances = [
-                self.transform(text) for text in tqdm(transformed_data)
-            ]
+            transformed_instances = [self.transform(text) for text in tqdm(transformed_data)]
         return transformed_instances
 
     def transform_labels(self, data: List[str]) -> List[int]:
@@ -262,9 +229,7 @@ class RoBERTaWordEmbeddings(Transformator):
             if len(sentence) > 512:
                 n_splits = len(sentence) // 512
                 # not the best solution but should work...
-                splitted_sentences += [
-                    sentence[i * 512 : (i + 1) * 512] for i in range(n_splits)
-                ]
+                splitted_sentences += [sentence[i * 512 : (i + 1) * 512] for i in range(n_splits)]
                 splitted_sentences.append(sentence[512 * n_splits :])
             else:
                 splitted_sentences.append(sentence)
@@ -284,9 +249,7 @@ def _mean_agg(embeddings: Union[torch.Tensor, List[torch.Tensor]]) -> torch.Tens
 
 def _sentence_embed(
     embeddings: Union[torch.Tensor, List[torch.Tensor]],
-    aggregator: Callable[
-        [Union[torch.Tensor, List[torch.Tensor]]], torch.Tensor
-    ] = _mean_agg,
+    aggregator: Callable[[Union[torch.Tensor, List[torch.Tensor]]], torch.Tensor] = _mean_agg,
 ) -> torch.Tensor:
     return aggregator(embeddings)
 

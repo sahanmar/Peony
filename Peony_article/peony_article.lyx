@@ -5110,6 +5110,9 @@ variance
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $\mathbf{0.941}^{*}$
+\end_inset
+
 
 \end_layout
 
@@ -5119,6 +5122,9 @@ variance
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $\mathbf{0.984}^{*}$
+\end_inset
+
 
 \end_layout
 
@@ -5128,6 +5134,9 @@ variance
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $\mathbf{0.992}^{*}$
+\end_inset
+
 
 \end_layout
 
@@ -5137,6 +5146,9 @@ variance
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $\mathbf{0.993}$
+\end_inset
+
 
 \end_layout
 
@@ -5160,7 +5172,7 @@ variance
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.917$
+\begin_inset Formula $0.917\ $
 \end_inset
 
 
@@ -5172,7 +5184,7 @@ variance
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.974$
+\begin_inset Formula $0.974\ $
 \end_inset
 
 
@@ -5186,7 +5198,7 @@ variance
 \begin_layout Plain Layout
 
 \series bold
-\begin_inset Formula $0.992$
+\begin_inset Formula $\mathbf{0.992}^{*}$
 \end_inset
 
 
@@ -5198,7 +5210,7 @@ variance
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.995$
+\begin_inset Formula $\mathbf{0.995}^{*}$
 \end_inset
 
 
@@ -5260,7 +5272,7 @@ variance
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{0.990}^{*}$
+\begin_inset Formula $0.990\ $
 \end_inset
 
 
