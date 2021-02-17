@@ -5429,7 +5429,22 @@ noprefix "false"
 
  we show a comparison of DEnFi and Dropout warm-start with respect to three
  different types of encodings (Fast Text, LASER, RoBERTa) and two fake news
- datasets in Figure 
+ datasets in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AUC-evolution-plots-fake-news"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The results for fake news datasets are similar to the results for Twitter
+ and News Category datasets.
+ Both DEnFi and Dropout showed strong classification performance due to
+ the low complexity in categories separability.
+ 
 \begin_inset Float figure
 wide false
 sideways false
@@ -5470,12 +5485,7 @@ AUC mean evolution with respect to learning iterations for DEnFi, Dropout
 
 \end_inset
 
-.
- The results for fake news datasets are similar to the results for Twitter
- and News Category datasets.
- Both DEnFi and Dropout showed strong classification performance due to
- the low complexity in categories separability.
- 
+
 \end_layout
 
 \begin_layout Section

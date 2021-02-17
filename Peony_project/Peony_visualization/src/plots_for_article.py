@@ -149,26 +149,29 @@ def main():
     # alg_1 = "bayesian_dropout_nn_fast_text_embeddings"
     # alg_2 = "bayesian_denfi_v_2_0.3_fast_text_embeddings"
 
+    # alg_legend_1 = "Dropout"
+    # alg_legend_2 = "DEnFi"
+
     # categories = [
     #     "CRIME",
-    #     "SPORTS",
     #     "POLITICS",
-    #     "TECH",
     #     "COLLEGE",
+    #     "SPORTS",
+    #     "TECH",
     #     "POSITIVE EMOTIONS TWEETS",
     # ]
     # title_categories = [
     #     "Crime vs Good News",
-    #     "Sports vs Comedy",
     #     "Politics vs Business",
-    #     "Tech vs Science",
     #     "College vs Education",
+    #     "Sports vs Comedy",
+    #     "Tech vs Science",
     #     "Positive Tweets vs Negative Tweets",
     # ]
 
-    # font = {"size": 14}
+    # # font = {"size": 14}
 
-    # matplotlib.rc("font", **font)
+    # # matplotlib.rc("font", **font)
 
     # for index, (category, title_category) in enumerate(zip(categories, title_categories)):
     #     # Random acquisition function
@@ -204,6 +207,8 @@ def main():
     alg_2 = "bayesian_denfi_nn_fast_text_0.3"
     alg_3 = "bayesian_dropout_nn_roberta_0.1"
     alg_4 = "bayesian_denfi_nn_roberta_0.1"
+    alg_5 = "bayesian_dropout_nn_laser_0.1"
+    alg_6 = "bayesian_denfi_nn_laser_0.1"
 
     alg_legend_1 = "Dropout"
     alg_legend_2 = "DEnFi"
@@ -211,13 +216,17 @@ def main():
     categories = [
         "fake_news",
         "fake_news",
+        "fake_news",
+        "fake_news_detection",
         "fake_news_detection",
         "fake_news_detection",
     ]
     title_categories = [
         "Fast Text Fake vs True",
+        "Laser Fake vs True",
         "Roberta Fake vs True",
         "Fast Text Fake vs True Detection",
+        "Laser Fake vs True Detection",
         "Roberta Fake vs True Detection",
     ]
 
@@ -225,14 +234,14 @@ def main():
         # Random acquisition function
         random_sampling_results_1 = api.get_model_results(
             {
-                "model": alg_1 if index in {0, 2} else alg_3,
+                "model": alg_1 if index in {0, 3} else alg_5 if index in {1, 4} else alg_3,
                 "acquisition_function": "random",
                 "category_1": category,
             }
         )[0]
         random_sampling_results_2 = api.get_model_results(
             {
-                "model": alg_2 if index in {0, 2} else alg_4,
+                "model": alg_2 if index in {0, 3} else alg_6 if index in {1, 4} else alg_4,
                 "acquisition_function": "random",
                 "category_1": category,
             }
@@ -241,21 +250,20 @@ def main():
         # Entropy acquisition function
         entropy_sampling_results_1 = api.get_model_results(
             {
-                "model": alg_1 if index in {0, 2} else alg_3,
+                "model": alg_1 if index in {0, 3} else alg_5 if index in {1, 4} else alg_3,
                 "acquisition_function": "entropy",
                 "category_1": category,
             }
         )[0]
         entropy_sampling_results_2 = api.get_model_results(
             {
-                "model": alg_2 if index in {0, 2} else alg_4,
+                "model": alg_2 if index in {0, 3} else alg_6 if index in {1, 4} else alg_4,
                 "acquisition_function": "entropy",
                 "category_1": category,
             }
         )[0]
 
-        # ax = plt.subplot(2, 3, index + 1)
-        ax = plt.subplot(2, 2, index + 1)
+        ax = plt.subplot(2, 3, index + 1)
         visualize_auc_evolutions(
             ax,
             14,

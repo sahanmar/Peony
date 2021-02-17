@@ -659,8 +659,8 @@ literal "false"
  one-hot or byte pair encoded words.
  Fast Text encoding is made with respect to a one-hot encoded words.
  LASER and transformer based models take as an input byte per encoded words.
- For every algorithm (Fast Text, Laser, BERT, RoBERTa), sentence embeddings
- are calculated as a mean value through embedded words.
+ For every algorithm (Fast Text, LASER, RoBERTa), sentence embeddings are
+ calculated as a mean value through embedded words.
  
 \end_layout
 
