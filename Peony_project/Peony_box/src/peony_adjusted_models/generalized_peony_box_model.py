@@ -1,3 +1,4 @@
+from telnetlib import IP
 import pymongo
 import numpy as np
 import torch
@@ -169,7 +170,11 @@ class GeneralizedPeonyBoxModel:
             )
         )
 
-        return np.mean(predicted, axis=0)
+        import IPython
+
+        IPython.embed()
+
+        return np.mean([np.argmax(pred, axis=1) for pred in predicted], axis=0)
 
     def reset(self) -> None:
         self.model.reset()

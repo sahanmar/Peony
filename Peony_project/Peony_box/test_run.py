@@ -7,7 +7,8 @@ from Peony_box.src.peony_box_model import PeonyBoxModel
 from Peony_box.src.peony_adjusted_models.random_trees_model import PeonyRandomForest
 
 from Peony_box.src.transformators.HuffPost_transformator import (
-    RoBERTaWordEmbeddings as transformator,
+    # RoBERTaWordEmbeddings as transformator,
+    FastTextWordEmbeddings as transformator,
 )
 
 from Peony_database.src.datasets.Tweets_emotions_dataset import (
@@ -20,9 +21,7 @@ from Peony_database.src.datasets.Tweets_emotions_dataset import (
 #     COLLECTION_ID,
 # )
 
-from Peony_box.src.acquisition_functions.functions import (
-    entropy_sampling,
-)
+from Peony_box.src.acquisition_functions.functions import entropy_sampling, batch_bald
 from scipy.sparse import vstack
 from sklearn.utils import shuffle
 
@@ -67,18 +66,18 @@ def main():
     instances, labels = shuffle(instances, labels, random_state=0)
 
     Transformator = transformator()
-    # Transformator.fit(instances, labels)
-    Transformator.fit(labels)
+    Transformator.fit(instances, labels)
+    # Transformator.fit(labels)
 
     peony_model = PeonyBoxModel(
         Transformator,
-        active_learning_step=5,
-        acquisition_function=entropy_sampling,
+        active_learning_step=10,
+        acquisition_function=batch_bald,  # entropy_sampling,
     )
-    # peony_model.bayesian_dropout_nn.fit(instances[50:], labels[50:])
+    peony_model.bayesian_dropout_nn.fit(instances[50:], labels[50:])
     # peony_model.bayesian_denfi_nn.reset()
-    # peony_model.bayesian_denfi_nn.epsilon_greedy_coef = 1
-    # indexes = peony_model.bayesian_denfi_nn.get_learning_samples(instances[:50])
+    peony_model.bayesian_dropout_nn.epsilon_greedy_coef = 1
+    indexes = peony_model.bayesian_dropout_nn.get_learning_samples(instances[:50])
 
     # add_training = [instances[index] for index in indexes.tolist()]
     # add_labels = [labels[index] for index in indexes.tolist()]

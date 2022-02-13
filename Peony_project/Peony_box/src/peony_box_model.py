@@ -8,7 +8,6 @@ from Peony_box.src.transformators.generalized_transformator import Transformator
 from Peony_box.src.peony_adjusted_models.random_trees_model import PeonyRandomForest
 from Peony_box.src.peony_adjusted_models.svm_model import PeonySVM
 from Peony_box.src.peony_adjusted_models.feed_forward_nn import PeonyFeedForwardNN
-from Peony_box.src.peony_adjusted_models.pymc3_nn import PeonyPymc3NN
 from Peony_box.src.peony_adjusted_models.sgld_nn import PeonySGLDFeedForwardNN
 from Peony_box.src.peony_adjusted_models.denfi_nn import PeonyDENFIFeedForwardNN
 from Peony_box.src.peony_adjusted_models.dropout_nn import PeonyDropoutFeedForwardNN

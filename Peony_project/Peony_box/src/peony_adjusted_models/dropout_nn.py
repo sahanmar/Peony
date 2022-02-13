@@ -116,15 +116,11 @@ class PeonyDropoutFeedForwardNN:
         predicted_list = []
         for index in range(self.num_samples):
             with torch.no_grad():
-                # outputs = self.model[index](instances)
-                # _, predicted = torch.max(outputs.data, 1)
-                # predicted_list.append(predicted.detach().numpy())
                 predicted_list.append(
-                    [
-                        res
-                        for instances, _ in data
-                        for res in torch.max(self.model[index].predict(instances).data, 1)[1].detach().numpy()
-                    ]
+                    np.concatenate(
+                        [self.model[index].predict(instances).data.detach().numpy() for instances, _ in data],
+                        axis=0,
+                    )
                 )
 
         return predicted_list
@@ -137,5 +133,3 @@ class PeonyDropoutFeedForwardNN:
             for name, module in self.model[index].named_children():
                 if name not in ["sigmoid", "softmax", "relu", "dropout"]:
                     module.reset_parameters()
-            # self.model[index].hidden.reset_parameters()
-            # self.model[index].output.reset_parameters()
