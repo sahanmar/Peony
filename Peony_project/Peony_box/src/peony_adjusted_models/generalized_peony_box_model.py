@@ -170,10 +170,6 @@ class GeneralizedPeonyBoxModel:
             )
         )
 
-        import IPython
-
-        IPython.embed()
-
         return np.mean([np.argmax(pred, axis=1) for pred in predicted], axis=0)
 
     def reset(self) -> None:

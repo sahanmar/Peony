@@ -26,16 +26,12 @@ def transform_label_to_binary(
     for record in true_vs_predicted:
         for index in range(len(record["true"])):
             record["true"][index] = 0 if record["true"][index] == mapped_to_0 else 1
-            record["predicted"][index] = (
-                0 if record["predicted"][index] == mapped_to_0 else 1
-            )
+            record["predicted"][index] = 0 if record["predicted"][index] == mapped_to_0 else 1
 
     return (true_vs_predicted, unique_values)
 
 
-def auc_metrics(
-    true_vs_predicted: List[Dict[str, np.ndarray]], label_to_binary: bool = True
-) -> list:
+def auc_metrics(true_vs_predicted: List[Dict[str, np.ndarray]], label_to_binary: bool = True) -> list:
 
     if label_to_binary:
         true_vs_predicted, unique_values = transform_label_to_binary(true_vs_predicted)
@@ -65,16 +61,12 @@ def k_fold_corss_validation(
     print("transforming labels for k fold cross validation...")
     validation_labels = transformator.transform_labels(validation_labels)
 
-    validation_instances, validation_labels = shuffle(
-        validation_instances, validation_labels, random_state=0
-    )
+    validation_instances, validation_labels = shuffle(validation_instances, validation_labels, random_state=0)
 
     if transform_label_to_binary:
         unique_values = np.unique(validation_labels)
         if unique_values is not None:
-            validation_labels = np.asarray(
-                [0 if x == unique_values[0] else 1 for x in validation_labels]
-            )
+            validation_labels = np.asarray([0 if x == unique_values[0] else 1 for x in validation_labels])
 
     true_vs_predicted: List[Dict[str, np.ndarray]] = []
     kf = KFold(n_splits=splits)
@@ -98,10 +90,6 @@ def k_fold_corss_validation(
             model_output.extend(output)
 
         y_predicted = model.predict(X_test, transformation_needed=False)
-
-        # import IPython
-
-        # IPython.embed()
 
         true_vs_predicted.append({"true": y_test, "predicted": np.round(y_predicted)})
         model.reset()

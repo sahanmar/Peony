@@ -11,15 +11,15 @@ from Peony_box.src.transformators.HuffPost_transformator import (
     FastTextWordEmbeddings as transformator,
 )
 
-from Peony_database.src.datasets.Tweets_emotions_dataset import (
-    COLLECTION_NAME,
-    COLLECTION_ID,
-)
-
 # from Peony_database.src.datasets.Tweets_emotions_dataset import (
 #     COLLECTION_NAME,
 #     COLLECTION_ID,
 # )
+
+from Peony_database.src.datasets.HuffPost_news_dataset import (
+    COLLECTION_NAME,
+    COLLECTION_ID,
+)
 
 from Peony_box.src.acquisition_functions.functions import entropy_sampling, batch_bald
 from scipy.sparse import vstack
@@ -36,15 +36,15 @@ def main():
     laebl_1 = api.get_record(
         collection_name=COLLECTION_NAME,
         collection_id=COLLECTION_ID,
-        label=0,
-        limit=300,
+        label="SPORTS",
+        limit=50,
     )
 
     laebl_2 = api.get_record(
         collection_name=COLLECTION_NAME,
         collection_id=COLLECTION_ID,
-        label=4,
-        limit=300,
+        label="COMEDY",
+        limit=50,
     )
 
     # laebl_1 = api.get_record(
