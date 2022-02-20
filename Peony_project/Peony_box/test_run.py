@@ -21,7 +21,7 @@ from Peony_database.src.datasets.HuffPost_news_dataset import (
     COLLECTION_ID,
 )
 
-from Peony_box.src.acquisition_functions.functions import entropy_sampling, batch_bald
+from Peony_box.src.acquisition_functions.functions import entropy_sampling, batch_bald, hac_sampling
 from scipy.sparse import vstack
 from sklearn.utils import shuffle
 
@@ -37,14 +37,14 @@ def main():
         collection_name=COLLECTION_NAME,
         collection_id=COLLECTION_ID,
         label="SPORTS",
-        limit=50,
+        limit=100,
     )
 
     laebl_2 = api.get_record(
         collection_name=COLLECTION_NAME,
         collection_id=COLLECTION_ID,
         label="COMEDY",
-        limit=50,
+        limit=100,
     )
 
     # laebl_1 = api.get_record(
@@ -72,19 +72,18 @@ def main():
     peony_model = PeonyBoxModel(
         Transformator,
         active_learning_step=10,
-        acquisition_function=batch_bald,  # entropy_sampling,
+        acquisition_function=hac_sampling,  # entropy_sampling, batch_bald,
     )
-    peony_model.bayesian_dropout_nn.fit(instances[50:], labels[50:])
+    peony_model.bayesian_dropout_nn.fit(instances[:50], labels[:50])
     # peony_model.bayesian_denfi_nn.reset()
     peony_model.bayesian_dropout_nn.epsilon_greedy_coef = 1
-    indexes = peony_model.bayesian_dropout_nn.get_learning_samples(instances[:50])
+    indexes = peony_model.bayesian_dropout_nn.get_learning_samples(instances[50:])
 
-    # add_training = [instances[index] for index in indexes.tolist()]
-    # add_labels = [labels[index] for index in indexes.tolist()]
+    add_training = [instances[index] for index in indexes.tolist()]
+    add_labels = [labels[index] for index in indexes.tolist()]
 
-    # peony_model.feed_forward_nn.add_new_learning_samples(add_training, add_labels)
-    # peony_model.feed_forward_nn.fit(instances, labels)
-    # predicted = peony_model.bayesian_dropout_nn.predict(instances[50:])
+    peony_model.bayesian_dropout_nn.add_new_learning_samples(add_training, add_labels)
+    peony_model.bayesian_dropout_nn.fit(instances, labels)
 
     start_time = time.time()
     k_fold = k_fold_corss_validation(peony_model.bayesian_dropout_nn, Transformator, instances, labels, 2)
