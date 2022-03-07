@@ -15,6 +15,7 @@ from itertools import combinations, product, count
 from tqdm import tqdm
 
 BASE = 2
+GUMBEL_BETA = 8
 
 
 def random_sampling(labels: np.ndarray, batch_size: int) -> np.ndarray:
@@ -27,14 +28,8 @@ def entropy_sampling(labels: np.ndarray, batch_size: int, instances: np.ndarray)
     # instances are not used. They are given here in order to preserve unification
 
     dist_samples = len(labels)
-    prediction_entropy = entropy(
-        [np.sum(labels[:, :, 0], axis=0) / dist_samples, np.sum(labels[:, :, 1], axis=0) / dist_samples],
-        base=BASE,
-        axis=0,
-    )
+    prediction_entropy = np.sum(entropy(labels, base=BASE, axis=2), axis=0) / dist_samples
     max_entropy_indices: List[int] = []
-    # counts = [np.unique(labels[:, index], return_counts=True)[1] for index in range(len(labels[0, :]))]
-    # prediction_entropy = np.asarray([entropy(dist, base=BASE) for dist in counts])
 
     for _ in range(batch_size):
         max_entropy_index = np.argmax(prediction_entropy)
@@ -48,9 +43,7 @@ def batch_bald(labels: np.ndarray, batch_size: int, instances: np.ndarray) -> np
 
     nn_dist_sample_num = len(labels)
     idx_comb_2_return = []
-    indices_to_iterate = list(range(batch_size))
-
-    mutual_information_dist = []
+    indices_to_iterate = list(range(len(labels[0])))
 
     print("Batch Bald sampling...")
     for values_sampled in tqdm(range(1, batch_size + 1)):
@@ -82,8 +75,6 @@ def batch_bald(labels: np.ndarray, batch_size: int, instances: np.ndarray) -> np
 
             mutual_information = mutual_labels_prob_dist_entropy - expected_class_entropy
 
-            mutual_information_dist.append(mutual_information)
-
             if mutual_information > max_mutual_information:
 
                 max_mutual_information = mutual_information
@@ -99,10 +90,10 @@ def hac_sampling(
     batch_size: int,
     instances: np.ndarray,
     aggregate_sentence_embeds=True,
-    criterion: str = "entropy",
+    criterion: str = "size",
 ) -> np.ndarray:
 
-    high_entropy_values = entropy_sampling(labels, batch_size=5 * batch_size, instances=instances)
+    high_entropy_values = entropy_sampling(labels, batch_size=10 * batch_size, instances=instances)
 
     if aggregate_sentence_embeds:
         instances = torch.stack([torch.mean(torch.stack(row, dim=0), dim=0) for row in instances], dim=0)
@@ -139,6 +130,45 @@ def hac_sampling(
         print(f"Smth went wrong, only {len(ids_2_return)} values sampled instead of {batch_size}")
 
     return ids_2_return
+
+
+def bald(labels: np.ndarray) -> np.ndarray:
+    nn_dist_sample_num = len(labels)
+    expected_class_entropy = np.sum(entropy(labels, base=BASE, axis=2), axis=0) / nn_dist_sample_num
+    mutual_labels_prob_dist_entropy = entropy(
+        [
+            np.sum(labels[:, :, 0], axis=0) / nn_dist_sample_num,
+            np.sum(labels[:, :, 1], axis=0) / nn_dist_sample_num,
+        ],
+        base=BASE,
+        axis=0,
+    )
+
+    return mutual_labels_prob_dist_entropy - expected_class_entropy
+
+
+def power_bald(
+    labels: np.ndarray,
+    batch_size: int,
+    instances: np.ndarray,
+) -> np.ndarray:
+    max_power_bald_indices: List[int] = []
+
+    num_labels = len(labels[0])
+
+    bald_score = (
+        np.log(
+            bald(labels),
+        )
+        + np.random.gumbel(scale=1 / GUMBEL_BETA, size=num_labels)
+    )
+
+    for _ in range(batch_size):
+        max_entropy_index = np.argmax(bald_score)
+        max_power_bald_indices.append(max_entropy_index)
+        bald_score[max_entropy_index] = -np.inf
+
+    return np.asarray(max_power_bald_indices)
 
 
 def _get_cluster_sizes(key: int, cluster_tree: Dict[int, np.ndarray]) -> int:

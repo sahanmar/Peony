@@ -33,12 +33,7 @@ neural_network = NeuralNet
 
 
 class PeonyDropoutFeedForwardNN:
-    def __init__(
-        self,
-        hidden_size: int,
-        num_classes: int,
-        cold_start=False,
-    ):
+    def __init__(self, hidden_size: int, num_classes: int, cold_start=False, dropout_in_eval=True):
 
         self.num_samples = NUM_SAMPLES
         self.epochs_per_sample = EPOCHS_PER_SAMPLE
@@ -55,6 +50,7 @@ class PeonyDropoutFeedForwardNN:
         self.initialized = False
         self.cold_start = cold_start
         self.variance = WEIGHTS_VARIANCE
+        self.dropout_in_eval = dropout_in_eval
 
     def fit(self, data: DataLoader, features_size: int) -> Optional[List[str]]:
 
@@ -115,6 +111,8 @@ class PeonyDropoutFeedForwardNN:
     def predict(self, data: DataLoader) -> np.ndarray:
         predicted_list = []
         for index in range(self.num_samples):
+            if not self.dropout_in_eval:
+                self.model[index].eval()
             with torch.no_grad():
                 predicted_list.append(
                     np.concatenate(

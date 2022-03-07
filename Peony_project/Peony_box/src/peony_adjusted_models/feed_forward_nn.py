@@ -23,9 +23,11 @@ neural_network = NeuralNet
 
 
 class PeonyFeedForwardNN:
-    def __init__(self, hidden_size: int, num_classes: int, rand_sample_ratio: int):
+    def __init__(
+        self, hidden_size: int, num_classes: int, rand_sample_ratio: int, num_ensembles: int = NUM_ENSEMBLES
+    ):
 
-        self.num_ensembles = NUM_ENSEMBLES
+        self.num_ensembles = num_ensembles
 
         self.model: Optional[List[NeuralNet]] = None
         self.criterion: Optional[List[nn.CrossEntropyLoss]] = None
@@ -87,11 +89,10 @@ class PeonyFeedForwardNN:
         for index in range(self.num_ensembles):
             with torch.no_grad():
                 predicted_list.append(
-                    [
-                        res
-                        for instances, _ in data
-                        for res in torch.max(self.model[index](instances).data, 1)[1].detach().numpy()
-                    ]
+                    np.concatenate(
+                        [self.model[index].predict(instances).data.detach().numpy() for instances, _ in data],
+                        axis=0,
+                    )
                 )
         return predicted_list
 

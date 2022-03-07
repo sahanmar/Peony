@@ -96,7 +96,7 @@ def active_learning_simulation_round(
         if model == "svm":
             peony_model.svm_model.fit(training_instances, training_labels, transformation_needed)
         elif model == "nn":
-            peony_model.feed_forward_nn.fit(training_instances, training_labels, transformation_needed)
+            peony_model.dropout_nn.fit(training_instances, training_labels, transformation_needed)
         elif model == "bayesian_sgld":
             peony_model.bayesian_sgld_nn.fit(training_instances, training_labels, transformation_needed)
         elif model == "bayesian_denfi":
@@ -114,7 +114,7 @@ def active_learning_simulation_round(
             if model == "svm":
                 predicted = peony_model.svm_model.predict(testing_instances, transformation_needed)
             elif model == "nn":
-                predicted = peony_model.feed_forward_nn.predict(testing_instances, transformation_needed)
+                predicted = peony_model.dropout_nn.predict(testing_instances, transformation_needed)
             elif model == "bayesian_sgld":
                 predicted = peony_model.bayesian_sgld_nn.predict(testing_instances, transformation_needed)
             elif model == "bayesian_denfi":
@@ -134,7 +134,7 @@ def active_learning_simulation_round(
             if model == "svm":
                 indices = peony_model.svm_model.get_learning_samples(testing_instances, transformation_needed)
             elif model == "nn":
-                indices = peony_model.feed_forward_nn.get_learning_samples(
+                indices = peony_model.dropout_nn.get_learning_samples(
                     testing_instances, transformation_needed
                 )
             elif model == "bayesian_sgld":
@@ -168,7 +168,7 @@ def active_learning_simulation_round(
                     training_instances, training_labels, transformation_needed
                 )
             elif model == "nn":
-                peony_model.feed_forward_nn.add_new_learning_samples(
+                peony_model.dropout_nn.add_new_learning_samples(
                     training_instances, training_labels, transformation_needed
                 )
             elif model == "bayesian_sgld":

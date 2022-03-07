@@ -122,11 +122,10 @@ class PeonyDENFIFeedForwardNN:
         for index in range(self.num_ensembles):
             with torch.no_grad():
                 predicted_list.append(
-                    [
-                        res
-                        for instances, _ in data
-                        for res in torch.max(self.model[index](instances).data, 1)[1].detach().numpy()
-                    ]
+                    np.concatenate(
+                        [self.model[index].predict(instances).data.detach().numpy() for instances, _ in data],
+                        axis=0,
+                    )
                 )
         return predicted_list
 

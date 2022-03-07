@@ -30,7 +30,8 @@ class PeonyBoxModel:
             model=PeonyFeedForwardNN(
                 hidden_size=100,
                 num_classes=number_of_classes_for_nn,
-                rand_sample_ratio=RAND_SAMPLES_RATIO,
+                rand_sample_ratio=1,  # RAND_SAMPLES_RATIO,
+                num_ensembles=1,
             ),
             transformator=transformator,
             active_learning_step=active_learning_step,
@@ -63,6 +64,17 @@ class PeonyBoxModel:
         self.bayesian_dropout_nn = GeneralizedPeonyBoxModel(
             model=PeonyDropoutFeedForwardNN(
                 hidden_size=100, num_classes=number_of_classes_for_nn
+            ),  # 120 for LSTM
+            transformator=transformator,
+            active_learning_step=active_learning_step,
+            acquisition_function=acquisition_function,
+            greedy_coef_decay=greedy_coef_decay,
+            reset_after_adding_new_samples=False,
+            ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
+        )
+        self.dropout_nn = GeneralizedPeonyBoxModel(
+            model=PeonyDropoutFeedForwardNN(
+                hidden_size=100, num_classes=number_of_classes_for_nn, cold_start=True, dropout_in_eval=False
             ),  # 120 for LSTM
             transformator=transformator,
             active_learning_step=active_learning_step,
