@@ -54,6 +54,18 @@ from Peony_database.src.datasets.liar_full_text import (
     load_data as liar_full_text_loader,
 )
 
+from Peony_database.src.datasets.gibberish import (
+    COLLECTION_NAME as gibberish_collection_name,
+    transorm_data as gibberish_transformer,
+    load_data as gibberish_loader,
+)
+
+from Peony_database.src.datasets.amazon_reviews import (
+    COLLECTION_NAME as amazon_reviews_collection_name,
+    transorm_data as amazon_reviews_transformer,
+    load_data as amazon_reviews_loader,
+)
+
 # args for different datasets
 def input_args() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
@@ -66,6 +78,8 @@ def input_args() -> argparse.ArgumentParser:
     parser.add_argument("--fake_news_detection", help="Path to fake news detection dataset")
     parser.add_argument("--liar_paragraph", help="Path to liar (fake news) paragraph based dataset")
     parser.add_argument("--liar_full_text", help="Path to liar (fake news) paragraph based dataset")
+    parser.add_argument("--gibberish", help="Path to gibberish dataset")
+    parser.add_argument("--amazon_reviews", help="Path to amazon_reviews dataset")
     return parser
 
 
@@ -142,6 +156,22 @@ def main():
             Path(args.liar_full_text),
             liar_full_text_loader,
             liar_full_text_transformer,
+        )
+
+    if args.gibberish:
+        api.load_data_to_database(
+            gibberish_collection_name,
+            Path(args.gibberish),
+            gibberish_loader,
+            gibberish_transformer,
+        )
+
+    if args.amazon_reviews:
+        api.load_data_to_database(
+            amazon_reviews_collection_name,
+            Path(args.amazon_reviews),
+            amazon_reviews_loader,
+            amazon_reviews_transformer,
         )
 
 

@@ -7,12 +7,8 @@ from Peony_box.src.peony_box_model import PeonyBoxModel
 from Peony_box.src.peony_adjusted_models.random_trees_model import PeonyRandomForest
 
 from Peony_box.src.transformators.HuffPost_transformator import (
-    RoBERTaWordEmbeddings as transformator,
-)
-
-from Peony_database.src.datasets.Tweets_emotions_dataset import (
-    COLLECTION_NAME,
-    COLLECTION_ID,
+    # RoBERTaWordEmbeddings as transformator,
+    FastTextWordEmbeddings as transformator,
 )
 
 # from Peony_database.src.datasets.Tweets_emotions_dataset import (
@@ -20,8 +16,16 @@ from Peony_database.src.datasets.Tweets_emotions_dataset import (
 #     COLLECTION_ID,
 # )
 
+from Peony_database.src.datasets.HuffPost_news_dataset import (
+    COLLECTION_NAME,
+    COLLECTION_ID,
+)
+
 from Peony_box.src.acquisition_functions.functions import (
     entropy_sampling,
+    batch_bald,
+    hac_sampling,
+    power_bald,
 )
 from scipy.sparse import vstack
 from sklearn.utils import shuffle
@@ -37,15 +41,15 @@ def main():
     laebl_1 = api.get_record(
         collection_name=COLLECTION_NAME,
         collection_id=COLLECTION_ID,
-        label=0,
-        limit=300,
+        label="SPORTS",
+        limit=100,
     )
 
     laebl_2 = api.get_record(
         collection_name=COLLECTION_NAME,
         collection_id=COLLECTION_ID,
-        label=4,
-        limit=300,
+        label="COMEDY",
+        limit=100,
     )
 
     # laebl_1 = api.get_record(
@@ -67,25 +71,24 @@ def main():
     instances, labels = shuffle(instances, labels, random_state=0)
 
     Transformator = transformator()
-    # Transformator.fit(instances, labels)
-    Transformator.fit(labels)
+    Transformator.fit(instances, labels)
+    # Transformator.fit(labels)
 
     peony_model = PeonyBoxModel(
         Transformator,
-        active_learning_step=5,
-        acquisition_function=entropy_sampling,
+        active_learning_step=10,
+        acquisition_function=power_bald,  # entropy_sampling, batch_bald,
     )
-    # peony_model.bayesian_dropout_nn.fit(instances[50:], labels[50:])
+    peony_model.bayesian_dropout_nn.fit(instances[:50], labels[:50])
     # peony_model.bayesian_denfi_nn.reset()
-    # peony_model.bayesian_denfi_nn.epsilon_greedy_coef = 1
-    # indexes = peony_model.bayesian_denfi_nn.get_learning_samples(instances[:50])
+    peony_model.bayesian_dropout_nn.epsilon_greedy_coef = 1
+    indexes = peony_model.bayesian_dropout_nn.get_learning_samples(instances[50:])
 
-    # add_training = [instances[index] for index in indexes.tolist()]
-    # add_labels = [labels[index] for index in indexes.tolist()]
+    add_training = [instances[index] for index in indexes.tolist()]
+    add_labels = [labels[index] for index in indexes.tolist()]
 
-    # peony_model.feed_forward_nn.add_new_learning_samples(add_training, add_labels)
-    # peony_model.feed_forward_nn.fit(instances, labels)
-    # predicted = peony_model.bayesian_dropout_nn.predict(instances[50:])
+    peony_model.bayesian_dropout_nn.add_new_learning_samples(add_training, add_labels)
+    peony_model.bayesian_dropout_nn.fit(instances, labels)
 
     start_time = time.time()
     k_fold = k_fold_corss_validation(peony_model.bayesian_dropout_nn, Transformator, instances, labels, 2)

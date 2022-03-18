@@ -33,12 +33,7 @@ neural_network = NeuralNet
 
 
 class PeonyDropoutFeedForwardNN:
-    def __init__(
-        self,
-        hidden_size: int,
-        num_classes: int,
-        cold_start=False,
-    ):
+    def __init__(self, hidden_size: int, num_classes: int, cold_start=False, dropout_in_eval=True):
 
         self.num_samples = NUM_SAMPLES
         self.epochs_per_sample = EPOCHS_PER_SAMPLE
@@ -55,6 +50,7 @@ class PeonyDropoutFeedForwardNN:
         self.initialized = False
         self.cold_start = cold_start
         self.variance = WEIGHTS_VARIANCE
+        self.dropout_in_eval = dropout_in_eval
 
     def fit(self, data: DataLoader, features_size: int) -> Optional[List[str]]:
 
@@ -115,16 +111,14 @@ class PeonyDropoutFeedForwardNN:
     def predict(self, data: DataLoader) -> np.ndarray:
         predicted_list = []
         for index in range(self.num_samples):
+            if not self.dropout_in_eval:
+                self.model[index].eval()
             with torch.no_grad():
-                # outputs = self.model[index](instances)
-                # _, predicted = torch.max(outputs.data, 1)
-                # predicted_list.append(predicted.detach().numpy())
                 predicted_list.append(
-                    [
-                        res
-                        for instances, _ in data
-                        for res in torch.max(self.model[index].predict(instances).data, 1)[1].detach().numpy()
-                    ]
+                    np.concatenate(
+                        [self.model[index].predict(instances).data.detach().numpy() for instances, _ in data],
+                        axis=0,
+                    )
                 )
 
         return predicted_list
@@ -137,5 +131,3 @@ class PeonyDropoutFeedForwardNN:
             for name, module in self.model[index].named_children():
                 if name not in ["sigmoid", "softmax", "relu", "dropout"]:
                     module.reset_parameters()
-            # self.model[index].hidden.reset_parameters()
-            # self.model[index].output.reset_parameters()

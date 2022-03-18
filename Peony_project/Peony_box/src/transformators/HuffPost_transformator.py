@@ -1,3 +1,4 @@
+from telnetlib import IP
 import numpy as np
 import requests
 import torch
@@ -77,7 +78,7 @@ class FastTextWordEmbeddings(Transformator):
                         ]
                         + [torch.zeros((300))]
                     )
-                    for sentence in sent_tokenize(text)
+                    for sentence in sent_tokenize(str(text))
                 ]
                 for text in transformed_data
             ]

@@ -1,3 +1,4 @@
+from telnetlib import IP
 import pymongo
 import numpy as np
 import torch
@@ -113,8 +114,6 @@ class GeneralizedPeonyBoxModel:
             print("transforming labels for model training...")
             labels = self.transformator.transform_labels(labels)
 
-        # labels = torch.tensor(labels, dtype=torch.int64)
-        # instances = easy_colate(training_instances)  # type: ignore
         if self.training_dataset == {}:
             self.training_dataset["training_instances"] = instances
             self.training_dataset["training_labels"] = labels
@@ -169,7 +168,7 @@ class GeneralizedPeonyBoxModel:
             )
         )
 
-        return np.mean(predicted, axis=0)
+        return np.mean([np.argmax(pred, axis=1) for pred in predicted], axis=0)
 
     def reset(self) -> None:
         self.model.reset()

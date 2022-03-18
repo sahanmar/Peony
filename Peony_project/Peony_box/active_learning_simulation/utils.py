@@ -20,9 +20,7 @@ def reset_validation_data(testing_instances, testing_labels, new_training_indice
         if index not in new_training_indices
     ]
     testing_labels = [
-        testing_labels[index]
-        for index in range(len(testing_labels))
-        if index not in new_training_indices
+        testing_labels[index] for index in range(len(testing_labels)) if index not in new_training_indices
     ]
 
     return training_instances, training_labels, testing_instances, testing_labels
@@ -96,75 +94,47 @@ def active_learning_simulation_round(
     with io.capture_output() as captured:  # suppressing output
         # Fit model with very little set of training data
         if model == "svm":
-            peony_model.svm_model.fit(
-                training_instances, training_labels, transformation_needed
-            )
+            peony_model.svm_model.fit(training_instances, training_labels, transformation_needed)
         elif model == "nn":
-            peony_model.feed_forward_nn.fit(
-                training_instances, training_labels, transformation_needed
-            )
+            peony_model.dropout_nn.fit(training_instances, training_labels, transformation_needed)
         elif model == "bayesian_sgld":
-            peony_model.bayesian_sgld_nn.fit(
-                training_instances, training_labels, transformation_needed
-            )
+            peony_model.bayesian_sgld_nn.fit(training_instances, training_labels, transformation_needed)
         elif model == "bayesian_denfi":
-            peony_model.bayesian_denfi_nn.fit(
-                training_instances, training_labels, transformation_needed
-            )
+            peony_model.bayesian_denfi_nn.fit(training_instances, training_labels, transformation_needed)
         elif model == "bayesian_dropout":
-            peony_model.bayesian_dropout_nn.fit(
-                training_instances, training_labels, transformation_needed
-            )
+            peony_model.bayesian_dropout_nn.fit(training_instances, training_labels, transformation_needed)
         else:
-            peony_model.random_forest_model.fit(
-                training_instances, training_labels, transformation_needed
-            )
+            peony_model.random_forest_model.fit(training_instances, training_labels, transformation_needed)
 
     # Start active learning loop
-    for index in range(max_active_learning_iters):
+    for _ in tqdm(range(max_active_learning_iters)):
         with io.capture_output() as captured:  # suppressing output
 
             # predict the dataset complement for choosing next training data
             if model == "svm":
-                predicted = peony_model.svm_model.predict(
-                    testing_instances, transformation_needed
-                )
+                predicted = peony_model.svm_model.predict(testing_instances, transformation_needed)
             elif model == "nn":
-                predicted = peony_model.feed_forward_nn.predict(
-                    testing_instances, transformation_needed
-                )
+                predicted = peony_model.dropout_nn.predict(testing_instances, transformation_needed)
             elif model == "bayesian_sgld":
-                predicted = peony_model.bayesian_sgld_nn.predict(
-                    testing_instances, transformation_needed
-                )
+                predicted = peony_model.bayesian_sgld_nn.predict(testing_instances, transformation_needed)
             elif model == "bayesian_denfi":
-                predicted = peony_model.bayesian_denfi_nn.predict(
-                    testing_instances, transformation_needed
-                )
+                predicted = peony_model.bayesian_denfi_nn.predict(testing_instances, transformation_needed)
             elif model == "bayesian_dropout":
-                predicted = peony_model.bayesian_dropout_nn.predict(
-                    testing_instances, transformation_needed
-                )
+                predicted = peony_model.bayesian_dropout_nn.predict(testing_instances, transformation_needed)
             else:
-                predicted = peony_model.random_forest_model.predict(
-                    testing_instances, transformation_needed
-                )
+                predicted = peony_model.random_forest_model.predict(testing_instances, transformation_needed)
 
             if transformation_needed:
                 labels_for_auc = transformator.transform_labels(testing_labels[:])
             else:
                 labels_for_auc = list(testing_labels[:])
-            auc_active_learning.append(
-                auc_metrics([{"true": labels_for_auc, "predicted": predicted}])
-            )
+            auc_active_learning.append(auc_metrics([{"true": labels_for_auc, "predicted": predicted}]))
 
             # Get indices based on acquisition function
             if model == "svm":
-                indices = peony_model.svm_model.get_learning_samples(
-                    testing_instances, transformation_needed
-                )
+                indices = peony_model.svm_model.get_learning_samples(testing_instances, transformation_needed)
             elif model == "nn":
-                indices = peony_model.feed_forward_nn.get_learning_samples(
+                indices = peony_model.dropout_nn.get_learning_samples(
                     testing_instances, transformation_needed
                 )
             elif model == "bayesian_sgld":
@@ -198,7 +168,7 @@ def active_learning_simulation_round(
                     training_instances, training_labels, transformation_needed
                 )
             elif model == "nn":
-                peony_model.feed_forward_nn.add_new_learning_samples(
+                peony_model.dropout_nn.add_new_learning_samples(
                     training_instances, training_labels, transformation_needed
                 )
             elif model == "bayesian_sgld":
