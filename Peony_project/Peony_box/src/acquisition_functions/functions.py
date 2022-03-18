@@ -5,7 +5,7 @@ import torch
 
 import numpy as np
 
-from typing import Dict, Optional, List
+from typing import Dict, Any, List, Callable
 from omegaconf import base
 from scipy.stats import entropy
 from sklearn.cluster import AgglomerativeClustering
@@ -89,11 +89,12 @@ def hac_sampling(
     labels: np.ndarray,
     batch_size: int,
     instances: np.ndarray,
+    acq_func: Callable[[Any], np.ndarray],
     aggregate_sentence_embeds=True,
     criterion: str = "size",
 ) -> np.ndarray:
 
-    high_entropy_values = entropy_sampling(labels, batch_size=10 * batch_size, instances=instances)
+    high_entropy_values = acq_func(labels, batch_size=10 * batch_size, instances=instances)
 
     if aggregate_sentence_embeds:
         instances = torch.stack([torch.mean(torch.stack(row, dim=0), dim=0) for row in instances], dim=0)
@@ -132,6 +133,17 @@ def hac_sampling(
     return ids_2_return
 
 
+def hac_entropy_sampling(
+    labels: np.ndarray,
+    batch_size: int,
+    instances: np.ndarray,
+    aggregate_sentence_embeds=True,
+    criterion: str = "size",
+) -> np.ndarray:
+
+    return hac_sampling(labels, batch_size, instances, entropy_sampling, aggregate_sentence_embeds, criterion)
+
+
 def bald(labels: np.ndarray) -> np.ndarray:
     nn_dist_sample_num = len(labels)
     expected_class_entropy = np.sum(entropy(labels, base=BASE, axis=2), axis=0) / nn_dist_sample_num
@@ -145,6 +157,31 @@ def bald(labels: np.ndarray) -> np.ndarray:
     )
 
     return mutual_labels_prob_dist_entropy - expected_class_entropy
+
+
+def bald_sampling(labels: np.ndarray, batch_size: int, instances: np.ndarray) -> np.ndarray:
+    # instances are not used. They are given here in order to preserve unification
+
+    prediction_bald = bald(labels)
+    max_bald_indices: List[int] = []
+
+    for _ in range(batch_size):
+        max_entropy_index = np.argmax(prediction_bald)
+        max_bald_indices.append(max_entropy_index)
+        prediction_bald[max_entropy_index] = -np.inf
+
+    return np.asarray(max_bald_indices)
+
+
+def hac_bald_sampling(
+    labels: np.ndarray,
+    batch_size: int,
+    instances: np.ndarray,
+    aggregate_sentence_embeds=True,
+    criterion: str = "size",
+) -> np.ndarray:
+
+    return hac_sampling(labels, batch_size, instances, bald_sampling, aggregate_sentence_embeds, criterion)
 
 
 def power_bald(

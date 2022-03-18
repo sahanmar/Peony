@@ -21,7 +21,12 @@ from Peony_database.src.datasets.HuffPost_news_dataset import (
     COLLECTION_ID,
 )
 
-from Peony_box.src.acquisition_functions.functions import entropy_sampling, batch_bald, hac_sampling
+from Peony_box.src.acquisition_functions.functions import (
+    entropy_sampling,
+    batch_bald,
+    hac_sampling,
+    power_bald,
+)
 from scipy.sparse import vstack
 from sklearn.utils import shuffle
 
@@ -72,7 +77,7 @@ def main():
     peony_model = PeonyBoxModel(
         Transformator,
         active_learning_step=10,
-        acquisition_function=hac_sampling,  # entropy_sampling, batch_bald,
+        acquisition_function=power_bald,  # entropy_sampling, batch_bald,
     )
     peony_model.bayesian_dropout_nn.fit(instances[:50], labels[:50])
     # peony_model.bayesian_denfi_nn.reset()
