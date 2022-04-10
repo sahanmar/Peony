@@ -24,7 +24,7 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from bert_serving.client import BertClient
 
 COLEECTION_NAME = "Fasttext_pretrained_embeddings"
-
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class FastTextWordEmbeddings(Transformator):
     def __init__(self):
@@ -189,10 +189,7 @@ class RoBERTaWordEmbeddings(Transformator):
     def __init__(self):
         super().__init__(embedding_dim=768)
 
-        self.roberta = RobertaModel.from_pretrained(
-            "/Users/mark/Documents/Datasets/Pretrained_models/RoBERTa/roberta.base",
-            checkpoint_file="model.pt",
-        )
+        self.roberta = RobertaModel.from_pretrained("roberta.base").to(DEVICE)
         self.fitted: bool = False
 
     def transform(self, text: str) -> List[torch.Tensor]:
@@ -226,7 +223,7 @@ class RoBERTaWordEmbeddings(Transformator):
     @staticmethod
     def split_sentences(text: str) -> List[str]:
         splitted_sentences: List[str] = []
-        for sentence in sent_tokenize(text):
+        for sentence in sent_tokenize(text if isinstance(text,str) else "empty"):
             if len(sentence) > 512:
                 n_splits = len(sentence) // 512
                 # not the best solution but should work...

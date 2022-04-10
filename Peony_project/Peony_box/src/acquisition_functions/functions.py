@@ -99,7 +99,7 @@ def hac_sampling(
     if aggregate_sentence_embeds:
         instances = torch.stack([torch.mean(torch.stack(row, dim=0), dim=0) for row in instances], dim=0)
 
-    model = AgglomerativeClustering(linkage="average").fit(instances)
+    model = AgglomerativeClustering(linkage="average").fit(instances.cpu())
     cluster_tree = dict(enumerate(model.children_, model.n_leaves_))
 
     cluster_criterion = []

@@ -66,6 +66,12 @@ from Peony_database.src.datasets.amazon_reviews import (
     load_data as amazon_reviews_loader,
 )
 
+from Peony_database.src.datasets.emotion_tweets import (
+    COLLECTION_NAME as emotion_tweets_collection_name,
+    transorm_data as emotion_tweets_transformer,
+    load_data as emotion_tweets_loader,
+)
+
 # args for different datasets
 def input_args() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
@@ -80,6 +86,7 @@ def input_args() -> argparse.ArgumentParser:
     parser.add_argument("--liar_full_text", help="Path to liar (fake news) paragraph based dataset")
     parser.add_argument("--gibberish", help="Path to gibberish dataset")
     parser.add_argument("--amazon_reviews", help="Path to amazon_reviews dataset")
+    parser.add_argument("--emotion_tweets", help="Path to emotion_tweets dataset")
     return parser
 
 
@@ -172,6 +179,14 @@ def main():
             Path(args.amazon_reviews),
             amazon_reviews_loader,
             amazon_reviews_transformer,
+        )
+
+    if args.emotion_tweets:
+        api.load_data_to_database(
+            emotion_tweets_collection_name,
+            Path(args.emotion_tweets),
+            emotion_tweets_loader,
+            emotion_tweets_transformer,
         )
 
 
