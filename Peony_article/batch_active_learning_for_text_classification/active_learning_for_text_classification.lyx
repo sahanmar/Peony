@@ -327,7 +327,7 @@ Techniques
 \end_layout
 
 \begin_layout Title
-Batch Active Learning for Text Classification and Semantic Analysis
+Batch Active Learning for Text Classification and Sentiment Analysis
 \end_layout
 
 \begin_layout Abstract
@@ -335,43 +335,33 @@ The performance of text classification with supervised models is tied to
  quality and diversity of the data.
  The process of data collection and labeling may involve a lot of resources.
  The intuitive and the most standard approach is to sequentially extend
- a dataset with labeled batches until reaching satisfactory metrics.
+ a dataset with labeled data until reaching satisfactory metrics.
  Active learning techniques optimize the process of sequential unlabeled
  data selection, so that the annotations would provide the most information
  about the dataset.
+ The problem of active learning becomes more complex when the sampling is
+ done in batches.
+ In this paper we show a study of advanced batch sampling techniques on
+ text data and the problem of text classification and sentiment analysis.
+ The study compares i) baseline algorithm based on agglomerative instance
+ clustering with the subsequent sampling from clusters given minimum margin
+ of class probabilities ii) wam start modifications of baseline techniques,
+ and iii) Bayesian active learning baseline modification thanks to their
+ ability of better representation of the classification uncertainty.
+ The latter method in warm-start version too.
  
 \end_layout
 
 \begin_layout Abstract
-Supervised classification of texts relies on the availability of reliable
- class labels for the training data.
- However, the process of collecting data labels can be complex and costly.
- A standard procedure is to add labels sequentially by querying an annotator
- until reaching satisfactory performance.
- Active learning is a process of selecting unlabeled data records for which
- the knowledge of the labels would bring the highest discriminability of
- the dataset.
- In this paper, we provide a comparative study of various batch active learning
- strategies on various datasets.
- We focus on Bayesian active learning methods that are used due to their
- ability to represent the uncertainty of the classification procedure.
- We compare three types of uncertainty representation: i) SGLD, ii) Dropout,
- and iii) deep ensembles.
- The latter two methods in cold- and warm-start versions.
- The texts were embedded using Fast Text, LASER, RoBerta encoding techniques.
- The methods are tested on two types of datasets, text categorization (Kaggle
- News Category and Twitter Sentiment140 dataset) and fake news detection
- (Kaggle Fake News and Fake News Detection datasets).
- We show that the conventional dropout Monte Carlo approach provides good
- results for the majority of the tasks.
- The ensemble methods provide more accurate representation of uncertainty
- that allows to keep the pace of learning of a complicated problem for the
- growing number of requests, outperforming the dropout in the long run.
- However, for the majority of the datasets the active strategy using Dropout
- and Deep Ensembles achieved almost perfect performance even for a very
- low number of requests.
- The best results were obtained for the most recent embeddings, Bert, and
- RoBerta.
+Transformers encoders show the state-of-the-art results in majority of NLP
+ tasks.
+ In this article, we use RoBERTa for text encoding.
+ The methods are tested on three types datasets, context integrity (Kaggle
+ Gibberish dataset), fake news detection (Kaggle Fake News Detection dataset)
+ and sentiment classification (Twitter Sentiment140 and Amazon Review Classifica
+tion datasets).
+ We show that both warm-start and Bayesian baseline algorithm modifications
+ outperform the state-of-art approach.
  
 \end_layout
 
@@ -388,108 +378,169 @@ The development of a text classifier on a new problem requires the availability
  Random choice of the documents for the data set extension can be costly
  because the new documents may not bring new information for the classification.
  Active learning strategy aims to select among available unlabeled documents
- those that the classifier is most uncertain about and query an annotator
+ those that the classifier is most uncertain about and queries an annotator
  for their labels.
  Therefore, it has the potential to greatly reduce the effort needed for
  the development of a new system.
  While it was introduced almost two decades ago, recent improvements in
  deep learning motivate our attempt to revisit the topic.
  For example, SVM-based active learning approaches for text classification
- date back to 2001 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "tong2001support"
-literal "false"
+ date back to 2001 [22] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
 
 \end_inset
 
-, where the superiority of active learning over random sampling is demonstrated.
+, where the superiority of active learning over random sampling was demonstrated.
  Since deep recurrent and convolutional neural networks achieve better classific
-ation results, Bayesian active learning methods for deep network gained
- popularity especially in image classification 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gal2017deep,lowell2019practical"
-literal "false"
+ation results, Bayesian active learning methods for deep networks gained
+ popularity especially in image classification [10], [15] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
 
 \end_inset
 
 .
+ The Bayesian approach is concerned with querying labels for data for which
+ the classifier predicts the greatest uncertainty.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Add that we are doing it on batches and some related works.
+ There are plenty of them
+\end_layout
+
+\end_inset
+
+ The uncertainty is quantified using the so-called acquisition function,
+ such as predictive entropy [18] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+, mutual information 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+, etc..
+ Despite the strengths of uncertainty based models, clustering 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+ or gradient prediction 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+ based algorithms also reach state-of-art results for different tasks.
  
 \end_layout
 
 \begin_layout Standard
-The Bayesian approach is concerned with querying label for such data for
- which the classifier predicts the greatest uncertainty.
- The uncertainty is quantified using the so-called acquisition function,
- such as predictive variance or predictive entropy.
- While different acquisition functions often provide similar results, different
+While different acquisition functions often provide similar results, different
  representations of predictive distribution yield much more diverse results.
- The most popular approach using Dropout MC 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gal2017deep"
-literal "false"
+ The most popular approach using Dropout MC [10] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
 
 \end_inset
 
- has been tested on text classification 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "an2018deep"
-literal "false"
+ has been tested on text classification [1] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
 
 \end_inset
 
- and named entity recognition 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "shen2017deep,lowell2019practical"
-literal "false"
+ and named entity recognition [19], [15] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
 
 \end_inset
 
-, however other techniques such as Langevin dynamics 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "welling2011bayesian"
-literal "false"
+, however other techniques such as Langevin dynamics [26] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
 
 \end_inset
 
- and deep ensembles 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "lakshminarayanan2017simple"
-literal "false"
+ and deep ensembles [13] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
 
 \end_inset
 
  are available.
- Deep ensembles often achieve better performance 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "beluch2018power,snoek2019can"
-literal "false"
+ Deep ensembles often achieve better performance [3], [21] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
 
 \end_inset
 
  but require higher computational cost since they train an ensemble of networks
  after each extension of the data set.
- One potential solution of this problem has been recently proposed in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "ulrych2020denfi"
-literal "false"
-
-\end_inset
-
-
+ One potential solution of this problem has been recently proposed in [23]
+ 
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-Anonymize citation?
+REF
 \end_layout
 
 \end_inset
@@ -497,66 +548,30 @@ Anonymize citation?
 , where the ensemble is not trained from a fresh random initialization after
  each query but initialized randomly around the position of the ensembles
  from the previous iteration.
- In this contribution, we test this approach and compare it with the dropout
- MC and Langevin dynamics representations.
- We also provide sensitivity study for the choice of the hyperparameters.
+ In this contribution, we test agglomerative clustering state-of-art approach
+ with Bayesian networks, warm-start modifications and different acquisition
+ functions.
+ Our research is underlayed with different types of text data, classification
+ tasks complexity analysis and a sensitivity study for the batch size choice.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
-Active learning for texts - why ()
-\end_layout
-
-\begin_layout Plain Layout
-Classical approaches - SVM, etc.
- ()
-\end_layout
-
-\begin_layout Plain Layout
-Deep networks & embeddings ()
-\end_layout
-
-\begin_layout Plain Layout
-Uncertainty in deep networks (SGLD, Dropout, DEnFi)
+ADD SOMETHING ABOUT OUR PREVIOUS ARTICLE.
+ This is left from previous article intro.
+ Donno what to do with that –->
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-Active learning for fake news detection has been considered in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bhattacharjee2017active"
-literal "false"
-
-\end_inset
-
- using uncertainty based on probability of classification.
- It was later extended to context aware approach 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bhattacharjee2019identifying"
-literal "false"
-
-\end_inset
-
-.
- An entropy based approach has been presented in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "hasan2020truth"
-literal "false"
-
-\end_inset
-
- using an ensemble of three different kinds of network.
- 
+Active learning for fake news detection was considered in [4] using uncertainty
+ based on probability of classification.
+ It was later extended to a context aware approach [5].
+ An entropy based approach has been presented in [12] using an ensemble
+ of three different kinds of networks.
 \end_layout
 
 \begin_layout Section
@@ -564,15 +579,282 @@ Methods
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset bibtex
-LatexCommand bibtex
-btprint "btPrintCited"
-bibfiles "bib"
-options "acl_natbib"
+Throughout the paper, we will use RoBERTa base [14] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
 
 \end_inset
 
+ embedding algorithms.
+ RoBERTa is a modified BERT transformer model [6] 
+\begin_inset Note Note
+status open
 
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+ based on multi-head attention layers [24] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+.
+ Transformer models provide state of the art results both in context understandi
+ng and active learning text classification problems 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Our article REF
+\end_layout
+
+\end_inset
+
+.
+ Representation of the i-th text document 
+\begin_inset Formula $\mathbf{x}_{i}$
+\end_inset
+
+ is calculated as the mean value from sentence embeddings of all sentences
+ in the text
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathbf{x}_{i}=\frac{1}{|D_{i}|}\sum_{j\in D_{i}}f_{\mathrm{Sentence\ embed}}(C^{(j)})
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $D_{i}$
+\end_inset
+
+ is the set of vectors where each vector represents a sentence in the i-th
+ document, 
+\begin_inset Formula $|D_{i}|$
+\end_inset
+
+ is a cardinality of 
+\begin_inset Formula $D_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $C^{(j)}$
+\end_inset
+
+ is a matrix of 𝑗-th sentence where words are encoded with one hot or byte
+ pair encoding [20] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+ technique and 
+\begin_inset Formula $f_{\mathrm{Sentence\ embed}}$
+\end_inset
+
+ is a function that creates sentence embeddings with respect to the given
+ byte pair encoded words.
+ Sentence embeddings for RoBERTa are output of deep neural network models.
+ 
+\end_layout
+
+\begin_layout Standard
+For supervised classification, each document embedding 
+\begin_inset Formula $\mathbf{x}_{i}$
+\end_inset
+
+ has to have an associated label 
+\begin_inset Formula $\mathbf{y}_{i}$
+\end_inset
+
+.
+ We are concerned with binary classification for simplicity, however, an
+ extension to multiclass is straightforward.
+ We assume that for the full corpus of text documents 
+\begin_inset Formula $\mathbf{X}=[\mathbf{x}_{1},\dots,\mathbf{x}_{n}]$
+\end_inset
+
+, only an initial set of 
+\begin_inset Formula $l_{0}\ll n$
+\end_inset
+
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This is not good.
+ Redefine l_{0}
+\end_layout
+
+\end_inset
+
+labels is available, 
+\begin_inset Formula $\mathbf{y}^{(0)}=[y_{l},\dots,y_{l_{0}}]$
+\end_inset
+
+, splitting the full set 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ to the labeled, 
+\begin_inset Formula $\mathbf{X}^{(0)}=[\mathbf{x}_{0},\dots,\mathbf{x}_{l_{0}}]$
+\end_inset
+
+,and unlabeled parts, 
+\begin_inset Formula $\mathbf{X}\backslash\mathbf{X}^{(0)}$
+\end_inset
+
+.Active learning is defined as a sequential extension of the training data
+ set.
+ In each iteration, 
+\begin_inset Formula $𝑙=1,...,𝐿$
+\end_inset
+
+, the algorithm computes the value of acquisition function for batch of
+ documents in the unlabeled dataset and selects the indices of documents
+ given some criteria (results of acquisition function), formally: 
+\begin_inset Formula 
+\[
+\mathbf{k}_{l}=A(\mathbf{y}_{k_{1}}(\mathbf{\theta}),\dots\mathbf{y}_{k_{b}}(\mathbf{\theta}),\mathbf{x}_{k_{1}},\dots\mathbf{x}_{k_{b}}),
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbf{k}_{l}=\{k_{l_{1}},...,k_{l_{b}}\}\subset\mathbf{K}$
+\end_inset
+
+ is a subset of batch size 
+\begin_inset Formula $b$
+\end_inset
+
+ of indexes of all unlabeled documents 
+\begin_inset Formula $\mathbf{K}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{y}(\theta)=\{y_{\theta_{1}},\dots,y_{\theta_{d}}\}$
+\end_inset
+
+ are the predictions given classifier parameters distribution of size 
+\begin_inset Formula $d$
+\end_inset
+
+ trained on all labeled data 
+\begin_inset Formula $\text{𝑝}(\text{𝜃}|\mathbf{X}^{(\text{𝑙−}1)},\text{\textbf{y}}^{(\text{𝑙−}1)})$
+\end_inset
+
+.
+ The documents of the selected indices are sent to the human annotator with
+ a request for labeling.
+ When the selected texts are annotated, the texts are added with its label
+ to the labeled data set 
+\begin_inset Formula $\mathbf{X}^{l}=[\mathbf{X}^{(l-1)},\mathbf{x}_{k_{1}}^{(l)},\dots,\mathbf{x}_{k_{b}}^{(l)},],\ \mathbf{y}^{(l)}=[\mathbf{y}^{(l-1)},y_{k_{1}}^{(l)},\dots,y_{k_{b}}^{(l)}]$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The key component of the method is a representation of the posterior distributio
+n of the parameter 
+\begin_inset Formula $\theta$
+\end_inset
+
+.
+ Due to the complexity of the neural networks it is always represented by
+ samples, with a different method of their generation.
+ We will compare the following methods: i) Dropout MC: is an extension of
+ the ordinary dropout that samples binary mask multiplying output of a layer,
+ hence stopping propagation through all neurons where zeros is sampled through
+ the network.
+ The extension applies the sampled mask even for predictions generating
+ samples from the predictive distribution [10] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+, ii) Deep ensembles: consist of 𝑁 networks trained in parallel from different
+ initial conditions [13] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+, and iii) Softmax uncertainty: is the most simple approach that uses only
+ one ̂ network to estimate a single value 𝜃 [4]
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+.
+ Ensembles based approach is the current state-of-the-art in active learning
+ [3] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF + Our article
+\end_layout
+
+\end_inset
+
+.
+ While many of these have been tested in active learning, the majority of
+ authors assumed that after each step of active learning, the network training
+ starts from the initial conditions.
+ This is clearly suboptimal, since the information from the previous training
+ is lost.
+ A simple solution was presented in [23] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+, where it was argued that estimated results from the previous step can
+ be used as centroids around which the new initial point is sampled.
+ The active learning Since this is a form of a warm-start, we also test
+ batch active learning warm-start strategies for Dropout.
+ The methods for representation of parametric uncertainty are: 
 \end_layout
 
 \end_body

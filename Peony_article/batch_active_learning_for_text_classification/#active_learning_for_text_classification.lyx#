@@ -790,39 +790,10 @@ n of the parameter
  hence stopping propagation through all neurons where zeros is sampled through
  the network.
  The extension applies the sampled mask even for predictions generating
- samples from the predictive distribution [10] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
-, ii) Deep ensembles: consist of 𝑁 networks trained in parallel from different
- initial conditions [13] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
-, and iii) Softmax uncertainty: is the most simple approach that uses only
- one ̂ network to estimate a single value 𝜃 [4]
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
-.
+ samples from the predictive distribution [10], ii) Deep ensembles: consist
+ of 𝑁 networks trained in parallel from different initial conditions [13],
+ and iii) Softmax uncertainty: is the most simple approach that uses only
+ one ̂ network to estimate a single value 𝜃 [4].
  Ensembles based approach is the current state-of-the-art in active learning
  [3] 
 \begin_inset Note Note
@@ -852,7 +823,7 @@ REF
 
 , where it was argued that estimated results from the previous step can
  be used as centroids around which the new initial point is sampled.
- The active learning Since this is a form of a warm-start, we also test
+ The active learning  Since this is a form of a warm-start, we also test
  batch active learning warm-start strategies for Dropout.
  The methods for representation of parametric uncertainty are: 
 \end_layout
