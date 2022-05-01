@@ -63,7 +63,7 @@ class PeonyBoxModel:
         )
         self.bayesian_dropout_nn = GeneralizedPeonyBoxModel(
             model=PeonyDropoutFeedForwardNN(
-                hidden_size=100, num_classes=number_of_classes_for_nn
+                hidden_size=100, num_classes=number_of_classes_for_nn, dropout_in_eval = True
             ),  # 120 for LSTM
             transformator=transformator,
             active_learning_step=active_learning_step,

@@ -11,7 +11,7 @@ from Peony_box.src.peony_adjusted_models.neural_nets_architecture import (
     NeuralNetLSTM,
 )
 
-NUM_ENSEMBLES = 10
+NUM_ENSEMBLES = 5
 EPOCHS = 2500
 HOT_START_EPOCHS = 700
 WEIGHTS_VARIANCE = 0.3
@@ -89,25 +89,25 @@ class PeonyDENFIFeedForwardNN:
             if self.cold_start is False:
                 with torch.no_grad():
                     for param in self.model[index].parameters():
-                        param.add_(torch.randn(param.size()) * self.variance)
+                        param.add_(torch.randn(param.size()).to(DEVICE) * self.variance)
 
             for epoch in range(self.num_epochs):
 
                 for instances, labels in data:
                     # Forward pass
                     outputs = self.model[index](instances)
-                    loss = self.criterion[index](outputs, labels)
-                    loss_sequence_per_ensemble.append(float(loss.detach().numpy()))
+                    loss = self.criterion[index](outputs, labels.to(DEVICE))
+                    loss_sequence_per_ensemble.append(float(loss.cpu().detach().numpy()))
                     # Backward and optimize
                     self.optimizer[index].zero_grad()
                     loss.backward(retain_graph=True)
                     self.optimizer[index].step()
 
                     if epoch == 0:
-                        initial_loss_per_ensemble.append(str(loss.detach().numpy()))
+                        initial_loss_per_ensemble.append(str(loss.cpu().detach().numpy()))
 
             self.loss_sequence.append(loss_sequence_per_ensemble)
-            fitted_loss_per_ensemble.append(str(loss.detach().numpy()))
+            fitted_loss_per_ensemble.append(str(loss.cpu().detach().numpy()))
 
         loss_list.append(f"starting losses are {'| '.join(initial_loss_per_ensemble)}")
         loss_list.append(f"fitted losses are {'| '.join(fitted_loss_per_ensemble)}")
@@ -123,7 +123,7 @@ class PeonyDENFIFeedForwardNN:
             with torch.no_grad():
                 predicted_list.append(
                     np.concatenate(
-                        [self.model[index].predict(instances).data.detach().numpy() for instances, _ in data],
+                        [self.model[index].predict(instances).data.cpu().detach().numpy() for instances, _ in data],
                         axis=0,
                     )
                 )
