@@ -656,8 +656,8 @@ where
 \begin_inset Formula $C^{(j)}$
 \end_inset
 
- is a matrix of 𝑗-th sentence where words are encoded with one hot or byte
- pair encoding [20] 
+ is a matrix of 𝑗-th sentence where words are encoded with byte pair encoding
+ [20] 
 \begin_inset Note Note
 status open
 
@@ -748,7 +748,7 @@ where
 \begin_inset Formula $b$
 \end_inset
 
- of indexes of all unlabeled documents 
+ of indices of all unlabeled documents 
 \begin_inset Formula $\mathbf{K}$
 \end_inset
 
@@ -756,7 +756,8 @@ where
 \begin_inset Formula $\mathbf{y}(\theta)=\{y_{\theta_{1}},\dots,y_{\theta_{d}}\}$
 \end_inset
 
- are the predictions given classifier parameters distribution of size 
+ are the predictions given classifier parameters empirical distribution
+ of size 
 \begin_inset Formula $d$
 \end_inset
 
@@ -777,10 +778,245 @@ where
 \end_layout
 
 \begin_layout Standard
-In this article we do a detailed comparison between five approaches:
+In this article we do a detailed comparison between a combination of active
+ learning algorithms and acquisition functions.
 \end_layout
 
 \begin_layout Subsection
+Active Learning Methods
+\end_layout
+
+\begin_layout Standard
+The key component of the method is a representation of the posterior distributio
+n of the parameter 
+\begin_inset Formula $\theta$
+\end_inset
+
+.
+ Due to the complexity of the neural networks it is always represented by
+ samples, with a different method of their generation.
+ We will compare the following methods: i) Dropout MC: is an extension of
+ the ordinary dropout that samples binary mask multiplying output of a layer,
+ hence stopping propagation through all neurons where zeros is sampled through
+ the network.
+ The extension applies the sampled mask even for predictions generating
+ samples from the predictive distribution [10] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+, ii) Deep ensembles: consist of 
+\begin_inset Formula $d$
+\end_inset
+
+ networks trained in parallel from different initial conditions [13] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+, and iii) Softmax uncertainty: is the most simple approach that uses only
+ one ̂ network to estimate a single value 𝜃 [4]
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+.
+ Ensembles based approach is the current state-of-the-art in active learning
+ [3] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF + Our article
+\end_layout
+
+\end_inset
+
+.
+ While many of these have been tested in active learning, the majority of
+ authors assumed that after each step of active learning, the network training
+ starts from the initial conditions.
+ This is clearly suboptimal, since the information from the previous training
+ is lost.
+ A simple solution was presented in [23] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF (Maybe our article)
+\end_layout
+
+\end_inset
+
+, where it was argued that estimated results from the previous step can
+ be used as centroids around which the new initial point is sampled.
+ Since this is a form of a warm-start, we also test batch active learning
+ warm-start strategies for Dropout and ensembles.
+ In 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF (Maybe our article)
+\end_layout
+
+\end_inset
+
+ the authors present a broad analysis for one-instance sampling active learning
+ and show that previously chosen techniques work the best.
+ The methods for representation of parametric uncertainty are: 
+\end_layout
+
+\begin_layout Subsubsection
+Deep Ensemble Filter (DEnFi)
+\end_layout
+
+\begin_layout Standard
+is a deep ensemble method with 5 neural networks in the ensembles and warm-start
+ training strategy [13] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+ using weights of the ensemble members in the previous iteration as initial
+ conditions for the new ensemble.
+ Each weight is perturbed by an additive Gaussian noise of variance 
+\begin_inset Formula $𝑞=0.3$
+\end_inset
+
+ which is a hyperparameter and given 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF (Maybe our article)
+\end_layout
+
+\end_inset
+
+ it is the optimal choice that performs good in both short and long active
+ learning runs.
+ In our experiments, the ensemble is trained with parameters 
+\begin_inset Formula $\mathrm{initialization\_epochs}=2500$
+\end_inset
+
+ on the initial data and with additional 
+\begin_inset Formula $\mathrm{warm\_start\_epochs}=700$
+\end_inset
+
+ epochs after each extension of the learning data set.
+\end_layout
+
+\begin_layout Subsubsection
+Dropout MC
+\end_layout
+
+\begin_layout Standard
+is the standard algorithm [10] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+ that trains only a single network with sampled dropout indices and uses
+ the sampling even in the prediction step.
+ Generation of the Monte Carlo prediction is obtained by sampling different
+ values of the dropout binary variable and one forward pass of the network
+ for each sample.
+ We study warm-start with weights from the previous iteration perturbed
+ by an additive noise of variance 
+\begin_inset Formula $q=0.3$
+\end_inset
+
+ with 700 epochs.
+ Dropout rate is 
+\begin_inset Formula $0.2$
+\end_inset
+
+.
+ The noise variance choice is driven with 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF (Maybe our article)
+\end_layout
+
+\end_inset
+
+ same as in the section above.
+\end_layout
+
+\begin_layout Subsubsection
+Softmax Uncertainty
+\end_layout
+
+\begin_layout Standard
+The simplest approach to uncertainty representation is a single neural network
+ with a softmax output layer that considers uncertainty as the output of
+ the softmax score.
+ The method has been applied to active learning in [4] and given the cooperative
+ analysis from 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF (Maybe our article)
+\end_layout
+
+\end_inset
+
+ performed the worst from the previous models and cold-start algorithms
+ that are trained from scratch after each active learning iteration.
+ The softmax uncertainty is the type of superstructure used on the top of
+ encoding model in state-of-art 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+ followed with an acquisition function described in further sections.
+ 
+\end_layout
+
+\begin_layout Subsection
+Acquisition Functions
+\end_layout
+
+\begin_layout Standard
+The text classification problem is formed for binary categories.
+ Hence, all generalizations are provided to binary classification tasks.
+\end_layout
+
+\begin_layout Subsubsection
 HAC Entropy
 \begin_inset CommandInset label
 LatexCommand label
@@ -793,7 +1029,7 @@ name "subsec:HAC-Entropy"
 
 \begin_layout Standard
 The method is based on clustering the instances with hierarchical agglomerative
- clustering (HAX) 
+ clustering (HAC) 
 \begin_inset Note Note
 status open
 
@@ -815,7 +1051,7 @@ REF
 
 , and choosing the smallest non-singleton clusters with the minimum prediction
  margin values.
- The sampling algorithm in a combination with a cold-start neural network
+ The sampling algorithm in a combination with softmax uncertainty method
  performs state-of-art active learning results in 
 \begin_inset Note Note
 status open
@@ -1134,21 +1370,17 @@ REF
  
 \end_layout
 
+\begin_layout Section
+Experiments
+\end_layout
+
+\begin_layout Subsection
+Simulation
+\end_layout
+
 \begin_layout Standard
-Another key component of the method is a representation of the posterior
- distribution of the parameter 
-\begin_inset Formula $\theta$
-\end_inset
-
-.
- Due to the complexity of the neural networks it is always represented by
- samples, with a different method of their generation.
- We will compare the following methods: i) Dropout MC: is an extension of
- the ordinary dropout that samples binary mask multiplying output of a layer,
- hence stopping propagation through all neurons where zeros is sampled through
- the network.
- The extension applies the sampled mask even for predictions generating
- samples from the predictive distribution [10] 
+The methods were compared on different datasets and different batch size.
+ The used datasets are positive/negative tweets from the Tweets [11] 
 \begin_inset Note Note
 status open
 
@@ -1158,11 +1390,7 @@ REF
 
 \end_inset
 
-, ii) Deep ensembles: consist of 
-\begin_inset Formula $d$
-\end_inset
-
- networks trained in parallel from different initial conditions [13] 
+, Fake News Detection [8] 
 \begin_inset Note Note
 status open
 
@@ -1172,8 +1400,115 @@ REF
 
 \end_inset
 
-, and iii) Softmax uncertainty: is the most simple approach that uses only
- one ̂ network to estimate a single value 𝜃 [4]
+, two pairs of categories from Amazon Reviews 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+ and Gibberish 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+ datasets.
+ The batch sizes are 
+\begin_inset Formula $10$
+\end_inset
+
+, 
+\begin_inset Formula $20$
+\end_inset
+
+, 
+\begin_inset Formula $50$
+\end_inset
+
+ and 
+\begin_inset Formula $100$
+\end_inset
+
+ instances per active learning or random sampling iteration.
+ Specifically, we compared active learning and random sampling strategies
+ for different settings of algorithms, batch sizes and different representations
+ of uncertainty.
+ Each experiment was initiated by random choice of the initial training
+ set of 
+\begin_inset Formula $𝑙_{0}=10$
+\end_inset
+
+ samples from 
+\begin_inset Formula $10000$
+\end_inset
+
+ text documents (
+\begin_inset Formula $5000$
+\end_inset
+
+ text documents per category), which were the initial 
+\begin_inset Formula $10000$
+\end_inset
+
+ documents of the datasets given categories.
+ For each experiment we continue the active learning simulation until we
+ sample 
+\begin_inset Formula $1000$
+\end_inset
+
+ with querying iterations.
+ Hence, 
+\begin_inset Formula $L$
+\end_inset
+
+ ranges from 
+\begin_inset Formula $10$
+\end_inset
+
+ to 
+\begin_inset Formula $100$
+\end_inset
+
+ requests for annotation.
+ The batch selection follows the 𝜖 -greedy approach [25] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+, i.e.
+ the samples given the acquisition function 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+ is accepted with probability 
+\begin_inset Formula $𝜖=\frac{\exp(l-3)}{\exp(l-3)+1}$
+\end_inset
+
+.
+ A batch of random documents is selected for labeling if not accepted.
+ After each request, the classification performance is evaluated on the
+ remaining part of the selected dataset (i.e.
+ on the 9990 text documents in the first evaluation) using the area under
+ the ROC curve (AUC) metrics [9] 
 \begin_inset Note Note
 status open
 
@@ -1184,24 +1519,31 @@ REF
 \end_inset
 
 .
- Ensembles based approach is the current state-of-the-art in active learning
- [3] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF + Our article
-\end_layout
-
+ In order to make the results statistically valid, we repeat the described
+ simulation loop 
+\begin_inset Formula $5$
 \end_inset
 
-.
- While many of these have been tested in active learning, the majority of
- authors assumed that after each step of active learning, the network training
- starts from the initial conditions.
- This is clearly suboptimal, since the information from the previous training
- is lost.
- A simple solution was presented in [23] 
+ times for all datasets.
+\end_layout
+
+\begin_layout Subsection
+Methods
+\end_layout
+
+\begin_layout Standard
+We compare results for 12 different tuples of algorithms and acquisition
+ functions that include i) five MC Dropout simulations with all acquisition
+ functions, random sampling, all datasets, and all batch sizes, ii) three
+ NN Warm-Start runs based on dropout algorithm with point-wise parameters
+ distribution estimate for HAC Entropy, Entropy, random sampling acquisition
+ functions, all datasets, and all batch sizes, iii) five DEnFi simulations
+ with all acquisition functions, random sampling, three datasets, and only
+ one batch size (due to the computational complexity), and iv) HAC Min-margin
+ run with softmax uncertainty cold-start active learning strategy and HAC
+ Entropy computed for all datasets and all batch sizes.
+ The cold start strategy choice for HAC Min-margin is based on the experimental
+ results from 
 \begin_inset Note Note
 status open
 
@@ -1211,20 +1553,19 @@ REF (Maybe our article)
 
 \end_inset
 
-, where it was argued that estimated results from the previous step can
- be used as centroids around which the new initial point is sampled.
- Since this is a form of a warm-start, we also test batch active learning
- warm-start strategies for Dropout and ensembles.
- The methods for representation of parametric uncertainty are: 
+, where the hot start-methods (fine tuning without noise pertrubation) scored
+ the worst.
+ Hence, for the sake of not having computational biases we decided to train
+ HAC Min-margin algorithm from scratch in every active learning iteration.
 \end_layout
 
 \begin_layout Subsection
-Deep Ensemble Filter (DEnFi):
+Text Classification
 \end_layout
 
 \begin_layout Standard
-is a deep ensemble method with 5 neural networks in the ensembles and warm-start
- training strategy [13] 
+The comparison of AUC results is done with the ranking technique presented
+ in 
 \begin_inset Note Note
 status open
 
@@ -1232,96 +1573,90 @@ status open
 REF
 \end_layout
 
-\end_inset
-
- using weights of the ensemble members in the previous iteration as initial
- conditions for the new ensemble.
- Each weight is perturbed by an additive Gaussian noise of variance 
-\begin_inset Formula $𝑞=0.3$
-\end_inset
-
- which is a hyperparameter.
- In our experiments, the ensemble is trained with parameters 
-\begin_inset Formula $\mathrm{initialization\_epochs}=2500$
-\end_inset
-
- on the initial data and with additional 
-\begin_inset Formula $\mathrm{warm\_start\_epochs}=700$
-\end_inset
-
- epochs after each extension of the learning data set.
-\end_layout
-
-\begin_layout Subsection
-Dropout MC
-\end_layout
-
-\begin_layout Standard
-is the standard algorithm [10] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- that trains only a single network with sampled dropout indices and uses
- the sampling even in the prediction step.
- Generation of the Monte Carlo prediction is obtained by sampling different
- values of the dropout binary variable and one forward pass of the network
- for each sample.
- We study warm-start with weights from the previous iteration perturbed
- by an additive noise of variance 
-\begin_inset Formula $q=0.3$
-\end_inset
-
- with 700 epochs.
- Dropout rate is 
-\begin_inset Formula $0.2$
 \end_inset
 
 .
-\end_layout
+ We compute the mean value over five simulations for each algorithm.
+ Next, we calculate ranks in every iteration of active learning for algorithms
+ with the same batch size and datasets.
+ The methods are compared to the aggregated mean ranks.
+ The mean values are computed for ranks of 
+\begin_inset Formula $100,200,\dots,1000$
+\end_inset
 
-\begin_layout Subsection
-Softmax uncertainty
+ sampled instances.
+ The reason of aggregation through a subset of all ranks is the understanding
+ if more active learning iterations with smaller batch size or one with
+ a larger one is better.
+ The aggregated mean ranks for different datasets and batch sizes are in
+ figure 
 \end_layout
 
 \begin_layout Standard
-The simplest approach to uncertainty representation is a single neural network
- with a softmax output layer that considers uncertainty as the output of
- the softmax score.
- We add it to comparison since it is a baseline approach used in state-of-art
- 
-\begin_inset Note Note
+\begin_inset Float figure
+wide true
+sideways false
 status open
 
 \begin_layout Plain Layout
-REF
+\align center
+\begin_inset Graphics
+	filename images/Aggregated_mean_rank_given_datasets_subplots.eps
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
 
- in cold start version and has also been applied to active learning earlier
- in [4] 
-\begin_inset Note Note
-status open
 
-\begin_layout Plain Layout
-REF
 \end_layout
 
 \end_inset
 
- as hot-start method without noise pertrubation.
- The model is trained to run 
-\begin_inset Formula $2500$
+
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/batch_active_learning_plots.eps
+	scale 50
+
 \end_inset
 
- epochs in every iteration for cold start and with additional 200 epochs
- after each extension of the learning data set for hot-start.
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
