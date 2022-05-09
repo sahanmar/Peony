@@ -606,7 +606,108 @@ novel combinations of HAC + entropy (winning somewhere)?
 \end_layout
 
 \begin_layout Standard
-mnetion previous study 
+mention previous study 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Literature:
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dor2020active"
+literal "false"
+
+\end_inset
+
+: batch size = 50, 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margatina2021bayesian"
+literal "false"
+
+\end_inset
+
+: additional training of Bert
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schroder2021uncertainty"
+literal "false"
+
+\end_inset
+
+: breaking ties - min margin (entropy) = better than Entropy!
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "prabhu2021multi"
+literal "false"
+
+\end_inset
+
+: poor results for MC-entropy, GradientLength wins? Data-dependent performace
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hu2018active"
+literal "false"
+
+\end_inset
+
+: warm start = overfitting
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "seo2022active"
+literal "false"
+
+\end_inset
+
+: triplet loss for better classification
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Yu2021actune"
+literal "false"
+
+\end_inset
+
+: combination of entropy and clustering (?)
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jacobs2021active"
+literal "false"
+
+\end_inset
+
+: noisy results, query-pool size - noisy again
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -614,46 +715,29 @@ Methods
 \end_layout
 
 \begin_layout Standard
-Throughout the paper, we will use RoBERTa base [14] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
+Throughout the paper, we will use the RoBERTa embedding 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "liu2019roberta"
+literal "false"
 
 \end_inset
 
- embedding algorithms.
- RoBERTa is a modified BERT transformer model [6] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
+ to represent documents in the feature space.
+ RoBERTa is a modified BERT transformer model 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "devlin2018bert"
+literal "false"
 
 \end_inset
 
- based on multi-head attention layers [24] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
-.
- Transformer models provide state of the art results both in context understandi
-ng and active learning text classification problems 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Our article REF
-\end_layout
+ that outperformed all previous represnetations in previous studies on active
+ learning 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sahan2021active"
+literal "false"
 
 \end_inset
 
@@ -692,39 +776,37 @@ where
 \end_inset
 
  is a matrix of 𝑗-th sentence where words are encoded with one hot or byte
- pair encoding [20] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- technique and 
+ pair encoding technique and 
 \begin_inset Formula $f_{\mathrm{Sentence\ embed}}$
 \end_inset
 
- is a function that creates sentence embeddings with respect to the given
- byte pair encoded words.
- Sentence embeddings for RoBERTa are output of deep neural network models.
+ is a function that creates RoBERTa sentence embeddings.
  
 \end_layout
 
 \begin_layout Standard
-For supervised classification, each document embedding 
+The aim of document classification is to find a classifier 
+\begin_inset Formula $\hat{\mathbf{y}}_{i}=\mathbf{y}(\theta,\mathbf{x}_{i})$
+\end_inset
+
+ predicting the class label for each document representation 
 \begin_inset Formula $\mathbf{x}_{i}$
 \end_inset
 
- has to have an associated label 
+.
+ In supervised setting, the classifier parameters are found by matching
+ the prediction with provided label 
 \begin_inset Formula $\mathbf{y}_{i}$
 \end_inset
 
-.
+ for each document.
  We are concerned with binary classification for simplicity, however, an
  extension to multiclass is straightforward.
- We assume that for the full corpus of text documents 
+ 
+\end_layout
+
+\begin_layout Standard
+We assume that for the full corpus of text documents 
 \begin_inset Formula $\mathbf{X}=[\mathbf{x}_{1},\dots,\mathbf{x}_{n}]$
 \end_inset
 
@@ -759,9 +841,14 @@ labels is available,
 \begin_inset Formula $\mathbf{X}\backslash\mathbf{X}^{(0)}$
 \end_inset
 
-.Active learning is defined as a sequential extension of the training data
+.
+ Active learning is defined as a sequential extension of the training data
  set.
- In each iteration, 
+ In single sample active learning, 
+\end_layout
+
+\begin_layout Standard
+In each iteration, 
 \begin_inset Formula $𝑙=1,...,𝐿$
 \end_inset
 
@@ -1367,12 +1454,289 @@ REF
 Evaluation
 \end_layout
 
+\begin_layout Section
+Experiments
+\end_layout
+
+\begin_layout Subsection
+Simulation
+\end_layout
+
 \begin_layout Standard
-TODO
-\begin_inset CommandInset citation
-LatexCommand cite
-key "aizawa2003information"
-literal "false"
+The methods were compared on different datasets and different batch size.
+ The used datasets are positive/negative tweets from the Tweets [11] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+, Fake News Detection [8] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+, two pairs of categories from Amazon Reviews 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+ and Gibberish 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+ datasets.
+ The batch sizes are 
+\begin_inset Formula $10$
+\end_inset
+
+, 
+\begin_inset Formula $20$
+\end_inset
+
+, 
+\begin_inset Formula $50$
+\end_inset
+
+ and 
+\begin_inset Formula $100$
+\end_inset
+
+ instances per active learning or random sampling iteration.
+ Specifically, we compared active learning and random sampling strategies
+ for different settings of algorithms, batch sizes and different representations
+ of uncertainty.
+ Each experiment was initiated by random choice of the initial training
+ set of 
+\begin_inset Formula $𝑙_{0}=10$
+\end_inset
+
+ samples from 
+\begin_inset Formula $10000$
+\end_inset
+
+ text documents (
+\begin_inset Formula $5000$
+\end_inset
+
+ text documents per category), which were the initial 
+\begin_inset Formula $10000$
+\end_inset
+
+ documents of the datasets given categories.
+ For each experiment we continue the active learning simulation until we
+ sample 
+\begin_inset Formula $1000$
+\end_inset
+
+ with querying iterations.
+ Hence, 
+\begin_inset Formula $L$
+\end_inset
+
+ ranges from 
+\begin_inset Formula $10$
+\end_inset
+
+ to 
+\begin_inset Formula $100$
+\end_inset
+
+ requests for annotation.
+ The batch selection follows the 𝜖 -greedy approach [25] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+, i.e.
+ the samples given the acquisition function 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+ is accepted with probability 
+\begin_inset Formula $𝜖=\frac{\exp(l-3)}{\exp(l-3)+1}$
+\end_inset
+
+.
+ A batch of random documents is selected for labeling if not accepted.
+ After each request, the classification performance is evaluated on the
+ remaining part of the selected dataset (i.e.
+ on the 9990 text documents in the first evaluation) using the area under
+ the ROC curve (AUC) metrics [9] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+.
+ In order to make the results statistically valid, we repeat the described
+ simulation loop 
+\begin_inset Formula $5$
+\end_inset
+
+ times for all datasets.
+\end_layout
+
+\begin_layout Subsection
+Methods
+\end_layout
+
+\begin_layout Standard
+We compare results for 12 different tuples of algorithms and acquisition
+ functions that include i) five MC Dropout simulations with all acquisition
+ functions, random sampling, all datasets, and all batch sizes, ii) three
+ NN Warm-Start runs based on dropout algorithm with point-wise parameters
+ distribution estimate for HAC Entropy, Entropy, random sampling acquisition
+ functions, all datasets, and all batch sizes, iii) five DEnFi simulations
+ with all acquisition functions, random sampling, three datasets, and only
+ one batch size (due to the computational complexity), and iv) HAC Min-margin
+ run with softmax uncertainty cold-start active learning strategy and HAC
+ Entropy computed for all datasets and all batch sizes.
+ The cold start strategy choice for HAC Min-margin is based on the experimental
+ results from 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF (Maybe our article)
+\end_layout
+
+\end_inset
+
+, where the hot start-methods (fine tuning without noise pertrubation) scored
+ the worst.
+ Hence, for the sake of not having computational biases we decided to train
+ HAC Min-margin algorithm from scratch in every active learning iteration.
+\end_layout
+
+\begin_layout Subsection
+Text Classification
+\end_layout
+
+\begin_layout Standard
+The comparison of AUC results is done with the ranking technique presented
+ in 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+.
+ We compute the mean value over five simulations for each algorithm.
+ Next, we calculate ranks in every iteration of active learning for algorithms
+ with the same batch size and datasets.
+ The methods are compared to the aggregated mean ranks.
+ The mean values are computed for ranks of 
+\begin_inset Formula $100,200,\dots,1000$
+\end_inset
+
+ sampled instances.
+ The reason of aggregation through a subset of all ranks is the understanding
+ if more active learning iterations with smaller batch size or one with
+ a larger one is better.
+ The aggregated mean ranks for different datasets and batch sizes are in
+ figure ...
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/Aggregated_mean_rank_given_datasets_subplots.eps
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/batch_active_learning_plots.eps
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
