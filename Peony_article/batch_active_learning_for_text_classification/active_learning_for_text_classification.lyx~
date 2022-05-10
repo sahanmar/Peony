@@ -1589,7 +1589,7 @@ REF
  if more active learning iterations with smaller batch size or one with
  a larger one is better.
  The aggregated mean ranks for different datasets and batch sizes are in
- figure 
+ figure ...
 \end_layout
 
 \begin_layout Standard
@@ -1602,7 +1602,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename images/Aggregated_mean_rank_given_datasets_subplots.eps
-	scale 25
+	scale 30
 
 \end_inset
 
