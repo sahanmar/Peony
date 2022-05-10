@@ -7,6 +7,7 @@ import pandas as pd
 
 from typing import List, Any, Dict
 from Peony_visualization.src.batch_active_learning_article.result_ids import DATA
+from matplotlib.ticker import FormatStrFormatter
 
 
 def visualize_auc_evolutions(
@@ -19,6 +20,7 @@ def visualize_auc_evolutions(
     model_2,
     batch,
     title,
+    index,
 ):
 
     auc_1_passive_mean = auc_seq_passive_1["results_mean"].values.flatten().tolist()[0]
@@ -30,6 +32,7 @@ def visualize_auc_evolutions(
     auc_2_active_mean = auc_seq_active_2["results_mean"].values.flatten().tolist()[0]
     auc_2_active_std = auc_seq_active_2["results_std"].values.flatten().tolist()[0]
 
+    ax.yaxis.set_major_formatter(FormatStrFormatter("%.2f"))
     ax.grid(alpha=0.2)
     ax.plot(
         [i for i in range(batch, 1000 + batch, batch)],
@@ -131,11 +134,12 @@ def visualize_auc_evolutions(
         color="g",
     )
 
-    ax.set_xlabel("Learning Iterations", fontsize=10)
-    ax.set_ylabel("AUC", fontsize=10)
+    ax.set_xlabel("Learning Iterations", fontsize=13.5)
+    if index == 0:
+        ax.set_ylabel("AUC", fontsize=13.5)
     ax.set_title(
         title,
-        fontsize=10,
+        fontsize=16,
     )
     ax.legend(loc="lower right", fontsize=10)
 
@@ -196,7 +200,7 @@ def main():
             "Fake news detection",
             "MC Dropout\nHAC Entropy",
             "HAC\nMin-margin",
-            "Fake news detection",
+            "Fake News Detection",
         ),
         (
             "denfi_entropy",
@@ -206,7 +210,7 @@ def main():
             "Amazon Review 3, 5",
             "DEnFi\nEntropy",
             "HAC\nMin-margin",
-            "Amazon Review 3, 5",
+            "Amazon Reviews 3, 5",
         ),
         (
             "nn_warm_start_entropy",
@@ -239,7 +243,8 @@ def main():
 
         rs_1 = df[(df["algorithm"] == q_r_1) & (df["batch"] == batch) & (df["dataset"] == q_data)]
 
-        ax = plt.subplot(2, 2, index + 1)
+        ax = plt.subplot(1, 4, index + 1)
+
         visualize_auc_evolutions(
             ax,
             batch,
@@ -250,6 +255,7 @@ def main():
             alg_legend_2,
             batch,
             f"{title_category}, batch {batch}",
+            index,
         )
 
     plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.2, hspace=0.3)

@@ -68,6 +68,7 @@ def heatmap_batch(
 
     # fig, ax = plt.subplots(figsize=(8, 6))
     if subplot is not None:
+        sns.set(font_scale=1.12)
         ax = sns.heatmap(
             df_h,
             cmap="Blues_r",
@@ -95,7 +96,9 @@ def heatmap_batch(
         ax.set_title(
             "Aggregated batch size mean rank through all algorithms" if not alg_title else alg_title,
             pad=20,
+            fontsize=label_size + 6,
         )
+        # ax.set_yticklabels(ax.get_yticklabels(), rotation=40)
         # plt.tight_layout()
     else:
         ax = sns.heatmap(
@@ -129,7 +132,7 @@ def heatmap_batch(
         plt.show()
 
 
-def heatmap_datasets(dfs: List[pd.DataFrame]) -> None:
+def heatmap_datasets(dfs: List[pd.DataFrame], index=1, subplot=None, min_v=0, max_v=0) -> None:
 
     if len(dfs) == 3:
         df = dfs[0].merge(dfs[1], how="left").merge(dfs[2], how="left")
@@ -148,24 +151,47 @@ def heatmap_datasets(dfs: List[pd.DataFrame]) -> None:
             "Twitter\nSentiment",
         ]
 
-        ylabels = [
-            "HAC\nMin-margin",
-            "MC Dropout\nHAC Entropy",
-            "MC Dropout\nHAC BALD",
-            "MC Dropout\nEntropy",
-            "MC Dropout\nBALD",
-            "MC Dropout\nRandom",
-            "DEnFi\nHAC Entropy",
-            "DEnFi\nHAC BALD",
-            "DEnFi\nEntropy",
-            "DEnFi\nBALD",
-            "DEnFi\nRandom",
-            "NN HAC Entropy\nWarm-start",
-            # "NN HAC BALD\nWarm-start",
-            "NN Entropy\nWarm-start",
-            # "NN BALD\nWarm-start",
-            "NN Random\nWarm-start",
-        ]
+        if index == 1:
+            ylabels = [
+                "HAC\nMin-margin",
+                "DEnFi\nHAC Entropy",
+                "DEnFi\nHAC BALD",
+                "DEnFi\nEntropy",
+                "DEnFi\nBALD",
+                "DEnFi\nRandom",
+                "NN Random\nWarm-start",
+            ]
+        else:
+            ylabels = [
+                "MC Dropout\nHAC Entropy",
+                "MC Dropout\nHAC BALD",
+                "MC Dropout\nEntropy",
+                "MC Dropout\nBALD",
+                "MC Dropout\nRandom",
+                "NN HAC Entropy\nWarm-start",
+                # "NN HAC BALD\nWarm-start",
+                "NN Entropy\nWarm-start",
+                # "NN BALD\nWarm-start",
+            ]
+
+            # fig, ax = plt.subplots(figsize=(8, 6))
+        sns.set(font_scale=1.12)
+        ax = sns.heatmap(
+            df_h,
+            cmap="Blues_r",
+            linewidths=0.0,
+            annot=True,
+            xticklabels=xlabels,
+            yticklabels=ylabels,
+            vmin=min_v,
+            vmax=max_v,
+            ax=subplot,
+            # cbar=False if index == 1 else True,
+        )
+        ax.tick_params(labelsize=12)
+        ax.set_xticklabels(ax.get_xticklabels(), rotation=0)
+        # ax.set_yticklabels(ax.get_yticklabels(), rotation=90)
+        # ax.set_title("Aggregated mean rank given datasets and algorithm", pad=20)
 
     else:
         df = (
@@ -207,23 +233,23 @@ def heatmap_datasets(dfs: List[pd.DataFrame]) -> None:
             "NN Random\nWarm-start",
         ]
 
-    # fig, ax = plt.subplots(figsize=(8, 6))
-    ax = sns.heatmap(
-        df_h,
-        cmap="Blues_r",
-        linewidths=0.0,
-        annot=True,
-        xticklabels=xlabels,
-        yticklabels=ylabels,
-        vmin=math.floor(df_h.min().min()),
-        vmax=math.ceil(df_h.max().max()),
-    )
-    ax.tick_params(labelsize=8)
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=0)
-    # ax.set_yticklabels(ax.get_yticklabels(), rotation=90)
-    ax.set_title("Aggregated mean rank given datasets and algorithm", pad=20)
-    plt.tight_layout()
-    plt.show()
+        # fig, ax = plt.subplots(figsize=(8, 6))
+        ax = sns.heatmap(
+            df_h,
+            cmap="Blues_r",
+            linewidths=0.0,
+            annot=True,
+            xticklabels=xlabels,
+            yticklabels=ylabels,
+            vmin=math.floor(df_h.min().min()),
+            vmax=math.ceil(df_h.max().max()),
+        )
+        ax.tick_params(labelsize=8)
+        ax.set_xticklabels(ax.get_xticklabels(), rotation=0)
+        # ax.set_yticklabels(ax.get_yticklabels(), rotation=90)
+        # ax.set_title("Aggregated mean rank given datasets and algorithm", pad=20)
+        plt.tight_layout()
+        plt.show()
 
 
 def get_collection_results() -> Dict[str, List[List[float]]]:
@@ -343,7 +369,7 @@ def get_dataset_rank(df: pd.DataFrame) -> List[pd.DataFrame]:
 
 
 def get_batch_rank_subplots(df: pd.DataFrame) -> None:
-    label_size = 10
+    label_size = 13.5
     heatmap_batch(get_batch_rank(df), "All Datasets", plt.subplot(2, 3, 1), label_size)
     heatmap_batch(
         get_batch_rank(df[df["dataset"] == "Tweet_emotion_detection"]),
@@ -375,6 +401,43 @@ def get_batch_rank_subplots(df: pd.DataFrame) -> None:
     plt.show()
 
 
+def get_batch_rank_subplots_denfi(df: pd.DataFrame) -> None:
+    df_denfi = df[
+        (df["batch"] == 20) & (df["dataset"] != "Gibberish") & (df["dataset"] != "Amazon Review 1, 5")
+    ]
+    dataset_ranks = get_dataset_rank(df_denfi)
+    algos = [
+        "nn_min_margin",
+        "denfi_hac_entropy",
+        "denfi_hac_bald",
+        "denfi_entropy",
+        "denfi_bald",
+        "denfi_random",
+        "mc_dropout_random",
+    ]
+    first_subplot = [d_r[d_r["algorithm"].isin(algos)] for d_r in dataset_ranks]
+    second_subplot = [d_r[~d_r["algorithm"].isin(algos)] for d_r in dataset_ranks]
+
+    label_size = 13.5
+
+    df = dataset_ranks[0].merge(dataset_ranks[1], how="left").merge(dataset_ranks[2], how="left")
+
+    df_h = df[
+        [
+            "Amazon Review 3, 5_ranks_mean",
+            "Fake news detection_ranks_mean",
+            "Tweet_emotion_detection_ranks_mean",
+        ]
+    ]
+
+    min_v = math.floor(df_h.min().min())
+    max_v = math.floor(df_h.max().max())
+    heatmap_datasets(first_subplot, 1, plt.subplot(1, 2, 1), min_v, max_v)
+    heatmap_datasets(second_subplot, 2, plt.subplot(1, 2, 2), min_v, max_v)
+    # plt.tight_layout()
+    plt.show()
+
+
 def main():
     collection_results = get_collection_results()
     df = merge_resuls_and_metadata(collection_results, DATA)
@@ -386,7 +449,7 @@ def main():
     # plot_batch_evolutions(batch_ranks)
     # heatmap_batch(batch_ranks)
 
-    get_batch_rank_subplots(df_r)
+    # get_batch_rank_subplots(df_r)
 
     # batch_ranks[0].to_clipboard(header=False, index=False)
 
@@ -394,11 +457,7 @@ def main():
     # heatmap_datasets(dataset_ranks)
 
     # With data that include DEnFi
-    df_denfi = df[
-        (df["batch"] == 20) & (df["dataset"] != "Gibberish") & (df["dataset"] != "Amazon Review 1, 5")
-    ]
-    dataset_ranks = get_dataset_rank(df_denfi)
-    heatmap_datasets(dataset_ranks)
+    get_batch_rank_subplots_denfi(df)
     # dataset_ranks[0].to_clipboard(header=False, index=False)
 
 
