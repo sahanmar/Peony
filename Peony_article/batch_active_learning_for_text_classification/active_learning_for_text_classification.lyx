@@ -921,7 +921,7 @@ REF (Maybe our article)
 \end_inset
 
  on the initial data and with additional 
-\begin_inset Formula $\mathrm{warm\_start\_epochs}=700$
+\begin_inset Formula $\mathrm{warm\_start\_epochs}=500$
 \end_inset
 
  epochs after each extension of the learning data set.
@@ -952,7 +952,8 @@ REF
 \begin_inset Formula $q=0.3$
 \end_inset
 
- with 700 epochs.
+ with 100 epochs additional learning and 50 epochs in between parameters
+ sampling.
  Dropout rate is 
 \begin_inset Formula $0.2$
 \end_inset
@@ -1464,7 +1465,7 @@ REF
 \begin_inset Formula $1000$
 \end_inset
 
- with querying iterations.
+ instances with querying iterations.
  Hence, 
 \begin_inset Formula $L$
 \end_inset
@@ -1477,7 +1478,7 @@ REF
 \begin_inset Formula $100$
 \end_inset
 
- requests for annotation.
+ requests for annotations.
  The batch selection follows the 𝜖 -greedy approach [25] 
 \begin_inset Note Note
 status open
@@ -1532,7 +1533,7 @@ Methods
 \end_layout
 
 \begin_layout Standard
-We compare results for 12 different tuples of algorithms and acquisition
+We compare results for 14 different tuples of algorithms and acquisition
  functions that include i) five MC Dropout simulations with all acquisition
  functions, random sampling, all datasets, and all batch sizes, ii) three
  NN Warm-Start runs based on dropout algorithm with point-wise parameters
@@ -1593,6 +1594,162 @@ REF
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Algorithm
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Active leaning
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+iteration ratio
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Cold Start NN
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1 (64.08s)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+MC Dropout
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.30 (19.358s)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DEnFi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.73 (46.77s)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Warm Start NN
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.28 (17.92s)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Time ratios for a single active learning iteration for four different learning
+ approaches with HAC Entropy acquisition function and batch size 100
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \begin_inset Float figure
 wide false
 sideways false
@@ -1614,7 +1771,9 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
+Aggregated mean rank for 14 tuples of learning algorithms and acquisition
+ functions given Amazon Reviews 3,5, Fake News Detection and Twitter Sentiment
+ for batch size 20 and 50 active learning iterations
 \end_layout
 
 \end_inset
@@ -1646,7 +1805,8 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
+Aggregated mean rank for 9 tuples of learning algorithms and acquisition
+ functions given all datasets and all batch sizes variations
 \end_layout
 
 \end_inset
@@ -1681,7 +1841,12 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
+Evolution of the mean AUC with growing number of requests for the best algorithm
+s representative vs HAC Min-margin given the batch size and dataset.
+ The uncertainty bounds are illustrated as one standard deviation from the
+ mean value with respect to 5 runs.
+ All algorithms were initially trained on 10 labeled text documents before
+ sequential learning strategies were initialized
 \end_layout
 
 \end_inset
@@ -1692,6 +1857,20 @@ status open
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Section*
+Acknowledgments
+\end_layout
+
+\begin_layout Standard
+The authors acknowledge the support in computational resources to Deep Discovery
+, Inc.
+ 
 \end_layout
 
 \end_body
