@@ -1625,6 +1625,41 @@ status open
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/Aggregated_mean_rank_given_datasets_w_denfi.eps
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \begin_inset Float figure
 wide true
 sideways false
@@ -1634,7 +1669,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename images/batch_active_learning_plots.eps
-	scale 50
+	scale 41
 
 \end_inset
 
