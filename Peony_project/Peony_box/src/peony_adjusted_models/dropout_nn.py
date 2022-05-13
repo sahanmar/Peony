@@ -19,6 +19,8 @@ HOT_START_EPOCHS = 100
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 LEARNING_RATE = 0.001
 WEIGHTS_VARIANCE = 0.3
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 neural_network = NeuralNet
 
 # NUM_SAMPLES = 10
@@ -58,7 +60,7 @@ class PeonyDropoutFeedForwardNN:
 
         if self.initialized is False:
             self.model = [
-                neural_network(features_size, self.hidden_size, self.num_classes, dropout=0.5).to(DEVICE)
+                neural_network(features_size, self.hidden_size, self.num_classes, dropout=0.2).to(DEVICE)
                 for i in range(self.num_samples)
             ]
             self.criterion = nn.CrossEntropyLoss()
@@ -71,7 +73,7 @@ class PeonyDropoutFeedForwardNN:
             if self.cold_start is False:
                 with torch.no_grad():
                     for param in self.model[index].parameters():
-                        param.add_(torch.randn(param.size()) * self.variance)
+                        param.add_(torch.randn(param.size()).to(DEVICE) * self.variance)
 
             if index != 0:
                 self.model[index].load_state_dict(self.model[0].state_dict())
@@ -87,15 +89,15 @@ class PeonyDropoutFeedForwardNN:
 
                     outputs = self.model[0].train()(instances)
 
-                    loss = self.criterion(outputs, labels)
+                    loss = self.criterion(outputs, labels.to(DEVICE))
                     # Backward and optimize
                     loss.backward()
                     self.optimizer.step()
 
                     if epoch == 0:
-                        initial_loss_per_sample = loss.detach().numpy()
+                        initial_loss_per_sample = loss.cpu().detach().numpy()
 
-            fitted_loss_per_sample.append(loss.detach().numpy())
+            fitted_loss_per_sample.append(loss.cpu().detach().numpy())
         loss_list.append(f"starting loss is {initial_loss_per_sample}")
         loss_list.append(f"fitted loss (samples mean) is {np.mean(fitted_loss_per_sample)}")
 
@@ -116,7 +118,7 @@ class PeonyDropoutFeedForwardNN:
             with torch.no_grad():
                 predicted_list.append(
                     np.concatenate(
-                        [self.model[index].predict(instances).data.detach().numpy() for instances, _ in data],
+                        [self.model[index].predict(instances).data.cpu().detach().numpy() for instances, _ in data],
                         axis=0,
                     )
                 )
