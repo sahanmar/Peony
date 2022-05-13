@@ -383,241 +383,71 @@ The development of a text classifier on a new problem requires the availability
  for their labels.
  Therefore, it has the potential to greatly reduce the effort needed for
  the development of a new system.
- While it was introduced almost two decades ago, recent improvements in
- deep learning motivate our attempt to revisit the topic.
- For example, SVM-based active learning approaches for text classification
- date back to 2001 [22] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
+ Its advantages have been demonstrated even for classical methods such as
+ SVM 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tong2001support"
+literal "false"
 
 \end_inset
 
-, where the superiority of active learning over random sampling was demonstrated.
- Since deep recurrent and convolutional neural networks achieve better classific
-ation results, Bayesian active learning methods for deep networks gained
- popularity especially in image classification [10], [15] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
+, but recent shift to deep learning methods motivates revisiting of the
+ topic.
+ The most conventional active learning strategies select one unlabeled document
+ after each training round to query due to simplicity of its selection.
+ The next query document is selected only after the first on is labeled
+ and the model re-trained.
+ However, this strategy is impractical in text classification where annotators
+ cannot wait for the models.
+ Therefore, we pay special attention to strategies that select a batch of
+ documents for querying.
 \end_layout
+
+\begin_layout Standard
+Novel methods for 
+\emph on
+batch active learning 
+\emph default
+appear frequently, each demonstrating advantages on their benchmark data.
+ One of the recent approaches demonstrate effectiveness even for batches
+ of 5000 samples 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "citovsky2021batch"
+literal "false"
+
+\end_inset
+
+, combining the min-margin acquisition function with clustering under name
+ Hierarchical Agglomerative Clustering (HAC).
+ In this contribution, we investigate novel modifications of this idea using
+ alternative acquisition functions.
+ Specifically we propose to extend the HAC approach to Bayesian setting
+ by replacing the min-margin by Bayesian acquisition function, BALD 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "houlsby2011bayesian"
+literal "false"
 
 \end_inset
 
 .
- The Bayesian approach is concerned with querying labels for data for which
- the classifier predicts the greatest uncertainty.
- 
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Add that we are doing it on batches and some related works.
- There are plenty of them
-\end_layout
-
-\end_inset
-
- The uncertainty is quantified using the so-called acquisition function,
- such as predictive entropy [18] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
-, mutual information 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
-, etc..
- Despite the strengths of uncertainty based models, clustering 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- or gradient prediction 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- based algorithms also reach state-of-art results for different tasks.
+ However, the size of the minibatch is only one of many factors in performace
+ of the active learning algorithms.
+ Other factors are: i) selected acquisition function, ii) representation
+ of uncertainty of the classifier, and iii) strategy of retraining of the
+ network.
+ The key contribution of our work is sensitivity study of the classification
+ task to these factors over a range of datasets from various text classification
+ tasks.
  
 \end_layout
 
 \begin_layout Standard
-While different acquisition functions often provide similar results, different
- representations of predictive distribution yield much more diverse results.
- The most popular approach using Dropout MC [10] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- has been tested on text classification [1] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- and named entity recognition [19], [15] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
-, however other techniques such as Langevin dynamics [26] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- and deep ensembles [13] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- are available.
- Deep ensembles often achieve better performance [3], [21] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- but require higher computational cost since they train an ensemble of networks
- after each extension of the data set.
- One potential solution of this problem has been recently proposed in [23]
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
-, where the ensemble is not trained from a fresh random initialization after
- each query but initialized randomly around the position of the ensembles
- from the previous iteration.
- In this contribution, we test agglomerative clustering state-of-art approach
- with Bayesian networks, warm-start modifications and different acquisition
- functions.
- Our research is underlayed with different types of text data, classification
- tasks complexity analysis and a sensitivity study for the batch size choice.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-ADD SOMETHING ABOUT OUR PREVIOUS ARTICLE.
- This is left from previous article intro.
- Donno what to do with that –->
-\end_layout
-
-\end_inset
-
-Active learning for fake news detection was considered in [4] using uncertainty
- based on probability of classification.
- It was later extended to a context aware approach [5].
- An entropy based approach has been presented in [12] using an ensemble
- of three different kinds of networks.
-\end_layout
-
-\begin_layout Standard
-CONTRIBUTION:
-\end_layout
-
-\begin_layout Itemize
-comparative study – identified factors affecting the choice of the method:
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-size of the batch for labeling
-\end_layout
-
-\begin_layout Itemize
-nature of the dataset/problem complexity
-\end_layout
-
-\begin_layout Itemize
-acquisition function
-\end_layout
-
-\begin_layout Itemize
-uncertainty representation of the network model, 
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-novel combinations of HAC + entropy (winning somewhere)?
-\end_layout
-
-\begin_layout Standard
-mention previous study 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Literature:
-\end_layout
-
-\begin_layout Plain Layout
+Various comparative studies have been performed recently with various focus
+ and various results.
+ Batch active learning was studied in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "dor2020active"
@@ -625,32 +455,8 @@ literal "false"
 
 \end_inset
 
-: batch size = 50, 
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margatina2021bayesian"
-literal "false"
-
-\end_inset
-
-: additional training of Bert
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schroder2021uncertainty"
-literal "false"
-
-\end_inset
-
-: breaking ties - min margin (entropy) = better than Entropy!
-\end_layout
-
-\begin_layout Plain Layout
+ for only one size of the batch (5o documents per query).
+ Large sensitivity to the type of dataset was reported in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "prabhu2021multi"
@@ -658,43 +464,8 @@ literal "false"
 
 \end_inset
 
-: poor results for MC-entropy, GradientLength wins? Data-dependent performace
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset CommandInset citation
-LatexCommand cite
-key "hu2018active"
-literal "false"
-
-\end_inset
-
-: warm start = overfitting
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset CommandInset citation
-LatexCommand cite
-key "seo2022active"
-literal "false"
-
-\end_inset
-
-: triplet loss for better classification
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Yu2021actune"
-literal "false"
-
-\end_inset
-
-: combination of entropy and clustering (?)
-\end_layout
-
-\begin_layout Plain Layout
+, where different method won for different data.
+ Large variability of the results was also observed in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "jacobs2021active"
@@ -702,16 +473,65 @@ literal "false"
 
 \end_inset
 
-: noisy results, query-pool size - noisy again
-\end_layout
+.
+ In 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schroder2021uncertainty"
+literal "false"
 
 \end_inset
 
+, the min-margin strategy was shown to be competitive to prediction entropy
+ based method on a range of embeddings.
+ The comparative studies shared similar properties, such as fixed network
+ for embeddings (improvement with re-training can be expected 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margatina2021bayesian"
+literal "false"
 
+\end_inset
+
+ but maybe too costly).
+ All studies also assume cold start, i.e.
+ completely new initialization of the classifier after each round of querying.
+ This is motivated by the fear of over fitting which was demonstrated in
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hu2018active"
+literal "false"
+
+\end_inset
+
+ for hot start, i.e.
+ continuation of training of the classifier.
+ A compromise in the form of warm-start, i.e.
+ initialization of the classifier weights by those of the previous classifier
+ with added noise, was proposed in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sahan2021active"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The paper is organized as follows.
+ In Section 2, we briefly review all tested factors of the batch active
+ learning.
+ Experimental setup of the sensitivity study is described in Section 3 and
+ results are reported in Section 4.
+ 
 \end_layout
 
 \begin_layout Section
-Methods
+Batch Active Learning Methods
 \end_layout
 
 \begin_layout Standard
@@ -732,8 +552,15 @@ literal "false"
 
 \end_inset
 
- that outperformed all previous represnetations in previous studies on active
- learning 
+ that achieved comparable performance to BERT in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schroder2021uncertainty"
+literal "false"
+
+\end_inset
+
+ and outperformed all other embedding in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sahan2021active"
@@ -747,56 +574,22 @@ literal "false"
 \end_inset
 
  is calculated as the mean value from sentence embeddings of all sentences
- in the text
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\mathbf{x}_{i}=\frac{1}{|D_{i}|}\sum_{j\in D_{i}}f_{\mathrm{Sentence\ embed}}(C^{(j)})
-\]
-
-\end_inset
-
-where 
-\begin_inset Formula $D_{i}$
-\end_inset
-
- is the set of vectors where each vector represents a sentence in the i-th
- document, 
-\begin_inset Formula $|D_{i}|$
-\end_inset
-
- is a cardinality of 
-\begin_inset Formula $D_{i}$
-\end_inset
-
-, 
-\begin_inset Formula $C^{(j)}$
-\end_inset
-
- is a matrix of 𝑗-th sentence where words are encoded with one hot or byte
- pair encoding technique and 
-\begin_inset Formula $f_{\mathrm{Sentence\ embed}}$
-\end_inset
-
- is a function that creates RoBERTa sentence embeddings.
- 
+ in the text.
 \end_layout
 
 \begin_layout Standard
 The aim of document classification is to find a classifier 
-\begin_inset Formula $\hat{\mathbf{y}}_{i}=\mathbf{y}(\theta,\mathbf{x}_{i})$
+\begin_inset Formula $\hat{\mathbf{y}}_{k}=\mathbf{y}(\theta,\mathbf{x}_{k})$
 \end_inset
 
  predicting the class label for each document representation 
-\begin_inset Formula $\mathbf{x}_{i}$
+\begin_inset Formula $\mathbf{x}_{k}$
 \end_inset
 
 .
  In supervised setting, the classifier parameters are found by matching
  the prediction with provided label 
-\begin_inset Formula $\mathbf{y}_{i}$
+\begin_inset Formula $\mathbf{y}_{k}$
 \end_inset
 
  for each document.
@@ -807,541 +600,368 @@ The aim of document classification is to find a classifier
 
 \begin_layout Standard
 We assume that for the full corpus of text documents 
-\begin_inset Formula $\mathbf{X}=[\mathbf{x}_{1},\dots,\mathbf{x}_{n}]$
-\end_inset
-
-, only an initial set of 
-\begin_inset Formula $l_{0}\ll n$
-\end_inset
-
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-This is not good.
- Redefine l_{0}
-\end_layout
-
-\end_inset
-
-labels is available, 
-\begin_inset Formula $\mathbf{y}^{(0)}=[y_{l},\dots,y_{l_{0}}]$
-\end_inset
-
-, splitting the full set 
 \begin_inset Formula $\mathbf{X}$
 \end_inset
 
- to the labeled, 
-\begin_inset Formula $\mathbf{X}^{(0)}=[\mathbf{x}_{0},\dots,\mathbf{x}_{l_{0}}]$
+, only a small initial set of labels 
+\begin_inset Formula $\mathbf{y}^{(0)}$
 \end_inset
 
-,and unlabeled parts, 
-\begin_inset Formula $\mathbf{X}\backslash\mathbf{X}^{(0)}$
+, is available.
+ The full set 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ is thus split to the labeled, 
+\begin_inset Formula $\mathbf{X}^{(0)}$
+\end_inset
+
+, and unlabeled parts, 
+\begin_inset Formula $\mathbf{X}_{u}^{(0)}=\mathbf{X}\backslash\mathbf{X}^{(0)}$
 \end_inset
 
 .
  Active learning is defined as a sequential extension of the training data
- set.
- In single sample active learning, 
+ set following a simple iterative strategy in algorithm 1.
 \end_layout
 
 \begin_layout Standard
-In each iteration, 
-\begin_inset Formula $𝑙=1,...,𝐿$
+\begin_inset Float algorithm
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+Initialize
+\series default
+: set classifier structure 
+\begin_inset Formula $\mathbf{y}=\mathbf{y}(\mathbf{x},\theta),$
 \end_inset
 
-, the algorithm computes the value of acquisition function for batch of
- documents in the unlabeled dataset and selects the indices of documents
- given some criteria (results of acquisition function), formally: 
-\begin_inset Formula 
-\[
-\mathbf{k}_{l}=A(\mathbf{y}_{k_{1}}(\mathbf{\theta}),\dots\mathbf{y}_{k_{b}}(\mathbf{\theta}),\mathbf{x}_{k_{1}},\dots\mathbf{x}_{k_{b}}),
-\]
-
+ iteration counter 
+\begin_inset Formula $i=0$
 \end_inset
 
-where 
-\begin_inset Formula $\mathbf{k}_{l}=\{k_{l_{1}},...,k_{l_{b}}\}\subset\mathbf{K}$
+, initial data 
+\begin_inset Formula $\mathbf{y}^{(0)},\mathbf{X}^{(0)},\mathbf{X}_{u}^{(0)}$
 \end_inset
 
- is a subset of batch size 
-\begin_inset Formula $b$
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+Iterate 
+\series default
+until a stopping condition:
+\end_layout
+
+\begin_layout Enumerate
+train a classifier parameter 
+\begin_inset Formula $\theta^{(i)}$
 \end_inset
 
- of indexes of all unlabeled documents 
-\begin_inset Formula $\mathbf{K}$
+ on 
+\begin_inset Formula $\mathbf{y}^{(i)},\mathbf{X}^{(i)}$
 \end_inset
 
-, 
-\begin_inset Formula $\mathbf{y}(\theta)=\{y_{\theta_{1}},\dots,y_{\theta_{d}}\}$
+, starting from 
+\begin_inset Formula $\theta_{\text{init}}^{(i)}$
 \end_inset
 
- are the predictions given classifier parameters distribution of size 
-\begin_inset Formula $d$
+
+\end_layout
+
+\begin_layout Enumerate
+compute the value of a label for all documents in the unlabeled dataset,
+ 
+\begin_inset Formula $a_{k}=A(\mathbf{x}_{k},\theta^{(i)}),$
 \end_inset
 
- trained on all labeled data 
-\begin_inset Formula $\text{𝑝}(\text{𝜃}|\mathbf{X}^{(\text{𝑙−}1)},\text{\textbf{y}}^{(\text{𝑙−}1)})$
+
+\begin_inset Formula $\forall\mathbf{x}_{k}\in\mathbf{X}_{u}^{(i)}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+select a batch of documents, 
+\begin_inset Formula $\tilde{\mathbf{X}}\subset\mathbf{X},$
+\end_inset
+
+ for labeling using 
+\begin_inset Formula $a_{k}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+obtain 
+\begin_inset Formula $\tilde{\mathbf{y}}$
+\end_inset
+
+ for 
+\begin_inset Formula $\tilde{\mathbf{X}}$
+\end_inset
+
+ and extend the training set 
+\begin_inset Formula $\mathbf{X}^{(i+1)}=\mathbf{X}^{(i)}\cup\tilde{\mathbf{X}},\mathbf{y}^{(i+1)}=\mathbf{y}^{(i)}\cup\tilde{\mathbf{y}},$
+\end_inset
+
+
+\begin_inset Formula $i=i+1$
 \end_inset
 
 .
- The documents of the selected indices are sent to the human annotator with
- a request for labeling.
- When the selected texts are annotated, the texts are added with its label
- to the labeled data set 
-\begin_inset Formula $\mathbf{X}^{l}=[\mathbf{X}^{(l-1)},\mathbf{x}_{k_{1}}^{(l)},\dots,\mathbf{x}_{k_{b}}^{(l)},],\ \mathbf{y}^{(l)}=[\mathbf{y}^{(l-1)},y_{k_{1}}^{(l)},\dots,y_{k_{b}}^{(l)}]$
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+General batch active learning 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The general algorithm can be specialized to many variants depending on various
+ factor as specified next.
+\end_layout
+
+\begin_layout Paragraph
+
+\series bold
+1.
+ Start of the algorithm: 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Cold 
+\series default
+initializing by random numbers, 
+\begin_inset Formula $\theta_{\text{init}}^{(i)}=\mathcal{N}(0,\sigma)$
+\end_inset
+
+, where 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is given by the standard network init strategy, used most often 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dor2020active,citovsky2021batch,schroder2021uncertainty"
+literal "false"
+
 \end_inset
 
 .
  
-\end_layout
-
-\begin_layout Standard
-In this article we do a detailed comparison between five approaches:
-\end_layout
-
-\begin_layout Subsection
-HAC Entropy
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:HAC-Entropy"
-
+\series bold
+Hot 
+\series default
+initailized by previous estimate, 
+\begin_inset Formula $\theta_{\text{init}}^{(i)}=\theta^{(i-1)},$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-The method is based on clustering the instances with hierarchical agglomerative
- clustering (HAX) 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- with average linkage 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
-, and choosing the smallest non-singleton clusters with the minimum prediction
- margin values.
- The sampling algorithm in a combination with a cold-start neural network
- performs state-of-art active learning results in 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
+criticized in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hu2018active"
+literal "false"
 
 \end_inset
 
 .
- The formal representations is: 
-\begin_inset Formula 
-\begin{equation}
-\tilde{k}_{l_{i}}=\argmax_{\tilde{k}\in\mathbf{K}}\mathbb{E}_{p(\theta|\mathbf{X}^{(l-1)},\mathbf{y}^{(l-1)})}(\mathbb{H}(y_{\tilde{k}}|\theta),\ i\in\{l_{1},\dots l_{M}\}\label{eq:entropy_sampling}
-\end{equation}
-
-\end_inset
-
-where 
-\begin_inset Formula $\mathbb{H}(y_{k}|𝜃)$
-\end_inset
-
- is conditional entropy of the predicted class for 
-\begin_inset Formula $\mathbf{x}_{k}$
-\end_inset
-
-.
- The batch that will be used for sampling from clustered data is created
- as: 
-\begin_inset Formula 
-\[
-\tilde{\mathbf{k}}_{l}=\{\tilde{k}_{l_{1}},\dots,\tilde{k}_{l_{M}}\},
-\]
-
-\end_inset
-
-are 
-\begin_inset Formula $M>b$
-\end_inset
-
- values with the highest entropy sampled independently from the unlabeled
- set.
- Next, we apply HAC method to create 
-\begin_inset Formula $\mathcal{C}=\{\mathbf{C}_{1},\dots,\mathbf{C}_{N}\}$
-\end_inset
-
- clusters and find 
-\begin_inset Formula $m\leq M$
-\end_inset
-
- the smallest non-singleton clusters with values 
-\begin_inset Formula $\mathbf{X}_{\tilde{\mathbf{k}}_{l}}$
-\end_inset
-
-.
- Furthermore, 
-\begin_inset Formula $\mathbf{X}_{\mathbf{k}_{l}},\ \mathbf{k}_{l}=\{k_{l_{1}},\dots,k_{l_{b}}\}$
-\end_inset
-
- is sampled from 
-\begin_inset Formula ${\cal C}_{m}$
-\end_inset
-
-.
- The sampling is provided from different clusters.
- However, if 
-\begin_inset Formula $m<b$
-\end_inset
-
- the values can be samples from the same cluster.
  
-\end_layout
-
-\begin_layout Subsubsection
-HAC Min Margin
-\end_layout
-
-\begin_layout Standard
-The HAC Min Margin method was shown in 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- and is the same as shown in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:entropy_sampling"
-plural "false"
-caps "false"
-noprefix "false"
-
+\series bold
+Warm 
+\series default
+a combination of the above, 
+\begin_inset Formula $\theta_{\text{init}}^{(i)}=\theta^{(i-1)}+\mathcal{N}(0,\sigma),$
 \end_inset
 
  where 
-\begin_inset Formula $\theta$
+\begin_inset Formula $\sigma$
 \end_inset
 
- is a point-wise estimate.
- Hence the expectation step 
-\begin_inset Formula $\mathbb{E}$
-\end_inset
+ is a hyper-parameter.
+ Acvocated in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sahan2021active"
+literal "false"
 
- can be removed from the equation.
- The next steps of the action sequence for 
-\begin_inset Formula $\mathbf{k}_{l}$
-\end_inset
-
- creation are the same.
-\end_layout
-
-\begin_layout Subsection
-HAC BALD
-\end_layout
-
-\begin_layout Standard
-HAC BALD method repeats the sampling part from 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:HAC-Entropy"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- section.
- The difference in 
-\begin_inset Formula $\tilde{\mathbf{k}}_{l}$
-\end_inset
-
- step.
- The authors of the BALD method 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- propose mutual information maximization as follows: 
-\begin_inset Formula 
-\begin{align}
-\tilde{k}_{l_{i}} & =\argmax_{\tilde{k}\in\mathbf{K}}\mathbb{I}(y_{\tilde{k}}|\mathbf{X}^{(l-1)},\mathbf{y}^{(l-1)}),\ i\in\{l_{1},\dots l_{M}\}\nonumber \\
- & =\argmax_{\tilde{k}\in\mathbf{K}}\Big(\mathbb{H}(y_{\tilde{k}}|\mathbf{X}^{(l-1)},\mathbf{y}^{(l-1)})-\mathbb{E}_{p(\theta|\mathbf{X}^{(l-1)},\mathbf{y}^{(l-1)})}(\mathbb{H}(y_{\tilde{k}}|\theta)\Big),\label{eq:bald_sampling}
-\end{align}
-
-\end_inset
-
-where 
-\begin_inset Formula 
-\[
-\mathbb{H}(y_{\tilde{k}}|\mathbf{X}^{(l-1)},\mathbf{y}^{(l-1)})=\mathbb{H}\big(\mathbb{E}_{p(\theta|\mathbf{X}^{(l-1)},\mathbf{y}^{(l-1)})}y_{\tilde{k}}(\theta)\big).
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Entropy
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Entropy"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Entropy sampling is generalized as 
-\begin_inset Formula $\mathbf{k}_{l}=\mathbf{\tilde{k}}_{l}$
-\end_inset
-
-, where 
-\begin_inset Formula $\tilde{\mathbf{k}}_{l}$
-\end_inset
-
- is calculated from 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:entropy_sampling"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- with 
-\begin_inset Formula $M=b$
 \end_inset
 
 .
 \end_layout
 
-\begin_layout Subsection
-BALD
+\begin_layout Paragraph
+2.
+ Uncertainty representation:
 \end_layout
 
 \begin_layout Standard
-Similarly as we derived entropy sampling in section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:Entropy"
-plural "false"
-caps "false"
-noprefix "false"
 
-\end_inset
+\series bold
+Single network 
+\series default
+modeling uncertain prediction of the label only estimation of one hot encoding
+ by a single network.
+ This captures aleatoric uncertainty.
+\end_layout
 
-, we will derive BALD sampling as 
-\begin_inset Formula $\mathbf{k}_{l}=\mathbf{\tilde{k}}_{l}$
-\end_inset
+\begin_layout Standard
 
-, where 
-\begin_inset Formula $\tilde{\mathbf{k}}_{l}$
-\end_inset
-
- is calculated from 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:bald_sampling"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- with 
-\begin_inset Formula $M=b$
-\end_inset
-
-.
+\series bold
+Ensemble of networks
+\series default
+, each with different parametrization, capturing both aleatoric and epistemic
+ uncertainty.
+ We consider two method for generating the ensemble members: i) MC dropout
  
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gal2017deep"
+literal "false"
+
+\end_inset
+
+, where ensemble members are generated by random draws of of the dropout
+ layers, and ii) deep ensembles 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lakshminarayanan2017simple"
+literal "false"
+
+\end_inset
+
+ where emsembles are trained independently.
+ Note that MC dropout is computationally much cheaper.
+\end_layout
+
+\begin_layout Paragraph
+3.
+ Acquisition function 
 \end_layout
 
 \begin_layout Standard
-Described approach 
-\begin_inset Note Note
-status open
 
-\begin_layout Plain Layout
-REF
-\end_layout
-
+\series bold
+Entropy 
+\series default
+exists in two forms, entropy of the prediction 
+\begin_inset Formula $a_{k}=\mathbb{H}(y|\mathbf{x}_{k},\theta)$
 \end_inset
 
- was published half a decade ago, and it was modified for batch sampling
- in 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
+ for a single network, or expected entropy 
+\begin_inset Formula $a_{k}=\mathbb{E}_{\theta}\mathbb{H}(y|\mathbf{x}_{k},\theta)$
 \end_inset
 
- and 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
-.
- The method of calculating pseudo mutual information in 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- is slow.
- The authors of HAC Min Margin 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- method also referred to its inefficiency due to too complex computations.
- Second approach from 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- that does not have the blocker in computation time and is fast as Entropy
- and Bald sampling did not show good results during our methods evaluation
- and bigger computation rounds preparation.
- Hence, the original BALD method is the only one that we will present in
- results.
- 
+ for ensembles.
 \end_layout
 
 \begin_layout Standard
-.....
+
+\series bold
+BALD 
+\series default
+is a mutual information metric, 
+\begin_inset Formula $a_{k}=\mathbb{E}_{\theta}\mathbb{H}(y|\mathbf{x}_{k},\theta)-\mathbb{H}(y|\mathbf{x}_{k})$
+\end_inset
+
+ that is meaningful only for the ensembles.
 \end_layout
 
 \begin_layout Standard
-Another key component of the method is a representation of the posterior
- distribution of the parameter 
-\begin_inset Formula $\theta$
+
+\series bold
+Min-margin 
+\series default
+is a minimum of difference between class predictions 
+\begin_inset Formula $a_{k}=-\min_{c,d\in[1,C]}(y_{c}-y_{d})$
 \end_inset
 
-.
- Due to the complexity of the neural networks it is always represented by
- samples, with a different method of their generation.
- We will compare the following methods: i) Dropout MC: is an extension of
- the ordinary dropout that samples binary mask multiplying output of a layer,
- hence stopping propagation through all neurons where zeros is sampled through
- the network.
- The extension applies the sampled mask even for predictions generating
- samples from the predictive distribution [10] 
-\begin_inset Note Note
-status open
+ where 
+\begin_inset Formula $c$
+\end_inset
 
-\begin_layout Plain Layout
-REF
+ is the number of clasess.
+ Not that extreme of this criteria is equivalent to maximim entropy for
+ binary classification.
 \end_layout
 
-\end_inset
-
-, ii) Deep ensembles: consist of 
-\begin_inset Formula $d$
-\end_inset
-
- networks trained in parallel from different initial conditions [13] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
+\begin_layout Paragraph
+4.
+ Batch selection strategy
 \end_layout
 
+\begin_layout Standard
+
+\series bold
+Top 
+\series default
+selects top 
+\begin_inset Formula $b$
 \end_inset
 
-, and iii) Softmax uncertainty: is the most simple approach that uses only
- one ̂ network to estimate a single value 𝜃 [4]
-\begin_inset Note Note
-status open
+ samples from sorted values of 
+\begin_inset Formula $a_{k}.$
+\end_inset
 
-\begin_layout Plain Layout
-REF
+ This approach may select samples close to each other which are redundant.
 \end_layout
 
+\begin_layout Standard
+
+\series bold
+HAC
+\series default
+ is a strategy proposed in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "citovsky2021batch"
+literal "false"
+
 \end_inset
 
-.
- Ensembles based approach is the current state-of-the-art in active learning
- [3] 
-\begin_inset Note Note
-status open
+, based on clustering of 
+\begin_inset Formula $a_{k}$
+\end_inset
 
-\begin_layout Plain Layout
-REF + Our article
+ and selecting top 
+\begin_inset Formula $b$
+\end_inset
+
+ samples from different clusters.
 \end_layout
 
-\end_inset
-
-.
- While many of these have been tested in active learning, the majority of
- authors assumed that after each step of active learning, the network training
- starts from the initial conditions.
- This is clearly suboptimal, since the information from the previous training
- is lost.
- A simple solution was presented in [23] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF (Maybe our article)
+\begin_layout Description
+BatchBALD ???
 \end_layout
 
-\end_inset
+\begin_layout Standard
+Not From the range 
+\end_layout
 
-, where it was argued that estimated results from the previous step can
- be used as centroids around which the new initial point is sampled.
- Since this is a form of a warm-start, we also test batch active learning
- warm-start strategies for Dropout and ensembles.
- The methods for representation of parametric uncertainty are: 
+\begin_layout Standard
+=========================== ToDO
 \end_layout
 
 \begin_layout Subsection
@@ -1451,11 +1071,11 @@ REF
 \end_layout
 
 \begin_layout Section
-Evaluation
+Experiment Setup
 \end_layout
 
 \begin_layout Section
-Experiments
+Results
 \end_layout
 
 \begin_layout Subsection
@@ -1680,13 +1300,13 @@ REF
 \begin_inset Float figure
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename images/Aggregated_mean_rank_given_datasets_subplots.eps
-	scale 25
+	width 100line%
 
 \end_inset
 
@@ -1712,13 +1332,13 @@ status collapsed
 \begin_inset Float figure
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename images/batch_active_learning_plots.eps
-	scale 50
+	width 100line%
 
 \end_inset
 
