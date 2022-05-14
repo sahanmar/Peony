@@ -9,6 +9,7 @@ import math
 from itertools import chain
 from Peony_visualization.src.batch_active_learning_article.result_ids import DATA
 from typing import Any, Dict, List, Optional
+from matplotlib.ticker import FormatStrFormatter
 
 
 def plot_batch_evolutions(dfs: List[pd.DataFrame]) -> None:
@@ -91,6 +92,7 @@ def heatmap_batch(
             vmin=math.floor(df_h.min().min()),
             vmax=math.ceil(df_h.max().max()),
             ax=subplot,
+            cbar=False,
         )
         ax.tick_params(labelsize=label_size)
         ax.set_title(
@@ -99,7 +101,6 @@ def heatmap_batch(
             fontsize=label_size + 6,
         )
         # ax.set_yticklabels(ax.get_yticklabels(), rotation=40)
-        # plt.tight_layout()
     else:
         ax = sns.heatmap(
             df_h,
@@ -395,6 +396,7 @@ def get_batch_rank_subplots(df: pd.DataFrame) -> None:
         plt.subplot(2, 3, 6),
         label_size,
     )
+    plt.tight_layout()
     plt.show()
 
 
@@ -436,10 +438,66 @@ def get_batch_rank_subplots_denfi(df: pd.DataFrame) -> None:
     plt.show()
 
 
+def plot_auc_for_batches(df):
+    datasets = {
+        "Tweet_emotion_detection": "Twitter\nSentiment",
+        "Gibberish": "Gibberish\n",
+        "Amazon Review 3, 5": "Amazon\nReviews 3, 5",
+        "Amazon Review 1, 5": "Amazon\nReviews 1, 5",
+        "Fake news detection": "Fake News\nDetection",
+    }
+    algorithms = {
+        "nn_min_margin": "HAC\nMin-margin",
+        "mc_dropout_hac_entropy": "MC Dropout\nHAC Entropy",
+        "mc_dropout_hac_bald": "MC Dropout\nHAC BALD",
+        "mc_dropout_entropy": "MC Dropout\nEntropy",
+        "mc_dropout_bald": "MC Dropout\nBALD",
+        "mc_dropout_random": "MC Dropout\nRandom",
+        # "denfi_hac_entropy": "DEnFi\nHAC Entropy",
+        # "denfi_hac_bald": "DEnFi\nHAC BALD",
+        # "denfi_entropy": "DEnFi\nEntropy",
+        # "denfi_bald": "DEnFi\nBALD",
+        # "denfi_random": "DEnFi\nRandom",
+        "nn_warm_start_hac_entropy": "NN HAC Entropy\nWarm-start",
+        "nn_warm_start_entropy": "NN Entropy\nWarm-start",
+        "nn_warm_start_random": "NN Random\nWarm-start",
+    }
+    batches = [10, 20, 50, 100]
+    for i, (dataset, dataset_title) in enumerate(datasets.items()):
+        ax = plt.subplot(1, 5, i + 1)
+        for algo, algo_title in algorithms.items():
+            auc_means = [
+                round(
+                    df[(df["dataset"] == dataset) & (df["algorithm"] == algo) & (df["batch"] == batch)][
+                        "results_mean"
+                    ].tolist()[0][-1],
+                    3,
+                )
+                for batch in batches
+            ]
+            ax.plot([1, 2, 3, 4], auc_means, linestyle="-", marker="+", markevery=1, lw=1, label=algo_title)
+        ax.grid(alpha=0.2)
+        ax.set_xlabel("Batch size")
+        ax.set_xlim(0.5, 4.5)
+        if i == 0:
+            ax.set_ylabel("AUC", fontsize=13.5)
+        ax.set_title(dataset_title, fontsize=15)
+        ax.set_xticklabels([" ", 10, 20, 50, 100], fontsize=12)
+        ax.yaxis.set_major_formatter(FormatStrFormatter("%.2f"))
+
+    handles, labels = ax.get_legend_handles_labels()
+    plt.figlegend(handles, labels, loc="lower center", ncol=5, fontsize=11)
+    plt.subplots_adjust(bottom=0.3)
+    plt.show()
+
+
 def main():
     collection_results = get_collection_results()
     df = merge_resuls_and_metadata(collection_results, DATA)
     df = df[(df["algorithm"] != "nn_warm_start_hac_bald") & (df["algorithm"] != "nn_warm_start_bald")]
+
+    plot_auc_for_batches(df)
+
     # Without DEnFi
     df_r = df[df["algorithm"].str.match(r"^denfi") != True]  # In case u want to exclude DEnFi
 
@@ -447,7 +505,7 @@ def main():
     # plot_batch_evolutions(batch_ranks)
     # heatmap_batch(batch_ranks)
 
-    # get_batch_rank_subplots(df_r)
+    get_batch_rank_subplots(df_r)
 
     # batch_ranks[0].to_clipboard(header=False, index=False)
 
