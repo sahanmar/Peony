@@ -1314,7 +1314,7 @@ Results
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -1488,9 +1488,10 @@ The HAC batch selection has clear advantage for lower batch sizes (10 and
  This is consistent when comparing HAC and Top variants of all methods.
  This advantage diminishes for batch sizes of 50 and 100 where the top selection
  strategy achieves comparable (ensembles) of better (single NN) results.
- We conjecture that the most informative samples are scattered benefits
- of selecting samples from different clusters at this sizes the selection
- of the most relevant clusters increases informativeness of the data; 
+ We conjecture that the most informative samples in our datasets are clustered
+ in small clusters, hence selection of a batch with large enough size contains
+ the relevant samples from sufficiently large areas.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1708,6 +1709,18 @@ s representative vs HAC Min-margin given the batch size and dataset.
 
 \begin_layout Section
 Conclusion
+\end_layout
+
+\begin_layout Standard
+We have studied influence of various factors of active learning algorithms
+ on their performace on cover context integrity, fake news detection and
+ sentiment classification tasks.
+ While complex algorithms such as deep ensembles sometimes achieved good
+ performance (Fake News detection), the winner on average is the classical
+ prediction entropy of a single neural network with few proposed modifications.
+ Specifically, the warm start of the network training achieves good performance
+ at lower computational cost, and selection of the batch for annotation
+ using agglomerative clustering improves performance for smaller batch sizes.
 \end_layout
 
 \begin_layout Section*
