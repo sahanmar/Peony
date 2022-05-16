@@ -336,16 +336,16 @@ Supervised learning of classifier for text classification and sentiment
  analysis relies on availability of labels that may be difficult/expensive
  to obtain.
  Active learning techniques optimize the process of obtaining labels by
- sequentially selecting documents from unlabels set for which the labels
+ sequentially selecting documents from unlabeled set for which the labels
  would be most valuable.
- Batch active leaning selects a batch of documents for labeling which is
+ Batch active learning selects a batch of documents for labeling which is
  much more demanding.
- In this paper we propose a new methods for batch active learning by combining
+ In this paper we propose new methods for batch active learning by combining
  Bayesian strategies with agglomerative clustering.
- We study the effect of this proposition in large scale study comparing
- the effect of varying distinct factors of active learning algorithm (initializa
-tion of the algorithm, uncertainty representation, acquisition function
- and batch selection strategy).
+ We study the effect of this proposal in large scale study comparing the
+ effect of varying distinct factors of active learning algorithm (initialization
+ of the algorithm, uncertainty representation, acquisition function and
+ batch selection strategy).
  Various combinations of these are tested on selected NLP problem with documents
  encoded using RoBERTa.
  Datasets cover context integrity, fake news detection and sentiment classificat
@@ -378,7 +378,7 @@ literal "false"
 .
  The most conventional active learning strategies select only one unlabeled
  document after each training round to query due to simplicity of its selection.
- The next query document is selected only after the first on is labeled
+ The next query document is selected only after the first one is labeled
  and the model re-trained which means that the annotator has to wait for
  retraining.
  This impractical strategy can be avoided is the active learning algorithm
@@ -445,7 +445,7 @@ literal "false"
 
 \end_inset
 
-, where different method won for different data.
+, where different methods won for different data.
  Large variability of the results was also observed in 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -477,7 +477,7 @@ literal "false"
  but maybe too costly).
  All studies also assume cold start, i.e.
  completely new initialization of the classifier after each round of querying.
- This is motivated by the fear of over fitting which was demonstrated in
+ This is motivated by the fear of overfitting which was demonstrated in
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -652,8 +652,12 @@ until a stopping condition:
 \end_layout
 
 \begin_layout Plain Layout
+
+\series bold
 1.
- train a classifier parameter 
+
+\series default
+ Train a classifier parameter 
 \begin_inset Formula $\theta^{(i)}$
 \end_inset
 
@@ -669,8 +673,12 @@ until a stopping condition:
 \end_layout
 
 \begin_layout Plain Layout
+
+\series bold
 2.
- compute the value of a label for all documents in the unlabeled dataset,
+
+\series default
+ Compute the value of a label for all documents in the unlabeled dataset,
  
 \begin_inset Formula $a_{l}=A(\mathbf{x}_{l},\theta^{(i)}),$
 \end_inset
@@ -683,8 +691,12 @@ until a stopping condition:
 \end_layout
 
 \begin_layout Plain Layout
+
+\series bold
 3.
- select a batch of documents, 
+
+\series default
+ Select a batch of documents, 
 \begin_inset Formula $\tilde{\mathbf{X}}\subset\mathbf{X},$
 \end_inset
 
@@ -696,8 +708,12 @@ until a stopping condition:
 \end_layout
 
 \begin_layout Plain Layout
+
+\series bold
 4.
- obtain 
+
+\series default
+ Obtain 
 \begin_inset Formula $\tilde{\mathbf{y}}$
 \end_inset
 
@@ -735,7 +751,7 @@ General batch active learning
 
 \begin_layout Standard
 The general algorithm can be specialized to many variants depending on various
- factor as specified next.
+ factors as specified next.
  We will introduce several choices labeled by the step in which they appear
  in algorithm 1.
 \begin_inset Float figure
@@ -746,7 +762,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename /home/smidl/GitHub/_Students/20_Peony/Peony_article/batch_active_learning_for_text_classification/images/1000_req_AUC_for_different_batches_2_datasets.eps
+	filename images/1000_req_AUC_for_different_batches_2_datasets.eps
 	scale 41
 
 \end_inset
@@ -803,7 +819,7 @@ Ensemble of networks
 \series default
 , represent uncertainty in parameters by different parameter value in each
  ensemble thus capturing both aleatoric and epistemic uncertainty.
- We consider two method for generating the ensemble members: i) 
+ We consider two methods for generating the ensemble members: i) 
 \emph on
 MC dropout 
 \emph default
@@ -1097,12 +1113,12 @@ Experiment Setup
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename images/Aggregated_mean_rank_given_datasets_w_denfi_2.png
+	filename images/Aggregated_mean_rank_given_datasets_w_denfi_2.eps
 	width 100line%
 
 \end_inset
@@ -1233,7 +1249,7 @@ Computational complexity of the batch generation grown with the number of
 All algorithms were compared on area under the curve (AUC) on the test data
  (i.e.
  the documents not present in the training set).
- The algorithms were compared after 100 labels.
+ The algorithms were compared after 100 acquired labels.
  The algorithms with smaller batch sizes thus benefited from higher number
  of retrainings.
  To reduce the influence of stochastic initialization and training, the
@@ -1330,7 +1346,7 @@ noprefix "false"
 .
  The advantage of the Bayesian approach are evident only for the Fake News
  dataset, in other datasets, DEnFi is not worth the computational cost and
- will be omitted from large scale studies.
+ was omitted from large scale studies.
  
 \end_layout
 
