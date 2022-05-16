@@ -1138,43 +1138,35 @@ Aggregated mean rank for 14 tuples of learning algorithms and acquisition
 
 \begin_layout Standard
 The methods were compared on different datasets and different batch size.
- The used datasets are positive/negative tweets from the Tweets [11] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
+ The used datasets are positive/negative tweets from the Tweets 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "go2009twitter"
+literal "false"
 
 \end_inset
 
-, Fake News Detection [8] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
+, Fake News Detection 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "fake_news_detection"
+literal "false"
 
 \end_inset
 
 , two pairs of categories from Amazon Reviews 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mcauley2013amateurs"
+literal "false"
 
 \end_inset
 
  and Gibberish 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Gibberish_dataset"
+literal "false"
 
 \end_inset
 
@@ -1675,13 +1667,11 @@ Each active learning experiment was initialized by the training set
 \end_inset
 
 , etc.).
- The batch selection follows the 𝜖 -greedy approach [25] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
+ The batch selection follows the 𝜖 -greedy approach 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "watkins1989learning"
+literal "false"
 
 \end_inset
 
@@ -1706,13 +1696,11 @@ how works for b=100?
  After each request, the classification performance is evaluated on the
  remaining part of the selected dataset (i.e.
  on the 9990 text documents in the first evaluation) using the area under
- the ROC curve (AUC) metrics [9] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
+ the ROC curve (AUC) metrics 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "fawcett2006introduction"
+literal "false"
 
 \end_inset
 
