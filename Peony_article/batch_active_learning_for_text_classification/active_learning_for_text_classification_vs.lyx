@@ -651,8 +651,9 @@ Iterate
 until a stopping condition:
 \end_layout
 
-\begin_layout Enumerate
-train a classifier parameter 
+\begin_layout Plain Layout
+1.
+ train a classifier parameter 
 \begin_inset Formula $\theta^{(i)}$
 \end_inset
 
@@ -667,8 +668,9 @@ train a classifier parameter
 
 \end_layout
 
-\begin_layout Enumerate
-compute the value of a label for all documents in the unlabeled dataset,
+\begin_layout Plain Layout
+2.
+ compute the value of a label for all documents in the unlabeled dataset,
  
 \begin_inset Formula $a_{l}=A(\mathbf{x}_{l},\theta^{(i)}),$
 \end_inset
@@ -680,8 +682,9 @@ compute the value of a label for all documents in the unlabeled dataset,
 
 \end_layout
 
-\begin_layout Enumerate
-select a batch of documents, 
+\begin_layout Plain Layout
+3.
+ select a batch of documents, 
 \begin_inset Formula $\tilde{\mathbf{X}}\subset\mathbf{X},$
 \end_inset
 
@@ -692,8 +695,9 @@ select a batch of documents,
 
 \end_layout
 
-\begin_layout Enumerate
-obtain 
+\begin_layout Plain Layout
+4.
+ obtain 
 \begin_inset Formula $\tilde{\mathbf{y}}$
 \end_inset
 
@@ -734,14 +738,53 @@ The general algorithm can be specialized to many variants depending on various
  factor as specified next.
  We will introduce several choices labeled by the step in which they appear
  in algorithm 1.
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/smidl/GitHub/_Students/20_Peony/Peony_article/batch_active_learning_for_text_classification/images/1000_req_AUC_for_different_batches_2_datasets.eps
+	scale 41
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout Paragraph
-1a.
- Uncertainty representation: 
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:AUC-metrics-for"
+
+\end_inset
+
+AUC metrics for 7 active learning and 2 random strategies after 1000 acquired
+ samples given datasets and batch size.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+
+\series bold
+1a.
+ Uncertainty representation: 
+\series default
 The uncertainty can be represented by a maximum likelihood estimate, represented
  by a single network, or Bayesian probabilistic estimate, represented typically
  by an ensemble of networks.
@@ -785,18 +828,16 @@ literal "false"
 
 \end_inset
 
- where emsembles are trained independently.
+ where ensembles are trained independently.
  Note that MC dropout is computationally much cheaper.
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Standard
 
 \series bold
 1b.
- Initialization of the training:
-\end_layout
-
-\begin_layout Standard
+ Initialization of the training: 
+\series default
 Each training in step 1 is a new task.
  However, the data set typically overlaps with the one from the previous
  iteration, which motivates the following strategies of reusing results
@@ -880,12 +921,12 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Paragraph
-2.
- Acquisition function:
-\end_layout
-
 \begin_layout Standard
+
+\series bold
+2.
+ Acquisition function: 
+\series default
 Is a measure of the expected utility of the knowledge label, 
 \begin_inset Formula $\boldsymbol{y}_{l}$
 \end_inset
@@ -941,12 +982,12 @@ is a minimum of difference between class predictions
  for binary classification with single network.
 \end_layout
 
-\begin_layout Paragraph
-3.
- Batch selection strategy
-\end_layout
-
 \begin_layout Standard
+
+\series bold
+3.
+ Batch selection strategy 
+\series default
 When only one sample is to be selected it is optimal to choose the one with
  maximum utility given by the acquisition function.
  However, complexity of the maximum utility grows exponentially when the
@@ -1052,8 +1093,47 @@ Since HAC strategy is an orthogonal factor to the remaining ones, we propose
 Experiment Setup
 \end_layout
 
-\begin_layout Subsection
-Datasets
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/Aggregated_mean_rank_given_datasets_w_denfi_2.png
+	width 100line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Aggregated-mean-rank"
+
+\end_inset
+
+Aggregated mean rank for 14 tuples of learning algorithms and acquisition
+ functions given Amazon Reviews 3,5, Fake News Detection and Twitter Sentiment
+ for 50 active learning iterations with batch size 20.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1107,140 +1187,20 @@ REF
 \begin_inset Formula $5000$
 \end_inset
 
- text documents per category 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-What is it??? for reviews 1,5,etc...
-\end_layout
-
-\end_inset
-
-), which were the initial 
+ text documents per category, selecting only two categories for binary classific
+ation, e.g.
+ 1 and 5 in Amazon reviews), which were the initial 
 \begin_inset Formula $10000$
 \end_inset
 
  documents of the datasets given categories.
 \end_layout
 
-\begin_layout Subsection
-Experiment parameters
-\end_layout
-
 \begin_layout Standard
-Each active learning experiment was initialized by the training set 
-\begin_inset Formula $\mathbf{X}^{(0)},\mathbf{Y}^{(0)}$
-\end_inset
-
- of 
-\begin_inset Formula $10$
-\end_inset
-
- samples.
- The active learning strategy was set to sample 
-\begin_inset Formula $b$
-\end_inset
-
- samples with discrete set of variants, 
-\begin_inset Formula $b=10,20,50,100$
-\end_inset
-
-.
- The active learning was run until 1000 samples were labeled, i.e.
- making different number of step for each batch size (10 iteration for 
-\begin_inset Formula $b=100$
-\end_inset
-
-, 20 for 
-\begin_inset Formula $b=50$
-\end_inset
-
-, etc.).
- The batch selection follows the 𝜖 -greedy approach [25] 
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
-, i.e.
- the samples selected by the acquisition function are accepted with probability
- 
-\begin_inset Formula $𝜖=\frac{\exp(l-3)}{\exp(l-3)+1}$
-\end_inset
-
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-how works for b=100?
-\end_layout
-
-\end_inset
-
-.
- A batch of random documents is selected for labeling if not accepted.
- After each request, the classification performance is evaluated on the
- remaining part of the selected dataset (i.e.
- on the 9990 text documents in the first evaluation) using the area under
- the ROC curve (AUC) metrics [9] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
-.
- In order to make the results statistically valid, we repeat the described
- simulation loop 
-\begin_inset Formula $5$
-\end_inset
-
- times for all datasets.
-\end_layout
-
-\begin_layout Standard
-The initial number of epochs for the first iteration is set to 2500 for
- all algorithms.
- The same number is used for cold start strategy in each epoch.
- In the subsequent iterations, the weights of the previous estimate are
- perturbed by 
-\begin_inset Formula $\sigma=0.3$
-\end_inset
-
- for MC dropout and 
-\begin_inset Formula $\sigma=0.7$
-\end_inset
-
- for DEnFi.
- The training of the warm start strategies is run for 150 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-??
-\end_layout
-
-\end_inset
-
-epochs.
- Both DEnFi and MC Dropout generate 5 ensemble members.
- The key difference is in computational complexity, while DEnFi has to do
- 150 epochs for each ensemble member, the MC dropout does it for only one
- network and generated ensemble members by 5 different realizations of the
- dropout mask.
- 
-\end_layout
-
-\begin_layout Standard
 Computational complexity of the batch generation grown with the number of
  documents in the unlabeled data set, 
 \begin_inset Formula $L$
@@ -1272,16 +1232,16 @@ Computational complexity of the batch generation grown with the number of
 .
 \end_layout
 
-\begin_layout Subsection
-Evaluation 
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 All algorithms were compared on area under the curve (AUC) on the test data
  (i.e.
  the documents not present in the training set).
- To have a fair comparison for all batch sizes, the algorithms were compared
- after 100 labels.
+ The algorithms were compared after 100 labels.
  The algorithms with smaller batch sizes thus benefited from higher number
  of retrainings.
  To reduce the influence of stochastic initialization and training, the
@@ -1311,53 +1271,11 @@ Results
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
 
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/Aggregated_mean_rank_given_datasets_w_denfi.eps
-	scale 35
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Aggregated-mean-rank"
-
-\end_inset
-
-Aggregated mean rank for 14 tuples of learning algorithms and acquisition
- functions given Amazon Reviews 3,5, Fake News Detection and Twitter Sentiment
- for 50 active learning iterations with batch size 20.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
+\series bold
 Parameter uncertainty:
-\end_layout
-
-\begin_layout Standard
+\series default
+ 
 \begin_inset Float figure
 wide true
 sideways false
@@ -1366,7 +1284,7 @@ status collapsed
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename images/Aggregated_mean_rank_given_datasets_subplots.eps
+	filename images/Aggregated_mean_rank_given_datasets_subplots.png
 	scale 30
 
 \end_inset
@@ -1439,11 +1357,11 @@ noprefix "false"
  
 \end_layout
 
-\begin_layout Paragraph
-Acquisition functions:
-\end_layout
-
 \begin_layout Standard
+
+\series bold
+Acquisition functions: 
+\series default
 Due to binary classification, the min-margin and entropy approaches coincide
  for single network function, which may also explain the results of 
 \begin_inset CommandInset citation
@@ -1458,11 +1376,11 @@ literal "false"
  insignificant.
 \end_layout
 
-\begin_layout Paragraph
-Initialization of the training:
-\end_layout
-
 \begin_layout Standard
+
+\series bold
+Initialization of the training: 
+\series default
 The warm start strategy (HAC Entropy warm start) is better or comparable
  in performance to cold start (HAC Min-margin); this is achieved at fraction
  of the training cost.
@@ -1478,11 +1396,11 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Paragraph
-Batch selection strategy:
-\end_layout
-
 \begin_layout Standard
+
+\series bold
+Batch selection strategy: 
+\series default
 The HAC batch selection has clear advantage for lower batch sizes (10 and
  20).
  This is consistent when comparing HAC and Top variants of all methods.
@@ -1723,13 +1641,120 @@ We have studied influence of various factors of active learning algorithms
  using agglomerative clustering improves performance for smaller batch sizes.
 \end_layout
 
-\begin_layout Section*
-Acknowledgments
+\begin_layout Subsubsection*
+\start_of_appendix
+Appendix: Experiment parameters
 \end_layout
 
 \begin_layout Standard
-The authors acknowledge the support in computational resources to Deep Discovery
-, Inc.
+Each active learning experiment was initialized by the training set 
+\begin_inset Formula $\mathbf{X}^{(0)},\mathbf{Y}^{(0)}$
+\end_inset
+
+ of 
+\begin_inset Formula $10$
+\end_inset
+
+ samples.
+ The active learning strategy was set to sample 
+\begin_inset Formula $b$
+\end_inset
+
+ samples with discrete set of variants, 
+\begin_inset Formula $b=10,20,50,100$
+\end_inset
+
+.
+ The active learning was run until 1000 samples were labeled, i.e.
+ making different number of step for each batch size (10 iteration for 
+\begin_inset Formula $b=100$
+\end_inset
+
+, 20 for 
+\begin_inset Formula $b=50$
+\end_inset
+
+, etc.).
+ The batch selection follows the 𝜖 -greedy approach [25] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+, i.e.
+ the samples selected by the acquisition function are accepted with probability
+ 
+\begin_inset Formula $𝜖=\frac{\exp(l-3)}{\exp(l-3)+1}$
+\end_inset
+
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+how works for b=100?
+\end_layout
+
+\end_inset
+
+.
+ A batch of random documents is selected for labeling if not accepted.
+ After each request, the classification performance is evaluated on the
+ remaining part of the selected dataset (i.e.
+ on the 9990 text documents in the first evaluation) using the area under
+ the ROC curve (AUC) metrics [9] 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+REF
+\end_layout
+
+\end_inset
+
+.
+ In order to make the results statistically valid, we repeat the described
+ simulation loop 
+\begin_inset Formula $5$
+\end_inset
+
+ times for all datasets.
+\end_layout
+
+\begin_layout Standard
+The initial number of epochs for the first iteration is set to 2500 for
+ all algorithms.
+ The same number is used for cold start strategy in each epoch.
+ In the subsequent iterations, the weights of the previous estimate are
+ perturbed by 
+\begin_inset Formula $\sigma=0.3$
+\end_inset
+
+ for MC dropout and 
+\begin_inset Formula $\sigma=0.7$
+\end_inset
+
+ for DEnFi.
+ The training of the warm start strategies is run for 150 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+??
+\end_layout
+
+\end_inset
+
+epochs.
+ Both DEnFi and MC Dropout generate 5 ensemble members.
+ The key difference is in computational complexity, while DEnFi has to do
+ 150 epochs for each ensemble member, the MC dropout does it for only one
+ network and generated ensemble members by 5 different realizations of the
+ dropout mask.
  
 \end_layout
 
