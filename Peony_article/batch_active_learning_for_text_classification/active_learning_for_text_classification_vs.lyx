@@ -332,26 +332,53 @@ Batch Active Learning for Text Classification and Sentiment Analysis
 \end_layout
 
 \begin_layout Abstract
-Supervised learning of classifier for text classification and sentiment
- analysis relies on availability of labels that may be difficult/expensive
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Supervised learning of classifiers for text classification and sentiment
+ analysis relies on the availability of labels that may be difficult/expensive
  to obtain.
- Active learning techniques optimize the process of obtaining labels by
- sequentially selecting documents from unlabeled set for which the labels
- would be most valuable.
- Batch active learning selects a batch of documents for labeling which is
- much more demanding.
- In this paper we propose new methods for batch active learning by combining
+ 
+\end_layout
+
+\end_inset
+
+Active learning techniques optimize the process of obtaining labels by sequentia
+lly selecting documents from the unlabeled set for which the labels would
+ be most valuable.
+ Batch active learning selects a batch of documents for labeling
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+which is much more demanding
+\end_layout
+
+\end_inset
+
+.
+ In this paper, we propose new methods for batch active learning by combining
  Bayesian strategies with agglomerative clustering.
- We study the effect of this proposal in large scale study comparing the
- effect of varying distinct factors of active learning algorithm (initialization
- of the algorithm, uncertainty representation, acquisition function and
- batch selection strategy).
- Various combinations of these are tested on selected NLP problem with documents
- encoded using RoBERTa.
- Datasets cover context integrity, fake news detection and sentiment classificat
-ion.
- We show that each of the active leaning factor has advantages for certain
- datasets or experimental setting.
+ We study the effect of this proposal in a large-scale study comparing the
+ effect of varying distinct factors 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+of an active learning algorithm
+\end_layout
+
+\end_inset
+
+ (initialization of the algorithm, uncertainty representation, acquisition
+ function, and batch selection strategy).
+ Various combinations of these are tested on selected NLP problems with
+ documents encoded using RoBERTa.
+ Datasets cover context integrity, fake news detection, and sentiment classifica
+tion.
+ We show that each of the active learning factors has advantages for certain
+ datasets or experimental settings.
  
 \end_layout
 
@@ -360,12 +387,12 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-Supervised learning of classifiers relies on availability of class labels
- which often involves human annotator for majority of NLP tasks.
+Supervised learning of classifiers relies on the availability of class labels
+ which often involves a human annotator for a majority of NLP tasks.
  This can be costly for large datasets.
  Active learning is a strategy designed to minimize this cost by automatic
- selection of those unlabeled documents that expected to bring useful informatio
-n for the classifier.
+ selection of those unlabeled documents that are expected to bring useful
+ information for the classifier.
  Advantages of this approach have been demonstrated even for classical methods
  such as SVM 
 \begin_inset CommandInset citation
@@ -377,23 +404,21 @@ literal "false"
 
 .
  The most conventional active learning strategies select only one unlabeled
- document after each training round to query due to simplicity of its selection.
+ document after each training round to query due to the simplicity of its
+ selection.
  The next query document is selected only after the first one is labeled
  and the model re-trained which means that the annotator has to wait for
  retraining.
- This impractical strategy can be avoided is the active learning algorithm
+ This impractical strategy can be avoided if the active learning algorithm
  selects a batch of documents.
- Novel methods for 
-\emph on
-batch active learning 
-\emph default
-appear frequently, each demonstrating advantages on their benchmark data.
+ Novel methods for batch active learning appear frequently, each demonstrating
+ advantages on their benchmark data.
  
 \end_layout
 
 \begin_layout Standard
-One of the recent approaches demonstrate effectiveness even for batches
- of 5000 samples 
+One of the recent approaches demonstrates effectiveness even for batches
+ of 5000 samples
 \begin_inset CommandInset citation
 LatexCommand cite
 key "citovsky2021batch"
@@ -401,12 +426,13 @@ literal "false"
 
 \end_inset
 
-, combining the min-margin acquisition function with clustering under name
- Hierarchical Agglomerative Clustering (HAC).
+, combining the min-margin acquisition function with clustering under the
+ name Hierarchical Agglomerative Clustering (HAC).
  In this contribution, we propose novel modifications of this idea using
  alternative acquisition functions and investigate their performance.
- Specifically we propose to extend the HAC approach to Bayesian setting
- by replacing the min-margin by Bayesian acquisition function, BALD 
+ Specifically, we propose to extend the HAC approach to the Bayesian setting
+ by replacing the min-margin with a Bayesian acquisition function, BALD
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "houlsby2011bayesian"
@@ -415,11 +441,11 @@ literal "false"
 \end_inset
 
 .
- However, the size of the minibatch is only one of many factors in performace
- of the active learning algorithms.
+ However, the size of the minibatch is only one of many factors in the performan
+ce of the active learning algorithms.
  Other factors are: i) selected acquisition function, ii) representation
  of uncertainty of the classifier, and iii) initialization of the network.
- The key contribution of our work is sensitivity study of the classification
+ The key contribution of our work is a sensitivity study of the classification
  task to these factors over a range of datasets from various text classification
  tasks.
  
@@ -463,9 +489,9 @@ literal "false"
 
 \end_inset
 
-, the min-margin strategy was shown to be competitive to prediction entropy
- based method on a range of embeddings.
- The comparative studies shared similar properties, such as fixed network
+, the min-margin strategy was shown to be competitive with the prediction
+ entropy-based method on a range of embeddings.
+ The comparative studies shared similar properties, such as a fixed network
  for embeddings (improvement with re-training can be expected 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -474,8 +500,8 @@ literal "false"
 
 \end_inset
 
- but maybe too costly).
- All studies also assume cold start, i.e.
+ but may be too costly).
+ All studies also assume a cold start, i.e.
  completely new initialization of the classifier after each round of querying.
  This is motivated by the fear of overfitting which was demonstrated in
  
@@ -503,10 +529,9 @@ literal "false"
 
 \begin_layout Standard
 The paper is organized as follows.
- In Section 2, we briefly review all tested factors of the batch active
- learning.
- Experimental setup of the sensitivity study is described in Section 3 and
- results are reported in Section 4.
+ In Section 2, we briefly review all tested factors of batch active learning.
+ The experimental setup of the sensitivity study is described in Section
+ 3 and the results are reported in Section 4.
  
 \end_layout
 
@@ -540,7 +565,7 @@ literal "false"
 
 \end_inset
 
- and outperformed all other embedding in 
+ and outperformed all other embeddings in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sahan2021active"
@@ -567,7 +592,7 @@ The aim of document classification is to find a classifier
 \end_inset
 
 .
- In supervised setting, the classifier parameters are found on a training
+ In a supervised setting, the classifier parameters are found on a training
  set 
 \begin_inset Formula $\{\mathbf{x}_{k},\mathbf{y}_{k}\}_{k=1}^{K}$
 \end_inset
@@ -600,7 +625,7 @@ We assume that for the full corpus of text documents
 \begin_inset Formula $\mathbf{X}$
 \end_inset
 
- is thus split to the labeled, 
+ is thus split into the labeled, 
 \begin_inset Formula $\mathbf{X}^{(0)}$
 \end_inset
 
@@ -802,17 +827,17 @@ AUC metrics for 7 active learning and 2 random strategies after 1000 acquired
  Uncertainty representation: 
 \series default
 The uncertainty can be represented by a maximum likelihood estimate, represented
- by a single network, or Bayesian probabilistic estimate, represented typically
- by an ensemble of networks.
+ by a single network, or a Bayesian probabilistic estimate, represented
+ typically by an ensemble of networks.
  We will consider the following options: 
 \series bold
 Single network 
 \series default
-with softmax output layer predicting normalized probability of each class
- in one hot encoding.
+with a softmax output layer predicting the normalized probability of each
+ class in one hot encoding.
  This probability is conditioned on the parameter, and thus captures only
  aleatoric uncertainty.
- Uncertainty in parameters is not represneted.
+ Uncertainty in parameters is not represented.
  
 \series bold
 Ensemble of networks
@@ -831,8 +856,8 @@ literal "false"
 
 \end_inset
 
-, where ensemble members are generated by random draws of of the dropout
- layers, and ii) 
+, where ensemble members are generated by random draws of the dropout layers,
+ and ii) 
 \emph on
 deep ensembles 
 \emph default
@@ -985,7 +1010,7 @@ is a mutual information metric,
 \series bold
 Min-margin 
 \series default
-is a minimum of difference between class predictions 
+is a minimum difference between class predictions 
 \begin_inset Formula $a_{l}=-\min_{c,d\in[1,C]}(y_{c}-y_{d})$
 \end_inset
 
@@ -994,8 +1019,8 @@ is a minimum of difference between class predictions
 \end_inset
 
  is the number of classes.
- Note carefully that extreme of this criteria is equivalent to maximum entropy
- for binary classification with single network.
+ Note carefully that the extreme of this criteria is equivalent to maximum
+ entropy for binary classification with a single network.
 \end_layout
 
 \begin_layout Standard
@@ -1006,14 +1031,13 @@ is a minimum of difference between class predictions
 \series default
 When only one sample is to be selected it is optimal to choose the one with
  maximum utility given by the acquisition function.
- However, complexity of the maximum utility grows exponentially when the
- strategy has to select a batch of 
+ However, the complexity of the maximum utility grows exponentially when
+ the strategy has to select a batch of 
 \begin_inset Formula $b$
 \end_inset
 
  documents for off-line labeling.
- Strategies that tries to approximate this selection using greedy search
- 
+ Strategies that try to approximate this selection using greedy search 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "kirsch2019batchbald"
@@ -1045,7 +1069,7 @@ selects top
 \series bold
 HAC
 \series default
- is a strategy based on hierarchical clustering of 
+ is a strategy based on the hierarchical clustering of 
 \begin_inset Formula $a_{l}$
 \end_inset
 
@@ -1078,7 +1102,17 @@ literal "false"
 
 \end_inset
 
-, MC dropout with Entropy and BALD criteria using cold start 
+, MC dropout with Entropy and BALD criteria using warm start 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+changed from cold start
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "gal2017deep"
@@ -1094,14 +1128,14 @@ literal "false"
 
 \end_inset
 
-, and conventional single-network with prediction Entropy with warm start.
+, and conventional single-network with prediction Entropy a with warm start.
  If HAC is not in the name, the Top strategy is used.
 \end_layout
 
 \begin_layout Standard
 Since HAC strategy is an orthogonal factor to the remaining ones, we propose
  its combination with other approaches, giving rise to: HAC Entropy for
- the single neural network and both ensemble methods (MC dropout an DEnFi)
+ the single neural network and both ensemble methods (MC dropout and DEnFi)
  and HAC BALD for the ensembles.
 \end_layout
 
@@ -1138,7 +1172,7 @@ name "fig:Aggregated-mean-rank"
 \end_inset
 
 Aggregated mean rank for 14 tuples of learning algorithms and acquisition
- functions given Amazon Reviews 3,5, Fake News Detection and Twitter Sentiment
+ functions given Amazon Reviews 3,5, Fake News Detection, and Twitter Sentiment
  for 50 active learning iterations with batch size 20.
 \end_layout
 
@@ -1153,7 +1187,7 @@ Aggregated mean rank for 14 tuples of learning algorithms and acquisition
 \end_layout
 
 \begin_layout Standard
-The methods were compared on different datasets and different batch size.
+The methods were compared on different datasets and different batch sizes.
  The used datasets are positive/negative tweets from the Tweets 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1170,15 +1204,7 @@ literal "false"
 
 \end_inset
 
-, two pairs of categories from Amazon Reviews 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "mcauley2013amateurs"
-literal "false"
-
-\end_inset
-
- and Gibberish 
+, two pairs of categories from Amazon Reviews, and Gibberish 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Gibberish_dataset"
@@ -1246,21 +1272,28 @@ Computational complexity of the batch generation grown with the number of
 \end_layout
 
 \begin_layout Standard
-All algorithms were compared on area under the curve (AUC) on the test data
- (i.e.
+All algorithms were compared on the area under the curve (AUC) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "fawcett2006introduction"
+literal "false"
+
+\end_inset
+
+ on the test data (i.e.
  the documents not present in the training set).
  The algorithms were compared after 100 acquired labels.
- The algorithms with smaller batch sizes thus benefited from higher number
- of retrainings.
+ The algorithms with smaller batch sizes thus benefited the from higher
+ number of retrainings.
  To reduce the influence of stochastic initialization and training, the
  AUCs were run 5 times and averaged.
- Even then, the difference between the algorithms were sometimes marginal.
+ Even then, the difference between the algorithms was sometimes marginal.
  To show the effect of various factors on the performance, we sorted the
  AUC and assigned a rank of each method accordingly.
  I.e.
  the best performing method has rank 1, second rank 2, etc.
- This approach allows comparison of various methods across multiple datasets
- 
+ This approach allows the comparison of various methods across multiple
+ datasets 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "demvsar2006statistical"
@@ -1269,8 +1302,8 @@ literal "false"
 \end_inset
 
  using order statistics.
- Intuitively: better method has lower average rank, methods with comparable
- ranks do not differ in performance.
+ Intuitively: a better method has a lower average rank, and methods with
+ comparable ranks do not differ in performance.
  
 \end_layout
 
@@ -1287,12 +1320,12 @@ Parameter uncertainty:
 \begin_inset Float figure
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename images/Aggregated_mean_rank_given_datasets_subplots.png
+	filename images/Aggregated_mean_rank_given_datasets_subplots.eps
 	scale 30
 
 \end_inset
@@ -1325,15 +1358,15 @@ name "fig:Aggregated-mean-rank-1"
 \end_inset
 
 The effect of parameter uncertainty (Bayesian approach) is the most costly
- to evaluate, due to high computational demand of the ensemble approach
+ to evaluate, due to the high computational demand of the ensemble approach
  (DEnFi).
- Therefore, we have evaluated all algorithm variant only for batch size
+ Therefore, we have evaluated all algorithm variants only for batch size
  
 \begin_inset Formula $b=20$
 \end_inset
 
 .
- The results displayed in Figure 
+ The results are displayed in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Aggregated-mean-rank"
@@ -1344,15 +1377,15 @@ noprefix "false"
 \end_inset
 
 .
- The advantage of the Bayesian approach are evident only for the Fake News
+ The advantage of the Bayesian approach is evident only for the Fake News
  dataset, in other datasets, DEnFi is not worth the computational cost and
- was omitted from large scale studies.
+ was omitted from large-scale studies.
  
 \end_layout
 
 \begin_layout Standard
-A summary of performance of all tested method for various batch sizes is
- displayed in Figure
+A summary of the performance of all tested methods for various batch sizes
+ is displayed in Figure
 \begin_inset space ~
 \end_inset
 
@@ -1378,10 +1411,10 @@ noprefix "false"
 \end_inset
 
  averaged over ranks after each 100 label requests.
- Note that the datasets follow similar pattern, with the exception of the
- Fake News data sets, where the parametric uncertainty (now represented
- only be the MC dropout strategy) is beneficial and HAC batch selection
- strategy has negative effect.
+ Note that the datasets follow a similar pattern, with the exception of
+ the Fake News data sets, where the parametric uncertainty (now represented
+ only by the MC dropout strategy) is beneficial and HAC batch selection
+ strategy has a negative effect.
  
 \end_layout
 
@@ -1391,7 +1424,7 @@ noprefix "false"
 Acquisition functions: 
 \series default
 Due to binary classification, the min-margin and entropy approaches coincide
- for single network function, which may also explain the results of 
+ for a single network function, which may also explain the results of 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "schroder2021uncertainty"
@@ -1420,9 +1453,9 @@ noprefix "false"
 Initialization of the training: 
 \series default
 The warm start strategy (HAC Entropy warm start) is better or comparable
- in performance to cold start (HAC Min-margin); this is achieved at fraction
- of the training cost.
- This indicate that the additive noise is sufficient to avoid overfitting
+ in performance to the cold start (HAC Min-margin); this is achieved at
+ fraction of the training cost.
+ This indicates that the additive noise is sufficient to avoid overfitting
  of the hot start 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1439,17 +1472,17 @@ literal "false"
 \series bold
 Batch selection strategy: 
 \series default
-The HAC batch selection has clear advantage for lower batch sizes (10 and
- 20).
+The HAC batch selection has a clear advantage for lower batch sizes (10
+ and 20).
  This is consistent when comparing HAC and Top variants of all methods except
  Fake News Detection.
  This advantage diminishes for batch sizes of 50 and 100 where the top selection
- strategy achieves comparable (ensembles) of better (single NN) results.
+ strategy achieves comparable (ensembles) or better (single NN) results.
  We conjecture that: i) the most informative samples in our datasets are
- clustered in small clusters, hence selection of a batch with large enough
- size contains the relevant samples from sufficiently large areas, and ii)
- the poor performance on the Fake News Dataset may be related to preference
- of cluster size over the sample score.
+ clustered in small clusters, hence the selection of a batch with large
+ enough size contains the relevant samples from sufficiently large areas,
+ and ii) the poor performance on the Fake News Dataset may be related to
+ the preference of cluster size over the sample score.
 \end_layout
 
 \begin_layout Standard
@@ -1624,7 +1657,7 @@ status open
 \begin_inset Float figure
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -1670,14 +1703,14 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-We have studied influence of various factors of active learning algorithms
- on their performace on cover context integrity, fake news detection and
+We have studied the influence of various factors of active learning algorithms
+ on their performance on cover context integrity, fake news detection, and
  sentiment classification tasks.
  While complex algorithms such as deep ensembles sometimes achieved good
  performance (Fake News detection), the winner on average is the classical
  prediction entropy of a single neural network with few proposed modifications.
  Specifically, the warm start of the network training achieves good performance
- at lower computational cost, and selection of the batch for annotation
+ at a lower computational cost, and the selection of the batch for annotation
  using agglomerative clustering improves performance for smaller batch sizes.
 \end_layout
 
@@ -1700,13 +1733,14 @@ Each active learning experiment was initialized by the training set
 \begin_inset Formula $b$
 \end_inset
 
- samples with discrete set of variants, 
+ samples with a discrete set of variants, 
 \begin_inset Formula $b=10,20,50,100$
 \end_inset
 
 .
  The active learning was run until 1000 samples were labeled, i.e.
- making different number of step for each batch size (10 iteration for 
+ making a different number of steps for each batch size (10 iterations for
+ 
 \begin_inset Formula $b=100$
 \end_inset
 
@@ -1764,23 +1798,19 @@ literal "false"
 \begin_layout Standard
 The initial number of epochs for the first iteration is set to 2500 for
  all algorithms.
- The same number is used for cold start strategy in each epoch.
+ The same number is used for the cold start strategy in each epoch.
  In the subsequent iterations, the weights of the previous estimate are
  perturbed by 
 \begin_inset Formula $\sigma=0.3$
 \end_inset
 
- for MC dropout and 
-\begin_inset Formula $\sigma=0.7$
-\end_inset
-
- for DEnFi.
+ for both MC dropout and DEnFi.
  The training of the warm start strategies is run for 150 epochs.
  Both DEnFi and MC Dropout generate 5 ensemble members.
- The key difference is in computational complexity, while DEnFi has to do
- 150 epochs for each ensemble member, the MC dropout does it for only one
- network and generated ensemble members by 5 different realizations of the
- dropout mask.
+ The key difference is in computational complexity, while DEnFi has to tune
+ the parameters for each ensemble member, the MC dropout does it for only
+ one network and generated ensemble members by 5 different realizations
+ of the dropout mask.
  
 \end_layout
 
