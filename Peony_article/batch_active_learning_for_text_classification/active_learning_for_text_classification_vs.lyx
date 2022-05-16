@@ -332,37 +332,26 @@ Batch Active Learning for Text Classification and Sentiment Analysis
 \end_layout
 
 \begin_layout Abstract
-The performance of text classification with supervised models is tied to
- quality and diversity of the data.
- The process of data collection and labeling may involve a lot of resources.
- The intuitive and the most standard approach is to sequentially extend
- a dataset with labeled data until reaching satisfactory metrics.
- Active learning techniques optimize the process of sequential unlabeled
- data selection, so that the annotations would provide the most information
- about the dataset.
- The problem of active learning becomes more complex when the sampling is
- done in batches.
- In this paper we show a study of advanced batch sampling techniques on
- text data and the problem of text classification and sentiment analysis.
- The study compares i) baseline algorithm based on agglomerative instance
- clustering with the subsequent sampling from clusters given minimum margin
- of class probabilities ii) wam start modifications of baseline techniques,
- and iii) Bayesian active learning baseline modification thanks to their
- ability of better representation of the classification uncertainty.
- The latter method in warm-start version too.
- 
-\end_layout
-
-\begin_layout Abstract
-Transformers encoders show the state-of-the-art results in majority of NLP
- tasks.
- In this article, we use RoBERTa for text encoding.
- The methods are tested on three types datasets, context integrity (Kaggle
- Gibberish dataset), fake news detection (Kaggle Fake News Detection dataset)
- and sentiment classification (Twitter Sentiment140 and Amazon Review Classifica
-tion datasets).
- We show that both warm-start and Bayesian baseline algorithm modifications
- outperform the state-of-art approach.
+Supervised learning of classifier for text classification and sentiment
+ analysis relies on availability of labels that may be difficult/expensive
+ to obtain.
+ Active learning techniques optimize the process of obtaining labels by
+ sequentially selecting documents from unlabels set for which the labels
+ would be most valuable.
+ Batch active leaning selects a batch of documents for labeling which is
+ much more demanding.
+ In this paper we propose a new methods for batch active learning by combining
+ Bayesian strategies with agglomerative clustering.
+ We study the effect of this proposition in large scale study comparing
+ the effect of varying distinct factors of active learning algorithm (initializa
+tion of the algorithm, uncertainty representation, acquisition function
+ and batch selection strategy).
+ Various combinations of these are tested on selected NLP problem with documents
+ encoded using RoBERTa.
+ Datasets cover context integrity, fake news detection and sentiment classificat
+ion.
+ We show that each of the active leaning factor has advantages for certain
+ datasets or experimental setting.
  
 \end_layout
 
@@ -371,20 +360,14 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-The development of a text classifier on a new problem requires the availability
- of the training data and their labels.
- Labeling involves human annotators and a common practice is to label as
- many text documents as possible, train a classifier and search for new
- data and labels if the performance is unsatisfactory.
- Random choice of the documents for the data set extension can be costly
- because the new documents may not bring new information for the classification.
- Active learning strategy aims to select among available unlabeled documents
- those that the classifier is most uncertain about and queries an annotator
- for their labels.
- Therefore, it has the potential to greatly reduce the effort needed for
- the development of a new system.
- Its advantages have been demonstrated even for classical methods such as
- SVM 
+Supervised learning of classifiers relies on availability of class labels
+ which often involves human annotator for majority of NLP tasks.
+ This can be costly for large datasets.
+ Active learning is a strategy designed to minimize this cost by automatic
+ selection of those unlabeled documents that expected to bring useful informatio
+n for the classifier.
+ Advantages of this approach have been demonstrated even for classical methods
+ such as SVM 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "tong2001support"
@@ -392,25 +375,24 @@ literal "false"
 
 \end_inset
 
-, but recent shift to deep learning methods motivates revisiting of the
- topic.
- The most conventional active learning strategies select one unlabeled document
- after each training round to query due to simplicity of its selection.
+.
+ The most conventional active learning strategies select only one unlabeled
+ document after each training round to query due to simplicity of its selection.
  The next query document is selected only after the first on is labeled
- and the model re-trained.
- However, this strategy is impractical in text classification where annotators
- cannot wait for the models.
- Therefore, we pay special attention to strategies that select a batch of
- documents for querying.
-\end_layout
-
-\begin_layout Standard
-Novel methods for 
+ and the model re-trained which means that the annotator has to wait for
+ retraining.
+ This impractical strategy can be avoided is the active learning algorithm
+ selects a batch of documents.
+ Novel methods for 
 \emph on
 batch active learning 
 \emph default
 appear frequently, each demonstrating advantages on their benchmark data.
- One of the recent approaches demonstrate effectiveness even for batches
+ 
+\end_layout
+
+\begin_layout Standard
+One of the recent approaches demonstrate effectiveness even for batches
  of 5000 samples 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -421,8 +403,8 @@ literal "false"
 
 , combining the min-margin acquisition function with clustering under name
  Hierarchical Agglomerative Clustering (HAC).
- In this contribution, we investigate novel modifications of this idea using
- alternative acquisition functions.
+ In this contribution, we propose novel modifications of this idea using
+ alternative acquisition functions and investigate their performance.
  Specifically we propose to extend the HAC approach to Bayesian setting
  by replacing the min-margin by Bayesian acquisition function, BALD 
 \begin_inset CommandInset citation
@@ -436,8 +418,7 @@ literal "false"
  However, the size of the minibatch is only one of many factors in performace
  of the active learning algorithms.
  Other factors are: i) selected acquisition function, ii) representation
- of uncertainty of the classifier, and iii) strategy of retraining of the
- network.
+ of uncertainty of the classifier, and iii) initialization of the network.
  The key contribution of our work is sensitivity study of the classification
  task to these factors over a range of datasets from various text classification
  tasks.
@@ -446,7 +427,7 @@ literal "false"
 
 \begin_layout Standard
 Various comparative studies have been performed recently with various focus
- and various results.
+ and results.
  Batch active learning was studied in 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -455,7 +436,7 @@ literal "false"
 
 \end_inset
 
- for only one size of the batch (5o documents per query).
+ for only one size of the batch (50 documents per query).
  Large sensitivity to the type of dataset was reported in 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -508,8 +489,8 @@ literal "false"
  for hot start, i.e.
  continuation of training of the classifier.
  A compromise in the form of warm-start, i.e.
- initialization of the classifier weights by those of the previous classifier
- with added noise, was proposed in 
+ adding noise to the weights of the previous classifier, was proposed in
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sahan2021active"
@@ -518,7 +499,6 @@ literal "false"
 \end_inset
 
 .
- 
 \end_layout
 
 \begin_layout Standard
@@ -569,8 +549,8 @@ literal "false"
 \end_inset
 
 .
- Representation of the i-th text document 
-\begin_inset Formula $\mathbf{x}_{i}$
+ Representation of the k-th text document 
+\begin_inset Formula $\mathbf{x}_{k}$
 \end_inset
 
  is calculated as the mean value from sentence embeddings of all sentences
@@ -579,16 +559,24 @@ literal "false"
 
 \begin_layout Standard
 The aim of document classification is to find a classifier 
-\begin_inset Formula $\hat{\mathbf{y}}_{k}=\mathbf{y}(\theta,\mathbf{x}_{k})$
+\begin_inset Formula $\hat{\mathbf{y}}=\mathbf{y}(\theta,\mathbf{x})$
 \end_inset
 
  predicting the class label for each document representation 
-\begin_inset Formula $\mathbf{x}_{k}$
+\begin_inset Formula $\mathbf{x}$
 \end_inset
 
 .
- In supervised setting, the classifier parameters are found by matching
- the prediction with provided label 
+ In supervised setting, the classifier parameters are found on a training
+ set 
+\begin_inset Formula $\{\mathbf{x}_{k},\mathbf{y}_{k}\}_{k=1}^{K}$
+\end_inset
+
+ by matching the prediction 
+\begin_inset Formula $\mathbf{y}(\theta,\mathbf{x}_{k})$
+\end_inset
+
+ with the provided label 
 \begin_inset Formula $\mathbf{y}_{k}$
 \end_inset
 
@@ -604,7 +592,7 @@ We assume that for the full corpus of text documents
 \end_inset
 
 , only a small initial set of labels 
-\begin_inset Formula $\mathbf{y}^{(0)}$
+\begin_inset Formula $\mathbf{Y}^{(0)}$
 \end_inset
 
 , is available.
@@ -620,6 +608,10 @@ We assume that for the full corpus of text documents
 \begin_inset Formula $\mathbf{X}_{u}^{(0)}=\mathbf{X}\backslash\mathbf{X}^{(0)}$
 \end_inset
 
+, the training set in the first round is then 
+\begin_inset Formula $\mathbf{X}^{(0)},\mathbf{Y}^{(0)}$
+\end_inset
+
 .
  Active learning is defined as a sequential extension of the training data
  set following a simple iterative strategy in algorithm 1.
@@ -629,7 +621,7 @@ We assume that for the full corpus of text documents
 \begin_inset Float algorithm
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -645,7 +637,7 @@ Initialize
 \end_inset
 
 , initial data 
-\begin_inset Formula $\mathbf{y}^{(0)},\mathbf{X}^{(0)},\mathbf{X}_{u}^{(0)}$
+\begin_inset Formula $\mathbf{Y}^{(0)},\mathbf{X}^{(0)},\mathbf{X}_{u}^{(0)}$
 \end_inset
 
 
@@ -665,7 +657,7 @@ train a classifier parameter
 \end_inset
 
  on 
-\begin_inset Formula $\mathbf{y}^{(i)},\mathbf{X}^{(i)}$
+\begin_inset Formula $\mathbf{Y}^{(i)},\mathbf{X}^{(i)}$
 \end_inset
 
 , starting from 
@@ -678,11 +670,11 @@ train a classifier parameter
 \begin_layout Enumerate
 compute the value of a label for all documents in the unlabeled dataset,
  
-\begin_inset Formula $a_{k}=A(\mathbf{x}_{k},\theta^{(i)}),$
+\begin_inset Formula $a_{l}=A(\mathbf{x}_{l},\theta^{(i)}),$
 \end_inset
 
 
-\begin_inset Formula $\forall\mathbf{x}_{k}\in\mathbf{X}_{u}^{(i)}$
+\begin_inset Formula $\forall\mathbf{x}_{l}\in\mathbf{X}_{u}^{(i)}$
 \end_inset
 
 
@@ -694,7 +686,7 @@ select a batch of documents,
 \end_inset
 
  for labeling using 
-\begin_inset Formula $a_{k}$
+\begin_inset Formula $a_{l}$
 \end_inset
 
 
@@ -740,21 +732,85 @@ General batch active learning
 \begin_layout Standard
 The general algorithm can be specialized to many variants depending on various
  factor as specified next.
+ We will introduce several choices labeled by the step in which they appear
+ in algorithm 1.
+\end_layout
+
+\begin_layout Paragraph
+1a.
+ Uncertainty representation: 
+\end_layout
+
+\begin_layout Standard
+The uncertainty can be represented by a maximum likelihood estimate, represented
+ by a single network, or Bayesian probabilistic estimate, represented typically
+ by an ensemble of networks.
+ We will consider the following options: 
+\series bold
+Single network 
+\series default
+with softmax output layer predicting normalized probability of each class
+ in one hot encoding.
+ This probability is conditioned on the parameter, and thus captures only
+ aleatoric uncertainty.
+ Uncertainty in parameters is not represneted.
+ 
+\series bold
+Ensemble of networks
+\series default
+, represent uncertainty in parameters by different parameter value in each
+ ensemble thus capturing both aleatoric and epistemic uncertainty.
+ We consider two method for generating the ensemble members: i) 
+\emph on
+MC dropout 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gal2017deep"
+literal "false"
+
+\end_inset
+
+, where ensemble members are generated by random draws of of the dropout
+ layers, and ii) 
+\emph on
+deep ensembles 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lakshminarayanan2017simple"
+literal "false"
+
+\end_inset
+
+ where emsembles are trained independently.
+ Note that MC dropout is computationally much cheaper.
 \end_layout
 
 \begin_layout Paragraph
 
 \series bold
-1.
- Start of the algorithm: 
+1b.
+ Initialization of the training:
 \end_layout
 
 \begin_layout Standard
-
+Each training in step 1 is a new task.
+ However, the data set typically overlaps with the one from the previous
+ iteration, which motivates the following strategies of reusing results
+ from the previous iteration.
+ 
 \series bold
-Cold 
+Cold
+\begin_inset space ~
+\end_inset
+
+start 
 \series default
-initializing by random numbers, 
+strategy is not reusing any information, the networks are initialized by
+ random numbers, 
 \begin_inset Formula $\theta_{\text{init}}^{(i)}=\mathcal{N}(0,\sigma)$
 \end_inset
 
@@ -773,9 +829,14 @@ literal "false"
 .
  
 \series bold
-Hot 
+Hot
+\begin_inset space ~
+\end_inset
+
+start 
 \series default
-initailized by previous estimate, 
+strategy reuses all information, setting the estimate from the previous
+ iteration as a starting point, 
 \begin_inset Formula $\theta_{\text{init}}^{(i)}=\theta^{(i-1)},$
 \end_inset
 
@@ -790,9 +851,17 @@ literal "false"
 .
  
 \series bold
-Warm 
+Warm
 \series default
-a combination of the above, 
+
+\begin_inset space ~
+\end_inset
+
+
+\series bold
+start
+\series default
+ strategy a combination of the above, 
 \begin_inset Formula $\theta_{\text{init}}^{(i)}=\theta^{(i-1)}+\mathcal{N}(0,\sigma),$
 \end_inset
 
@@ -800,8 +869,7 @@ a combination of the above,
 \begin_inset Formula $\sigma$
 \end_inset
 
- is a hyper-parameter.
- Acvocated in 
+ is a hyper-parameter 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sahan2021active"
@@ -814,106 +882,96 @@ literal "false"
 
 \begin_layout Paragraph
 2.
- Uncertainty representation:
+ Acquisition function:
 \end_layout
 
 \begin_layout Standard
+Is a measure of the expected utility of the knowledge label, 
+\begin_inset Formula $\boldsymbol{y}_{l}$
+\end_inset
 
-\series bold
-Single network 
-\series default
-modeling uncertain prediction of the label only estimation of one hot encoding
- by a single network.
- This captures aleatoric uncertainty.
-\end_layout
+, for each document, 
+\begin_inset Formula $\boldsymbol{x}_{l}$
+\end_inset
 
-\begin_layout Standard
+, in the unlabeled data set.
+ Different running index 
+\begin_inset Formula $l$
+\end_inset
 
-\series bold
-Ensemble of networks
-\series default
-, each with different parametrization, capturing both aleatoric and epistemic
- uncertainty.
- We consider two method for generating the ensemble members: i) MC dropout
+ is used to indicate that we operate on the unlabeled set.
+ While many different utilities are proposed, we will study only the most
+ popular ones.
  
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gal2017deep"
-literal "false"
-
-\end_inset
-
-, where ensemble members are generated by random draws of of the dropout
- layers, and ii) deep ensembles 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "lakshminarayanan2017simple"
-literal "false"
-
-\end_inset
-
- where emsembles are trained independently.
- Note that MC dropout is computationally much cheaper.
-\end_layout
-
-\begin_layout Paragraph
-3.
- Acquisition function 
-\end_layout
-
-\begin_layout Standard
-
 \series bold
 Entropy 
 \series default
 exists in two forms, entropy of the prediction 
-\begin_inset Formula $a_{k}=\mathbb{H}(y|\mathbf{x}_{k},\theta)$
+\begin_inset Formula $a_{l}=\mathbb{H}(y|\mathbf{x}_{l},\theta)$
 \end_inset
 
  for a single network, or expected entropy 
-\begin_inset Formula $a_{k}=\mathbb{E}_{\theta}\mathbb{H}(y|\mathbf{x}_{k},\theta)$
+\begin_inset Formula $a_{l}=\mathbb{E}_{\theta}\mathbb{H}(y|\mathbf{x}_{l},\theta)$
 \end_inset
 
  for ensembles.
-\end_layout
-
-\begin_layout Standard
-
+ 
 \series bold
 BALD 
 \series default
 is a mutual information metric, 
-\begin_inset Formula $a_{k}=\mathbb{E}_{\theta}\mathbb{H}(y|\mathbf{x}_{k},\theta)-\mathbb{H}(y|\mathbf{x}_{k})$
+\begin_inset Formula $a_{l}=\mathbb{E}_{\theta}\mathbb{H}(y|\mathbf{x}_{l},\theta)-\mathbb{H}(y|\mathbf{x}_{l})$
 \end_inset
 
  that is meaningful only for the ensembles.
-\end_layout
-
-\begin_layout Standard
-
+ 
 \series bold
 Min-margin 
 \series default
 is a minimum of difference between class predictions 
-\begin_inset Formula $a_{k}=-\min_{c,d\in[1,C]}(y_{c}-y_{d})$
+\begin_inset Formula $a_{l}=-\min_{c,d\in[1,C]}(y_{c}-y_{d})$
 \end_inset
 
  where 
-\begin_inset Formula $c$
+\begin_inset Formula $C$
 \end_inset
 
- is the number of clasess.
- Not that extreme of this criteria is equivalent to maximim entropy for
- binary classification.
+ is the number of classes.
+ Note carefully that extreme of this criteria is equivalent to maximum entropy
+ for binary classification with single network.
 \end_layout
 
 \begin_layout Paragraph
-4.
+3.
  Batch selection strategy
 \end_layout
 
 \begin_layout Standard
+When only one sample is to be selected it is optimal to choose the one with
+ maximum utility given by the acquisition function.
+ However, complexity of the maximum utility grows exponentially when the
+ strategy has to select a batch of 
+\begin_inset Formula $b$
+\end_inset
 
+ documents for off-line labeling.
+ Strategies that tries to approximate this selection using greedy search
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "kirsch2019batchbald"
+literal "false"
+
+\end_inset
+
+ are still too computationally expensive for large batches.
+ Therefore, we select two batch selection strategies that scale well with
+ 
+\begin_inset Formula $b$
+\end_inset
+
+.
+ 
 \series bold
 Top 
 \series default
@@ -922,18 +980,19 @@ selects top
 \end_inset
 
  samples from sorted values of 
-\begin_inset Formula $a_{k}.$
+\begin_inset Formula $a_{l}.$
 \end_inset
 
  This approach may select samples close to each other which are redundant.
-\end_layout
-
-\begin_layout Standard
-
+ 
 \series bold
 HAC
 \series default
- is a strategy proposed in 
+ is a strategy based on hierarchical clustering of 
+\begin_inset Formula $a_{l}$
+\end_inset
+
+ proposed in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "citovsky2021batch"
@@ -941,145 +1000,60 @@ literal "false"
 
 \end_inset
 
-, based on clustering of 
-\begin_inset Formula $a_{k}$
-\end_inset
-
- and selecting top 
+, and selecting top 
 \begin_inset Formula $b$
 \end_inset
 
  samples from different clusters.
 \end_layout
 
-\begin_layout Description
-BatchBALD ???
+\begin_layout Paragraph
+Tested algorithm variants:
 \end_layout
 
 \begin_layout Standard
-Not From the range 
+From the range of all possibilities, we will study the combinations that
+ are existing in the literature: HAC min-margin using cold start 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "citovsky2021batch"
+literal "false"
+
+\end_inset
+
+, MC dropout with Entropy and BALD criteria using cold start 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gal2017deep"
+literal "false"
+
+\end_inset
+
+, warm start ensemble learning with Entropy and BALD called DEnFi 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sahan2021active"
+literal "false"
+
+\end_inset
+
+, and conventional single-network with prediction Entropy with warm start.
+ If HAC is not in the name, the Top strategy is used.
 \end_layout
 
 \begin_layout Standard
-=========================== ToDO
-\end_layout
-
-\begin_layout Subsection
-Deep Ensemble Filter (DEnFi):
-\end_layout
-
-\begin_layout Standard
-is a deep ensemble method with 5 neural networks in the ensembles and warm-start
- training strategy [13] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- using weights of the ensemble members in the previous iteration as initial
- conditions for the new ensemble.
- Each weight is perturbed by an additive Gaussian noise of variance 
-\begin_inset Formula $𝑞=0.3$
-\end_inset
-
- which is a hyperparameter.
- In our experiments, the ensemble is trained with parameters 
-\begin_inset Formula $\mathrm{initialization\_epochs}=2500$
-\end_inset
-
- on the initial data and with additional 
-\begin_inset Formula $\mathrm{warm\_start\_epochs}=700$
-\end_inset
-
- epochs after each extension of the learning data set.
-\end_layout
-
-\begin_layout Subsection
-Dropout MC
-\end_layout
-
-\begin_layout Standard
-is the standard algorithm [10] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- that trains only a single network with sampled dropout indices and uses
- the sampling even in the prediction step.
- Generation of the Monte Carlo prediction is obtained by sampling different
- values of the dropout binary variable and one forward pass of the network
- for each sample.
- We study warm-start with weights from the previous iteration perturbed
- by an additive noise of variance 
-\begin_inset Formula $q=0.3$
-\end_inset
-
- with 700 epochs.
- Dropout rate is 
-\begin_inset Formula $0.2$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection
-Softmax uncertainty
-\end_layout
-
-\begin_layout Standard
-The simplest approach to uncertainty representation is a single neural network
- with a softmax output layer that considers uncertainty as the output of
- the softmax score.
- We add it to comparison since it is a baseline approach used in state-of-art
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- in cold start version and has also been applied to active learning earlier
- in [4] 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-REF
-\end_layout
-
-\end_inset
-
- as hot-start method without noise pertrubation.
- The model is trained to run 
-\begin_inset Formula $2500$
-\end_inset
-
- epochs in every iteration for cold start and with additional 200 epochs
- after each extension of the learning data set for hot-start.
+Since HAC strategy is an orthogonal factor to the remaining ones, we propose
+ its combination with other approaches, giving rise to: HAC Entropy for
+ the single neural network and both ensemble methods (MC dropout an DEnFi)
+ and HAC BALD for the ensembles.
 \end_layout
 
 \begin_layout Section
 Experiment Setup
 \end_layout
 
-\begin_layout Section
-Results
-\end_layout
-
 \begin_layout Subsection
-Simulation
+Datasets
 \end_layout
 
 \begin_layout Standard
@@ -1125,32 +1099,7 @@ REF
 \end_inset
 
  datasets.
- The batch sizes are 
-\begin_inset Formula $10$
-\end_inset
-
-, 
-\begin_inset Formula $20$
-\end_inset
-
-, 
-\begin_inset Formula $50$
-\end_inset
-
- and 
-\begin_inset Formula $100$
-\end_inset
-
- instances per active learning or random sampling iteration.
- Specifically, we compared active learning and random sampling strategies
- for different settings of algorithms, batch sizes and different representations
- of uncertainty.
- Each experiment was initiated by random choice of the initial training
- set of 
-\begin_inset Formula $𝑙_{0}=10$
-\end_inset
-
- samples from 
+ From all datasets, we select from 
 \begin_inset Formula $10000$
 \end_inset
 
@@ -1158,30 +1107,56 @@ REF
 \begin_inset Formula $5000$
 \end_inset
 
- text documents per category), which were the initial 
+ text documents per category 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+What is it??? for reviews 1,5,etc...
+\end_layout
+
+\end_inset
+
+), which were the initial 
 \begin_inset Formula $10000$
 \end_inset
 
  documents of the datasets given categories.
- For each experiment we continue the active learning simulation until we
- sample 
-\begin_inset Formula $1000$
+\end_layout
+
+\begin_layout Subsection
+Experiment parameters
+\end_layout
+
+\begin_layout Standard
+Each active learning experiment was initialized by the training set 
+\begin_inset Formula $\mathbf{X}^{(0)},\mathbf{Y}^{(0)}$
 \end_inset
 
- with querying iterations.
- Hence, 
-\begin_inset Formula $L$
-\end_inset
-
- ranges from 
+ of 
 \begin_inset Formula $10$
 \end_inset
 
- to 
-\begin_inset Formula $100$
+ samples.
+ The active learning strategy was set to sample 
+\begin_inset Formula $b$
 \end_inset
 
- requests for annotation.
+ samples with discrete set of variants, 
+\begin_inset Formula $b=10,20,50,100$
+\end_inset
+
+.
+ The active learning was run until 1000 samples were labeled, i.e.
+ making different number of step for each batch size (10 iteration for 
+\begin_inset Formula $b=100$
+\end_inset
+
+, 20 for 
+\begin_inset Formula $b=50$
+\end_inset
+
+, etc.).
  The batch selection follows the 𝜖 -greedy approach [25] 
 \begin_inset Note Note
 status open
@@ -1193,18 +1168,19 @@ REF
 \end_inset
 
 , i.e.
- the samples given the acquisition function 
+ the samples selected by the acquisition function are accepted with probability
+ 
+\begin_inset Formula $𝜖=\frac{\exp(l-3)}{\exp(l-3)+1}$
+\end_inset
+
+ 
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-REF
+how works for b=100?
 \end_layout
 
-\end_inset
-
- is accepted with probability 
-\begin_inset Formula $𝜖=\frac{\exp(l-3)}{\exp(l-3)+1}$
 \end_inset
 
 .
@@ -1231,72 +1207,297 @@ REF
  times for all datasets.
 \end_layout
 
-\begin_layout Subsection
-Methods
-\end_layout
-
 \begin_layout Standard
-We compare results for 12 different tuples of algorithms and acquisition
- functions that include i) five MC Dropout simulations with all acquisition
- functions, random sampling, all datasets, and all batch sizes, ii) three
- NN Warm-Start runs based on dropout algorithm with point-wise parameters
- distribution estimate for HAC Entropy, Entropy, random sampling acquisition
- functions, all datasets, and all batch sizes, iii) five DEnFi simulations
- with all acquisition functions, random sampling, three datasets, and only
- one batch size (due to the computational complexity), and iv) HAC Min-margin
- run with softmax uncertainty cold-start active learning strategy and HAC
- Entropy computed for all datasets and all batch sizes.
- The cold start strategy choice for HAC Min-margin is based on the experimental
- results from 
+The initial number of epochs for the first iteration is set to 2500 for
+ all algorithms.
+ The same number is used for cold start strategy in each epoch.
+ In the subsequent iterations, the weights of the previous estimate are
+ perturbed by 
+\begin_inset Formula $\sigma=0.3$
+\end_inset
+
+ for MC dropout and 
+\begin_inset Formula $\sigma=0.7$
+\end_inset
+
+ for DEnFi.
+ The training of the warm start strategies is run for 150 
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-REF (Maybe our article)
+??
 \end_layout
 
 \end_inset
 
-, where the hot start-methods (fine tuning without noise pertrubation) scored
- the worst.
- Hence, for the sake of not having computational biases we decided to train
- HAC Min-margin algorithm from scratch in every active learning iteration.
-\end_layout
-
-\begin_layout Subsection
-Text Classification
+epochs.
+ Both DEnFi and MC Dropout generate 5 ensemble members.
+ The key difference is in computational complexity, while DEnFi has to do
+ 150 epochs for each ensemble member, the MC dropout does it for only one
+ network and generated ensemble members by 5 different realizations of the
+ dropout mask.
+ 
 \end_layout
 
 \begin_layout Standard
-The comparison of AUC results is done with the ranking technique presented
- in 
-\begin_inset Note Note
-status open
+Computational complexity of the batch generation grown with the number of
+ documents in the unlabeled data set, 
+\begin_inset Formula $L$
+\end_inset
+
+.
+ The evaluation of the acquisition functions is linear in 
+\begin_inset Formula $L$
+\end_inset
+
+.
+ Complexity of sort on the top strategy is 
+\begin_inset Formula $O(L\log L)$
+\end_inset
+
+ and clustering and 
+\begin_inset Formula $O(cL^{2})$
+\end_inset
+
+ where 
+\begin_inset Formula $c$
+\end_inset
+
+ is the number of clusters.
+ The number of clusters in the HAC algorithm was 
+\begin_inset Formula $???$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Evaluation 
+\end_layout
+
+\begin_layout Standard
+All algorithms were compared on area under the curve (AUC) on the test data
+ (i.e.
+ the documents not present in the training set).
+ To have a fair comparison for all batch sizes, the algorithms were compared
+ after 100 labels.
+ The algorithms with smaller batch sizes thus benefited from higher number
+ of retrainings.
+ To reduce the influence of stochastic initialization and training, the
+ AUCs were run 5 times and averaged.
+ Even then, the difference between the algorithms were sometimes marginal.
+ To show the effect of various factors on the performance, we sorted the
+ AUC and assigned a rank of each method accordingly.
+ I.e.
+ the best performing method has rank 1, second rank 2, etc.
+ This approach allows comparison of various methods across multiple datasets
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "demvsar2006statistical"
+literal "false"
+
+\end_inset
+
+ using order statistics.
+ Intuitively: better method has lower average rank, methods with comparable
+ ranks do not differ in performance.
+ 
+\end_layout
+
+\begin_layout Section
+Results
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
 
 \begin_layout Plain Layout
-REF
+\align center
+\begin_inset Graphics
+	filename images/Aggregated_mean_rank_given_datasets_w_denfi.eps
+	scale 35
+
+\end_inset
+
+
 \end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Aggregated-mean-rank"
+
+\end_inset
+
+Aggregated mean rank for 14 tuples of learning algorithms and acquisition
+ functions given Amazon Reviews 3,5, Fake News Detection and Twitter Sentiment
+ for 50 active learning iterations with batch size 20.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Parameter uncertainty:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/Aggregated_mean_rank_given_datasets_subplots.eps
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Aggregated rank for 7 active learning algorithms and two random strategies
+ averaged over datasets as a function of different batch sizes.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Aggregated-mean-rank-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The effect of parameter uncertainty (Bayesian approach) is the most costly
+ to evaluate, due to high computational demand of the ensemble approach
+ (DEnFi).
+ Therefore, we have evaluated all algorithm variant only for batch size
+ 
+\begin_inset Formula $b=20$
+\end_inset
+
+.
+ The results displayed in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Aggregated-mean-rank"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
 .
- We compute the mean value over five simulations for each algorithm.
- Next, we calculate ranks in every iteration of active learning for algorithms
- with the same batch size and datasets.
- The methods are compared to the aggregated mean ranks.
- The mean values are computed for ranks of 
-\begin_inset Formula $100,200,\dots,1000$
+ The advantage of the Bayesian approach are evident only for the Fake News
+ dataset, in other datasets, DEnFi is not worth the computational cost and
+ will be omitted from large scale studies.
+ A summary of relative performance of all tested method for various batch
+ sizes is displayed in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Aggregated-mean-rank-1"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
- sampled instances.
- The reason of aggregation through a subset of all ranks is the understanding
- if more active learning iterations with smaller batch size or one with
- a larger one is better.
- The aggregated mean ranks for different datasets and batch sizes are in
- figure ...
+.
+ Note that the datasets follow similar pattern, with the exception of the
+ Fake News data sets, where the parametric uncertainty (now represented
+ only be the MC dropout strategy) is beneficial.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Acquisition functions:
 \end_layout
 
 \begin_layout Standard
+Due to binary classification, the min-margin and entropy approaches coincide
+ for single network function, which may also explain the results of 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schroder2021uncertainty"
+literal "false"
+
+\end_inset
+
+.
+ The difference between Entropy and BALD for the ensemble methods seems
+ insignificant.
+\end_layout
+
+\begin_layout Paragraph
+Initialization of the training:
+\end_layout
+
+\begin_layout Standard
+The warm start strategy (HAC Entropy warm start) is better or comparable
+ in performance to cold start (HAC Min-margin); this is achieved at fraction
+ of the training cost.
+ This indicate that the additive noise is sufficient to avoid overfitting
+ of the hot start 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hu2018active"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+Batch selection strategy:
+\end_layout
+
+\begin_layout Standard
+The HAC batch selection has clear advantage for lower batch sizes (10 and
+ 20).
+ This is consistent when comparing HAC and Top variants of all methods.
+ This advantage diminishes for batch sizes of 50 and 100 where the top selection
+ strategy achieves comparable (ensembles) of better (single NN) results.
+ We conjecture that the most informative samples are scattered benefits
+ of selecting samples from different clusters at this sizes the selection
+ of the most relevant clusters increases informativeness of the data; 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset Float table
 wide false
 sideways false
@@ -1354,7 +1555,7 @@ iteration ratio
 \begin_inset Text
 
 \begin_layout Plain Layout
-Cold Start NN
+Cold Start NN (3000)
 \end_layout
 
 \end_inset
@@ -1374,7 +1575,7 @@ Cold Start NN
 \begin_inset Text
 
 \begin_layout Plain Layout
-MC Dropout
+MC Dropout (150ep)
 \end_layout
 
 \end_inset
@@ -1394,7 +1595,7 @@ MC Dropout
 \begin_inset Text
 
 \begin_layout Plain Layout
-DEnFi
+DEnFi (700ep, 5x)
 \end_layout
 
 \end_inset
@@ -1414,7 +1615,7 @@ DEnFi
 \begin_inset Text
 
 \begin_layout Plain Layout
-Warm Start NN
+Warm Start NN (150ep)
 \end_layout
 
 \end_inset
@@ -1449,68 +1650,6 @@ Time ratios for a single active learning iteration for four different learning
 \end_inset
 
 
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/Aggregated_mean_rank_given_datasets_w_denfi.eps
-	scale 35
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Aggregated mean rank for 14 tuples of learning algorithms and acquisition
- functions given Amazon Reviews 3,5, Fake News Detection and Twitter Sentiment
- for batch size 20 and 50 active learning iterations
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Float figure
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/Aggregated_mean_rank_given_datasets_subplots.eps
-	scale 30
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Aggregated mean rank for 9 tuples of learning algorithms and acquisition
- functions given all datasets and all batch sizes variations
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -1519,10 +1658,14 @@ Aggregated mean rank for 9 tuples of learning algorithms and acquisition
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -1546,6 +1689,11 @@ s representative vs HAC Min-margin given the batch size and dataset.
  mean value with respect to 5 runs.
  All algorithms were initially trained on 10 labeled text documents before
  sequential learning strategies were initialized
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
