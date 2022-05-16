@@ -1097,7 +1097,7 @@ Experiment Setup
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -1331,8 +1331,27 @@ noprefix "false"
  The advantage of the Bayesian approach are evident only for the Fake News
  dataset, in other datasets, DEnFi is not worth the computational cost and
  will be omitted from large scale studies.
- A summary of relative performance of all tested method for various batch
- sizes is displayed in Figure 
+ 
+\end_layout
+
+\begin_layout Standard
+A summary of performance of all tested method for various batch sizes is
+ displayed in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AUC-metrics-for"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ via AUC after 1000 samples for all methods and relative rank for all methods
+ in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Aggregated-mean-rank-1"
@@ -1342,10 +1361,11 @@ noprefix "false"
 
 \end_inset
 
-.
+ averaged over ranks after each 100 label requests.
  Note that the datasets follow similar pattern, with the exception of the
  Fake News data sets, where the parametric uncertainty (now represented
- only be the MC dropout strategy) is beneficial.
+ only be the MC dropout strategy) is beneficial and HAC batch selection
+ strategy has negative effect.
  
 \end_layout
 
@@ -1365,7 +1385,17 @@ literal "false"
 
 .
  The difference between Entropy and BALD for the ensemble methods seems
- insignificant.
+ insignificant, Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Aggregated-mean-rank-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1395,13 +1425,15 @@ Batch selection strategy:
 \series default
 The HAC batch selection has clear advantage for lower batch sizes (10 and
  20).
- This is consistent when comparing HAC and Top variants of all methods.
+ This is consistent when comparing HAC and Top variants of all methods except
+ Fake News Detection.
  This advantage diminishes for batch sizes of 50 and 100 where the top selection
  strategy achieves comparable (ensembles) of better (single NN) results.
- We conjecture that the most informative samples in our datasets are clustered
- in small clusters, hence selection of a batch with large enough size contains
- the relevant samples from sufficiently large areas.
- 
+ We conjecture that: i) the most informative samples in our datasets are
+ clustered in small clusters, hence selection of a batch with large enough
+ size contains the relevant samples from sufficiently large areas, and ii)
+ the poor performance on the Fake News Dataset may be related to preference
+ of cluster size over the sample score.
 \end_layout
 
 \begin_layout Standard
@@ -1727,17 +1759,7 @@ The initial number of epochs for the first iteration is set to 2500 for
 \end_inset
 
  for DEnFi.
- The training of the warm start strategies is run for 150 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-??
-\end_layout
-
-\end_inset
-
-epochs.
+ The training of the warm start strategies is run for 150 epochs.
  Both DEnFi and MC Dropout generate 5 ensemble members.
  The key difference is in computational complexity, while DEnFi has to do
  150 epochs for each ensemble member, the MC dropout does it for only one
