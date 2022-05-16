@@ -407,7 +407,7 @@ literal "false"
  document after each training round to query due to the simplicity of its
  selection.
  The next query document is selected only after the first one is labeled
- and the model re-trained which means that the annotator has to wait for
+ and the model retrained, which means that the annotator has to wait for
  retraining.
  This impractical strategy can be avoided if the active learning algorithm
  selects a batch of documents.
@@ -492,7 +492,7 @@ literal "false"
 , the min-margin strategy was shown to be competitive with the prediction
  entropy-based method on a range of embeddings.
  The comparative studies shared similar properties, such as a fixed network
- for embeddings (improvement with re-training can be expected 
+ for embeddings (improvement with retraining can be expected 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "margatina2021bayesian"
@@ -503,7 +503,7 @@ literal "false"
  but may be too costly).
  All studies also assume a cold start, i.e.
  completely new initialization of the classifier after each round of querying.
- This is motivated by the fear of overfitting which was demonstrated in
+ This is motivated by the fear of overfitting, which was demonstrated in
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -806,8 +806,9 @@ name "fig:AUC-metrics-for"
 
 \end_inset
 
-AUC metrics for 7 active learning and 2 random strategies after 1000 acquired
- samples given datasets and batch size.
+AUC metrics for seven active learning and two random strategies after 1000
+ acquired samples given datasets and batch size.
+ Prediction of the MC dropout classifiers is an average over ensemble members.
 \end_layout
 
 \end_inset
@@ -883,7 +884,7 @@ Each training in step 1 is a new task.
  However, the data set typically overlaps with the one from the previous
  iteration, which motivates the following strategies of reusing results
  from the previous iteration.
- 
+ The 
 \series bold
 Cold
 \begin_inset space ~
@@ -909,9 +910,9 @@ literal "false"
 \end_inset
 
 .
- 
+ The
 \series bold
-Hot
+ Hot
 \begin_inset space ~
 \end_inset
 
@@ -931,7 +932,7 @@ literal "false"
 \end_inset
 
 .
- 
+ The 
 \series bold
 Warm
 \series default
@@ -1014,7 +1015,7 @@ is a minimum difference between class predictions
 \begin_inset Formula $a_{l}=-\min_{c,d\in[1,C]}(y_{c}-y_{d})$
 \end_inset
 
- where 
+, where 
 \begin_inset Formula $C$
 \end_inset
 
@@ -1029,8 +1030,8 @@ is a minimum difference between class predictions
 3.
  Batch selection strategy 
 \series default
-When only one sample is to be selected it is optimal to choose the one with
- maximum utility given by the acquisition function.
+When only one sample is to be selected, it is optimal to choose the one
+ with maximum utility given by the acquisition function.
  However, the complexity of the maximum utility grows exponentially when
  the strategy has to select a batch of 
 \begin_inset Formula $b$
@@ -1064,7 +1065,7 @@ selects top
 \begin_inset Formula $a_{l}.$
 \end_inset
 
- This approach may select samples close to each other which are redundant.
+ This approach may select samples close to each other, thus being redundant.
  
 \series bold
 HAC
@@ -1282,7 +1283,7 @@ literal "false"
 
  on the test data (i.e.
  the documents not present in the training set).
- The algorithms were compared after 100 acquired labels.
+ The algorithms were compared after 1000 acquired labels.
  The algorithms with smaller batch sizes thus benefited the from higher
  number of retrainings.
  To reduce the influence of stochastic initialization and training, the
@@ -1302,8 +1303,6 @@ literal "false"
 \end_inset
 
  using order statistics.
- Intuitively: a better method has a lower average rank, and methods with
- comparable ranks do not differ in performance.
  
 \end_layout
 
@@ -1320,7 +1319,7 @@ Parameter uncertainty:
 \begin_inset Float figure
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -1378,8 +1377,8 @@ noprefix "false"
 
 .
  The advantage of the Bayesian approach is evident only for the Fake News
- dataset, in other datasets, DEnFi is not worth the computational cost and
- was omitted from large-scale studies.
+ dataset; in other datasets, DEnFi is not worth the computational cost and
+ was omitted from subsequent large-scale studies.
  
 \end_layout
 
@@ -1399,8 +1398,8 @@ noprefix "false"
 
 \end_inset
 
- via AUC after 1000 samples for all methods and relative rank for all methods
- in Figure 
+ via AUC after 1000 samples for all methods, and via relative rank for all
+ methods in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Aggregated-mean-rank-1"
@@ -1413,8 +1412,8 @@ noprefix "false"
  averaged over ranks after each 100 label requests.
  Note that the datasets follow a similar pattern, with the exception of
  the Fake News data sets, where the parametric uncertainty (now represented
- only by the MC dropout strategy) is beneficial and HAC batch selection
- strategy has a negative effect.
+ only by the MC dropout strategy) is beneficial, and HAC batch selection
+ strategy has a negative effect (probably due to preference of large clusters).
  
 \end_layout
 
@@ -1424,15 +1423,7 @@ noprefix "false"
 Acquisition functions: 
 \series default
 Due to binary classification, the min-margin and entropy approaches coincide
- for a single network function, which may also explain the results of 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schroder2021uncertainty"
-literal "false"
-
-\end_inset
-
-.
+ for a single network function.
  The difference between Entropy and BALD for the ensemble methods seems
  insignificant, Figure 
 \begin_inset CommandInset ref
@@ -1454,7 +1445,7 @@ Initialization of the training:
 \series default
 The warm start strategy (HAC Entropy warm start) is better or comparable
  in performance to the cold start (HAC Min-margin); this is achieved at
- fraction of the training cost.
+ a fraction of the training cost.
  This indicates that the additive noise is sufficient to avoid overfitting
  of the hot start 
 \begin_inset CommandInset citation
@@ -1472,17 +1463,16 @@ literal "false"
 \series bold
 Batch selection strategy: 
 \series default
-The HAC batch selection has a clear advantage for lower batch sizes (10
+The HAC batch selection has a clear advantage for smaller batch sizes (10
  and 20).
  This is consistent when comparing HAC and Top variants of all methods except
  Fake News Detection.
  This advantage diminishes for batch sizes of 50 and 100 where the top selection
  strategy achieves comparable (ensembles) or better (single NN) results.
- We conjecture that: i) the most informative samples in our datasets are
- clustered in small clusters, hence the selection of a batch with large
- enough size contains the relevant samples from sufficiently large areas,
- and ii) the poor performance on the Fake News Dataset may be related to
- the preference of cluster size over the sample score.
+ We conjecture that the most informative samples in our datasets are clustered
+ in small clusters, hence the selection of a batch with a large enough size
+ contains all important samples.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1651,7 +1641,7 @@ Time ratios for a single active learning iteration for four different learning
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Float figure
@@ -1706,12 +1696,13 @@ Conclusion
 We have studied the influence of various factors of active learning algorithms
  on their performance on cover context integrity, fake news detection, and
  sentiment classification tasks.
- While complex algorithms such as deep ensembles sometimes achieved good
- performance (Fake News detection), the winner on average is the classical
+ While complex algorithms such as deep ensembles sometimes achieve good
+ performance (Fake News detection), the winner, on average, is the classical
  prediction entropy of a single neural network with few proposed modifications.
  Specifically, the warm start of the network training achieves good performance
  at a lower computational cost, and the selection of the batch for annotation
  using agglomerative clustering improves performance for smaller batch sizes.
+ 
 \end_layout
 
 \begin_layout Subsubsection*
@@ -1763,49 +1754,27 @@ literal "false"
 \begin_inset Formula $𝜖=\frac{\exp(l-3)}{\exp(l-3)+1}$
 \end_inset
 
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-how works for b=100?
-\end_layout
-
-\end_inset
-
 .
  A batch of random documents is selected for labeling if not accepted.
- After each request, the classification performance is evaluated on the
- remaining part of the selected dataset (i.e.
- on the 9990 text documents in the first evaluation) using the area under
- the ROC curve (AUC) metrics 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "fawcett2006introduction"
-literal "false"
-
-\end_inset
-
-.
- In order to make the results statistically valid, we repeat the described
- simulation loop 
+ The AUC is evaluated on the remaining part of the selected dataset (i.e.
+ on the 9990 text documents in the first evaluation).
+ The reported AUc values are averaged over 
 \begin_inset Formula $5$
 \end_inset
 
- times for all datasets.
+ independent runs.
+ 
 \end_layout
 
 \begin_layout Standard
-The initial number of epochs for the first iteration is set to 2500 for
- all algorithms.
- The same number is used for the cold start strategy in each epoch.
- In the subsequent iterations, the weights of the previous estimate are
- perturbed by 
+The initial number of epochs for the first iteration is 2500 for all algorithms.
+ The same number is used for the cold start strategy in each iteration.
+ The training of the warm start strategies is run for 150 epochs, with weights
+ perturbation noise of variance 
 \begin_inset Formula $\sigma=0.3$
 \end_inset
 
  for both MC dropout and DEnFi.
- The training of the warm start strategies is run for 150 epochs.
  Both DEnFi and MC Dropout generate 5 ensemble members.
  The key difference is in computational complexity, while DEnFi has to tune
  the parameters for each ensemble member, the MC dropout does it for only
