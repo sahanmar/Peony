@@ -332,21 +332,12 @@ Batch Active Learning for Text Classification and Sentiment Analysis
 \end_layout
 
 \begin_layout Abstract
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
 Supervised learning of classifiers for text classification and sentiment
  analysis relies on the availability of labels that may be difficult/expensive
  to obtain.
- 
-\end_layout
-
-\end_inset
-
-Active learning techniques optimize the process of obtaining labels by sequentia
-lly selecting documents from the unlabeled set for which the labels would
- be most valuable.
+ Active learning techniques optimize the process of obtaining labels by
+ sequentially selecting documents from the unlabeled set for which the labels
+ would be most valuable.
  Batch active learning selects a batch of documents for labeling
 \begin_inset Note Note
 status open
@@ -738,7 +729,7 @@ until a stopping condition:
 4.
 
 \series default
- Obtain 
+ Query labels 
 \begin_inset Formula $\tilde{\mathbf{y}}$
 \end_inset
 
@@ -1095,7 +1086,7 @@ Tested algorithm variants:
 
 \begin_layout Standard
 From the range of all possibilities, we will study the combinations that
- are existing in the literature: HAC min-margin using cold start 
+ exist in the literature: HAC min-margin using cold start 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "citovsky2021batch"
@@ -1758,7 +1749,7 @@ literal "false"
  A batch of random documents is selected for labeling if not accepted.
  The AUC is evaluated on the remaining part of the selected dataset (i.e.
  on the 9990 text documents in the first evaluation).
- The reported AUc values are averaged over 
+ The reported AUC values are averaged over 
 \begin_inset Formula $5$
 \end_inset
 
