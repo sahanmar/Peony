@@ -48,6 +48,16 @@ DATA = [
     ["625a42a8096fc9f74a546de7", "Tweet_emotion_detection", "nn_10_step_100_iters_warm_start", "entropy"],
     ["625a7477096fc9f74a546de8", "Tweet_emotion_detection", "nn_10_step_100_iters_warm_start", "bald"],
     ["625a07c5096fc9f74a546de6", "Tweet_emotion_detection", "nn_10_step_100_iters_warm_start", "random"],
+    #
+    ["62b0574a038c49ce149b8594", "Tweet_emotion_detection", "nn_100_step_10_iters_cold_start", "entropy"],
+    ["62b03d57038c49ce149b8593", "Tweet_emotion_detection", "nn_100_step_10_iters_cold_start", "random"],
+    ["62a8b8ee468e0388210f239d", "Tweet_emotion_detection", "nn_50_step_20_iters_cold_start", "entropy"],
+    ["62a877a1468e0388210f239c", "Tweet_emotion_detection", "nn_50_step_20_iters_cold_start", "random"],
+    ["62a4102d68f6ed5a8557a361", "Tweet_emotion_detection", "nn_20_step_50_iters_cold_start", "entropy"],
+    ["62a37a6768f6ed5a8557a360", "Tweet_emotion_detection", "nn_20_step_50_iters_cold_start", "random"],
+    ["62abf28fcd24307315918227", "Tweet_emotion_detection", "nn_10_step_100_iters_cold_start", "entropy"],
+    ["62aac4d6cd24307315918226", "Tweet_emotion_detection", "nn_10_step_100_iters_cold_start", "random"],
+    #
     ["62442f786d577d72f4c9cb3f", "Gibberish", "nn_100_step_10_iters", "min_margin"],
     ["624444db6d577d72f4c9cb40", "Gibberish", "mc_dropout_100_step_10_iters", "hac_entropy"],
     ["624459176d577d72f4c9cb41", "Gibberish", "mc_dropout_100_step_10_iters", "hac_bald"],
@@ -92,6 +102,16 @@ DATA = [
     ["625c5a32c86c08c674ae48da", "Gibberish", "nn_10_step_100_iters_warm_start", "entropy"],
     ["625c926fc86c08c674ae48db", "Gibberish", "nn_10_step_100_iters_warm_start", "bald"],
     ["625c177ec86c08c674ae48d9", "Gibberish", "nn_10_step_100_iters_warm_start", "random"],
+    #
+    ["62ae0c73667a85ff7d1d61b5", "Gibberish", "nn_100_step_10_iters_cold_start", "entropy"],
+    ["62adec61667a85ff7d1d61b4", "Gibberish", "nn_100_step_10_iters_cold_start", "random"],
+    ["62a8b79e9e598b9074d3d71a", "Gibberish", "nn_50_step_20_iters_cold_start", "entropy"],
+    ["62a877199e598b9074d3d719", "Gibberish", "nn_50_step_20_iters_cold_start", "random"],
+    ["62a6726c8a92b7bfcc6e8f3e", "Gibberish", "nn_20_step_50_iters_cold_start", "entropy"],
+    ["62a5fb518a92b7bfcc6e8f3d", "Gibberish", "nn_20_step_50_iters_cold_start", "random"],
+    ["62abebbd71cf023197c7a0c7", "Gibberish", "nn_10_step_100_iters_cold_start", "entropy"],
+    ["62aabf8671cf023197c7a0c6", "Gibberish", "nn_10_step_100_iters_cold_start", "random"],
+    #
     ["62442f002f3c8041223f43d5", "Amazon Review 3, 5", "nn_100_step_10_iters", "min_margin"],
     ["624444ee2f3c8041223f43d6", "Amazon Review 3, 5", "mc_dropout_100_step_10_iters", "hac_entropy"],
     ["62445a892f3c8041223f43d7", "Amazon Review 3, 5", "mc_dropout_100_step_10_iters", "hac_bald"],
@@ -141,6 +161,16 @@ DATA = [
     ["6259d8a88e9230fdf1ade53e", "Amazon Review 3, 5", "nn_10_step_100_iters_warm_start", "entropy"],
     ["625a20d68e9230fdf1ade53f", "Amazon Review 3, 5", "nn_10_step_100_iters_warm_start", "bald"],
     ["62598efb8e9230fdf1ade53d", "Amazon Review 3, 5", "nn_10_step_100_iters_warm_start", "random"],
+    #
+    ["62ac6e147420eb1f9cbcf13a", "Amazon Review 3, 5", "nn_100_step_10_iters_cold_start", "entropy"],
+    ["62ac4dc07420eb1f9cbcf139", "Amazon Review 3, 5", "nn_100_step_10_iters_cold_start", "random"],
+    ["62a7712a0f2e97f5cb95b353", "Amazon Review 3, 5", "nn_50_step_20_iters_cold_start", "entropy"],
+    ["62a7344d0f2e97f5cb95b352", "Amazon Review 3, 5", "nn_50_step_20_iters_cold_start", "random"],
+    ["62a408e3e3d593c4739b804e", "Amazon Review 3, 5", "nn_20_step_50_iters_cold_start", "entropy"],
+    ["62a375e2e3d593c4739b804d", "Amazon Review 3, 5", "nn_20_step_50_iters_cold_start", "random"],
+    ["62ae27e0e1df8d304af2a977", "Amazon Review 3, 5", "nn_10_step_100_iters_cold_start", "entropy"],
+    ["62ad31a4e1df8d304af2a976", "Amazon Review 3, 5", "nn_10_step_100_iters_cold_start", "random"],
+    #
     ["6246d66149d95ab971503607", "Fake news detection", "nn_100_step_10_iters", "min_margin"],
     ["6246de6f49d95ab971503608", "Fake news detection", "mc_dropout_100_step_10_iters", "hac_entropy"],
     ["6246e69949d95ab971503609", "Fake news detection", "mc_dropout_100_step_10_iters", "hac_bald"],
@@ -190,6 +220,16 @@ DATA = [
     ["625cc7347ce437e78a7a2f69", "Fake news detection", "nn_10_step_100_iters_warm_start", "entropy"],
     ["625cf4a27ce437e78a7a2f6a", "Fake news detection", "nn_10_step_100_iters_warm_start", "bald"],
     ["625c9ad97ce437e78a7a2f68", "Fake news detection", "nn_10_step_100_iters_warm_start", "random"],
+    #
+    ["62b05d78dfc4f444714b908c", "Fake news detection", "nn_100_step_10_iters_cold_start", "entropy"],
+    ["62b041d1dfc4f444714b908b", "Fake news detection", "nn_100_step_10_iters_cold_start", "random"],
+    ["62a8c06a4d78e3e756856b70", "Fake news detection", "nn_50_step_20_iters_cold_start", "entropy"],
+    ["62a87d8d4d78e3e756856b6f", "Fake news detection", "nn_50_step_20_iters_cold_start", "random"],
+    ["62a687334412584231d1dfff", "Fake news detection", "nn_20_step_50_iters_cold_start", "entropy"],
+    ["62a605bc4412584231d1dffe", "Fake news detection", "nn_20_step_50_iters_cold_start", "random"],
+    ["62ac07e25de9c35d5d1e9794", "Fake news detection", "nn_10_step_100_iters_cold_start", "entropy"],
+    ["62aad2e65de9c35d5d1e9793", "Fake news detection", "nn_10_step_100_iters_cold_start", "random"],
+    #
     ["6256af3008ad855bbecc3c09", "Amazon Review 1, 5", "nn_100_step_10_iters", "min_margin"],
     ["6256c3d208ad855bbecc3c0a", "Amazon Review 1, 5", "mc_dropout_100_step_10_iters", "hac_entropy"],
     ["6256d9fc08ad855bbecc3c0b", "Amazon Review 1, 5", "mc_dropout_100_step_10_iters", "hac_bald"],
@@ -234,4 +274,14 @@ DATA = [
     ["625ed86f65e41edab31635bf", "Amazon Review 1, 5", "nn_10_step_100_iters_warm_start", "entropy"],
     ["625f1d3965e41edab31635c0", "Amazon Review 1, 5", "nn_10_step_100_iters_warm_start", "bald"],
     ["625e903e65e41edab31635be", "Amazon Review 1, 5", "nn_10_step_100_iters_warm_start", "random"],
+    #
+    ["62acb88204e7c165291ac8da", "Amazon Review 1, 5", "nn_100_step_10_iters_cold_start", "entropy"],
+    ["62ac981804e7c165291ac8d9", "Amazon Review 1, 5", "nn_100_step_10_iters_cold_start", "random"],
+    ["62a7710ebd0a8741a56771fe", "Amazon Review 1, 5", "nn_50_step_20_iters_cold_start", "entropy"],
+    ["62a7334ebd0a8741a56771fd", "Amazon Review 1, 5", "nn_50_step_20_iters_cold_start", "random"],
+    ["62a5909d646302feb0ac4444", "Amazon Review 1, 5", "nn_20_step_50_iters_cold_start", "entropy"],
+    ["62a376fb60198063937b96fe", "Amazon Review 1, 5", "nn_20_step_50_iters_cold_start", "random"],
+    ["62ae28e2657ef787c773fe2f", "Amazon Review 1, 5", "nn_10_step_100_iters_cold_start", "entropy"],
+    ["62ad3275657ef787c773fe2e", "Amazon Review 1, 5", "nn_10_step_100_iters_cold_start", "random"],
+    #
 ]

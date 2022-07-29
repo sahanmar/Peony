@@ -88,6 +88,8 @@ def heatmap_batch(
                 "NN Entropy\nWarm-start",
                 # "NN BALD\nWarm-start",
                 "NN Random\nWarm-start",
+                "NN Entropy\nCold-start",
+                "NN Random\nCold-start",
             ],
             vmin=math.floor(df_h.min().min()),
             vmax=math.ceil(df_h.max().max()),
@@ -169,6 +171,8 @@ def heatmap_datasets(dfs: List[pd.DataFrame]) -> None:
             "NN Entropy\nWarm-start",
             # "NN BALD\nWarm-start",
             "NN Random\nWarm-start",
+            "NN Entropy\nCold-start",
+            "NN Random\nCold-start",
         ]
 
         # fig, ax = plt.subplots(figsize=(8, 6))
@@ -271,8 +275,11 @@ def merge_resuls_and_metadata(
         batch_int = int(batch.group(0))  # type: ignore
 
         warm_start = re.search(r"warm_start", row[2])
+        cold_start = re.search(r"cold_start", row[2])
         if warm_start:
             alg = row[2][: batch_span[0] - 1] + "_warm_start_" + row[3]
+        elif cold_start:
+            alg = row[2][: batch_span[0] - 1] + "_cold_start_" + row[3]
         else:
             alg = row[2][: batch_span[0] - 1] + "_" + row[3]
         mean = np.mean(id_res, axis=0)
@@ -396,7 +403,7 @@ def get_batch_rank_subplots(df: pd.DataFrame) -> None:
         plt.subplot(2, 3, 6),
         label_size,
     )
-    plt.tight_layout()
+    #plt.tight_layout()
     plt.show()
 
 
@@ -461,6 +468,8 @@ def plot_auc_for_batches(df):
         "nn_warm_start_hac_entropy": "NN HAC Entropy\nWarm-start",
         "nn_warm_start_entropy": "NN Entropy\nWarm-start",
         "nn_warm_start_random": "NN Random\nWarm-start",
+        "nn_cold_start_entropy": "NN Entropy\nCold-start",
+        "nn_cold_start_random": "NN Random\nCold-start"
     }
     batches = [10, 20, 50, 100]
     for i, (dataset, dataset_title) in enumerate(datasets.items()):
