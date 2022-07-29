@@ -103,6 +103,8 @@ def active_learning_simulation_round(
             peony_model.bayesian_denfi_nn.fit(training_instances, training_labels, transformation_needed)
         elif model == "bayesian_dropout":
             peony_model.bayesian_dropout_nn.fit(training_instances, training_labels, transformation_needed)
+        elif model == "bayesian_vadam":
+            peony_model.bayesian_vadam_nn.fit(training_instances, training_labels, transformation_needed)
         else:
             peony_model.random_forest_model.fit(training_instances, training_labels, transformation_needed)
 
@@ -121,6 +123,8 @@ def active_learning_simulation_round(
                 predicted = peony_model.bayesian_denfi_nn.predict(testing_instances, transformation_needed)
             elif model == "bayesian_dropout":
                 predicted = peony_model.bayesian_dropout_nn.predict(testing_instances, transformation_needed)
+            elif model == "bayesian_vadam":
+                predicted = peony_model.bayesian_vadam_nn.predict(testing_instances, transformation_needed)
             else:
                 predicted = peony_model.random_forest_model.predict(testing_instances, transformation_needed)
 
@@ -147,6 +151,10 @@ def active_learning_simulation_round(
                 )
             elif model == "bayesian_dropout":
                 indices = peony_model.bayesian_dropout_nn.get_learning_samples(
+                    testing_instances, transformation_needed
+                )
+            elif model == "bayesian_vadam":
+                indices = peony_model.bayesian_vadam_nn.get_learning_samples(
                     testing_instances, transformation_needed
                 )
             else:
@@ -181,6 +189,10 @@ def active_learning_simulation_round(
                 )
             elif model == "bayesian_dropout":
                 peony_model.bayesian_dropout_nn.add_new_learning_samples(
+                    training_instances, training_labels, transformation_needed
+                )
+            elif model == "bayesian_vadam":
+                peony_model.bayesian_vadam_nn.add_new_learning_samples(
                     training_instances, training_labels, transformation_needed
                 )
             else:

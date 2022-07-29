@@ -11,7 +11,7 @@ from Peony_box.src.peony_adjusted_models.feed_forward_nn import PeonyFeedForward
 from Peony_box.src.peony_adjusted_models.sgld_nn import PeonySGLDFeedForwardNN
 from Peony_box.src.peony_adjusted_models.denfi_nn import PeonyDENFIFeedForwardNN
 from Peony_box.src.peony_adjusted_models.dropout_nn import PeonyDropoutFeedForwardNN
-
+from Peony_box.src.peony_adjusted_models.vadam_nn import PeonyVadamFeedForwardNN
 
 RAND_SAMPLES_RATIO = 0.7
 ACQUISITION_FUNC_RATIO = 1
@@ -63,7 +63,7 @@ class PeonyBoxModel:
         )
         self.bayesian_dropout_nn = GeneralizedPeonyBoxModel(
             model=PeonyDropoutFeedForwardNN(
-                hidden_size=100, num_classes=number_of_classes_for_nn, dropout_in_eval = True
+                hidden_size=100, num_classes=number_of_classes_for_nn, dropout_in_eval=True
             ),  # 120 for LSTM
             transformator=transformator,
             active_learning_step=active_learning_step,
@@ -75,6 +75,17 @@ class PeonyBoxModel:
         self.dropout_nn = GeneralizedPeonyBoxModel(
             model=PeonyDropoutFeedForwardNN(
                 hidden_size=100, num_classes=number_of_classes_for_nn, cold_start=True, dropout_in_eval=False
+            ),  # 120 for LSTM
+            transformator=transformator,
+            active_learning_step=active_learning_step,
+            acquisition_function=acquisition_function,
+            greedy_coef_decay=greedy_coef_decay,
+            reset_after_adding_new_samples=False,
+            ascquisition_func_ratio=ACQUISITION_FUNC_RATIO,
+        )
+        self.bayesian_vadam_nn = GeneralizedPeonyBoxModel(
+            model=PeonyVadamFeedForwardNN(
+                hidden_size=100, num_classes=number_of_classes_for_nn
             ),  # 120 for LSTM
             transformator=transformator,
             active_learning_step=active_learning_step,

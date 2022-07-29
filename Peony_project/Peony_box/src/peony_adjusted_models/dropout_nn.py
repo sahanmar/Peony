@@ -118,7 +118,10 @@ class PeonyDropoutFeedForwardNN:
             with torch.no_grad():
                 predicted_list.append(
                     np.concatenate(
-                        [self.model[index].predict(instances).data.cpu().detach().numpy() for instances, _ in data],
+                        [
+                            self.model[index].predict(instances).data.cpu().detach().numpy()
+                            for instances, _ in data
+                        ],
                         axis=0,
                     )
                 )
