@@ -65,7 +65,7 @@
 \acmConference[Conference acronym 'XX]{Make sure to enter the correct
   conference title from your rights confirmation emai}{August 26--28,
   2022}{Xi'an}
-\acmISBN{978-1-4503-9045-3}
+\acmISBN{XXX-X-XXXX-XXXX-X}
 
 
 %%
@@ -146,7 +146,7 @@
 \use_package undertilde 0
 \cite_engine natbib
 \cite_engine_type authoryear
-\biblio_style plain
+\biblio_style plainnat
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -369,30 +369,46 @@ radek.marik@fel.cvut.cz
 
 \begin_layout Abstract
 Supervised learning of classifiers for text classification and sentiment
- analysis relies on the availability of labels that may be difficult/expensive
- to obtain.
- Active learning techniques optimize the process of obtaining labels by
- sequentially selecting documents from the unlabeled set for which the labels
- would be most valuable.
- Batch active learning selects a batch of documents for labeling which is
- much more demanding.
- In this paper, we propose new methods for batch active learning by combining
- Bayesian strategies with agglomerative clustering.
- We study the effect of this proposal in a large-scale study comparing the
- effect of varying distinct factors of an active learning algorithm (initializat
-ion of the algorithm, uncertainty representation, acquisition function,
- and batch selection strategy).
- Various combinations of these are tested on selected NLP problems with
- documents encoded using RoBERTa.
- Datasets cover context integrity, fake news detection, and sentiment classifica
-tion.
- We show that each of the active learning factors has advantages for certain
- datasets or experimental settings.
+ analysis relies on the availability of labels that may be either difficult
+ or expensive to obtain.
+ A standard procedure is to add labels to the training dataset sequentially
+ by querying an annotator until the model reaches a satisfactory performance.
+ Active learning is a process that optimizes unlabeled data records selection
+ for which the knowledge of the label would bring the highest discriminability
+ of the dataset.
+ Batch active learning is a generalization of a single instance active learning
+ by selecting a batch of documents for labeling.
+ This task is much more demanding because plenty of different factors come
+ into consideration (i.
+ e.
+ batch size, batch evaluation, etc.).
+ In this paper, we provide a large scale study by decomposing the existing
+ algorithms into building blocks and systematically comparing meaningful
+ combinations of these blocks with a subsequent evaluation on different
+ text datasets.
+ While each block is known (warm start weights initialization, Dropout MC,
+ entropy sampling, etc.), many of their combinations like Bayesian strategies
+ with agglomerative clustering are first proposed in our paper with excellent
+ performance.
+ Particularly, our extension of the warm start method to batch active learning
+ is among the top performing strategies on all datasets.
+ We studied the effect of this proposal comparing the outcomes of varying
+ distinct factors of an active learning algorithm.
+ Some of these factors include initialization of the algorithm, uncertainty
+ representation, acquisition function, and batch selection strategy.
+ Further, various combinations of these are tested on selected NLP problems
+ with documents encoded using RoBERTa embeddings.
+ Datasets cover context integrity (Gibberish Wackerow), fake news detection
+ (Kaggle Fake News Detection), categorization of short texts by emotional
+ context (Twitter Sentiment140), and sentiment classification (Amazon Reviews).
+ Ultimately, we show that each of the active learning factors has advantages
+ for certain datasets or experimental settings.
 \end_layout
 
 \begin_layout Keywords
-active learning, batch active learning, natural language processing, sensitivity
- study, text classification
+active learning, BALD, batch active learning, dropout mc, entropy sampling,
+ HAC min-margin, natural language processing, RoBERTa, sensitivity study,
+ text classification, warm start
 \end_layout
 
 \begin_layout Section
@@ -537,16 +553,6 @@ literal "false"
 
 .
  This is a novel combination that has not been tested before.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Comment in relevant section – HAC
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Enumerate
@@ -554,36 +560,21 @@ We show that performance of various methods is clustered based on particular
  building blocks of the method.
  Thus indicating that active learning methods may be tailored for each target
  application.
+ A good example of Bayesian methods lies in estimating the distribution
+ of neural networks which performed the best on Fake news but showed the
+ same results on other datasets.
  
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Comment on this e.g.
- Uncertainty – fake news
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Enumerate
-In large scale study we demonstrate that warm start is often beneficial
+In a large scale study we demonstrate that warm start is often beneficial
  and even simple methods (such as single neural network with entropy acquisition
 ) provide results competitive to, or better than, complex active learning
  schemes.
+ We also show that cold start approaches reach the same or even worse results
+ than the aforementioned warm start techniques.
  This is encouraging for practitioners that are interested in the methodology.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Comment with respect to new results with cold start.
-\end_layout
-
-\end_inset
-
-
+ 
 \end_layout
 
 \begin_layout Standard
@@ -838,46 +829,6 @@ The general algorithm can be specialized to many variants depending on various
  factors as specified next.
  We will introduce several choices labeled by the step in which they appear
  in algorithm 1.
-\begin_inset Float figure
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/1000_req_AUC_for_different_batches_2_datasets.eps
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:AUC-metrics-for"
-
-\end_inset
-
-AUC metrics for seven active learning and two random strategies after 1000
- acquired samples given datasets and batch size.
- Prediction of the MC dropout classifiers is an average over ensemble members.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -1195,6 +1146,46 @@ Experiment Setup
 
 \begin_layout Standard
 \begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/1000_req_AUC_for_different_batches_2_datasets.eps
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:AUC-metrics-for"
+
+\end_inset
+
+AUC metrics for seven active learning and two random strategies after 1000
+ acquired samples given datasets and batch size.
+ Prediction of the MC dropout classifiers is an average over ensemble members.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
 wide false
 sideways false
 status open
@@ -1254,7 +1245,15 @@ literal "false"
 
 \end_inset
 
-, two pairs of categories from Amazon Reviews, and Gibberish 
+, two pairs of categories from Amazon Reviews 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "keung2020multilingual"
+literal "false"
+
+\end_inset
+
+, and Gibberish 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Gibberish_dataset"
@@ -1278,49 +1277,93 @@ ation, e.g.
 \end_inset
 
  documents of the datasets given categories.
+ The only exception is Fake News Detection where only 4000 documents are
+ available (2000 text documents per category).
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
 
-\begin_layout Plain Layout
-
-\lang american
-Computational complexity of the batch generation grown with the number of
- documents in the unlabeled data set, 
-\begin_inset Formula $L$
-\end_inset
-
-.
- The evaluation of the acquisition functions is linear in 
-\begin_inset Formula $L$
-\end_inset
-
-.
- Complexity of sort on the top strategy is 
-\begin_inset Formula $O(L\log L)$
-\end_inset
-
- and clustering and 
-\begin_inset Formula $O(cL^{2})$
-\end_inset
-
- where 
-\begin_inset Formula $c$
-\end_inset
-
- is the number of clusters.
- The number of clusters in the HAC algorithm was 
-\begin_inset Formula $???$
-\end_inset
-
-.
+\series bold
+Experiment Parameters:
 \end_layout
 
+\begin_layout Standard
+Each active learning experiment was initialized by the training set 
+\begin_inset Formula $\mathbf{X}^{(0)},\mathbf{Y}^{(0)}$
 \end_inset
 
+ of 
+\begin_inset Formula $10$
+\end_inset
 
+ samples.
+ The active learning strategy was set to sample 
+\begin_inset Formula $b$
+\end_inset
+
+ samples with a discrete set of variants, 
+\begin_inset Formula $b=10,20,50,100$
+\end_inset
+
+.
+ The active learning was run until 1000 samples were labeled, i.e.
+ making a different number of steps for each batch size (10 iterations for
+ 
+\begin_inset Formula $b=100$
+\end_inset
+
+, 20 for 
+\begin_inset Formula $b=50$
+\end_inset
+
+, etc.).
+ The batch selection follows the 𝜖 -greedy approach 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "watkins1989learning"
+literal "false"
+
+\end_inset
+
+, i.e.
+ the samples selected by the acquisition function are accepted with probability
+ 
+\begin_inset Formula $𝜖=\frac{\exp(l-3)}{\exp(l-3)+1}$
+\end_inset
+
+.
+ A batch of random documents is selected for labeling if not accepted.
+ The AUC is evaluated on the remaining part of the selected dataset (i.e.
+ on the 9990 text documents in the first evaluation).
+ The reported AUC values are averaged over 
+\begin_inset Formula $5$
+\end_inset
+
+ independent runs.
+ 
+\end_layout
+
+\begin_layout Standard
+The initial number of epochs for the first iteration is 2500 for all algorithms.
+ The same number is used for the cold start strategy in each iteration.
+ The training of the warm start strategies is run for 150 epochs, with weights
+ perturbation noise of variance 
+\begin_inset Formula $\sigma=0.3$
+\end_inset
+
+ for both MC dropout and DEnFi.
+ Both DEnFi and MC Dropout generate 5 ensemble members.
+ The key difference is in computational complexity, while DEnFi has to tune
+ the parameters for each ensemble member, the MC dropout does it for only
+ one network and generated ensemble members by 5 different realizations
+ of the dropout mask.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Evaluation:
 \end_layout
 
 \begin_layout Standard
@@ -1428,8 +1471,12 @@ noprefix "false"
 
 .
  The advantage of the Bayesian approach is evident only for the Fake News
- dataset; in other datasets, DEnFi is not worth the computational cost and
- was omitted from subsequent large-scale studies.
+ dataset.
+ This behavior is a result of a good neural network parameters distribution
+ estimate.
+ However, in other datasets, DEnFi performed as good as a single neural
+ network, and is not worth the computational cost.
+ As a result, the algorithm was omitted from subsequent large-scale studies.
  
 \end_layout
 
@@ -1463,9 +1510,9 @@ noprefix "false"
  averaged over ranks after each 100 label requests.
  Note that the datasets follow a similar pattern, with the exception of
  the Fake News data sets, where the parametric uncertainty (now represented
- only by the MC dropout strategy) is beneficial, and HAC batch selection
- strategy has a negative effect (probably due to preference of large clusters).
- 
+ only by the warm start MC dropout strategy) is beneficial, and HAC batch
+ selection strategy has a negative effect (probably due to preference of
+ large clusters).
 \end_layout
 
 \begin_layout Standard
@@ -1475,8 +1522,8 @@ Acquisition functions:
 \series default
 Due to binary classification, the min-margin and entropy approaches coincide
  for a single network function.
- The difference between Entropy and BALD for the ensemble methods seems
- insignificant, Figure 
+ The difference between our generalization of Entropy and BALD methods for
+ the ensemble techniques seems insignificant, Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Aggregated-mean-rank-1"
@@ -1487,6 +1534,10 @@ noprefix "false"
 \end_inset
 
 .
+ HAC methods perform well for some cases, but a simple entropy approach
+ shows more stable results for the majority of problems, batch sizes, and
+ initializations.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1494,8 +1545,9 @@ noprefix "false"
 \series bold
 Initialization of the training: 
 \series default
-The warm start strategy (HAC Entropy warm start) is better or comparable
- in performance to the cold start (HAC Min-margin); this is achieved at
+The proposed modification on warm start strategies (HAC Entropy, NN Entropy,
+ and NN Random warm start) are better or comparable in performance to the
+ cold start (HAC Min-margin, NN Entropy, NN Random); this is achieved at
  a fraction of the training cost.
  This indicates that the additive noise is sufficient to avoid overfitting
  of the hot start 
@@ -1518,204 +1570,35 @@ The HAC batch selection has a clear advantage for smaller batch sizes (10
  and 20).
  This is consistent when comparing HAC and Top variants of all methods except
  Fake News Detection.
- This advantage diminishes for batch sizes of 50 and 100 where the top selection
+ Smaller batch sizes and the proposed generalization to warm start HAC outperfor
+ms the cold start approach in most of cases.
+ The batch advantage diminishes for sizes of 50 and 100 where the top selection
  strategy achieves comparable (ensembles) or better (single NN) results.
- We conjecture that the most informative samples in our datasets are clustered
- in small clusters, hence the selection of a batch with a large enough size
+ We project that the most informative samples in our datasets are clustered
+ in small groups, hence the selection of a batch with a large enough size
  contains all important samples.
  
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\lang american
-\begin_inset Float table
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-
-\lang american
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang american
-Algorithm
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang american
-Active leaning
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" bottomline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" bottomline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang american
-iteration ratio
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang american
-Cold Start NN (3000)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang american
-1 (64.08s)
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang american
-MC Dropout (150ep)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang american
-0.30 (19.358s)
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang american
-DEnFi (700ep, 5x)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang american
-0.73 (46.77s)
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang american
-Warm Start NN (150ep)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang american
-0.28 (17.92s)
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
+The contribution of this paper lies in a comparative study where we decomposed
+ different algorithms into building blocks and generalized various approaches.
+ For a better understanding of the methodology, we selected some approaches
+ for demonstration.
+ In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Evolution-of-active-learning-run"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang american
-Time ratios for a single active learning iteration for four different learning
- approaches with HAC Entropy acquisition function and batch size 100
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+ a comparison of various active learning sequences is displayed.
+ More specifically, the methods proposed by us to well studied HAC min-margin
+ approach.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1740,8 +1623,14 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Evolution of the mean AUC with growing number of requests for the best algorithm
-s representative vs HAC Min-margin given the batch size and dataset.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Evolution-of-active-learning-run"
+
+\end_inset
+
+Evolution of the mean AUC with a growing number of requests for the best
+ algorithms representative vs HAC Min-margin given the batch size and dataset.
  The uncertainty bounds are illustrated as one standard deviation from the
  mean value with respect to 5 runs.
  All algorithms were initially trained on 10 labeled text documents before
@@ -1763,93 +1652,21 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-We have studied the influence of various factors of active learning algorithms
- on their performance on cover context integrity, fake news detection, and
- sentiment classification tasks.
- While complex algorithms such as deep ensembles sometimes achieve good
- performance (Fake News detection), the winner, on average, is the classical
- prediction entropy of a single neural network with few proposed modifications.
- Specifically, the warm start of the network training achieves good performance
- at a lower computational cost, and the selection of the batch for annotation
- using agglomerative clustering improves performance for smaller batch sizes.
- 
-\end_layout
-
-\begin_layout Subsubsection*
-\start_of_appendix
-Appendix: Experiment parameters
-\end_layout
-
-\begin_layout Standard
-Each active learning experiment was initialized by the training set 
-\begin_inset Formula $\mathbf{X}^{(0)},\mathbf{Y}^{(0)}$
-\end_inset
-
- of 
-\begin_inset Formula $10$
-\end_inset
-
- samples.
- The active learning strategy was set to sample 
-\begin_inset Formula $b$
-\end_inset
-
- samples with a discrete set of variants, 
-\begin_inset Formula $b=10,20,50,100$
-\end_inset
-
-.
- The active learning was run until 1000 samples were labeled, i.e.
- making a different number of steps for each batch size (10 iterations for
- 
-\begin_inset Formula $b=100$
-\end_inset
-
-, 20 for 
-\begin_inset Formula $b=50$
-\end_inset
-
-, etc.).
- The batch selection follows the 𝜖 -greedy approach 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "watkins1989learning"
-literal "false"
-
-\end_inset
-
-, i.e.
- the samples selected by the acquisition function are accepted with probability
- 
-\begin_inset Formula $𝜖=\frac{\exp(l-3)}{\exp(l-3)+1}$
-\end_inset
-
-.
- A batch of random documents is selected for labeling if not accepted.
- The AUC is evaluated on the remaining part of the selected dataset (i.e.
- on the 9990 text documents in the first evaluation).
- The reported AUC values are averaged over 
-\begin_inset Formula $5$
-\end_inset
-
- independent runs.
- 
-\end_layout
-
-\begin_layout Standard
-The initial number of epochs for the first iteration is 2500 for all algorithms.
- The same number is used for the cold start strategy in each iteration.
- The training of the warm start strategies is run for 150 epochs, with weights
- perturbation noise of variance 
-\begin_inset Formula $\sigma=0.3$
-\end_inset
-
- for both MC dropout and DEnFi.
- Both DEnFi and MC Dropout generate 5 ensemble members.
- The key difference is in computational complexity, while DEnFi has to tune
- the parameters for each ensemble member, the MC dropout does it for only
- one network and generated ensemble members by 5 different realizations
- of the dropout mask.
+We have studied the influence of various factors (i.
+ e.
+ acquisition functions, batch sizes, neural networks initialization) of
+ active learning algorithms and their performance on cover context integrity,
+ fake news detection, and sentiment classification tasks.
+ While complex algorithms such as deep ensembles (DEnFi and Dropout MC)
+ sometimes achieve good performance (Fake News detection), the winner, on
+ average, is the classical prediction entropy of a single neural network
+ with a few proposed modifications like warm start.
+ Although the performance of the warm start method can sometimes be the
+ same assume the cold start, the undeniable benefit is a lower computational
+ cost.
+ The selection of the batch size for annotation is also important.
+ The agglomerative clustering improves performance for smaller batch sizes
+ and may show better results than a more general method like entropy sampling.
  
 \end_layout
 
