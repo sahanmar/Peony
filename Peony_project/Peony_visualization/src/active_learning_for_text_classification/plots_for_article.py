@@ -132,7 +132,7 @@ def visualize_auc_evolutions(
         color="g",
     )
 
-    ax.set_xlabel("Learning Iterations", fontsize=17)
+    ax.set_xlabel("Requests", fontsize=17)
     ax.set_ylabel("AUC", fontsize=17)
     ax.set_title(
         f"{title} categories",
