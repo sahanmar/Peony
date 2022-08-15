@@ -44,7 +44,6 @@
 %%
 %% The first command in your LaTeX source must be the \documentclass command.
 
-
 %%
 %% \BibTeX command to typeset BibTeX logo in the docs
 \AtBeginDocument{%
@@ -65,7 +64,7 @@
 \acmConference[Conference acronym 'XX]{Make sure to enter the correct
   conference title from your rights confirmation emai}{August 26--28,
   2022}{Xi'an}
-\acmISBN{XXX-X-XXXX-XXXX-X}
+\acmISBN{978-1-4503-9685-1}
 
 
 %%
@@ -105,7 +104,7 @@
 %%
 %% end of the preamble, start of the body of the document source.
 \end_preamble
-\options manuscript,screen,review
+\options manuscript,screen
 \use_default_options false
 \maintain_unincluded_children false
 \language english
@@ -145,8 +144,9 @@
 \use_package stmaryrd 0
 \use_package undertilde 0
 \cite_engine natbib
-\cite_engine_type authoryear
-\biblio_style plainnat
+\cite_engine_type default
+\biblio_style ACM-Reference-Format
+\biblio_options ACM-Reference-Format
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -365,10 +365,6 @@ status open
 
 \begin_layout Email
 radek.marik@fel.cvut.cz
-\end_layout
-
-\begin_layout Date
-August 2022
 \end_layout
 
 \begin_layout Abstract
@@ -815,7 +811,8 @@ until a stopping condition:
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-General batch active learning 
+General batch active learning.
+ 
 \end_layout
 
 \end_inset
@@ -1405,7 +1402,7 @@ literal "false"
 \end_layout
 
 \begin_layout Section
-Results
+Results and Discussions
 \end_layout
 
 \begin_layout Standard
@@ -1602,7 +1599,10 @@ noprefix "false"
  a comparison of various active learning sequences is displayed.
  More specifically, the methods proposed by us to well studied HAC min-margin
  approach.
- 
+ The uncertainty bounds in the figure are illustrated as one standard deviation
+ from the mean value with respect to 5 runs.
+ All algorithms were initially trained on 10 labeled text documents before
+ sequential learning strategies were initialized.
 \end_layout
 
 \begin_layout Standard
@@ -1635,10 +1635,6 @@ name "fig:Evolution-of-active-learning-run"
 
 Evolution of the mean AUC with a growing number of requests for the best
  algorithms representative vs HAC Min-margin given the batch size and dataset.
- The uncertainty bounds are illustrated as one standard deviation from the
- mean value with respect to 5 runs.
- All algorithms were initially trained on 10 labeled text documents before
- sequential learning strategies were initialized
 \end_layout
 
 \end_inset
@@ -1679,7 +1675,7 @@ We have studied the influence of various factors (i.
 LatexCommand bibtex
 btprint "btPrintCited"
 bibfiles "bib"
-options "acl_natbib"
+options "acm"
 
 \end_inset
 
