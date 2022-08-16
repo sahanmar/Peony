@@ -55,9 +55,9 @@
 %% values in them; it is your responsibility as an author to replace
 %% the commands and values with those provided to you when you
 %% complete the rights form.
-\setcopyright{acmcopyright}
-\copyrightyear{2022}
-\acmYear{2022}
+%\setcopyright{acmcopyright}
+%\copyrightyear{2022}
+%\acmYear{2022}
 %\acmDOI{XXXXXXX.XXXXXXX}
 
 %% These commands are for a PROCEEDINGS abstract or paper.
