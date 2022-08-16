@@ -58,7 +58,7 @@
 \setcopyright{acmcopyright}
 \copyrightyear{2022}
 \acmYear{2022}
-\acmDOI{XXXXXXX.XXXXXXX}
+%\acmDOI{XXXXXXX.XXXXXXX}
 
 %% These commands are for a PROCEEDINGS abstract or paper.
 \acmConference[Conference acronym 'XX]{Make sure to enter the correct
@@ -144,8 +144,8 @@
 \use_package stmaryrd 0
 \use_package undertilde 0
 \cite_engine natbib
-\cite_engine_type default
-\biblio_style ACM-Reference-Format
+\cite_engine_type numerical
+\biblio_style plainnat
 \biblio_options ACM-Reference-Format
 \use_bibtopic false
 \use_indices false
@@ -699,6 +699,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align left
 
 \series bold
 Initialize
@@ -719,6 +720,7 @@ Initialize
 \end_layout
 
 \begin_layout Plain Layout
+\align left
 
 \series bold
 Iterate 
@@ -726,13 +728,9 @@ Iterate
 until a stopping condition:
 \end_layout
 
-\begin_layout Plain Layout
-
-\series bold
-1.
-
-\series default
- Train a classifier parameter 
+\begin_layout Enumerate
+\align left
+Train a classifier parameter 
 \begin_inset Formula $\theta^{(i)}$
 \end_inset
 
@@ -747,13 +745,9 @@ until a stopping condition:
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\series bold
-2.
-
-\series default
- Compute the value of a label for all documents in the unlabeled dataset,
+\begin_layout Enumerate
+\align left
+Compute the value of a label for all documents in the unlabeled dataset,
  
 \begin_inset Formula $a_{l}=A(\mathbf{x}_{l},\theta^{(i)}),$
 \end_inset
@@ -765,13 +759,9 @@ until a stopping condition:
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\series bold
-3.
-
-\series default
- Select a batch of documents, 
+\begin_layout Enumerate
+\align left
+Select a batch of documents, 
 \begin_inset Formula $\tilde{\mathbf{X}}\subset\mathbf{X},$
 \end_inset
 
@@ -782,13 +772,9 @@ until a stopping condition:
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\series bold
-4.
-
-\series default
- Query labels 
+\begin_layout Enumerate
+\align left
+Query labels 
 \begin_inset Formula $\tilde{\mathbf{y}}$
 \end_inset
 
@@ -1670,12 +1656,25 @@ We have studied the influence of various factors (i.
  
 \end_layout
 
+\begin_layout Section*
+ACKNOWLEDGMENTS
+\end_layout
+
+\begin_layout Standard
+The authors acknowledge the support of the ...
+\end_layout
+
+\begin_layout Standard
+We would like to also express our gratitude to Deep Discovery company for
+ provision of computational power.
+\end_layout
+
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 btprint "btPrintCited"
 bibfiles "bib"
-options "acm"
+options "acl_natbib"
 
 \end_inset
 

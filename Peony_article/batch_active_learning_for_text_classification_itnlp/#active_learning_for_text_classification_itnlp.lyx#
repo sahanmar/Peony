@@ -58,7 +58,6 @@
 \setcopyright{acmcopyright}
 \copyrightyear{2022}
 \acmYear{2022}
-\acmDOI{XXXXXXX.XXXXXXX}
 
 %% These commands are for a PROCEEDINGS abstract or paper.
 \acmConference[Conference acronym 'XX]{Make sure to enter the correct
@@ -144,8 +143,8 @@
 \use_package stmaryrd 0
 \use_package undertilde 0
 \cite_engine natbib
-\cite_engine_type authoryear
-\biblio_style ACM-Reference-Format
+\cite_engine_type numerical
+\biblio_style plainnat
 \biblio_options ACM-Reference-Format
 \use_bibtopic false
 \use_indices false
@@ -699,6 +698,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align left
 
 \series bold
 Initialize
@@ -719,6 +719,7 @@ Initialize
 \end_layout
 
 \begin_layout Plain Layout
+\align left
 
 \series bold
 Iterate 
@@ -727,6 +728,7 @@ until a stopping condition:
 \end_layout
 
 \begin_layout Plain Layout
+\align left
 
 \series bold
 1.
@@ -748,6 +750,7 @@ until a stopping condition:
 \end_layout
 
 \begin_layout Plain Layout
+\align left
 
 \series bold
 2.
@@ -766,6 +769,7 @@ until a stopping condition:
 \end_layout
 
 \begin_layout Plain Layout
+\align left
 
 \series bold
 3.
@@ -783,6 +787,7 @@ until a stopping condition:
 \end_layout
 
 \begin_layout Plain Layout
+\align left
 
 \series bold
 4.
@@ -1670,12 +1675,25 @@ We have studied the influence of various factors (i.
  
 \end_layout
 
+\begin_layout Section*
+ACKNOWLEDGMENTS
+\end_layout
+
+\begin_layout Standard
+The authors acknowledge the support of the ...
+\end_layout
+
+\begin_layout Standard
+We would like to also express our gratitude to Deep Discovery company for
+ provision of computational power.
+\end_layout
+
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 btprint "btPrintCited"
 bibfiles "bib"
-options "acm"
+options "acl_natbib"
 
 \end_inset
 
