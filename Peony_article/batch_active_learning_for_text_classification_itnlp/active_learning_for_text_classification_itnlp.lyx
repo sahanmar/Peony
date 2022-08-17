@@ -55,10 +55,10 @@
 %% values in them; it is your responsibility as an author to replace
 %% the commands and values with those provided to you when you
 %% complete the rights form.
-%\setcopyright{acmcopyright}
-%\copyrightyear{2022}
-%\acmYear{2022}
-%\acmDOI{XXXXXXX.XXXXXXX}
+\setcopyright{acmcopyright}
+\copyrightyear{2022}
+\acmYear{2022}
+\acmDOI{}
 
 %% These commands are for a PROCEEDINGS abstract or paper.
 \acmConference[Conference acronym 'XX]{Make sure to enter the correct
@@ -103,6 +103,12 @@
 
 %%
 %% end of the preamble, start of the body of the document source.
+
+% Remove ACM bullshit. Check on organizers if ok :)
+
+%\settopmatter{printacmref=false} % Removes citation information below abstract
+%\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+%\pagestyle{plain} % removes running headers
 \end_preamble
 \options manuscript,screen
 \use_default_options false
@@ -1648,7 +1654,7 @@ We have studied the influence of various factors (i.
  average, is the classical prediction entropy of a single neural network
  with a few proposed modifications like warm start.
  Although the performance of the warm start method can sometimes be the
- same assume the cold start, the undeniable benefit is a lower computational
+ same as the cold start, the undeniable benefit is a lower computational
  cost.
  The selection of the batch size for annotation is also important.
  The agglomerative clustering improves performance for smaller batch sizes
@@ -1666,8 +1672,8 @@ This research was supported by the project TL05000057, The Technology Agency
 \end_layout
 
 \begin_layout Standard
-We would like to also express our gratitude to Deep Discovery company for
- computational power provision.
+We would also like to express our gratitude to Deep Discovery company for
+ providing computing power.
 \end_layout
 
 \begin_layout Standard
