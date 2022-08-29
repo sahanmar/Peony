@@ -106,9 +106,9 @@
 
 % Remove ACM bullshit. Check on organizers if ok :)
 
-%\settopmatter{printacmref=false} % Removes citation information below abstract
-%\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
-%\pagestyle{plain} % removes running headers
+\settopmatter{printacmref=false} % Removes citation information below abstract
+\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+\pagestyle{plain} % removes running headers
 \end_preamble
 \options manuscript,screen
 \use_default_options false
