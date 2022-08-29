@@ -134,7 +134,7 @@ def visualize_auc_evolutions(
         color="g",
     )
 
-    ax.set_xlabel("Learning Iterations", fontsize=13.5)
+    ax.set_xlabel("Requests", fontsize=13.5)
     if index == 0:
         ax.set_ylabel("AUC", fontsize=13.5)
     ax.set_title(
